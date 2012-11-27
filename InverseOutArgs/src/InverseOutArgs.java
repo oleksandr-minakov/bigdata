@@ -5,7 +5,8 @@ public class InverseOutArgs {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		for(int j = args.length - 1; j >= 0; j--)
+			System.out.println("Аргумент № " + j + " -> " + args[j]);
 
 	}
 
