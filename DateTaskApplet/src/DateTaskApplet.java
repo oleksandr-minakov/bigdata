@@ -6,6 +6,12 @@ import java.util.Date;
 
 public class DateTaskApplet extends javax.swing.JApplet {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8673683581939572600L;
+	
+	
 	public String surname = "Minakov";
 	public Date date = new Date();
 	public Calendar dedline = Calendar.getInstance();
