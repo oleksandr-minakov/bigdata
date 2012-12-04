@@ -1,3 +1,5 @@
+package com.mirantis.aminakov.student;
+
 import java.util.*;
 import java.text.*;
 
