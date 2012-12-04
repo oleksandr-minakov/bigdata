@@ -56,21 +56,14 @@ public class Storage {
 	public static void deleteStudent(List<Student> students, Scanner sc) {
 		Student student;
 		if (students.size() > 0) {
-			System.out.println("Students.size = " + students.size());
-			//for(Student s: students) {
-			//	System.out.println("Index of = " + students.indexOf(s));
-			//}
 			System.out.println("Enter ID");
 			int id = sc.nextInt();
-			//if (id >= 0 && id <= (students.size() - 1)) {
-					for(int i = 0; i < (students.size()); i++) {
+					for(int i = 0; i < students.size(); i++) {
 						student = students.get(i);
 						if(student.getId() == id){
 							student.toString();
 							students.remove(student);
-						} else {
-							System.out.println("Wrong ID!!!");
-						}
+						} 
 					}
 				
 		} else {
