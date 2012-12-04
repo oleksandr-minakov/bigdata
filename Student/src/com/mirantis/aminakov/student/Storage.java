@@ -104,7 +104,7 @@ public class Storage {
 				case 2:
 					System.out.println("Enter surname.");
 					String surname = sc.next();
-					for (int i = 0; i < (students.size() - 1); i++) {
+					for (int i = 0; i < students.size(); i++) {
 						student = students.get(i);
 						if (student.getSurname().equalsIgnoreCase(surname))
 							System.out.println(student.toString());
@@ -113,7 +113,7 @@ public class Storage {
 				case 3:
 					System.out.println("Enter name.");
 					String name = sc.next();
-					for (int i = 0; i < (students.size() - 1); i++) {
+					for (int i = 0; i < students.size(); i++) {
 						student = students.get(i);
 						if (student.getName().equalsIgnoreCase(name))
 							System.out.println(student.toString());
@@ -122,7 +122,7 @@ public class Storage {
 				case 4:
 					System.out.println("Enter patronymic.");
 					String patronymic = sc.next();
-					for (int i = 0; i < (students.size() - 1); i++) {
+					for (int i = 0; i < students.size(); i++) {
 						student = students.get(i);
 						if (student.getPatronymic().equalsIgnoreCase(patronymic))
 							System.out.println(student.toString());
@@ -130,7 +130,7 @@ public class Storage {
 					break;
 				case 5:
 					System.out.println("Enter date, (12 December 1990)");
-					for (int i = 0; i < (students.size() - 1); i++) {
+					for (int i = 0; i < students.size(); i++) {
 						student = students.get(i);
 						sc.nextLine();
 						String find_date = sc.nextLine();
@@ -154,7 +154,7 @@ public class Storage {
 				case 6:
 					System.out.println("Enter address.");
 					String address = sc.next();
-					for (int i = 0; i < (students.size() - 1); i++) {
+					for (int i = 0; i < students.size(); i++) {
 						student = students.get(i);
 						if (student.getAddress().equalsIgnoreCase(address))
 							System.out.println(student.toString());
@@ -163,7 +163,7 @@ public class Storage {
 				case 7:
 					System.out.println("Enter phone.");
 					String phone = sc.next();
-					for (int i = 0; i < (students.size() - 1); i++) {
+					for (int i = 0; i < students.size(); i++) {
 						student = students.get(i);
 						if (student.getPhone().equalsIgnoreCase(phone))
 							System.out.println(student.toString());
@@ -172,7 +172,7 @@ public class Storage {
 				case 8:
 					System.out.println("Enter faculty.");
 					String faculty = sc.next();
-					for (int i = 0; i < (students.size() - 1); i++) {
+					for (int i = 0; i < students.size(); i++) {
 						student = students.get(i);
 						if (student.getFaculty().equalsIgnoreCase(faculty))
 							System.out.println(student.toString());
@@ -181,7 +181,7 @@ public class Storage {
 				case 9:
 					System.out.println("Enter course.");
 					int course = sc.nextInt();
-					for (int i = 0; i < (students.size() - 1); i++) {
+					for (int i = 0; i < students.size(); i++) {
 						student = students.get(i);
 						if (student.getCourse() == course)
 							System.out.println(student.toString());
@@ -190,7 +190,7 @@ public class Storage {
 				case 10:
 					System.out.println("Enter group.");
 					String group = sc.next();
-					for (int i = 0; i < (students.size() - 1); i++) {
+					for (int i = 0; i < students.size(); i++) {
 						student = students.get(i);
 						if (student.getGroup().equalsIgnoreCase(group))
 							System.out.println(student.toString());
