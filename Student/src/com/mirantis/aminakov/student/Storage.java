@@ -48,31 +48,30 @@ public class Storage {
 		System.out.println("Enter course (1-6)");
 		student.setCourse(sc.nextInt());
 		System.out.println("Enter group");
-		student.setGroup(sc.next());
-		students.put(student.getSurname(), student);
+		student.setGroup(sc.next()); 
+		students.put(String.valueOf(student.getId()), student);
 		System.out.println(student.toString());
 
 	}
 	public static void deleteStudent(HashMap<String, Student> students, Scanner sc) {
-		Student student;
-		if (students.size() > 0) {
+//		Student student;
+		if (!students.isEmpty()) {
 			System.out.println("Enter ID");
-			int id = sc.nextInt();
-					for(int i = 0; i < students.size(); i++) {
-						student = students.get(i);
-						if(student.getId() == id){
-							student.toString();
-							students.remove(student);
-						} 
-					}
-				
+			String id = sc.next();
+//					for(int i = 0; i < students.size(); i++) {
+//						student = students.get(i);
+//						if(student.getId() == id){
+//							student.toString();
+//							students.remove(student);
+//						}
+			students.remove(id);
 		} else {
 			System.out.println("List is empty!!!");
 		}
 		
 	}
 	public static void findStudent(HashMap<String, Student> students, Scanner sc) {
-		if (students.size() > 0) {
+		if (!students.isEmpty()) {
 			all: while (true) {
 				System.out.println("Find by..." + "\n" + "ID. Press 1." + "\n"
 						+ "surname. Press 2." + "\n" + "name. Press 3." + "\n"
@@ -86,45 +85,41 @@ public class Storage {
 				switch (answ) {
 					case 1:
 					System.out.println("Enter ID.");
-					int id = sc.nextInt();
-					if(id > 0 && id < (students.size() - 1)) {
+					String id = sc.next();
+//					if(id > 0 && id < (students.size() - 1)) {
 						student = students.get(id);
 						student.toString();
-					} else {
-						System.out.println("Wrong ID!!!");
-					}
+//					} else {
+//						System.out.println("Wrong ID!!!");
+//					}
 					break;
 				case 2:
 					System.out.println("Enter surname.");
 					String surname = sc.next();
-					for (int i = 0; i < students.size(); i++) {
-						student = students.get(i);
-						if (student.getSurname().equalsIgnoreCase(surname))
-							System.out.println(student.toString());
+					for (Student s : students.values()) {
+						if (s.getSurname().equalsIgnoreCase(surname))
+							System.out.println(s.toString());
 					}
 					break;
 				case 3:
 					System.out.println("Enter name.");
 					String name = sc.next();
-					for (int i = 0; i < students.size(); i++) {
-						student = students.get(i);
-						if (student.getName().equalsIgnoreCase(name))
-							System.out.println(student.toString());
+					for (Student s : students.values()) {
+							if (s.getName().equalsIgnoreCase(name))
+							System.out.println(s.toString());
 					}
 					break;
 				case 4:
 					System.out.println("Enter patronymic.");
 					String patronymic = sc.next();
-					for (int i = 0; i < students.size(); i++) {
-						student = students.get(i);
-						if (student.getPatronymic().equalsIgnoreCase(patronymic))
-							System.out.println(student.toString());
+					for (Student s : students.values()) {
+						if (s.getPatronymic().equalsIgnoreCase(patronymic))
+							System.out.println(s.toString());
 					}
 					break;
 				case 5:
 					System.out.println("Enter date, (12 December 1990)");
-					for (int i = 0; i < students.size(); i++) {
-						student = students.get(i);
+					for (Student s : students.values()) {
 						sc.nextLine();
 						String find_date = sc.nextLine();
 						SimpleDateFormat sdf = new SimpleDateFormat(
@@ -140,53 +135,48 @@ public class Storage {
 							break;
 						}
 						String string_date = d.toString();
-						if (student.getDate().toString().equals(string_date))
-							System.out.println(student.toString());
+						if (s.getDate().toString().equals(string_date))
+							System.out.println(s.toString());
 					}
 					break;
 				case 6:
 					System.out.println("Enter address.");
 					String address = sc.next();
-					for (int i = 0; i < students.size(); i++) {
-						student = students.get(i);
-						if (student.getAddress().equalsIgnoreCase(address))
-							System.out.println(student.toString());
+					for (Student s : students.values()) {
+						if (s.getAddress().equalsIgnoreCase(address))
+							System.out.println(s.toString());
 					}
 					break;
 				case 7:
 					System.out.println("Enter phone.");
 					String phone = sc.next();
-					for (int i = 0; i < students.size(); i++) {
-						student = students.get(i);
-						if (student.getPhone().equalsIgnoreCase(phone))
-							System.out.println(student.toString());
+					for (Student s : students.values()) {
+						if (s.getPhone().equalsIgnoreCase(phone))
+							System.out.println(s.toString());
 					}
 					break;
 				case 8:
 					System.out.println("Enter faculty.");
 					String faculty = sc.next();
-					for (int i = 0; i < students.size(); i++) {
-						student = students.get(i);
-						if (student.getFaculty().equalsIgnoreCase(faculty))
-							System.out.println(student.toString());
+					for (Student s : students.values()) {
+						if (s.getFaculty().equalsIgnoreCase(faculty))
+							System.out.println(s.toString());
 					}
 					break;
 				case 9:
 					System.out.println("Enter course.");
 					int course = sc.nextInt();
-					for (int i = 0; i < students.size(); i++) {
-						student = students.get(i);
-						if (student.getCourse() == course)
-							System.out.println(student.toString());
+					for (Student s : students.values()) {
+						if (s.getCourse() == course)
+							System.out.println(s.toString());
 					}
 					break;
 				case 10:
 					System.out.println("Enter group.");
 					String group = sc.next();
-					for (int i = 0; i < students.size(); i++) {
-						student = students.get(i);
-						if (student.getGroup().equalsIgnoreCase(group))
-							System.out.println(student.toString());
+					for (Student s : students.values()) {
+						if (s.getGroup().equalsIgnoreCase(group))
+							System.out.println(s.toString());
 					}
 					break;
 				case 11: 
