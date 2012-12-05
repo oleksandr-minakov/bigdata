@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Storage {
 	
-	public static void addStudent(List<Student> students, Scanner sc) {
+	public static void addStudent(HashMap<String, Student> students, Scanner sc) {
 		Student student = new Student();
 		student.setId();
 		System.out.println("Surname");
@@ -49,11 +49,11 @@ public class Storage {
 		student.setCourse(sc.nextInt());
 		System.out.println("Enter group");
 		student.setGroup(sc.next());
-		students.add(student);
+		students.put(student.getSurname(), student);
 		System.out.println(student.toString());
 
 	}
-	public static void deleteStudent(List<Student> students, Scanner sc) {
+	public static void deleteStudent(HashMap<String, Student> students, Scanner sc) {
 		Student student;
 		if (students.size() > 0) {
 			System.out.println("Enter ID");
@@ -71,7 +71,7 @@ public class Storage {
 		}
 		
 	}
-	public static void findStudent(List<Student> students, Scanner sc) {
+	public static void findStudent(HashMap<String, Student> students, Scanner sc) {
 		if (students.size() > 0) {
 			all: while (true) {
 				System.out.println("Find by..." + "\n" + "ID. Press 1." + "\n"
@@ -199,8 +199,8 @@ public class Storage {
 			System.out.println("List is empty!!!");
 		}
 	}
-	public static void printList(List<Student> students) {
-		for(Student s: students) {
+	public static void printList(HashMap<String, Student> students) {
+		for(Student s: students.values()) {
 			System.out.println(s.toString());
 		}
 	}

@@ -97,7 +97,7 @@ public class Student {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
-		List<Student> students = new ArrayList<Student>();
+		HashMap<String, Student> students = new HashMap<String, Student>();
 		all:
 		while (true) {
 			System.out.println("Select the action:" + "\n"
@@ -127,7 +127,7 @@ public class Student {
 				break all;
 			}
 		}
-	}					
+	}				
 
 }
 
