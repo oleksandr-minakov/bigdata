@@ -5,9 +5,7 @@ import java.text.*;
 
 public class Student {
 	
-	private int id;
-	@Deprecated
-	private static int next_id = 0;
+	private int id = -1;
 	private String name;
 	private String surname;
 	private String patronymic;
@@ -15,12 +13,11 @@ public class Student {
 	private String address;
 	private String phone;
 	private String faculty;
-	private int course;
+	private int course = -1;
 	private String group;
 	
-	public void setId() {
-		this.id = next_id;
-		next_id++;
+	public void setId(int id) {
+		this.id = id;
 	}	
 	
 	public void setName(String name) {
@@ -108,13 +105,6 @@ public class Student {
 				date + " " + address + " " + phone + " " + faculty +
 				" " + course + " " + group + " ";
 	}
-
-
-	/**
-	 * @param args
-	 */
-	
-	
 
 }
 

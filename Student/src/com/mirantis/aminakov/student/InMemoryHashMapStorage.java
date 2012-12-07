@@ -1,79 +1,36 @@
 package com.mirantis.aminakov.student;
 
-import java.text.*;
+import java.io.OutputStream;
 import java.util.*;
 
 
 public class InMemoryHashMapStorage implements Storage {
-	private Map<String, Student> students=new HashMap<>();
-	private int maxCapacity=100;
+	private Map<String, Student> students = new HashMap<>();
+	private int maxCapacity = 100;
+	private int id = 0;
+	private int capacity = 0;
 	
-	public void addStudent(Student student) {
-		
-		Student student = new Student();
-		student.setId();
-		System.out.println("Surname");
-		String sn = sc.next();
-		student.setSurname(sn);
-		System.out.println("Name");
-		String n = sc.next();
-		student.setName(n);
-		System.out.println("Patronymic");
-		String p = sc.next();
-		student.setPatronymic(p);
-		System.out.println("Enter date of birth (12 December 1990)");
-		int attempts = 0;
-		sc.nextLine();
-		while(true) {
-			try {
-				String date = sc.nextLine();
-				student.setDate(date);
-				break;
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				System.err.println("Error " + e);
-				attempts++;
-				if(attempts == 5) {
-					System.out.println("Exit ...");
-					sc.close();
-					break;	
-				}
-				System.out.println("Try again");
-				
-			}
+	public int addStudent(Student student) {
+		if (capacity < maxCapacity) {
+			student.setId(id);
+			students.put(String.valueOf(student.getId()), student);
+			capacity++;
+			return student.getId();
+		} else {
+			return -1;
 		}
-		System.out.println("Enter the address");
-		student.setAddress(sc.next());
-		System.out.println("Enter phone");
-		student.setPhone(sc.next());
-		System.out.println("Enter faculty");
-		student.setFaculty(sc.next());
-		System.out.println("Enter course (1-6)");
-		student.setCourse(sc.nextInt());
-		System.out.println("Enter group");
-		student.setGroup(sc.next()); 
-		students.put(String.valueOf(student.getId()), student);
-		System.out.println(student.toString());
-
 	}
-	public static void deleteStudent(int id) {
-//		Student student;
+	
+	public void deleteStudent(int id) {
 		if (!students.isEmpty()) {
-			System.out.println("Enter ID");
-			String id = sc.next();
-//					for(int i = 0; i < students.size(); i++) {
-//						student = students.get(i);
-//						if(student.getId() == id){
-//							student.toString();
-//							students.remove(student);
-//						}
 			students.remove(id);
 		} else {
-			System.out.println("List is empty!!!");
+			System.out.println("List is empty!!!"); //Replace by the log4g
 		}
 		
 	}
-	public static void findStudent(HashMap<String, Student> students, Scanner sc) {
+	
+	/*public static void findStudent(HashMap<String, Student> students, Scanner sc) {
 		if (!students.isEmpty()) {
 			all: while (true) {
 				System.out.println("Find by..." + "\n" + "ID. Press 1." + "\n"
@@ -197,20 +154,78 @@ public class InMemoryHashMapStorage implements Storage {
 			System.out.println("List is empty!!!");
 		}
 	}
-	public static void printList(HashMap<String, Student> students) {
+	*/
+	
+	public void printList(OutputStream os) {
+		
 		for(Student s: students.values()) {
 			System.out.println(s.toString());
 		}
 	}
-	@Override
-	public int addStudent(Student student) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	public void deleteStudent(int id) {
-		// TODO Auto-generated method stub
-		
+
+	public List<Student> findByExample(Student student) {
+		List<Student> find_students = new ArrayList<>();
+		if (!students.isEmpty()) {
+			if (!(student.getId() == -1)) {
+				Student s = students.get(id);
+				find_students.add(s);
+			} else if (!(student.getSurname() == null)) {
+				for (Student s : students.values()) {
+					if (s.getSurname().equalsIgnoreCase(student.getSurname()))
+						find_students.add(s);
+				}
+			} else if (!(student.getName() == null)) {
+				for (Student s : students.values()) {
+					if (s.getName().equalsIgnoreCase(student.getName()))
+						find_students.add(s);
+				}
+			} else if (!(student.getPatronymic() == null)) {
+				for (Student s : students.values()) {
+					if (s.getPatronymic().equalsIgnoreCase(student.getPatronymic()))
+						find_students.add(s);
+				}
+			} else if (!(student.getDate() == null)) {
+				for (Student s : students.values()) {
+					if (s.getDate().toString().equals(student.getDate().toString()))
+						find_students.add(s);
+				}
+			} else if (!(student.getAddress() == null)) {
+				for (Student s : students.values()) {
+					if (s.getAddress().equalsIgnoreCase(student.getAddress()))
+						find_students.add(s);
+				}
+			} else if (!(student.getPhone() == null)) {
+				for (Student s : students.values()) {
+					if (s.getPhone().equalsIgnoreCase(student.getPhone()))
+						find_students.add(s);
+				}
+			} else if (!(student.getFaculty() == null)) {
+				for (Student s : students.values()) {
+					if (s.getFaculty().equalsIgnoreCase(student.getFaculty()))
+						find_students.add(s);
+				}
+			} else if (!(student.getCourse() == -1)) {
+				for (Student s : students.values()) {
+					if (s.getCourse() == student.getCourse())
+						find_students.add(s);
+				}
+			} else if (!(student.getGroup() == null)) {
+				for (Student s : students.values()) {
+					if (s.getGroup().equalsIgnoreCase(student.getGroup()))
+						find_students.add(s);
+				}
+			}
+		} else {
+			System.out.println("List is empty!!!"); //Replace by the log4g
+		}
+		return find_students;
 	}
 
+	public boolean isCapacityReached() {
+		if (capacity < 100) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 }

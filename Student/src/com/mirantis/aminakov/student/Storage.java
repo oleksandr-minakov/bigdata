@@ -9,5 +9,4 @@ public interface Storage {
 	List<Student> findByExample(Student student);
 	boolean isCapacityReached();
 	void printList(OutputStream stream);
-	//...
 }
