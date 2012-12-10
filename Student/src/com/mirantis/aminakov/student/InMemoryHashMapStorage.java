@@ -26,7 +26,7 @@ public class InMemoryHashMapStorage implements Storage {
 		if (!students.isEmpty()) {
 			students.remove(id_del);
 		} else {
-			System.out.println("List is empty!!!"); //Replace by the log4g
+			System.out.println("List is empty!!!"); //Replace by the log4j
 		}
 		
 	}
@@ -94,7 +94,8 @@ public class InMemoryHashMapStorage implements Storage {
 				}
 			}
 		} else {
-			System.out.println("List is empty!!!"); //Replace by the log4g
+			//logging
+			System.out.println("List is empty!!!"); //Replace by the log4j
 		}
 		return find_students;
 	}

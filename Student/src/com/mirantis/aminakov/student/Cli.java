@@ -10,6 +10,7 @@ public class Cli {
 	OutputStream os = new PrintStream(System.out);
 	
 	public void run() {
+		//FIXME: remove labels
 		all_outer:
 		while (true) {
 			System.out.println("Select the action:" + "\n"
