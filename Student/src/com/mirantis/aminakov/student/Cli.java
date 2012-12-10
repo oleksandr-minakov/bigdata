@@ -67,14 +67,8 @@ public class Cli {
 				continue all_outer;
 			case 2:
 				System.out.println("Enter ID");
-				int id = sc.nextInt();
-				/*		for(int i = 0; i < students.size(); i++) {
-							student = students.get(i);
-							if(student.getId() == id){
-								student.toString();
-								students.remove(student);
-							}*/
-				storage.deleteStudent(id); 		
+				String id_del = sc.next();
+				storage.deleteStudent(id_del); 		
 				continue all_outer;
 			case 3:
 				all: 
@@ -87,31 +81,39 @@ public class Cli {
 							+ "course. Press 9." + "\n" + "group. Press 10." 
 							+ "\n" + "EXIT. Press 11.");
 					int answer = sc.nextInt();
-					Student stud = new Student();
+					Student stud = new Student(-1);
 					switch (answer) {
 						case 1:
 						System.out.println("Enter ID.");
-						int idd = sc.nextInt();
-						stud.setId(idd);
-						storage.findByExample(stud);
+						int id_f = sc.nextInt();
+						stud.setId(id_f);
+						for(Student s : storage.findByExample(stud)) {
+							System.out.println(s.toString());
+						}
 						break;
 					case 2:
 						System.out.println("Enter surname.");
 						String sur = sc.next();
 						stud.setSurname(sur);
-						storage.findByExample(stud);
+						for(Student s : storage.findByExample(stud)) {
+							System.out.println(s.toString());
+						}
 						break;
 					case 3:
 						System.out.println("Enter name.");
 						String nam = sc.next();
 						stud.setName(nam);
-						storage.findByExample(stud);
+						for(Student s : storage.findByExample(stud)) {
+							System.out.println(s.toString());
+						}
 						break;
 					case 4:
 						System.out.println("Enter patronymic.");
 						String pat = sc.next();
 						stud.setPatronymic(pat);
-						storage.findByExample(stud);
+						for(Student s : storage.findByExample(stud)) {
+							System.out.println(s.toString());
+						}
 						break;
 					case 5:
 						System.out.println("Enter date, (12 December 1990)");
@@ -123,60 +125,49 @@ public class Cli {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						storage.findByExample(stud);
-						
-/*//						System.out.println("Read line = " + find_date);
-						for (Student s : students.values()) {
-							
-							SimpleDateFormat sdf = new SimpleDateFormat(
-									"dd MMMM yy", Locale.ROOT);
-							Date d = null;
-//							System.out.println("Befor block <try>");
-							try {
-								d = sdf.parse(find_date);
-							} catch (ParseException e) {
-								// TODO Auto-generated catch block
-								//e.printStackTrace();
-								System.err.println("Error " + e);
-								System.out.println("Error");
-								break;
-							}
-//							System.out.println("After block <try>");
-							String string_date = d.toString();
-//							System.out.println("string_date = " + find_date);
-							if (s.getDate().toString().equals(string_date))
-								System.out.println(s.toString());
-						}*/
-						
+						for(Student s : storage.findByExample(stud)) {
+							System.out.println(s.toString());
+						}
 						break;
 					case 6:
 						System.out.println("Enter address.");
 						String adr = sc.next();
 						stud.setAddress(adr);
-						storage.findByExample(stud);						
+						for(Student s : storage.findByExample(stud)) {
+							System.out.println(s.toString());
+						}					
 						break;
 					case 7:
 						System.out.println("Enter phone.");
 						String phn = sc.next();
 						stud.setPhone(phn);
-						storage.findByExample(stud);
+						for(Student s : storage.findByExample(stud)) {
+							System.out.println(s.toString());
+						}
 						break;
 					case 8:
 						System.out.println("Enter faculty.");
 						String fac = sc.next();
 						stud.setFaculty(fac);
+						for(Student s : storage.findByExample(stud)) {
+							System.out.println(s.toString());
+						}
 						break;
 					case 9:
 						System.out.println("Enter course.");
 						int crs = sc.nextInt();
 						stud.setCourse(crs);
-						storage.findByExample(stud);
+						for(Student s : storage.findByExample(stud)) {
+							System.out.println(s.toString());
+						}
 						break;
 					case 10:
 						System.out.println("Enter group.");
 						String grp = sc.next();
 						stud.setGroup(grp);
-						storage.findByExample(stud);
+						for(Student s : storage.findByExample(stud)) {
+							System.out.println(s.toString());
+						}
 						break;
 					case 11: 
 						break all;
@@ -186,7 +177,7 @@ public class Cli {
 				}
 				continue all_outer;
 			case 4:
-				storage.printList(os);		//
+				storage.printList(os);	
 				continue all_outer;
 			case 5:
 				System.out.println("Exit...");
@@ -199,7 +190,7 @@ public class Cli {
 	}
 	
 	public static void main(String[] args) {
-		Cli cli=new Cli();
+		Cli cli = new Cli();
 		cli.run();	
 	}				
 }

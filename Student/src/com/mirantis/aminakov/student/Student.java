@@ -5,7 +5,7 @@ import java.text.*;
 
 public class Student {
 	
-	private int id = -1;
+	private int id;
 	private String name;
 	private String surname;
 	private String patronymic;
@@ -13,8 +13,25 @@ public class Student {
 	private String address;
 	private String phone;
 	private String faculty;
-	private int course = -1;
+	private int course;
 	private String group;
+	
+	public Student() {
+		
+	}
+	
+	public Student(int i) {
+		id = -1;
+		surname = "";
+		patronymic = "";
+		name = "";
+		date = "1 january 1";
+		address = "";
+		phone = "";
+		faculty = "";
+		course = -1;
+		group = "";
+	}
 	
 	public void setId(int id) {
 		this.id = id;
