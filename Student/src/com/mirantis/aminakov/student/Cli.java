@@ -10,7 +10,6 @@ public class Cli {
 	OutputStream os = new PrintStream(System.out);
 	
 	public void run() {
-		//FIXME: remove labels
 		while (true) {
 			System.out.println("Select the action:" + "\n"
 					+ "Add student. Press 1." + "\n"
@@ -61,14 +60,23 @@ public class Cli {
 				student.setCourse(sc.nextInt());
 				System.out.println("Enter group");
 				student.setGroup(sc.next()); 
-				//students.put(String.valueOf(student.getId()), student);
 				System.out.println(student.toString());
-				storage.addStudent(student);	//
+				try {
+					storage.addStudent(student);
+				} catch (AddException e1) {
+					// TODO Auto-generated catch block
+					System.out.println("Error adding " + e1);
+				}	
 				continue;
 			case 2:
 				System.out.println("Enter ID");
-				String id_del = sc.next();
-				storage.deleteStudent(id_del); 		
+				String idDel = sc.next();
+				try {
+					storage.deleteStudent(idDel);
+				} catch (DeleteException e1) {
+					// TODO Auto-generated catch block
+					System.out.println("Error removing" + e1);
+				} 		
 				continue;
 			case 3:
 					while (true) {
@@ -84,8 +92,8 @@ public class Cli {
 					switch (answer) {
 						case 1:
 						System.out.println("Enter ID.");
-						int id_f = sc.nextInt();
-						stud.setId(id_f);
+						int idFind = sc.nextInt();
+						stud.setId(idFind);
 						for(Student s : storage.findByExample(stud)) {
 							System.out.println(s.toString());
 						}

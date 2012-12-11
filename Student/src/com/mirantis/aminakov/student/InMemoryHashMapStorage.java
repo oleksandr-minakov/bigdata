@@ -10,7 +10,7 @@ public class InMemoryHashMapStorage implements Storage {
 	private int id = 0;
 	private int capacity = 0;
 	
-	public int addStudent(Student student) {
+	public int addStudent (Student student) throws AddException {
 		if (capacity < maxCapacity) {
 			student.setId(id);
 			students.put(String.valueOf(student.getId()), student);
@@ -18,17 +18,18 @@ public class InMemoryHashMapStorage implements Storage {
 			id++;
 			return student.getId();
 		} else {
-			return -1;
+			throw new AddException();
 		}
 	}
 	
-	public void deleteStudent(String idDel) {
+	public int deleteStudent(String idDel) throws DeleteException {
 		if (!students.isEmpty()) {
 			students.remove(idDel);
+			return 1;
 		} else {
-			System.out.println("List is empty!!!"); //Replace by the log4j
+			throw new DeleteException();
+//			System.out.println("List is empty!!!"); //Replace by the log4j
 		}
-		
 	}
 	
 	public void printList(OutputStream os) {
@@ -101,7 +102,7 @@ public class InMemoryHashMapStorage implements Storage {
 			}
 		} else {
 			//logging
-			System.out.println("List is empty!!!"); //Replace by the log4j
+//			System.out.println("List is empty!!!"); //Replace by the log4j
 		}
 		return findStudents;
 	}
