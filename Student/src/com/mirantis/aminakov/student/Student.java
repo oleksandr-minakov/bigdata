@@ -3,8 +3,6 @@ package com.mirantis.aminakov.student;
 import java.util.*;
 import java.text.*;
 
-import javax.annotation.PostConstruct;
-
 public class Student {
 	
 	private int id;
@@ -18,26 +16,21 @@ public class Student {
 	private int course;
 	private String group;
 	
-	public Student() {
-		
-	}
-	
-	public Student(int i) {
-		id = -1;
-		surname = "";
-		patronymic = "";
-		name = "";
-		date = "1 january 1";
-		address = "";
-		phone = "";
-		faculty = "";
-		course = -1;
-		group = "";
-	}
 	
 	public static Student buildExampleStudent(){
 		//TODO: init here
-		return null;
+		Student student = new Student();
+		student.id = -1;
+		student.surname = "";
+		student.patronymic = "";
+		student.name = "";
+		student.date = "1 january 1";
+		student.address = "";
+		student.phone = "";
+		student.faculty = "";
+		student.course = -1;
+		student.group = "";
+		return student;
 	}
 	
 	public void setId(int id) {

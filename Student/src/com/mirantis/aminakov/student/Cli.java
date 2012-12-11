@@ -82,7 +82,7 @@ public class Cli {
 							+ "course. Press 9." + "\n" + "group. Press 10." 
 							+ "\n" + "EXIT. Press 11.");
 					int answer = sc.nextInt();
-					Student stud = new Student(-1);
+					Student stud = Student.buildExampleStudent();
 					switch (answer) {
 						case 1:
 						System.out.println("Enter ID.");
