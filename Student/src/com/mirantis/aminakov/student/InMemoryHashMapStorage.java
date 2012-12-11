@@ -24,10 +24,14 @@ public class InMemoryHashMapStorage implements Storage {
 	
 	public int deleteStudent(String idDel) throws DeleteException {
 		if (!students.isEmpty()) {
-			students.remove(idDel);
-			return 1;
+			if(students.remove(idDel) == null) {
+				throw new NoStudent();
+			} else {
+				return 0;
+			}	
 		} else {
-			throw new DeleteException();
+			throw new ListIsEmpty();
+			
 //			System.out.println("List is empty!!!"); //Replace by the log4j
 		}
 	}

@@ -12,6 +12,18 @@ class DeleteException extends StorageException {
 	
 }
 
+class ListIsEmpty extends DeleteException {
+
+	private static final long serialVersionUID = 1L;
+	
+}
+
+class NoStudent extends DeleteException {
+
+	private static final long serialVersionUID = 1L;
+	
+}
+
 class AddException extends StorageException {
 
 	private static final long serialVersionUID = 1L;

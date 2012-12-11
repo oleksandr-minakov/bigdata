@@ -1,5 +1,6 @@
 package com.mirantis.aminakov.student;
 
+
 import java.text.ParseException;
 import java.util.Scanner;
 import java.io.*;
@@ -65,7 +66,7 @@ public class Cli {
 					storage.addStudent(student);
 				} catch (AddException e1) {
 					// TODO Auto-generated catch block
-					System.out.println("Error adding " + e1);
+					System.out.println("Error adding ---> " + e1);
 				}	
 				continue;
 			case 2:
@@ -75,7 +76,7 @@ public class Cli {
 					storage.deleteStudent(idDel);
 				} catch (DeleteException e1) {
 					// TODO Auto-generated catch block
-					System.out.println("Error removing" + e1);
+					System.out.println("Error removing ---> " + e1);
 				} 		
 				continue;
 			case 3:
