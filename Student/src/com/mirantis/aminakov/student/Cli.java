@@ -11,7 +11,6 @@ public class Cli {
 	
 	public void run() {
 		//FIXME: remove labels
-//		all_outer:
 		while (true) {
 			System.out.println("Select the action:" + "\n"
 					+ "Add student. Press 1." + "\n"
@@ -72,7 +71,6 @@ public class Cli {
 				storage.deleteStudent(id_del); 		
 				continue;
 			case 3:
-				all: 
 					while (true) {
 					System.out.println("Find by..." + "\n" + "ID. Press 1." + "\n"
 							+ "surname. Press 2." + "\n" + "name. Press 3." + "\n"
@@ -91,7 +89,7 @@ public class Cli {
 						for(Student s : storage.findByExample(stud)) {
 							System.out.println(s.toString());
 						}
-						break;
+						continue;
 					case 2:
 						System.out.println("Enter surname.");
 						String sur = sc.next();
@@ -99,7 +97,7 @@ public class Cli {
 						for(Student s : storage.findByExample(stud)) {
 							System.out.println(s.toString());
 						}
-						break;
+						continue;
 					case 3:
 						System.out.println("Enter name.");
 						String nam = sc.next();
@@ -107,7 +105,7 @@ public class Cli {
 						for(Student s : storage.findByExample(stud)) {
 							System.out.println(s.toString());
 						}
-						break;
+						continue;
 					case 4:
 						System.out.println("Enter patronymic.");
 						String pat = sc.next();
@@ -115,7 +113,7 @@ public class Cli {
 						for(Student s : storage.findByExample(stud)) {
 							System.out.println(s.toString());
 						}
-						break;
+						continue;
 					case 5:
 						System.out.println("Enter date, (12 December 1990)");
 						sc.nextLine();
@@ -129,7 +127,7 @@ public class Cli {
 						for(Student s : storage.findByExample(stud)) {
 							System.out.println(s.toString());
 						}
-						break;
+						continue;
 					case 6:
 						System.out.println("Enter address.");
 						String adr = sc.next();
@@ -137,7 +135,7 @@ public class Cli {
 						for(Student s : storage.findByExample(stud)) {
 							System.out.println(s.toString());
 						}					
-						break;
+						continue;
 					case 7:
 						System.out.println("Enter phone.");
 						String phn = sc.next();
@@ -145,7 +143,7 @@ public class Cli {
 						for(Student s : storage.findByExample(stud)) {
 							System.out.println(s.toString());
 						}
-						break;
+						continue;
 					case 8:
 						System.out.println("Enter faculty.");
 						String fac = sc.next();
@@ -153,7 +151,7 @@ public class Cli {
 						for(Student s : storage.findByExample(stud)) {
 							System.out.println(s.toString());
 						}
-						break;
+						continue;
 					case 9:
 						System.out.println("Enter course.");
 						int crs = sc.nextInt();
@@ -161,7 +159,7 @@ public class Cli {
 						for(Student s : storage.findByExample(stud)) {
 							System.out.println(s.toString());
 						}
-						break;
+						continue;
 					case 10:
 						System.out.println("Enter group.");
 						String grp = sc.next();
@@ -169,12 +167,13 @@ public class Cli {
 						for(Student s : storage.findByExample(stud)) {
 							System.out.println(s.toString());
 						}
-						break;
+						continue;
 					case 11: 
-						break all;
+						break;
 					default:
-						break all;
+						break;
 					}
+					break;
 				}
 				continue;
 			case 4:
