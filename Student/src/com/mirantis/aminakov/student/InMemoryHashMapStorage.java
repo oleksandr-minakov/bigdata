@@ -22,9 +22,9 @@ public class InMemoryHashMapStorage implements Storage {
 		}
 	}
 	
-	public void deleteStudent(String id_del) {
+	public void deleteStudent(String idDel) {
 		if (!students.isEmpty()) {
-			students.remove(id_del);
+			students.remove(idDel);
 		} else {
 			System.out.println("List is empty!!!"); //Replace by the log4j
 		}
@@ -45,65 +45,65 @@ public class InMemoryHashMapStorage implements Storage {
 	}
 
 	public List<Student> findByExample(Student student) {
-		List<Student> find_students = new ArrayList<>();
+		List<Student> findStudents = new ArrayList<>();
 		if (!students.isEmpty()) {
 			if (!(student.getId() == -1)) {
 				for (Student s : students.values()) {
 					if (s.getId() == student.getId())
 				//Student s = students.get(student.getId());
-				find_students.add(s);
+				findStudents.add(s);
 				}	
 			} else if (!(student.getSurname() == "")) {
 				for (Student s : students.values()) {
 					if (s.getSurname().equalsIgnoreCase(student.getSurname()))
-						find_students.add(s);
+						findStudents.add(s);
 				}
 			} else if (!(student.getName() == "")) {
 				for (Student s : students.values()) {
 					if (s.getName().equalsIgnoreCase(student.getName()))
-						find_students.add(s);
+						findStudents.add(s);
 				}
 			} else if (!(student.getPatronymic() == "")) {
 				for (Student s : students.values()) {
 					if (s.getPatronymic().equalsIgnoreCase(student.getPatronymic()))
-						find_students.add(s);
+						findStudents.add(s);
 				}
 			} else if (!(student.getDate() == "1 january 1")) {
 				for (Student s : students.values()) {
 					if (s.getDate().toString().equals(student.getDate().toString()))
-						find_students.add(s);
+						findStudents.add(s);
 				}
 			} else if (!(student.getAddress() == "")) {
 				for (Student s : students.values()) {
 					if (s.getAddress().equalsIgnoreCase(student.getAddress()))
-						find_students.add(s);
+						findStudents.add(s);
 				}
 			} else if (!(student.getPhone() == "")) {
 				for (Student s : students.values()) {
 					if (s.getPhone().equalsIgnoreCase(student.getPhone()))
-						find_students.add(s);
+						findStudents.add(s);
 				}
 			} else if (!(student.getFaculty() == "")) {
 				for (Student s : students.values()) {
 					if (s.getFaculty().equalsIgnoreCase(student.getFaculty()))
-						find_students.add(s);
+						findStudents.add(s);
 				}
 			} else if (!(student.getCourse() == -1)) {
 				for (Student s : students.values()) {
 					if (s.getCourse() == student.getCourse())
-						find_students.add(s);
+						findStudents.add(s);
 				}
 			} else if (!(student.getGroup() == "")) {
 				for (Student s : students.values()) {
 					if (s.getGroup().equalsIgnoreCase(student.getGroup()))
-						find_students.add(s);
+						findStudents.add(s);
 				}
 			}
 		} else {
 			//logging
 			System.out.println("List is empty!!!"); //Replace by the log4j
 		}
-		return find_students;
+		return findStudents;
 	}
 
 	public boolean isCapacityReached() {
