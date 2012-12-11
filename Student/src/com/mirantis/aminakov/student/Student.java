@@ -17,8 +17,7 @@ public class Student {
 	private String group;
 	
 	
-	public static Student buildExampleStudent(){
-		//TODO: init here
+	public static Student buildExampleStudent() {
 		Student student = new Student();
 		student.id = -1;
 		student.surname = "";

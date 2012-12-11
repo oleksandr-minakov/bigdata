@@ -1,6 +1,6 @@
 package com.mirantis.aminakov.student;
 
-import java.io.OutputStream;
+import java.io.*;
 import java.util.List;
 
 public interface Storage {

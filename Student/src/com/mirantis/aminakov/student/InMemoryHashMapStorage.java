@@ -1,6 +1,6 @@
 package com.mirantis.aminakov.student;
 
-import java.io.OutputStream;
+import java.io.*;
 import java.util.*;
 
 
@@ -32,9 +32,15 @@ public class InMemoryHashMapStorage implements Storage {
 	}
 	
 	public void printList(OutputStream os) {
-		
+		Writer osw = new OutputStreamWriter(os);
 		for(Student s: students.values()) {
-			System.out.println(s.toString());
+			try {
+				osw.write(s.toString() + "\n");
+				osw.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
