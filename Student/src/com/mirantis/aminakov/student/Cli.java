@@ -11,7 +11,7 @@ public class Cli {
 	
 	public void run() {
 		//FIXME: remove labels
-		all_outer:
+//		all_outer:
 		while (true) {
 			System.out.println("Select the action:" + "\n"
 					+ "Add student. Press 1." + "\n"
@@ -65,12 +65,12 @@ public class Cli {
 				//students.put(String.valueOf(student.getId()), student);
 				System.out.println(student.toString());
 				storage.addStudent(student);	//
-				continue all_outer;
+				continue;
 			case 2:
 				System.out.println("Enter ID");
 				String id_del = sc.next();
 				storage.deleteStudent(id_del); 		
-				continue all_outer;
+				continue;
 			case 3:
 				all: 
 					while (true) {
@@ -176,17 +176,18 @@ public class Cli {
 						break all;
 					}
 				}
-				continue all_outer;
+				continue;
 			case 4:
 				storage.printList(os);	
-				continue all_outer;
+				continue;
 			case 5:
 				System.out.println("Exit...");
-				break all_outer;
+				break;
 			default:
 				System.out.println("Exit...");
-				break all_outer;
+				break;
 			}
+			break;
 		}
 	}
 	
