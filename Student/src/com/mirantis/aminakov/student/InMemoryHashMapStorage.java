@@ -2,6 +2,7 @@ package com.mirantis.aminakov.student;
 
 import java.io.*;
 import java.util.*;
+import org.apache.log4j.*;
 
 
 public class InMemoryHashMapStorage implements Storage {
@@ -9,6 +10,7 @@ public class InMemoryHashMapStorage implements Storage {
 	private int maxCapacity = 100;
 	private int id = 0;
 	private int capacity = 0;
+	public static final Logger log = Logger.getRootLogger();
 	
 	public int addStudent (Student student) throws AddException {
 		if (capacity < maxCapacity) {
@@ -16,23 +18,30 @@ public class InMemoryHashMapStorage implements Storage {
 			students.put(String.valueOf(student.getId()), student);
 			capacity++;
 			id++;
+			log.info("Add student ---> " + student.toString());
 			return student.getId();
 		} else {
-			throw new AddException();
+			AddException addExc = new AddException();
+			log.error("Add error ", addExc );
+			throw addExc;
 		}
 	}
 	
 	public int deleteStudent(String idDel) throws DeleteException {
 		if (!students.isEmpty()) {
 			if(students.remove(idDel) == null) {
-				throw new NoStudent();
+				DeleteException delExc = new NoStudent();
+				log.error("Delete error. No student ---> ", delExc);
+				throw delExc;
 			} else {
+				log.info("Student " + idDel + " delete.");
 				return 0;
 			}	
 		} else {
-			throw new ListIsEmpty();
-			
-//			System.out.println("List is empty!!!"); //Replace by the log4j
+			DeleteException delExc = new ListIsEmpty();
+			log.error("Delete error. List is empty --->", delExc);
+			throw delExc;
+	
 		}
 	}
 	
@@ -43,10 +52,12 @@ public class InMemoryHashMapStorage implements Storage {
 				osw.write(s.toString() + "\n");
 				osw.flush();
 			} catch (IOException e) {
+				log.error("IOException --->", e);
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		log.info("Printed list of students.");
 	}
 
 	public List<Student> findByExample(Student student) {
@@ -55,7 +66,6 @@ public class InMemoryHashMapStorage implements Storage {
 			if (!(student.getId() == -1)) {
 				for (Student s : students.values()) {
 					if (s.getId() == student.getId())
-				//Student s = students.get(student.getId());
 				findStudents.add(s);
 				}	
 			} else if (!(student.getSurname() == "")) {
@@ -105,9 +115,9 @@ public class InMemoryHashMapStorage implements Storage {
 				}
 			}
 		} else {
-			//logging
-//			System.out.println("List is empty!!!"); //Replace by the log4j
+			log.info("Find..... List is empty.");
 		}
+		log.info("Found students.");
 		return findStudents;
 	}
 
