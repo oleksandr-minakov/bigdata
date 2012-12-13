@@ -10,7 +10,7 @@ public class InMemoryHashMapStorage implements Storage {
 	private int maxCapacity = 100;
 	private int id = 0;
 	private int capacity = 0;
-	public static final Logger log = Logger.getRootLogger();
+	public static final Logger LOG = Logger.getRootLogger();
 	
 	public int addStudent (Student student) throws AddException {
 		if (capacity < maxCapacity) {
@@ -18,11 +18,11 @@ public class InMemoryHashMapStorage implements Storage {
 			students.put(String.valueOf(student.getId()), student);
 			capacity++;
 			id++;
-			log.info("Add student ---> " + student.toString());
+			LOG.info("Add student ---> " + student.toString());
 			return student.getId();
 		} else {
 			AddException addExc = new AddException();
-			log.error("Add error ", addExc );
+			LOG.error("Add error ", addExc );
 			throw addExc;
 		}
 	}
@@ -31,15 +31,15 @@ public class InMemoryHashMapStorage implements Storage {
 		if (!students.isEmpty()) {
 			if(students.remove(idDel) == null) {
 				DeleteException delExc = new NoStudent();
-				log.error("Delete error. No student ---> ", delExc);
+				LOG.error("Delete error. No student ---> ", delExc);
 				throw delExc;
 			} else {
-				log.info("Student " + idDel + " delete.");
+				LOG.info("Student " + idDel + " delete.");
 				return 0;
 			}	
 		} else {
 			DeleteException delExc = new ListIsEmpty();
-			log.error("Delete error. List is empty --->", delExc);
+			LOG.error("Delete error. List is empty --->", delExc);
 			throw delExc;
 	
 		}
@@ -52,12 +52,12 @@ public class InMemoryHashMapStorage implements Storage {
 				osw.write(s.toString() + "\n");
 				osw.flush();
 			} catch (IOException e) {
-				log.error("IOException --->", e);
+				LOG.error("IOException --->", e);
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		log.info("Printed list of students.");
+		LOG.info("Printed list of students.");
 	}
 
 	public List<Student> findByExample(Student student) {
@@ -115,9 +115,9 @@ public class InMemoryHashMapStorage implements Storage {
 				}
 			}
 		} else {
-			log.info("Find..... List is empty.");
+			LOG.info("Find..... List is empty.");
 		}
-		log.info("Found students.");
+		LOG.info("Found students.");
 		return findStudents;
 	}
 

@@ -191,6 +191,10 @@ public class Cli {
 			case 5:
 				System.out.println("Exit...");
 				break;
+			case 6:
+				Student std = new Student();
+				UniversalSetter.setFields(std);
+				break;
 			default:
 				System.out.println("Exit...");
 				break;

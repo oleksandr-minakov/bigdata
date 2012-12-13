@@ -3,9 +3,14 @@ package com.mirantis.aminakov.student;
 import java.util.*;
 import java.text.*;
 
+@interface InputIgnore {
+	boolean value();
+}
+
 public class Student {
-	
+	@InputIgnore(true)
 	private int id;
+	
 	private String name;
 	private String surname;
 	private String patronymic;
