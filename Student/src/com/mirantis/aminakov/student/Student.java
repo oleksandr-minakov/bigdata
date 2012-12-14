@@ -2,23 +2,28 @@ package com.mirantis.aminakov.student;
 
 import java.util.*;
 import java.text.*;
-
-@interface InputIgnore {
-	boolean value();
-}
+import com.mirantis.aminakov.annotation.InputIgnore;
 
 public class Student {
 	@InputIgnore(true)
 	private int id;
-	
+	@InputIgnore(false)
 	private String name;
+	@InputIgnore(false)
 	private String surname;
+	@InputIgnore(false)
 	private String patronymic;
+	@InputIgnore(false)
 	private String date;
+	@InputIgnore(false)
 	private String address;
+	@InputIgnore(false)
 	private String phone;
+	@InputIgnore(false)
 	private String faculty;
+	@InputIgnore(false)
 	private int course;
+	@InputIgnore(false)
 	private String group;
 	
 	

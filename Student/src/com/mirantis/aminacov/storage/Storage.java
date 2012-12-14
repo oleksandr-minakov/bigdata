@@ -1,7 +1,10 @@
-package com.mirantis.aminakov.student;
+package com.mirantis.aminacov.storage;
+
 
 import java.io.*;
 import java.util.List;
+import com.mirantis.aminakov.exceptions.*;
+import com.mirantis.aminakov.student.Student;
 
 public interface Storage {
 	int addStudent (Student student) throws AddException;

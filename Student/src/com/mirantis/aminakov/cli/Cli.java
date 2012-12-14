@@ -1,9 +1,15 @@
-package com.mirantis.aminakov.student;
+package com.mirantis.aminakov.cli;
 
 
 import java.text.ParseException;
-import java.util.Scanner;
+import java.util.*;
 import java.io.*;
+
+import com.mirantis.aminacov.storage.InMemoryHashMapStorage;
+import com.mirantis.aminacov.storage.Storage;
+import com.mirantis.aminakov.exceptions.*;
+import com.mirantis.aminakov.student.Student;
+import com.mirantis.aminakov.ups.UniversalSetter;
 
 public class Cli {
 	Scanner sc = new Scanner(System.in);
@@ -80,7 +86,22 @@ public class Cli {
 				} 		
 				continue;
 			case 3:
-					while (true) {
+				HashMap<String, String> findMap = new HashMap<>();
+				System.out.println("Enter name of field and value (name=Vasya or phone=123456789)");
+				String findPar = sc.next();
+				int i;
+				i = findPar.indexOf('=');
+				String part1 = findPar.substring(0, i);
+				String part2 = findPar.substring(i+1);
+//				System.out.println("Part 1 = " + part1);
+//				System.out.println("Part 2 = " + part2);
+				findMap.put(part1, part2);
+				Student std = Student.buildExampleStudent();
+//				System.out.println(std);
+				UniversalSetter u = new UniversalSetter(std);
+				u.setFields(findMap);
+				System.out.println(std);
+					/*while (true) {
 					System.out.println("Find by..." + "\n" + "ID. Press 1." + "\n"
 							+ "surname. Press 2." + "\n" + "name. Press 3." + "\n"
 							+ "patronymic. Press 4." + "\n" + "date. Press 5."
@@ -183,17 +204,13 @@ public class Cli {
 						break;
 					}
 					break;
-				}
+				}*/
 				continue;
 			case 4:
 				storage.printList(os);	
 				continue;
 			case 5:
 				System.out.println("Exit...");
-				break;
-			case 6:
-				Student std = new Student();
-				UniversalSetter.setFields(std);
 				break;
 			default:
 				System.out.println("Exit...");

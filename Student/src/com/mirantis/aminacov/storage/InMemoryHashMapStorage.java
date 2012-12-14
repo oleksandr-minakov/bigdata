@@ -1,8 +1,11 @@
-package com.mirantis.aminakov.student;
+package com.mirantis.aminacov.storage;
 
 import java.io.*;
 import java.util.*;
 import org.apache.log4j.*;
+
+import com.mirantis.aminakov.exceptions.*;
+import com.mirantis.aminakov.student.Student;
 
 
 public class InMemoryHashMapStorage implements Storage {
