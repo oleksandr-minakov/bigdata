@@ -1,4 +1,4 @@
-package com.mirantis.aminacov.storage;
+package com.mirantis.aminakov.storage;
 
 
 import java.io.*;
