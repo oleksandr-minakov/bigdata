@@ -1,2 +1,4 @@
 bin
 .metadata
+release.properties
+pom.xml.releaseBackup
