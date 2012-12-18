@@ -2,12 +2,24 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>DemoStudent</groupId>
   <artifactId>DemoStudent</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2-SNAPSHOT</version>
   <scm>
-    <connection>scm:git:git@github.com:minakov13/internship.git</connection>
-    <developerConnection>scm:git:git@github.com:minakov13/internship.git</developerConnection>
-    <url>scm:git:git@github.com:minakov13/internship.git</url>
+    <connection>scm:git:https://github.com/minakov13/internship.git</connection>
+    <developerConnection>scm:git:https://github.com/minakov13/internship.git</developerConnection>
+    <url>scm:git:https://github.com/minakov13/internship.git</url>
   </scm>
+  <distributionManagement>
+   <repository>
+     <id>snapshots</id>
+     <name>Release</name>
+     <url>http://localhost:8080/nexus/content/repositories/releases</url>
+   </repository>
+   <snapshotRepository>
+     <id>snapshots</id>
+     <name>Snapshot</name>
+     <url>http://localhost:8080/nexus/content/repositories/snapshots</url>
+   </snapshotRepository>
+  </distributionManagement>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <resources>

@@ -8,6 +8,18 @@
     <developerConnection>scm:git:https://github.com/minakov13/internship.git</developerConnection>
     <url>scm:git:https://github.com/minakov13/internship.git</url>
   </scm>
+  <distributionManagement>
+   <repository>
+     <id>snapshots</id>
+     <name>Release</name>
+     <url>http://localhost:8080/nexus/content/repositories/releases</url>
+   </repository>
+   <snapshotRepository>
+     <id>snapshots</id>
+     <name>Snapshot</name>
+     <url>http://localhost:8080/nexus/content/repositories/snapshots</url>
+   </snapshotRepository>
+  </distributionManagement>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <resources>
