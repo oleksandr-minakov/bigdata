@@ -1,0 +1,6 @@
+tree 583706d2ec4e7bdc7664ea0f5f4d173265621f5c
+parent 28bb2cf6f0ea8716aa4e9ae9b988fb848298c650
+author Oleksandr Minakov <minakov13@gmail.com> 1355858615 +0200
+committer Oleksandr Minakov <minakov13@gmail.com> 1355858615 +0200
+
+[maven-release-plugin] prepare release DemoStudent-0.0.4
