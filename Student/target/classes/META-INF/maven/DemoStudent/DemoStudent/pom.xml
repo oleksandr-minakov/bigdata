@@ -4,9 +4,9 @@
   <artifactId>DemoStudent</artifactId>
   <version>0.0.2-SNAPSHOT</version>
   <scm>
-    <connection>scm:git:https://github.com/minakov13/internship.git</connection>
-    <developerConnection>scm:git:https://github.com/minakov13/internship.git</developerConnection>
-    <url>scm:git:https://github.com/minakov13/internship.git</url>
+    <connection>scm:git:git@github.com:minakov13/internship.git</connection>
+    <developerConnection>scm:git:git@github.com:minakov13/internship.git</developerConnection>
+    <url>scm:git:git@github.com:minakov13/internship.git</url>
   </scm>
   <distributionManagement>
    <repository>
