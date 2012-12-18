@@ -1,8 +1,0 @@
-log4j.rootLogger = ALL, FILE
-
-log4j.logger.com.mirantis.aminakov.student = ALL
-
-log4j.appender.file = org.apache.log4j.FileAppender
-log4j.appender.file.file = demoStudent.log
-log4j.appender.file.layout=org.apache.log4j.PatternLayout
-log4j.appender.file.layout.conversionPattern=%d{ABSOLUTE} %5p %t %c{1}:%M:%L - %m%n
