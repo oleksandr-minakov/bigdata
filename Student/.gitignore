@@ -1,5 +1,5 @@
-bin
-target
+bin/
+target/
 .metadata
 release.properties
 pom.xml.releaseBackup
