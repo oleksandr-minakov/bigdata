@@ -1,0 +1,7 @@
+#release configuration
+#Tue Dec 18 18:15:56 EET 2012
+preparationGoals=clean verify
+scm.commentPrefix=[maven-release-plugin] 
+remoteTagging=true
+completedPhase=check-poms
+scm.url=scm\:git\:git@github.com\:minakov13/internship.git
