@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>DemoStudent</groupId>
   <artifactId>DemoStudent</artifactId>
-  <version>0.0.8-SNAPSHOT</version>
+  <version>0.0.3-SNAPSHOT</version>
   <scm>
     <connection>scm:git:git@github.com:minakov13/internship.git</connection>
     <developerConnection>scm:git:git@github.com:minakov13/internship.git</developerConnection>
@@ -10,14 +10,14 @@
   </scm>
   <distributionManagement>
    <repository>
-     <id>releases</id>
+     <id>snapshots</id>
      <name>Release</name>
-     <url>http://127.0.0.1:8080/nexus/content/repositories/releases</url>
+     <url>http://localhost:8080/nexus/content/repositories/releases</url>
    </repository>
    <snapshotRepository>
      <id>snapshots</id>
      <name>Snapshot</name>
-     <url>http://127.0.0.1:8080/nexus/content/repositories/snapshots</url>
+     <url>http://localhost:8080/nexus/content/repositories/snapshots</url>
    </snapshotRepository>
   </distributionManagement>
   <build>
