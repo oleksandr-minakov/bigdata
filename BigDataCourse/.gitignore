@@ -1,5 +1,0 @@
-*.class
-target/
-dao/target/
-service/target/
-webapp/target/
