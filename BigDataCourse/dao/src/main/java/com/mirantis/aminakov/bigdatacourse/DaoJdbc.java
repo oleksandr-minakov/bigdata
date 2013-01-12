@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DaoJdbc {
 	String driverName = "com.mysql.jdbc.Driver";
@@ -13,7 +15,7 @@ public class DaoJdbc {
 	Statement st = null;
 	ResultSet rs = null;
 	
-	public DaoJdbc(Book[] books, String findString) throws InstantiationException, IllegalAccessException {
+	public DaoJdbc() throws InstantiationException, IllegalAccessException {
 		try {
 			Class.forName(driverName).newInstance();
 		} catch (ClassNotFoundException e) {
@@ -24,15 +26,35 @@ public class DaoJdbc {
 		try {
 			con = DriverManager.getConnection(url, "user", "password");
 			st = con.createStatement();
-			rs = st.executeQuery("SELECT * FROM BOOKS");
-			while (rs.next()) {
-				String str = rs.getString(1) + "::" + rs.getString(2);
-				System.out.println(str);
-			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.err.println(e.getMessage());
 		}
-		
 	}
+	public List<Book> getAllBooks(int pageNum, int pageSize) throws SQLException {
+		List<Book> books = new ArrayList<Book>();
+		rs = st.executeQuery("SELECT * FROM books LIMIT" + (pageNum-1) * pageSize  + "," + pageSize);
+		return books;
+	}
+	public List<Book> getBookByTitle(int pageNum, int pageSize, String title) throws SQLException {
+		List<Book> books = new ArrayList<Book>();
+		rs = st.executeQuery("SELECT * FROM Books JOIN Authors ON Books.IdAuthor=Authors.IdAuthor " + 
+		"JOIN Genres ON Books.IdGenre=Genres.IdGenre JOIN Texts ON Books.IdBook=Texts.IdBook " + 
+				"WHERE Title = '" + title + "' LIMIT" + (pageNum-1) * pageSize  + "," + pageSize);
+		return books;
+	}
+	public List<Book> getBookByAuthor(int pageNum, int pageSize, String author) throws SQLException {
+		List<Book> books = new ArrayList<Book>();
+		rs = st.executeQuery("SELECT * FROM Books JOIN Authors ON Books.IdAuthor=Authors.IdAuthor " + 
+		"JOIN Genres ON Books.IdGenre=Genres.IdGenre JOIN Texts ON Books.IdBook=Texts.IdBook " + 
+				"WHERE Title = '" + author + "' LIMIT" + (pageNum-1) * pageSize  + "," + pageSize);
+		return books;
+	}
+	public List<Book> getBookByGenre(int pageNum, int pageSize, String genre) throws SQLException {
+		List<Book> books = new ArrayList<Book>();
+		rs = st.executeQuery("SELECT * FROM Books JOIN Authors ON Books.IdAuthor=Authors.IdAuthor " + 
+		"JOIN Genres ON Books.IdGenre=Genres.IdGenre JOIN Texts ON Books.IdBook=Texts.IdBook " + 
+				"WHERE Title = '" + genre + "' LIMIT" + (pageNum-1) * pageSize  + "," + pageSize);
+		return books;
+	}	
 }
