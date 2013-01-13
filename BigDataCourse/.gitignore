@@ -11,3 +11,4 @@ dao/.project
 service/.project
 webapp/.project
 .project
+*.classpath
