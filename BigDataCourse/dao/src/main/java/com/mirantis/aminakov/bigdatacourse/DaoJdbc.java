@@ -8,7 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DaoJdbc {
+
+public class DaoJdbc implements Dao {
 	String driverName = "com.mysql.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:1234/bigdata";
 	Connection con = null;
@@ -30,11 +31,40 @@ public class DaoJdbc {
 			System.exit(0);
 		}
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.mirantis.aminakov.bigdatacourse.Dao#addBook(com.mirantis.aminakov.bigdatacourse.Book)
+	 */
+	@Override
+	public int addBook(Book book) throws SQLException {
+		try {
+			st.addBatch("INSERT INTO Books(title) VALUES ('" + book.getTitle() + "')");
+			st.addBatch("INSERT INTO Genres(genre) VALUES ('" + book.getGenre() + "')");
+			st.addBatch("INSERT INTO Authors(author) VALUES ('" + book.getAuthor() + "')");
+			st.addBatch("INSERT INTO Texts(text) VALUES ('" + book.getText() + "')");
+			st.executeBatch();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.err.println(e.getMessage());
+		} finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (st != null) {
+                st.close();
+            }
+        }
+		return 0;
+	}
+	/* (non-Javadoc)
+	 * @see com.mirantis.aminakov.bigdatacourse.Dao#getAllBooks(int, int)
+	 */
+	@Override
 	public List<Book> getAllBooks(int pageNum, int pageSize) throws SQLException {
 		List<Book> books = new ArrayList<Book>();
 		try {
 			st = con.createStatement();
-			rs = st.executeQuery("SELECT * FROM books LIMIT" + (pageNum-1) * pageSize  + "," + pageSize);
+			rs = st.executeQuery("SELECT * FROM Books LIMIT" + (pageNum-1) * pageSize  + "," + pageSize);
 			BookMapper map = new BookMapper();
 			while (rs.next()) {
 				books.add((Book)map.mapRow(rs, 0));	// intRow ???	
@@ -52,6 +82,10 @@ public class DaoJdbc {
         }
 		return books;
 	}
+	/* (non-Javadoc)
+	 * @see com.mirantis.aminakov.bigdatacourse.Dao#getBookByTitle(int, int, java.lang.String)
+	 */
+	@Override
 	public List<Book> getBookByTitle(int pageNum, int pageSize, String title) throws SQLException {
 		List<Book> books = new ArrayList<Book>();
 		try {
@@ -76,6 +110,10 @@ public class DaoJdbc {
         }
 		return books;
 	}
+	/* (non-Javadoc)
+	 * @see com.mirantis.aminakov.bigdatacourse.Dao#getBookByAuthor(int, int, java.lang.String)
+	 */
+	@Override
 	public List<Book> getBookByAuthor(int pageNum, int pageSize, String author) throws SQLException {
 		List<Book> books = new ArrayList<Book>();
 		try {
@@ -100,6 +138,10 @@ public class DaoJdbc {
         }
 		return books;
 	}
+	/* (non-Javadoc)
+	 * @see com.mirantis.aminakov.bigdatacourse.Dao#getBookByGenre(int, int, java.lang.String)
+	 */
+	@Override
 	public List<Book> getBookByGenre(int pageNum, int pageSize, String genre) throws SQLException {
 		List<Book> books = new ArrayList<Book>();
 		try {
@@ -124,6 +166,10 @@ public class DaoJdbc {
         }
 		return books;
 	}	
+	/* (non-Javadoc)
+	 * @see com.mirantis.aminakov.bigdatacourse.Dao#getAuthorByGenre(int, int, java.lang.String)
+	 */
+	@Override
 	public List<String> getAuthorByGenre(int pageNum, int pageSize, String genre) throws SQLException {
 		List<String> authors = new ArrayList<String>();
 		try {
@@ -148,5 +194,5 @@ public class DaoJdbc {
             }
         }
 		return authors;
-	}	
+	}
 }
