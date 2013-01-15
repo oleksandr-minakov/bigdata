@@ -1,12 +1,12 @@
 package com.mirantis.aminakov.bigdatacourse;
 
-import java.awt.print.Book;
 import java.util.List;
 
 public interface Service {
-	public List<Book> findByAuthor();
-	public List<Book> findByTitle();
-	public List<Book> findByText();
-	public List<Book> findByGenre();
-	public List<String> findAuthorByGenre();
+	public int addBook(Book book);
+	public List<Book> findByAuthor(int pageNum, int pageSize, String author);
+	public List<Book> findByTitle(int pageNum, int pageSize, String title);
+	public List<Book> findByText(int pageNum, int pageSize, String text);
+	public List<Book> findByGenre(int pageNum, int pageSize, String genre);
+	public List<String> findAuthorByGenre(int pageNum, int pageSize, String genre);
 }

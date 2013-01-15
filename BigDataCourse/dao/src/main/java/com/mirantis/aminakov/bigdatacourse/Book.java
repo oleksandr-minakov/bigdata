@@ -1,11 +1,13 @@
 package com.mirantis.aminakov.bigdatacourse;
 
+import java.io.InputStream;
+
 public class Book {
 	private int id;
 	private String title;
 	private String author;
 	private String genre;
-	private String text;
+	private InputStream text;
 	
 	public int getId() {
 		return id;
@@ -31,10 +33,10 @@ public class Book {
 	public void setGenre(String genre) {
 		this.genre = genre;
 	}
-	public String getText() {
+	public InputStream getText() {
 		return text;
 	}
-	public void setText(String text) {
+	public void setText(InputStream text) {
 		this.text = text;
 	}
 }
