@@ -1,6 +1,7 @@
 package com.mirantis.aminakov.bigdatacourse;
 
 import java.util.List;
+import java.util.TreeSet;
 
 public interface Dao {
 
@@ -18,7 +19,7 @@ public interface Dao {
 	public List<Book> getBookByGenre(int pageNum, int pageSize,
 			String genre) throws DaoException;
 
-	public List<String> getAuthorByGenre(int pageNum, int pageSize,
+	public TreeSet<String> getAuthorByGenre(int pageNum, int pageSize,
 			String genre) throws DaoException;
 
 }

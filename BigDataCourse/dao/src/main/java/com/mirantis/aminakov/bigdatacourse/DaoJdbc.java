@@ -8,10 +8,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 public class DaoJdbc implements Dao {
 	String driverName = "com.mysql.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:1234/bigdata";
+	String url = "jdbc:mysql://localhost:1234/bigdata?user=aminakov&password=bigdata";
+	String jdbcutf8 = "&useUnicode=true&characterEncoding=UTF-8";
 	Connection con = null;
 	Statement st = null;
 	ResultSet rs = null;
@@ -21,7 +23,7 @@ public class DaoJdbc implements Dao {
 		try {
 			Class.forName(driverName).newInstance();
 			try {
-				con = DriverManager.getConnection(url, "aminakov", "bigdata");
+				con = DriverManager.getConnection(url + jdbcutf8);
 			} catch (SQLException e) {
 				throw new DaoException(e);
 			}
@@ -39,26 +41,52 @@ public class DaoJdbc implements Dao {
 		int count = 0;
 		try {
 			con.setAutoCommit(false);
+			st = con.createStatement();
+			int book_id = 0;
+			String sql = "INSERT INTO Texts(text) VALUES (?)";
+			pst = con.prepareStatement(sql);
+			pst.setBlob(1, book.getText());
+			pst.executeUpdate();
+			rs = st.executeQuery("SELECT LAST_INSERT_ID();");
+			while (rs.next()) {
+				book_id = rs.getInt("LAST_INSERT_ID()");
+				System.out.println(book_id);
+			}
+			pst.clearParameters();
+			pst = null;
 			pst = con.prepareStatement("INSERT INTO Books (title, book_id, author_id, genre_id) VALUES (?, ?, ?, ?);");
-			pst.setString(1, book.getTitle());//
-			rs = st.executeQuery("SELECT * From Author WHERE name ='" + book.getAuthor() + "');");
+			pst.setString(1, book.getTitle());
+			pst.setInt(2, book_id);
+			rs = st.executeQuery("SELECT * FROM Authors WHERE author = '" + book.getAuthor() + "';");
 			if (rs.first()) {
 				pst.setString(3, rs.getString("id"));
 			} else {
-				String author = null;
-				//TODO algorithm adding author
-				pst.setString(3, author);
+				int author_id = 0;
+				st.executeUpdate("INSERT INTO Authors(author) VALUES ('" + book.getAuthor() + "');");
+				rs = st.executeQuery("SELECT LAST_INSERT_ID();");
+				while (rs.next()) {
+					author_id = rs.getInt("LAST_INSERT_ID()");
+					System.out.println(author_id);
+				}
+				pst.setInt(3, author_id);
 			}
-			
-			
-			st.addBatch("INSERT INTO Genres(genre) VALUES ('" + book.getGenre() + "')");
-			st.addBatch("INSERT INTO Authors(author) VALUES ('" + book.getAuthor() + "')");
-			st.executeBatch();
-			String sql = "INSERT INTO Texts(text) VALUES ('?')";
-			pst = con.prepareStatement(sql);
-			pst.setAsciiStream(1, book.getText());
-			count = pst.executeUpdate();
+			rs = st.executeQuery("SELECT * FROM Genres WHERE genre = '" + book.getGenre() + "';");
+			if (rs.first()) {
+				pst.setString(4, rs.getString("id"));
+			} else {
+				int genre_id = 0;
+				st.executeUpdate("INSERT INTO Genres(genre) VALUES ('" + book.getGenre() + "');");
+				rs = st.executeQuery("SELECT LAST_INSERT_ID();");
+				while (rs.next()) {
+					genre_id = rs.getInt("LAST_INSERT_ID()");
+					System.out.println(genre_id);
+				}
+				pst.setInt(4, genre_id);
+			}
+			pst.executeUpdate();
+			pst.clearParameters();
 			con.commit();
+			con.setAutoCommit(true);
 		} catch (SQLException e) {
 			try {
 				con.rollback();
@@ -100,7 +128,9 @@ public class DaoJdbc implements Dao {
 		List<Book> books = new ArrayList<Book>();
 		try {
 			st = con.createStatement();
-			rs = st.executeQuery("SELECT * FROM Books LIMIT" + (pageNum-1) * pageSize  + "," + pageSize);
+			rs = st.executeQuery("SELECT * FROM Books JOIN Authors ON Books.author_id=Authors.id " + 
+					"JOIN Genres ON Books.genre_id=Genres.id " +
+					"JOIN Texts ON Books.book_id=Texts.id LIMIT " + (pageNum-1) * pageSize  + "," + pageSize);
 			BookMapper map = new BookMapper();
 			while (rs.next()) {
 				books.add((Book)map.mapRow(rs, 0));	
@@ -134,9 +164,9 @@ public class DaoJdbc implements Dao {
 		List<Book> books = new ArrayList<Book>();
 		try {
 			st = con.createStatement();
-			rs = st.executeQuery("SELECT * FROM Books JOIN Authors ON Books.IdAuthor=Authors.IdAuthor " + 
-					"JOIN Genres ON Books.IdGenre=Genres.IdGenre JOIN Texts ON Books.IdBook=Texts.IdBook " + 
-					"WHERE Title = '" + title + "' LIMIT" + (pageNum-1) * pageSize  + "," + pageSize); //TODO fix 
+			rs = st.executeQuery("SELECT * FROM Books JOIN Authors ON Books.author_id=Authors.id " + 
+					"JOIN Genres ON Books.genre_id=Genres.id JOIN Texts ON Books.book_id=Texts.id " + 
+					"WHERE title = '" + title + "' LIMIT " + (pageNum-1) * pageSize  + "," + pageSize);
 			BookMapper map = new BookMapper();
 			while (rs.next()) {
 				books.add((Book)map.mapRow(rs, 0));			
@@ -170,9 +200,9 @@ public class DaoJdbc implements Dao {
 		List<Book> books = new ArrayList<Book>();
 		try {
 			st = con.createStatement();
-			rs = st.executeQuery("SELECT * FROM Books JOIN Authors ON Books.IdAuthor=Authors.IdAuthor " + 
-					"JOIN Genres ON Books.IdGenre=Genres.id JOIN Texts ON Books.IdBook=Texts.IdBook " + 
-					"WHERE Authors.name = '" + author + "' LIMIT" + (pageNum-1) * pageSize  + "," + pageSize); //TODO fix 
+			rs = st.executeQuery("SELECT * FROM Books JOIN Authors ON Books.author_id=Authors.id " + 
+					"JOIN Genres ON Books.genre_id=Genres.id JOIN Texts ON Books.book_id=Texts.id " + 
+					"WHERE author = '" + author + "' LIMIT " + (pageNum-1) * pageSize  + "," + pageSize);
 			BookMapper map = new BookMapper();
 			while (rs.next()) {
 				books.add((Book)map.mapRow(rs, 0));			
@@ -206,9 +236,9 @@ public class DaoJdbc implements Dao {
 		List<Book> books = new ArrayList<Book>();
 		try {
 			st = con.createStatement();
-			rs = st.executeQuery("SELECT * FROM Books JOIN Authors ON Books.IdAuthor=Authors.IdAuthor " + 
-					"JOIN Genres ON Books.IdGenre=Genres.IdGenre JOIN Texts ON Books.IdBook=Texts.IdBook " + 
-					"WHERE Genres.genre = '" + genre + "' LIMIT" + (pageNum-1) * pageSize  + "," + pageSize); //TODO fix 
+			rs = st.executeQuery("SELECT * FROM Books JOIN Authors ON Books.author_id=Authors.id " + 
+					"JOIN Genres ON Books.genre_id=Genres.id JOIN Texts ON Books.book_id=Texts.id " + 
+					"WHERE genre = '" + genre + "' LIMIT " + (pageNum-1) * pageSize  + "," + pageSize);
 			BookMapper map = new BookMapper();
 			while (rs.next()) {
 				books.add((Book)map.mapRow(rs, 0));			
@@ -238,13 +268,13 @@ public class DaoJdbc implements Dao {
 	 * @see com.mirantis.aminakov.bigdatacourse.Dao#getAuthorByGenre(int, int, java.lang.String)
 	 */
 	@Override
-	public List<String> getAuthorByGenre(int pageNum, int pageSize, String genre) throws DaoException {
-		List<String> authors = new ArrayList<String>();
+	public TreeSet<String> getAuthorByGenre(int pageNum, int pageSize, String genre) throws DaoException {
+		TreeSet<String> authors = new TreeSet<String>();
 		try {
 			st = con.createStatement();
-			rs = st.executeQuery("SELECT Authors.name FROM Books JOIN Authors ON Books.IdAuthor=Authors.IdAuthor " + 
-					"JOIN Genres ON Books.IdGenre=Genres.IdGenre " + 
-					"WHERE Genres.genre = '" + genre + "' LIMIT" + (pageNum-1) * pageSize  + "," + pageSize); //TODO fix 
+			rs = st.executeQuery("SELECT author FROM Books JOIN Authors ON Books.author_id=Authors.id " + 
+					"JOIN Genres ON Books.genre_id=Genres.id " + 
+					"WHERE genre = '" + genre + "' LIMIT " + (pageNum-1) * pageSize  + "," + pageSize);
 			while (rs.next()) {
 				String name = new String();
 				name = rs.getString("author");
