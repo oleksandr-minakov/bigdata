@@ -1,6 +1,8 @@
 package com.mirantis.aminakov.bigdatacourse;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 public class ServiceToDao implements Service {
 
@@ -10,12 +12,6 @@ public class ServiceToDao implements Service {
 		try {
 			Dao dao = new DaoJdbc();
 			ret = dao.addBook(book);
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -25,33 +21,72 @@ public class ServiceToDao implements Service {
 
 	@Override
 	public List<Book> findByAuthor(int pageNum, int pageSize, String author) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Book> books = new ArrayList<Book>();
+		Dao dao;
+		try {
+			dao = new DaoJdbc();
+			books = dao.getBookByAuthor(pageNum, pageSize, author);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return books;
 	}
 
 	@Override
 	public List<Book> findByTitle(int pageNum, int pageSize, String title) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Book> books = new ArrayList<Book>();
+		Dao dao;
+		try {
+			dao = new DaoJdbc();
+			books = dao.getBookByTitle(pageNum, pageSize, title);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return books;
 	}
 
 	@Override
 	public List<Book> findByText(int pageNum, int pageSize, String text) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Book> books = new ArrayList<Book>();
+		Dao dao;
+		try {
+			dao = new DaoJdbc();
+			books = dao.getBookByText(pageNum, pageSize, text);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return books;
 	}
 
 	@Override
 	public List<Book> findByGenre(int pageNum, int pageSize, String genre) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Book> books = new ArrayList<Book>();
+		Dao dao;
+		try {
+			dao = new DaoJdbc();
+			books = dao.getBookByGenre(pageNum, pageSize, genre);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return books;
 	}
 
 	@Override
-	public List<String> findAuthorByGenre(int pageNum, int pageSize,
-			String genre) {
-		// TODO Auto-generated method stub
-		return null;
+	public TreeSet<String> findAuthorByGenre(int pageNum, int pageSize, String genre) {
+		TreeSet<String> authors = new TreeSet<>();
+		Dao dao;
+		try {
+			dao = new DaoJdbc();
+			authors = dao.getAuthorByGenre(pageNum, pageSize, genre);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return authors;
 	}
 
 }
