@@ -12,6 +12,9 @@ public interface Dao {
 
 	public List<Book> getBookByTitle(int pageNum, int pageSize,
 			String title) throws DaoException;
+	
+	public List<Book> getBookByText(int pageNum, int pageSize,
+			String text) throws DaoException;
 
 	public List<Book> getBookByAuthor(int pageNum, int pageSize,
 			String author) throws DaoException;

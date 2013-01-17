@@ -19,17 +19,23 @@ public class DaoJdbc implements Dao {
 	ResultSet rs = null;
 	PreparedStatement pst = null;
 	
-	public DaoJdbc() throws InstantiationException, IllegalAccessException, DaoException {
+	public DaoJdbc() throws DaoException {
 		try {
-			Class.forName(driverName).newInstance();
+			try {
+				Class.forName(driverName).newInstance();
+			} catch (InstantiationException e) {		//
+				throw new DaoException(e);
+			} catch (IllegalAccessException e) {		// 
+				throw new DaoException(e);
+			}
 			try {
 				con = DriverManager.getConnection(url + jdbcutf8);
 			} catch (SQLException e) {
 				throw new DaoException(e);
 			}
 		} catch (ClassNotFoundException e) {
-			System.err.println("Driver not found.");
-			System.exit(0);
+			// TODO add logging
+			throw new DaoException(e);
 		}
 	}
 	
@@ -43,6 +49,10 @@ public class DaoJdbc implements Dao {
 			con.setAutoCommit(false);
 			st = con.createStatement();
 			int book_id = 0;
+			rs = st.executeQuery("SELECT * FROM Books WHERE title = '" + book.getTitle() + "';");
+			if (rs.first()) {
+				throw new BookAlredyExists("Book already exists.");
+			}
 			String sql = "INSERT INTO Texts(text) VALUES (?)";
 			pst = con.prepareStatement(sql);
 			pst.setBlob(1, book.getText());
@@ -299,6 +309,39 @@ public class DaoJdbc implements Dao {
             }
         }
 		return authors;
+	}
+
+	@Override
+	public List<Book> getBookByText(int pageNum, int pageSize, String text) throws DaoException {
+		List<Book> books = new ArrayList<Book>();
+		try {
+			st = con.createStatement();
+			rs = st.executeQuery("SELECT * FROM Books JOIN Authors ON Books.author_id=Authors.id " + 
+					"JOIN Genres ON Books.genre_id=Genres.id JOIN Texts ON Books.book_id=Texts.id " + 
+					"WHERE text LIKE '%" + text + "%' LIMIT " + (pageNum-1) * pageSize  + "," + pageSize);
+			BookMapper map = new BookMapper();
+			while (rs.next()) {
+				books.add((Book)map.mapRow(rs, 0));			
+			}
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		} finally {
+            if (rs != null) {
+                try {
+					rs.close();
+				} catch (SQLException e) {
+					throw new DaoException(e);
+				}
+            }
+            if (st != null) {
+                try {
+					st.close();
+				} catch (SQLException e) {
+					throw new DaoException(e);
+				}
+            }
+        }
+		return books;
 	}
 
 }

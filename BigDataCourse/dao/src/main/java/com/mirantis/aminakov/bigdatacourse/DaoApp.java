@@ -1,6 +1,9 @@
 package com.mirantis.aminakov.bigdatacourse;
 
-import java.util.TreeSet;
+//import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+//import java.util.TreeSet;
 
 //import java.io.File;
 //import java.io.FileInputStream;
@@ -14,19 +17,35 @@ public class DaoApp
 {
     public static void main( String[] args )
     {
-    	try {
+    	/*try {
 			Dao dao = new DaoJdbc();
-			TreeSet<String> authors = new TreeSet<String>();
-			authors = dao.getAuthorByGenre(1, 10, "Roman");
-			for (String author : authors) {
-				System.out.println(author);
+			List<Book> books = new ArrayList<Book>();
+			books = dao.getBookByGenre(1, 10, "Хокку");
+			for (Book book : books) {
+				System.out.println(book.getTitle());
+				System.out.println(book.getAuthor());
+				System.out.println(book.getGenre());
+				byte[] buf = new byte[30];
+				try {
+					int count = book.getText().read(buf, 0, 30);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println(new String(buf));
 			}
 		} catch (InstantiationException | IllegalAccessException | DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}*/
+    	
+    	System.out.println( "Hello World! От дао..." );
+    	List<Book> books = new ArrayList<Book>();
+    	BookGenerator gen = new BookGenerator();
+    	books = gen.generateBooks();
+    	for (Book book : books) {
+			System.out.println(book.getTitle() + " " + book.getAuthor() + " " + book.getGenre() + " " + book.getText().toString());
 		}
-    	
-    	
     	
         /*System.out.println( "Hello World! От дао..." );
         FileInputStream fis = null;
