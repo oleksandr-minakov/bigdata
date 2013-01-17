@@ -12,3 +12,4 @@ service/.project
 webapp/.project
 .project
 *.classpath
+dao/*.txt
