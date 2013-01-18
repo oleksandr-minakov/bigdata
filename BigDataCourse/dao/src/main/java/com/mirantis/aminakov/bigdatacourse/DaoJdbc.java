@@ -44,7 +44,7 @@ public class DaoJdbc implements Dao {
 	 */
 	@Override
 	public int addBook(Book book) throws DaoException {
-		int count = 0;
+		int id = 0;
 		try {
 			con.setAutoCommit(false);
 			st = con.createStatement();
@@ -60,7 +60,6 @@ public class DaoJdbc implements Dao {
 			rs = st.executeQuery("SELECT LAST_INSERT_ID();");
 			while (rs.next()) {
 				book_id = rs.getInt("LAST_INSERT_ID()");
-				System.out.println(book_id);
 			}
 			pst.clearParameters();
 			pst = null;
@@ -76,7 +75,6 @@ public class DaoJdbc implements Dao {
 				rs = st.executeQuery("SELECT LAST_INSERT_ID();");
 				while (rs.next()) {
 					author_id = rs.getInt("LAST_INSERT_ID()");
-					System.out.println(author_id);
 				}
 				pst.setInt(3, author_id);
 			}
@@ -89,10 +87,10 @@ public class DaoJdbc implements Dao {
 				rs = st.executeQuery("SELECT LAST_INSERT_ID();");
 				while (rs.next()) {
 					genre_id = rs.getInt("LAST_INSERT_ID()");
-					System.out.println(genre_id);
 				}
 				pst.setInt(4, genre_id);
 			}
+			id = book_id;
 			pst.executeUpdate();
 			pst.clearParameters();
 			con.commit();
@@ -127,7 +125,7 @@ public class DaoJdbc implements Dao {
 				}
 			}
         }
-		return count;
+		return id;
 	}
 	
 	/* (non-Javadoc)

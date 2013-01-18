@@ -18,26 +18,31 @@ public class BookGenerator {
 	List<InputStream> texts;
 	
 	public List<Book> generateBooks() {
-		List<Book> books = new ArrayList<Book>();
-		List<String> titles = new ArrayList<String>();
-		List<String> authors = new ArrayList<String>();
-		List<String> genres = new ArrayList<String>();
-		List<InputStream> texts = new ArrayList<InputStream>();
+		books = new ArrayList<Book>();
+		titles = new ArrayList<String>();
+		authors = new ArrayList<String>();
+		genres = new ArrayList<String>();
+		texts = new ArrayList<InputStream>();
 		
 		char[] arr = { 'а', 'б', 'в', 'г', 'д', ' ', 'е', 'ё', 'ж', 'з', 'и', ' ', 'й', 'к', 'л', 'м', 'н',
                 ' ', 'о', 'п', 'р', 'с', 'т', ' ', 'у', 'ф', 'х', 'ц', 'ч', 'ш', ' ', 'щ', 'ь', 'ы', 'ъ', 'э', 'ю', 'я' };
         int length = 0; 
         Random rand = new Random();
         for (int i = 0; i < 50; i++) {
-        	 length = rand.nextInt(35);
+        	 while (length < 10) {
+        	 	 length = rand.nextInt(35);
+			 }
         	 StringBuilder strb = new StringBuilder();
              for(int j = 0; j < length; j++) {
                  strb.append(arr[rand.nextInt( arr.length )]);
+                
              }
              titles.add(strb.toString());
 		}
         for (int i = 0; i < 15; i++) {
-       	 	length = rand.nextInt(15);
+       	 	while (length < 8) {
+       	 		length = rand.nextInt(15);
+       	 	}
        	 	StringBuilder strb = new StringBuilder();
             for(int j = 0; j < length; j++) {
                 strb.append(arr[rand.nextInt( arr.length )]);
@@ -45,7 +50,9 @@ public class BookGenerator {
             authors.add(strb.toString());
 		}
         for (int i = 0; i < 7; i++) {
-       	 	length = rand.nextInt(15);
+        	while (length < 10) {
+       	 	 	length = rand.nextInt(15);
+			}
        	 	StringBuilder strb = new StringBuilder();
             for(int j = 0; j < length; j++) {
                 strb.append(arr[rand.nextInt( arr.length )]);
