@@ -24,5 +24,7 @@ public interface Dao {
 
 	public TreeSet<String> getAuthorByGenre(int pageNum, int pageSize,
 			String genre) throws DaoException;
+	
+	public void closeConnection() throws DaoException;
 
 }

@@ -4,10 +4,13 @@ import static org.junit.Assert.*;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.TreeSet;
 
+//import org.junit.After;
 import org.junit.AfterClass;
+//import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -15,11 +18,13 @@ import org.junit.Test;
 public class DaoJdbcTest {
 	static List<Book> books = null;
 	static BookGenerator gen = null;
+	static DaoJdbc dao = null;  // TODO ???
 	
 	@BeforeClass
 	public static void testSetup() {
 		ManagementTables mt;
 		try {
+			dao = new DaoJdbc();
 			mt = new ManagementTables();
 			mt.createTables();
 			mt.closeConnection();
@@ -30,6 +35,7 @@ public class DaoJdbcTest {
 		books = new ArrayList<Book>();
     	gen = new BookGenerator();
     	books = gen.generateBooks();
+    	mt = null;
 	}
 	
 	@AfterClass
@@ -39,6 +45,15 @@ public class DaoJdbcTest {
 			mt = new ManagementTables();
 			mt.dropTables();
 			mt.closeConnection();
+			/*if (dao.rs != null)
+				dao.rs.close();
+			if (dao.st != null)
+				dao.st.close();
+			if (dao.pst != null)
+				dao.pst.close();
+			if (dao.con != null)
+				dao.con.close();*/
+			dao.closeConnection();
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -46,25 +61,21 @@ public class DaoJdbcTest {
 		books.clear();
 		books = null;
 		gen = null;
+		dao = null;
+		mt = null;
 	}
 	
 	@Test
 	public void testDaoJdbc() {
-		try {
-			DaoJdbc dao = new DaoJdbc();
-			assertNotNull(dao);
-			assertNotNull(dao.con);	
-		} catch (DaoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		assertNotNull(dao);
+		assertNotNull(dao.con);
 	}
 
 	@Test
 	public void testAddBook() {
 		try {
 			int i = 5;
-			DaoJdbc dao = new DaoJdbc();
+//			DaoJdbc dao = new DaoJdbc();
 			for (Book book: books) {
 				dao.addBook(book);
 			}
@@ -77,32 +88,47 @@ public class DaoJdbcTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	
 	}
 	
 	@Ignore
 	@Test(expected = BookAlredyExists.class)
 	public void testAddExistBook() {
 		int i = 10;
-		DaoJdbc dao;
+//		DaoJdbc dao;
 		// TODO fix test
 		try {
-			dao = new DaoJdbc();
+//			dao = new DaoJdbc();
 			dao.addBook(books.get(i));
-			System.out.println(books.get(i).getTitle());
-			System.out.println(books.get(i).getGenre());
-			System.out.println(books.get(i).getAuthor());
-			dao.addBook(books.get(i));
+//			System.out.println(books.get(i).getTitle());
+//			System.out.println(books.get(i).getGenre());
+//			System.out.println(books.get(i).getAuthor());
+//			dao.addBook(books.get(i));
 			System.out.println("After existsBook add.");
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
+			System.out.println("Catch add exist book.");
+			/*try {
+				if (dao.rs != null)
+					dao.rs.close();
+				if (dao.st != null)
+					dao.st.close();
+				if (dao.pst != null)
+					dao.pst.close();
+				if (dao.con != null)
+					dao.con.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}*/
 		}
 	}
 
 	@Test
 	public void testGetAllBooks() {
 		try {
-			DaoJdbc dao = new DaoJdbc();
+//			DaoJdbc dao = new DaoJdbc();
 			List<Book> getBooks = new ArrayList<Book>();
 			getBooks = dao.getAllBooks(1, 50);
 			int check = 0;
@@ -130,7 +156,7 @@ public class DaoJdbcTest {
 				expectedAuthorCounter++;
 		}
 		List<Book> books = new ArrayList<Book>();
-		DaoJdbc dao;
+//		DaoJdbc dao;
 		try {
 			dao = new DaoJdbc();
 			books = dao.getBookByAuthor(1, 50, author);
@@ -142,7 +168,7 @@ public class DaoJdbcTest {
 	}
 
 	@Test
-	public void testGetBookByGenre() {
+	public void testGetBookByGenre() throws DaoException {
 		int expectedGenreCounter = 0;
 		String genre = gen.genres.get(3);
 		for (Book book : gen.books) {
@@ -150,31 +176,28 @@ public class DaoJdbcTest {
 				expectedGenreCounter++;
 		}
 		List<Book> books = new ArrayList<Book>();
-		DaoJdbc dao;
-		try {
+//		DaoJdbc dao;
+
 			dao = new DaoJdbc();
 			books = dao.getBookByGenre(1, 50, genre);
 			assertEquals(expectedGenreCounter, books.size());
-		} catch (DaoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 	}
 
 	@Test
 	public void testGetAuthorByGenre() {
-		int expectedAuthorCounter = 0;
+		HashSet<String> expectedAuthors = new HashSet<String>(); 
 		String genre = gen.genres.get(3);
 		for (Book book : gen.books) {
 			if(book.getGenre().equals(genre))
-				expectedAuthorCounter++;
+				expectedAuthors.add(book.getAuthor());
 		}
 		TreeSet<String> authors = new TreeSet<String>();
-		DaoJdbc dao;
+//		DaoJdbc dao;
 		try {
 			dao = new DaoJdbc();
 			authors = dao.getAuthorByGenre(1, 50, genre);
-			assertEquals(expectedAuthorCounter, authors.size());
+			assertEquals(expectedAuthors.size(), authors.size());
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -194,7 +217,7 @@ public class DaoJdbcTest {
 				expectedAuthorCounter++;
 		}
 		TreeSet<String> authors = new TreeSet<String>();
-		DaoJdbc dao;
+//		DaoJdbc dao;
 		try {
 			dao = new DaoJdbc();
 			authors = dao.getAuthorByGenre(1, 50, "text");

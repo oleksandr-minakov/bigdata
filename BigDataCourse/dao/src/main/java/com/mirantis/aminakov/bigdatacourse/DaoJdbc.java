@@ -14,7 +14,7 @@ public class DaoJdbc implements Dao {
 	String driverName = "com.mysql.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:1234/bigdata?user=aminakov&password=bigdata";
 	String jdbcutf8 = "&useUnicode=true&characterEncoding=UTF-8";
-	Connection con = null;
+	protected Connection con = null;
 	Statement st = null;
 	ResultSet rs = null;
 	PreparedStatement pst = null;
@@ -51,6 +51,9 @@ public class DaoJdbc implements Dao {
 			int book_id = 0;
 			rs = st.executeQuery("SELECT * FROM Books WHERE title = '" + book.getTitle() + "';");
 			if (rs.first()) {
+				System.out.println(book.getTitle());
+				System.out.println(rs.getString("title"));
+				con.rollback();
 				throw new BookAlredyExists("Book already exists.");
 			}
 			String sql = "INSERT INTO Texts(text) VALUES (?)";
@@ -342,4 +345,16 @@ public class DaoJdbc implements Dao {
 		return books;
 	}
 
+	@Override
+	public void closeConnection() throws DaoException {
+		// TODO Auto-generated method stub
+		
+			if (this.con != null) {
+				try {
+					this.con.close();
+				} catch (SQLException e) {
+					throw new DaoException(e);
+				}
+			}
+	}
 }

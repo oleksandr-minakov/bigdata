@@ -106,7 +106,10 @@ public class BookGenerator {
              book.setText(texts.get(i));
              books.add(book);
 		}
+        for (int del = 0; del < 50; del++) {
+        	File file_del = new File("file" + del + ".txt");
+        	file_del.delete();
+		}
 		return books;
 	}
-	
 }

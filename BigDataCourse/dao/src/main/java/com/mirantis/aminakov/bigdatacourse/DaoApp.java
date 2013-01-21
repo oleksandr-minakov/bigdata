@@ -3,6 +3,8 @@ package com.mirantis.aminakov.bigdatacourse;
 //import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
 //import java.util.TreeSet;
 
 //import java.io.File;
@@ -15,6 +17,8 @@ import java.util.List;
  */
 public class DaoApp 
 {
+	public static final Logger LOG = Logger.getLogger(DaoApp.class);
+	
     public static void main( String[] args )
     {
     	/*try {
@@ -39,7 +43,9 @@ public class DaoApp
 			e.printStackTrace();
 		}*/
     	
+    	DOMConfigurator.configure("log4j.xml");
     	System.out.println( "Hello World! От дао..." );
+    	LOG.debug("Print string <Hello world!>.");
     	List<Book> books = new ArrayList<Book>();
     	BookGenerator gen = new BookGenerator();
     	books = gen.generateBooks();

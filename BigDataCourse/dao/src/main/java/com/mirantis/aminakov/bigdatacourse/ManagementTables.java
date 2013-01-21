@@ -18,6 +18,7 @@ public class ManagementTables {
 	ResultSet rs = null;
 	
 	public ManagementTables() throws DaoException {
+		//FIXME
 		DOMConfigurator.configure("log4j.xml");
 		try {
 			try {
@@ -90,13 +91,13 @@ public class ManagementTables {
 	
 	public void dropTables() throws DaoException {
 		try {
+			con = DriverManager.getConnection(url + jdbcutf8); // ?
 			con.setAutoCommit(false);
 			st = con.createStatement();
-			st.addBatch("DROP TABLE IF EXISTS Books;");
-			st.addBatch("DROP TABLE IF EXISTS Authors;");
-			st.addBatch("DROP TABLE IF EXISTS Genres;");
-			st.addBatch("DROP TABLE IF EXISTS Texts;");
-			st.executeBatch();
+			st.executeUpdate("DROP TABLE IF EXISTS Books;");
+			st.executeUpdate("DROP TABLE IF EXISTS Authors;");
+			st.executeUpdate("DROP TABLE IF EXISTS Genres;");
+			st.executeUpdate("DROP TABLE IF EXISTS Texts;");
 			con.commit();
 			con.setAutoCommit(true);
 		} catch (SQLException e) {
