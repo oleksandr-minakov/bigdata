@@ -2,8 +2,9 @@
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 <log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
 	<appender name="FileAppender" class="org.apache.log4j.RollingFileAppender">
-		<param name=“maxFileSize” value=“100KB” />
-		<param name = "File" value ="bigdatacourse.log"/>
+		<param name="maxFileSize" value="100KB" />
+		<param name="File" value="bigdatacourse_service.log" />
+        <param name="Append" value="true" />
 		<layout class="org.apache.log4j.PatternLayout">	
 			<param name="ConversionPattern" value="%d{ABSOLUTE} %5p %t %c{1}:%M:%L - %m%n"/>
 		</layout>
