@@ -5,8 +5,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
 
 public class ManagementTables {
+	public static final Logger LOG = Logger.getLogger(ManagementTables.class);
 	String driverName = "com.mysql.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:1234/bigdata?user=aminakov&password=bigdata";
 	String jdbcutf8 = "&useUnicode=true&characterEncoding=UTF-8";
@@ -15,12 +18,15 @@ public class ManagementTables {
 	ResultSet rs = null;
 	
 	public ManagementTables() throws DaoException {
+		DOMConfigurator.configure("log4j.xml");
 		try {
 			try {
 				Class.forName(driverName).newInstance();
-			} catch (InstantiationException e) {		
+			} catch (InstantiationException e) {
+				LOG.error("Instantiation exception driver.");
 				throw new DaoException(e);
-			} catch (IllegalAccessException e) {		
+			} catch (IllegalAccessException e) {	
+				LOG.error("Illegal access to driver class.");
 				throw new DaoException(e);
 			}
 			try {
@@ -29,7 +35,7 @@ public class ManagementTables {
 				throw new DaoException(e);
 			}
 		} catch (ClassNotFoundException e) {
-			// TODO add logging
+			LOG.error("Driver not found.");
 			throw new DaoException(e);
 		}
 	}
