@@ -13,7 +13,7 @@ public class ManagementTables {
 	String driverName = "com.mysql.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:1234/bigdata?user=aminakov&password=bigdata";
 	String jdbcutf8 = "&useUnicode=true&characterEncoding=UTF-8";
-	Connection con = null;
+	protected Connection con = null;
 	Statement st = null;
 	ResultSet rs = null;
 	
@@ -46,22 +46,21 @@ public class ManagementTables {
 		try {
 			con.setAutoCommit(false);
 			st = con.createStatement();
-			st.addBatch("CREATE TABLE IF NOT EXISTS Authors (id int NOT NULL AUTO_INCREMENT, " +
+			st.executeUpdate("CREATE TABLE IF NOT EXISTS Authors (id int NOT NULL AUTO_INCREMENT, " +
 							  "author varchar(40) NOT NULL, " +
 							  "PRIMARY KEY (id)) ENGINE=INNODB CHARACTER SET utf8;");
-			st.addBatch("CREATE TABLE IF NOT EXISTS Genres (id int NOT NULL AUTO_INCREMENT, " +
+			st.executeUpdate("CREATE TABLE IF NOT EXISTS Genres (id int NOT NULL AUTO_INCREMENT, " +
 					  	"genre varchar(40) NOT NULL, " +
 					  	"PRIMARY KEY (id)) ENGINE=INNODB CHARACTER SET utf8;");
-			st.addBatch("CREATE TABLE IF NOT EXISTS Texts (id int NOT NULL AUTO_INCREMENT, " +
+			st.executeUpdate("CREATE TABLE IF NOT EXISTS Texts (id int NOT NULL AUTO_INCREMENT, " +
 						"text TEXT NOT NULL, " +
 					  	"PRIMARY KEY (id)) ENGINE=INNODB CHARACTER SET utf8;");
-			st.addBatch("CREATE TABLE IF NOT EXISTS Books (id int NOT NULL AUTO_INCREMENT, " +
+			st.executeUpdate("CREATE TABLE IF NOT EXISTS Books (id int NOT NULL AUTO_INCREMENT, " +
 					  	"title varchar(200) NOT NULL, book_id int NOT NULL, " +
 					  	"author_id int NOT NULL, genre_id int NOT NULL, " +
 					  	"PRIMARY KEY (id), FOREIGN KEY (book_id) REFERENCES Texts (id), " +
 					  	"FOREIGN KEY (author_id) REFERENCES Authors (id), " +
 					  	"FOREIGN KEY (genre_id) REFERENCES Genres (id)) ENGINE=INNODB CHARACTER SET utf8;");
-			st.executeBatch();
 			con.commit();
 			con.setAutoCommit(true);
 		} catch (SQLException e) {
@@ -91,7 +90,6 @@ public class ManagementTables {
 	
 	public void dropTables() throws DaoException {
 		try {
-			con = DriverManager.getConnection(url + jdbcutf8); // ?
 			con.setAutoCommit(false);
 			st = con.createStatement();
 			st.executeUpdate("DROP TABLE IF EXISTS Books;");
