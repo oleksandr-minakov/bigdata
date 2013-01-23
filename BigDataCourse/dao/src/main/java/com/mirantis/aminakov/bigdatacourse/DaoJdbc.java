@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
+
 public class DaoJdbc implements Dao {
 	String driverName = "com.mysql.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:1234/bigdata?user=aminakov&password=bigdata";
@@ -18,14 +21,16 @@ public class DaoJdbc implements Dao {
 	Statement st = null;
 	ResultSet rs = null;
 	PreparedStatement pst = null;
+	public static final Logger LOG = Logger.getLogger(DaoJdbc.class);;
 	
 	public DaoJdbc() throws DaoException {
+		DOMConfigurator.configure("log4j.xml");			// TODO find 
 		try {
 			try {
 				Class.forName(driverName).newInstance();
-			} catch (InstantiationException e) {		//
+			} catch (InstantiationException e) {		
 				throw new DaoException(e);
-			} catch (IllegalAccessException e) {		// 
+			} catch (IllegalAccessException e) {		
 				throw new DaoException(e);
 			}
 			try {
@@ -34,7 +39,7 @@ public class DaoJdbc implements Dao {
 				throw new DaoException(e);
 			}
 		} catch (ClassNotFoundException e) {
-			// TODO add logging
+			LOG.error("Driver not found.", e);
 			throw new DaoException(e);
 		}
 	}
