@@ -2,22 +2,22 @@ package com.mirantis.aminakov.bigdatacourse;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.TreeSet;
 
-//import org.junit.After;
 import org.junit.AfterClass;
-//import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class DaoJdbcTest {
 	static List<Book> books = null;
-	static BookGenerator gen = null;
+	static ManagementBooks gen = null;
 	static DaoJdbc dao = null;
 	
 	@BeforeClass
@@ -33,7 +33,7 @@ public class DaoJdbcTest {
 			e.printStackTrace();
 		}
 		books = new ArrayList<Book>();
-    	gen = new BookGenerator();
+    	gen = new ManagementBooks();
     	books = gen.generateBooks();
 	}
 	
@@ -50,6 +50,7 @@ public class DaoJdbcTest {
 			e.printStackTrace();
 		}
 		books.clear();
+		gen.deleteFiles();
 	}
 	
 	@Test
@@ -131,19 +132,26 @@ public class DaoJdbcTest {
 		assertEquals(expectedAuthors.size(), authors.size());
 	}
 	
-	@Ignore
 	@Test
-	public void testGetBookByText() throws DaoException {
-		int expectedAuthorCounter = 0;
-		InputStream text = gen.texts.get(5);
-		
-		for (Book book : gen.books) {
-			if(book.getText().equals(text))
-				expectedAuthorCounter++;
+	public void testGetBookByText() throws DaoException, IOException {
+		int expected = 0;
+		List<Book> resultBooks = new ArrayList<Book>();
+        File fileExpected = new File("file10.txt");
+        InputStream fis = new FileInputStream(fileExpected);
+		byte[] buf = new byte[10];
+		fis.read(buf, 0, 10);
+		String text = new String(buf);
+		resultBooks = dao.getBookByText(1, 50, text);
+		fis.close();
+		fis = new FileInputStream(fileExpected);
+		for (int i = 0; i < resultBooks.get(0).getText().available(); i++) {
+			if (fis.read() == resultBooks.get(0).getText().read()) {
+				expected = 1;
+			} else {
+				expected = 0;
+			}
 		}
-		TreeSet<String> authors = new TreeSet<String>();
-			authors = dao.getAuthorByGenre(1, 50, "text");  // TODO implement get text from DB to file 
-			assertEquals(expectedAuthorCounter, authors.size());
+		fis.close();
+		assertEquals(expected, 1);
 	}
-
 }
