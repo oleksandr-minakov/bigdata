@@ -14,5 +14,7 @@ public class DaoApp {
     	DOMConfigurator.configure("log4j.xml");
     	System.out.println( "Hello World! From dao." );
     	LOG.debug("Print string <Hello world!>.");
+    	LOG.debug(" <Hello world!>.");
+    	
     }
 }
