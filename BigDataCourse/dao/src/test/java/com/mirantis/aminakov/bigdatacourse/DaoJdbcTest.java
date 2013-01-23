@@ -21,34 +21,24 @@ public class DaoJdbcTest {
 	static DaoJdbc dao = null;
 	
 	@BeforeClass
-	public static void testSetup() {
+	public static void testSetup() throws DaoException {
 		ManagementTables mt;
-		try {
-			dao = new DaoJdbc();
-			mt = new ManagementTables();
-			mt.createTables();
-			mt.closeConnection();
-		} catch (DaoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		dao = new DaoJdbc();
+		mt = new ManagementTables();
+		mt.createTables();
+		mt.closeConnection();
 		books = new ArrayList<Book>();
     	gen = new ManagementBooks();
     	books = gen.generateBooks();
 	}
 	
 	@AfterClass
-	public static void testCleanup() {
+	public static void testCleanup() throws DaoException {
 		ManagementTables mt;
-		try {
-			dao.closeConnection();
-			mt = new ManagementTables();
-			mt.dropTables();
-			mt.closeConnection();
-		} catch (DaoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		dao.closeConnection();
+		mt = new ManagementTables();
+		mt.dropTables();
+		mt.closeConnection();
 		books.clear();
 		gen.deleteFiles();
 	}
