@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class BookGenerator {
+public class ManagementBooks {
 	List<Book> books;
 	List<String> titles;
 	List<String> authors;
@@ -106,10 +106,13 @@ public class BookGenerator {
              book.setText(texts.get(i));
              books.add(book);
 		}
-        for (int del = 0; del < 50; del++) {
+		return books;
+	}
+	
+	public void deleteFiles() {
+		for (int del = 0; del < 50; del++) {
         	File file_del = new File("file" + del + ".txt");
         	file_del.delete();
 		}
-		return books;
 	}
 }
