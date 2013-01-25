@@ -6,6 +6,8 @@ import java.util.TreeSet;
 public interface Dao {
 
 	public int addBook(Book book) throws DaoException;
+	
+	public int delBook(int id) throws DaoException;
 
 	public List<Book> getAllBooks(int pageNum, int pageSize)
 			throws DaoException;

@@ -66,7 +66,7 @@ public class DaoJdbcTest {
 		int i = 10;
 			dao.addBook(books.get(i));
 	}
-
+	
 	@Test
 	public void testGetAllBooks() throws DaoException {
 		List<Book> getBooks = new ArrayList<Book>();
@@ -143,5 +143,17 @@ public class DaoJdbcTest {
 		}
 		fis.close();
 		assertEquals(expected, 1);
+	}
+	
+	@Test
+	public void testDelBook() throws DaoException {
+		int result = dao.delBook(5);
+		assertEquals(0, result);
+	}
+	
+	@Test(expected = DeleteException.class)
+	public void testDelBookException() throws DaoException {
+		dao.delBook(10);
+		dao.delBook(10);
 	}
 }

@@ -1,3 +1,4 @@
+
 package com.mirantis.aminakov.bigdatacourse;
 
 import java.sql.Connection;
@@ -56,8 +57,6 @@ public class DaoJdbc implements Dao {
 			int book_id = 0;
 			rs = st.executeQuery("SELECT * FROM Books WHERE title = '" + book.getTitle() + "';");
 			if (rs.first()) {
-				System.out.println(book.getTitle());
-				System.out.println(rs.getString("title"));
 				con.rollback();
 				throw new BookAlredyExists("Book already exists.");
 			}
@@ -134,6 +133,29 @@ public class DaoJdbc implements Dao {
 			}
         }
 		return id;
+	}
+	
+	
+	@Override
+	public int delBook(int id) throws DaoException {
+		try {
+			st = con.createStatement();
+			int count = st.executeUpdate("DELETE Books, Texts FROM Books, Texts WHERE Books.id = " + id + " AND Books.book_id = Texts.id;");
+			if (count == 0) {
+				throw new DeleteException("Book doesn't exist.");
+			}
+		} catch(SQLException e) {
+			throw new DeleteException("Can't delete book.");
+		} finally {
+            if (st != null) {
+                try {
+					st.close();
+				} catch (SQLException e) {
+					throw new DaoException(e);
+				}
+            }
+        }
+		return 0;
 	}
 	
 	/* (non-Javadoc)
