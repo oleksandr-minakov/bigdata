@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import org.apache.log4j.Logger;
-import org.apache.log4j.xml.DOMConfigurator;
 
 public class ManagementTables {
 	public static final Logger LOG = Logger.getLogger(ManagementTables.class);
@@ -18,8 +17,6 @@ public class ManagementTables {
 	ResultSet rs = null;
 	
 	public ManagementTables() throws DaoException {
-		//FIXME
-		DOMConfigurator.configure("log4j.xml");
 		try {
 			try {
 				Class.forName(driverName).newInstance();

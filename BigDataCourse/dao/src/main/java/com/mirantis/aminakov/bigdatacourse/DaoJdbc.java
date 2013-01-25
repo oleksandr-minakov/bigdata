@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.TreeSet;
 
 import org.apache.log4j.Logger;
-import org.apache.log4j.xml.DOMConfigurator;
 
 public class DaoJdbc implements Dao {
 	String driverName = "com.mysql.jdbc.Driver";
@@ -25,7 +24,6 @@ public class DaoJdbc implements Dao {
 	public static final Logger LOG = Logger.getLogger(DaoJdbc.class);;
 	
 	public DaoJdbc() throws DaoException {
-		DOMConfigurator.configure("log4j.xml");			// TODO find 
 		try {
 			try {
 				Class.forName(driverName).newInstance();
