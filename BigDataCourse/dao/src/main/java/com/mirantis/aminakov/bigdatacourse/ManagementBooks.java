@@ -26,9 +26,9 @@ public class ManagementBooks {
 		
 		char[] arr = { 'a', 'b', 'c', 'd', 'e', ' ', 'f', 'g', 'h', 'i', 'j', ' ', 'k', 'l', 'm', 'n', 'o',
                 ' ', 'p', 'q', 'r', 's', 't', ' ', 'u', 'v', 'w', 'x', 'y', 'z' };
-        int length = 0; 
         Random rand = new Random();
         for (int i = 0; i < 50; i++) {
+        	 int length = 0; 
         	 while (length < 10) {
         	 	 length = rand.nextInt(35);
 			 }
@@ -40,6 +40,7 @@ public class ManagementBooks {
              titles.add(strb.toString());
 		}
         for (int i = 0; i < 15; i++) {
+        	int length = 0; 
        	 	while (length < 8) {
        	 		length = rand.nextInt(15);
        	 	}
@@ -50,6 +51,7 @@ public class ManagementBooks {
             authors.add(strb.toString());
 		}
         for (int i = 0; i < 7; i++) {
+        	int length = 0; 
         	while (length < 10) {
        	 	 	length = rand.nextInt(15);
 			}
@@ -60,7 +62,10 @@ public class ManagementBooks {
             genres.add(strb.toString());
 		}
         for (int i = 0; i < 50; i++) {
-       	 	length = rand.nextInt(200);
+        	int length = 0; 
+       	 	while (length < 50) {
+    	 	 	length = rand.nextInt(200);
+			}
        	 	StringBuilder strb = new StringBuilder();
             for(int j = 0; j < length; j++) {
                 strb.append(arr[rand.nextInt( arr.length )]);
