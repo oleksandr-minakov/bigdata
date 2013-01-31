@@ -7,10 +7,7 @@
 <div id="" style="text-align:center;">
 	You can upload your books.
 </div>
-<h2>Hello World!</h2>
-<p>This is a paragraph.</p>
-<hr>
-<p>This is a paragraph.</p>
+<br>
 <a href="http://www.google.com">Link to GOOGLE</a>
 <table border="1">
 <tr>
@@ -47,15 +44,6 @@
 <input type="file" />  
 </form>
 <br>
-<form>
-<input type="checkbox" name="vehicle" value="Bike">I have a bike<br>
-<input type="checkbox" name="vehicle" value="Car">I have a car
-</form> 
-<br>
-<form name="input" action="html_form_action.asp" method="get">
-Username: <input type="text" name="user">
-<input type="submit" value="Submit">
-</form>  
 
 
 <br>
@@ -69,38 +57,8 @@ Username: <input type="text" name="user">
 </select>
 </form>
 <br>
-<p>Yes, that <em>is</em> what I said. How <strong>very</strong> exciting.</p>
-<br>
-<h1>My first web page</h1>
-
-	<h2>What this is</h2>
-	<p>A simple page put together using HTML</p>
-
-	<h2>Why this is</h2>
-	<ul>
-		<li>To learn HTML</li>
-		<li>To show off</li>
-		<li>Because I've fallen in love with my computer and want to give her some HTML loving.</li>
-	</ul>
-<hr>
-<form action="somescript.php" method="post">
-
-<p>Name:</p>
-<p><input type="text" name="name" value="Your name" /></p>
-
-<p>Comments: </p>
-<p><textarea rows="10" cols="20" name="comments">Your comments</textarea></p>
-
-<p>Are you:</p>
-<p><input type="radio" name="areyou" value="male" /> Male</p>
-<p><input type="radio" name="areyou" value="female" /> Female</p>
-<p><input type="radio" name="areyou" value="hermaphrodite" /> An hermaphrodite</p>
-<p><input type="radio" name="areyou" value="asexual" checked="checked" /> Asexual</p>
 
 <p><input type="submit" /></p>
 
-<p><input type="reset" /></p>
-
-</form>
 </body>
 </html>
