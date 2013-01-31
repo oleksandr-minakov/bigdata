@@ -10,6 +10,6 @@ public class HelloControllerTest {
     public void testHandleRequestView() throws Exception {
         HelloController controller = new HelloController();
         ModelAndView modelAndView = controller.handleRequest(null, null);
-        assertEquals("view.jsp", modelAndView.getViewName());
+        assertEquals("view", modelAndView.getViewName());
     }
 }

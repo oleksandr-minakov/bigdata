@@ -5,4 +5,9 @@
     http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<!-- the application context definition for the springapp DispatcherServlet -->
 	<bean name="/view.htm" class="com.mirantis.aminakov.bigdatacourse.HelloController" />
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
 </beans>
