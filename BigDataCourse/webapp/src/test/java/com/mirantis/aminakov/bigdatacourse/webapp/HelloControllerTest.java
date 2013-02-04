@@ -1,8 +1,10 @@
-package com.mirantis.aminakov.bigdatacourse;
+package com.mirantis.aminakov.bigdatacourse.webapp;
 
 import org.springframework.web.servlet.ModelAndView;
 import static org.junit.Assert.*;
 import org.junit.Test;
+
+import com.mirantis.aminakov.bigdatacourse.webapp.HelloController;
 
 public class HelloControllerTest {
 

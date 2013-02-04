@@ -1,4 +1,4 @@
-package com.mirantis.aminakov.bigdatacourse;
+package com.mirantis.aminakov.bigdatacourse.dao;
 
 import java.io.File;
 import java.io.FileInputStream;

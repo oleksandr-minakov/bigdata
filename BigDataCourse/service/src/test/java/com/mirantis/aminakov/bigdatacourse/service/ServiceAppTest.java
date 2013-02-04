@@ -1,4 +1,4 @@
-package com.mirantis.aminakov.bigdatacourse;
+package com.mirantis.aminakov.bigdatacourse.service;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

@@ -1,8 +1,9 @@
-package com.mirantis.aminakov.bigdatacourse;
+package com.mirantis.aminakov.bigdatacourse.service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
+import com.mirantis.aminakov.bigdatacourse.dao.*;
 
 public class ServiceToDao implements Service {
 

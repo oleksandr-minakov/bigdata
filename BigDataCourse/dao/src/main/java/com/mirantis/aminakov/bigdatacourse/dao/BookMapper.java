@@ -1,4 +1,4 @@
-package com.mirantis.aminakov.bigdatacourse;
+package com.mirantis.aminakov.bigdatacourse.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
