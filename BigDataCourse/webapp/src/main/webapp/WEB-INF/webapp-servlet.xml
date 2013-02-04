@@ -12,7 +12,7 @@
 	
 	
 	<bean name="/index.htm"
-		class="com.mirantis.aminakov.bigdatacourse.HelloController" />
+		class="com.mirantis.aminakov.bigdatacourse.webapp.HelloController" />
 
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
