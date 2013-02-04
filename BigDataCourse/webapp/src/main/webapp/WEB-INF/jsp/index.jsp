@@ -4,61 +4,49 @@
 </head> 
 
 <body>
-<div id="" style="text-align:center;">
-	You can upload your books.
+<div id="title" style="text-align:center;">
+	<b>YOU CAN UPLOAD YOUR BOOKS HERE :)</b>
 </div>
 <br>
-<a href="http://www.google.com">Link to GOOGLE</a>
-<table border="1">
-<tr>
-<th>Id</th>
-<th>Title</th>
-<th>Author</th>
-<th>Genre</th>
-<th>Text</th>
-</tr>
-<tr>
-<td>1</td>
-<td>title 1</td>
-<td>author1</td>
-<td>genre 1</td>
-<td><a href="http://localhost:">Link to text 1</a></td>
-</tr>
-<tr>
-<td>row 2, cell 1</td>
-<td>row 2, cell 2</td>
-<td>row 2, cell 3</td>
-<td>row 2, cell 4</td>
-<td>row 2, cell 5</td>
-</tr>
-<tr>
-<td>row 3, cell 1</td>
-<td>row 3, cell 2</td>
-<td>row 3, cell 3</td>
-<td>row 3, cell 4</td>
-<td>row 3, cell 5</td>
-</tr>
-</table>
+
+<form>
+Title:   <input type="text" name="title">
+<br>
+Author:  <input type="text" name="author">
+<br>
+Genre:   <input type="text" name="genre">
+<br>
+</form>
+<form action="">
+Text:    <input type="file" />
+<br>  
+</form>
+
+<div id="title" style="text-align:center;">
+<form name="upload" action="........." method="post">
+<input type="submit" value="Upload">
+</form> 
+</div>
+<br>
 <hr>
-<form action="">
-<input type="file" />  
+
+<div id="findTitle" style="text-align:center;">
+	<b>YOU CAN FIND BOOKS HERE :)</b>
+</div>
+<form>
+Find:   <input type="text" name="find">
+	by
+	<select name="Find">
+	<option value="by title">Title</option>
+	<option value="by author">Author</option>
+	<option value="by genre">Genre</option>
+	<option value="by text">Text</option>
+	</select>
 </form>
-<br>
-
-
-<br>
-<p>Find by </p>
-<form action="">
-<select name="Find">
-<option value="by title">Title</option>
-<option value="by author">Author</option>
-<option value="by genre">Genre</option>
-<option value="by text">Text</option>
-</select>
-</form>
-<br>
-
-<p><input type="submit" /></p>
-
+<div id="find" style="text-align:center;">
+<form name="find" action="........." method="post">
+<input type="submit" value="Search">
+</form> 
+</div>
 </body>
 </html>
