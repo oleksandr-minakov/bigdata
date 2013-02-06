@@ -19,6 +19,20 @@ public class ServiceToDao implements Service {
 		}
 		return ret;
 	}
+	
+	@Override
+	public List<Book> getAllBooks(int pageNum, int pageSize) {
+		List<Book> books = new ArrayList<Book>();
+		Dao dao;
+		try {
+			dao = new DaoJdbc();
+			books = dao.getAllBooks(pageNum, pageSize);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return books;
+	}
 
 	@Override
 	public List<Book> findByAuthor(int pageNum, int pageSize, String author) {
@@ -89,5 +103,4 @@ public class ServiceToDao implements Service {
 		}
 		return authors;
 	}
-
 }
