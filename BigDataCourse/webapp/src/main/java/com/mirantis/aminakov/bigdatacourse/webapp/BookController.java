@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 
-public class UploadController {
+public class BookController {
 
 
 	@RequestMapping(method=RequestMethod.GET)

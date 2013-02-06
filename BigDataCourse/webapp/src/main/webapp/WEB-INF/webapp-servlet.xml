@@ -15,7 +15,7 @@
 		class="com.mirantis.aminakov.bigdatacourse.webapp.HelloController" />
 	
 	<bean name="/upload.htm"
-		class="com.mirantis.aminakov.bigdatacourse.webapp.UploadController" />
+		class="com.mirantis.aminakov.bigdatacourse.webapp.BookController" />
 		
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" /> 
