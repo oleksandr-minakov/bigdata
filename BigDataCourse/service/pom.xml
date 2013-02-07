@@ -7,7 +7,7 @@
     <groupId>com.mirantis.aminakov.bigdatacourse</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-  <groupId>com.mirantis.aminakov.bigdatacourse</groupId>
+  <groupId>com.mirantis.aminakov.bigdatacourse.service</groupId>
   <artifactId>service</artifactId>
   <version>1.0-SNAPSHOT</version>
   <name>service</name>
@@ -20,14 +20,9 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-    	<groupId>com.mirantis.aminakov.bigdatacourse</groupId>
+    	<groupId>com.mirantis.aminakov.bigdatacourse.dao</groupId>
     	<artifactId>dao</artifactId>
     	<version>1.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-    	<groupId>org.springframework</groupId>
-    	<artifactId>spring-context</artifactId>
-    	<version>3.2.0.RELEASE</version>
     </dependency>
   </dependencies>
   <properties>

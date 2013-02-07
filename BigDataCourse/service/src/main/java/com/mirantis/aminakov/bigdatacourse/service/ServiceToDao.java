@@ -3,11 +3,10 @@ package com.mirantis.aminakov.bigdatacourse.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
-import org.springframework.stereotype.Service;
+
 import com.mirantis.aminakov.bigdatacourse.dao.*;
 
-@Service
-public class ServiceToDao implements com.mirantis.aminakov.bigdatacourse.service.Service {
+public class ServiceToDao implements Service {
 
 	@Override
 	public int addBook(Book book) {

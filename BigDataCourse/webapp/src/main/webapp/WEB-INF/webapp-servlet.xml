@@ -1,31 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+<beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
-						http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+	xsi:schemaLocation="http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context-3.0.xsd
         				http://www.springframework.org/schema/beans 
         				http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
-	<!-- the application context definition for the springapp DispatcherServlet -->
+	<!-- the application context definition for the springapp DispatcherServlet --> 
 	
-		<annotation-driven/>
+	<context:component-scan
+		base-package="com.mirantis.aminakov.bigdatacourse.webapp" />
 		
-	<beans:bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" /> 
+	<context:component-scan
+		base-package="com.mirantis.aminakov.bigdatacourse.service" />
+		
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 
-	<!-- Всю статику (изображения, css-файлы, javascript) положим в папку webapp/resources 
-		и замаппим их на урл вида /resources/** -->
-	<resources mapping="/resources/**" location="/resources/" />
-
-	<beans:bean id="viewResolver"
+	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<beans:property name="prefix" value="/WEB-INF/jsp/" />
-		<beans:property name="suffix" value=".jsp" />
-	</beans:bean>
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
 	
-	<!-- Файл с настройками контроллеров -->
-	<beans:import resource="controllers.xml" />
+	<bean id="service"
+		class="com.mirantis.aminakov.bigdatacourse.service.ServiceToDao" />
+	
+	<bean
+		class="com.mirantis.aminakov.bigdatacourse.webapp.AddBookController">
+		<property name="service" ref="service" />
+	</bean>
 
-</beans:beans>
+</beans>
 
