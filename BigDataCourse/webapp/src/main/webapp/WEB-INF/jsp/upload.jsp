@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf8" pageEncoding="utf8"%>
-
- <%@ page import="java.util.*" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="java.util.*" %>
 
 <html>
 <head>
@@ -12,4 +12,5 @@
 <%java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/yyyy"); %>
 
 <h1>Current Date: <%= df.format(new java.util.Date()) %> </h1>
+
 </body>

@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+						http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+        				http://www.springframework.org/schema/beans 
+        				http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 	<!-- the application context definition for the springapp DispatcherServlet -->
 	
-	<context:annotation-config>
 		<annotation-driven/>
-	</context:annotation-config>
-	
-	
-	<bean name="/index.htm"
-		class="com.mirantis.aminakov.bigdatacourse.webapp.HelloController" />
-	
-	<bean name="/upload.htm"
-		class="com.mirantis.aminakov.bigdatacourse.webapp.BookController" />
 		
-	<bean id="multipartResolver"
+	<beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" /> 
 
-	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/jsp/"></property>
-		<property name="suffix" value=".jsp"></property>
-	</bean>
+	<!-- Всю статику (изображения, css-файлы, javascript) положим в папку webapp/resources 
+		и замаппим их на урл вида /resources/** -->
+	<resources mapping="/resources/**" location="/resources/" />
 
-</beans>
+	<beans:bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/jsp/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<!-- Файл с настройками контроллеров -->
+	<beans:import resource="controllers.xml" />
+
+</beans:beans>
 

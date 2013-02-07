@@ -1,12 +1,27 @@
 package com.mirantis.aminakov.bigdatacourse.dao;
 
 import java.io.InputStream;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
+
+@Entity
+@Table(name = "BOOKS")
 public class Book {
+	@Column(name = "ID")
 	private int id;
+	
+	@Column(name = "TITLE")
 	private String title;
+	
+	@Column(name = "AUTHOR")
 	private String author;
+	
+	@Column(name = "GENRE")
 	private String genre;
+	
+	@Column(name = "TEXT")
 	private InputStream text;
 	
 	public int getId() {

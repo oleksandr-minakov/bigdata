@@ -6,7 +6,7 @@
 
 <html>
 <head>
-<title>Books database</title>
+<title><spring:message code="label.name" /></title>
 </head> 
 
 <body>
@@ -17,7 +17,7 @@
 
 
 
- 
+<!-- 
 <form>
 Title:   <input type="text" name="title">
 <br>
@@ -26,22 +26,49 @@ Author:  <input type="text" name="author">
 Genre:   <input type="text" name="genre">
 <br>
 </form>
-<!-- 
+ 
 <form action="">
 Text:    <input type="file" />
 <br>  
 </form>
  -->
+  
+<form:form method="post" action="upload" enctype="multipart/form-data" commandName="book">
 
+	<table>
+		<tr>
+			<td><label for="title"> </label></td>
+  			<td><input type="text" id="title"></td>
+		</tr>
+		
+		<tr>
+			<td><label for="author"> </label></td>
+  			<td><input type="text" id="author"></td>
+		</tr>
+		<tr>
+			<td><label for="genre"> </label></td>
+  			<td><input type="text" id="genre"></td>
+		</tr>
+		<tr>
+			<td><label for="text"> </label></td>
+  			<td><input id="text" type="file" name="file"></td>
+		</tr>
+		 
+		<tr>
+			<td colspan="2"><input type="submit"
+				value="<spring:message code="label.addbook"/>" /></td>
+		</tr>
+	</table>
+</form:form>
+
+<!--
 <form id="upload" action="/webapp/upload.htm" method="post" enctype="multipart/form-data" class="cleanform">
 <label for="file">File</label>
 <input id="file" type="file" name="file" />
 <p><button type="submit">Upload</button></p>
-<!-- 
 <input type="submit" value="Upload">
- -->
 </form> 
- 
+ -->
 <br>
 <hr>
 
