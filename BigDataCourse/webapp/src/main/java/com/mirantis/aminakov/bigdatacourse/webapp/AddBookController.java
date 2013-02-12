@@ -1,21 +1,21 @@
 package com.mirantis.aminakov.bigdatacourse.webapp;
 
 import java.io.IOException;
-//import java.util.Map;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.service.Service;
-//import com.mirantis.aminakov.bigdatacourse.dao.Book;
 
 @Controller
-@RequestMapping("/addbook")
 public class AddBookController {
 
 	private Service service;
@@ -30,15 +30,33 @@ public class AddBookController {
 		return "addbook";
 	}
 	
-	/*public String getAllBooks(Map<String, Object> map, int pageNum, int pageSize) {
+	@RequestMapping("/")
+    public String home() {
+        return "redirect:/welcome";
+    }
+	
+	@RequestMapping(value = "/search", method=RequestMethod.GET)
+	public String getAllBooks(Map<String, Object> map) {
 		map.put("book", new Book());
-		map.put("bookList", service.getAllBooks(pageNum, pageSize));
-		return "index";
-	}*/
-
-
-	@RequestMapping(method=RequestMethod.POST)
-	public void processUpload(@RequestParam MultipartFile file, Model model) throws IOException {
-		model.addAttribute("message", "File '" + file.getOriginalFilename() + "' uploaded successfully");
+		int pageNum = 1;
+		int pageSize = 10;
+		map.put("books", service.getAllBooks(pageNum, pageSize));
+		return "search";
+	}
+	
+	@RequestMapping(value = "/addbook", method=RequestMethod.POST)
+	public String processUpload(@ModelAttribute("book") Book book, @RequestParam MultipartFile file, Model model) throws IOException {
+		book.setText(file.getInputStream());
+		int id = 0;
+		id = service.addBook(book);
+		if (id != 0) {
+			model.addAttribute("message", "File '" + file.getOriginalFilename() + "' uploaded successfully");
+		} else {
+			model.addAttribute("message", "File '" + file.getOriginalFilename() + "' upload failed");
+		}
+		model.addAttribute("book", book);
+		model.addAttribute("id", id);
+		model.addAttribute("text", book.getText());
+		return "upload";
 	}	
 }
