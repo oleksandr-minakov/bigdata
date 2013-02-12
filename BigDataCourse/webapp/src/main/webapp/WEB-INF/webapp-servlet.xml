@@ -11,9 +11,6 @@
 	<context:component-scan
 		base-package="com.mirantis.aminakov.bigdatacourse.webapp" />
 		
-	<context:component-scan
-		base-package="com.mirantis.aminakov.bigdatacourse.service" />
-		
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 
@@ -21,14 +18,6 @@
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/" />
 		<property name="suffix" value=".jsp" />
-	</bean>
-	
-	<bean id="service"
-		class="com.mirantis.aminakov.bigdatacourse.service.ServiceToDao" />
-	
-	<bean
-		class="com.mirantis.aminakov.bigdatacourse.webapp.AddBookController">
-		<property name="service" ref="service" />
 	</bean>
 
 </beans>

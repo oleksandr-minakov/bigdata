@@ -8,4 +8,7 @@
 	
 	<context:annotation-config/>
 	
+	<bean id="service"
+		class="com.mirantis.aminakov.bigdatacourse.service.ServiceToDao" />
+	
 </beans>
