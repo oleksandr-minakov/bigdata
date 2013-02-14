@@ -57,29 +57,5 @@ Find:   <input type="text" name="find">
 <br>
 <br>
 
-<util:pagination maxPages="${page.totalPages}" maxElements="${page.totalElements}" page="${page.number}"
-   size="${page.size }" ></util:pagination>
-  <table>
-<thead>
-<tr>
-     <td width="2%"></td>
-     <td width="30%">GMail Name</td>
-     <td width="10%">Status</td>
-     <td width="58%">Message</td>
-    </tr>
-</thead>
-   <tbody>
-    <c:set var="first" value="${page.size * page.number}"></c:set>
-    <c:forEach items="${page.content}" var="row" varStatus="status">
-<tr class="${status.count % 2 == 0 ? 'even' : 'odd'}">
-      <td>${first + status.count}</td>
-      <td>${row.googleName}</td>
-      <td>${row.status}</td>
-      <td>${row.message}</td>
-     </tr>
-</c:forEach>
-   </tbody>
-  </table>
-
 </body>
 </html>
