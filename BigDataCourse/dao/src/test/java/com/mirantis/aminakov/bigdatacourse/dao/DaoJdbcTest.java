@@ -84,7 +84,7 @@ public class DaoJdbcTest {
 	}
 
 	@Test
-	public void testGetBookByAuthor() throws DaoException {
+	public void testGetBookByAuthor() throws DaoException {	//FIXME
 		int expectedAuthorCounter = 0;
 		String author = gen.authors.get(5);
 		for (Book book : gen.books) {

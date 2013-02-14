@@ -36,17 +36,37 @@ public class AddBookController {
     }
 	
 	@RequestMapping(value = "/search", method=RequestMethod.GET)
-	public String getAllBooks(Map<String, Object> map) {
-		map.put("book", new Book());
+	public String getAllBooks(Map<String, Object> map, String search, String by, int pageNum, int pageSize) {
+		pageNum = 1;
+		pageSize = 10;
+		if (search.equalsIgnoreCase("")) {
+			map.put("books", service.getAllBooks(pageNum, pageSize));
+		} else {
+			
+		}
+		
+		return "search";
+	}
+	
+	/*@RequestMapping(value = "/search", method=RequestMethod.POST)
+	public String findBooks(Map<String, Object> map) {
 		int pageNum = 1;
 		int pageSize = 10;
 		map.put("books", service.getAllBooks(pageNum, pageSize));
 		return "search";
-	}
+	}*/
 	
 	@RequestMapping(value = "/addbook", method=RequestMethod.POST)
 	public String processUpload(@ModelAttribute("book") Book book, @RequestParam MultipartFile file, Model model) throws IOException {
-		book.setText(file.getInputStream());
+		try {
+			if(!file.isEmpty()) {
+				validateFile(file);
+				book.setText(file.getInputStream());
+			}
+		} catch (ContentTypeError e) {
+			model.addAttribute("message", e.getMessage());
+			return "upload";
+		}
 		int id = 0;
 		id = service.addBook(book);
 		if (id != 0) {
@@ -59,4 +79,10 @@ public class AddBookController {
 		model.addAttribute("text", book.getText());
 		return "upload";
 	}	
+	
+	private void validateFile(MultipartFile file) throws ContentTypeError {
+		if (!file.getContentType().equals("text/plain")) {
+			throw new ContentTypeError("ERROR. Only *.txt accepted.");
+		}
+	}
 }

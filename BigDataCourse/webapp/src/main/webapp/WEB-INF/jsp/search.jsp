@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf8" pageEncoding="utf8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="java.util.*" %>
-
+<?xml version="1.0" encoding="UTF-8"?>
 <html>
 <head>
 <title>All books</title>
@@ -31,7 +31,7 @@ Find:   <input type="text" name="find">
 </form>
 <br>
 <div id="find" style="text-align:center;">
-<form name="find" method="get">
+<form name="find" method="POST">
 <input type="submit" value="Search">
 </form> 
 </div>
@@ -54,6 +54,32 @@ Find:   <input type="text" name="find">
 		</tr>
 	</c:forEach>
 </table>
+<br>
+<br>
+
+<util:pagination maxPages="${page.totalPages}" maxElements="${page.totalElements}" page="${page.number}"
+   size="${page.size }" ></util:pagination>
+  <table>
+<thead>
+<tr>
+     <td width="2%"></td>
+     <td width="30%">GMail Name</td>
+     <td width="10%">Status</td>
+     <td width="58%">Message</td>
+    </tr>
+</thead>
+   <tbody>
+    <c:set var="first" value="${page.size * page.number}"></c:set>
+    <c:forEach items="${page.content}" var="row" varStatus="status">
+<tr class="${status.count % 2 == 0 ? 'even' : 'odd'}">
+      <td>${first + status.count}</td>
+      <td>${row.googleName}</td>
+      <td>${row.status}</td>
+      <td>${row.message}</td>
+     </tr>
+</c:forEach>
+   </tbody>
+  </table>
 
 </body>
 </html>
