@@ -36,14 +36,14 @@ public class AddBookController {
     }
 	
 	@RequestMapping(value = "/search", method=RequestMethod.GET)
-	public String getAllBooks(Map<String, Object> map, String search, String by, int pageNum, int pageSize) {
-		pageNum = 1;
-		pageSize = 10;
-		if (search.equalsIgnoreCase("")) {
+	public String getAllBooks(Map<String, Object> map) {
+		int pageNum = 1;
+		int pageSize = 10;
+//		if (search.equalsIgnoreCase("")) {
 			map.put("books", service.getAllBooks(pageNum, pageSize));
-		} else {
+//		} else {
 			
-		}
+//		}
 		
 		return "search";
 	}
