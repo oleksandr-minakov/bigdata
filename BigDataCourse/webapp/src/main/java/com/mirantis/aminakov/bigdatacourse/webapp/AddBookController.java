@@ -1,6 +1,8 @@
 package com.mirantis.aminakov.bigdatacourse.webapp;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +38,37 @@ public class AddBookController {
     }
 	
 	@RequestMapping(value = "/search", method=RequestMethod.GET)
-	public String getAllBooks(Map<String, Object> map) {
-		int pageNum = 1;
+	public String getBooks(Map<String, Object> map, /*String find, String by,*/
+			@RequestParam Integer pageNum, Model model) {
 		int pageSize = 10;
-//		if (search.equalsIgnoreCase("")) {
-			map.put("books", service.getAllBooks(pageNum, pageSize));
+		List<Book> books = new ArrayList<Book>();
+//		if (find.equalsIgnoreCase("")) {
+			books = service.getAllBooks(pageNum, pageSize);
+			map.put("books", books);
+			model.addAttribute("numberOfPages", books.size());
+			model.addAttribute("currentPage", pageNum);
 //		} else {
-			
+//			map.put("books", service.getAllBooks(pageNum, pageSize));
+			/*switch (by) {
+			case "title":
+					map.put("books", service.findByTitle(pageNum, pageSize, find));
+				break;
+				
+			case "author":
+					map.put("books", service.findByAuthor(pageNum, pageSize, find));		
+				break;
+				
+			case "genre":
+					map.put("books", service.findByGenre(pageNum, pageSize, find));
+				break;
+				
+			case "text":
+					map.put("books", service.findByText(pageNum, pageSize, find));
+				break;
+
+			default:
+				break;
+			}*/
 //		}
 		
 		return "search";

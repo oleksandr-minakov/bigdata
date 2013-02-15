@@ -31,7 +31,7 @@ Find:   <input type="text" name="find">
 </form>
 <br>
 <div id="find" style="text-align:center;">
-<form name="find" method="POST">
+<form name="find" method="GET">
 <input type="submit" value="Search">
 </form> 
 </div>
@@ -55,7 +55,40 @@ Find:   <input type="text" name="find">
 	</c:forEach>
 </table>
 <br>
+
+    <c:if test="${currentPage != 1}">
+        <td><a href="search?pageNum=${currentPage - 1}">Previous</a></td>
+    </c:if>
+    
+    
+    
+    <table border="1">
+        <tr>
+        
+        
+        <!-- 
+            <c:forEach begin="1" end="${numberOfPage}" var="i">
+                <c:choose>
+                    <c:when test="${currentPage eq i}">
+                        <td>${i}</td>
+                    </c:when>
+                    <c:otherwise>
+                        <td><a href="search?pageNum=${i}">${i}</a></td>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+         -->
+        </tr>
+    </table>
+ 
+    <c:if test="${numberOfPages eq 10}">
+        <td><a href="search?pageNum=${currentPage + 1}">Next</a></td>
+    </c:if>
+
 <br>
+
+<h2>Status: ${numberOfPages} pages.</h2>
+
 
 </body>
 </html>
