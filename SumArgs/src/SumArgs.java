@@ -9,7 +9,7 @@ public class SumArgs {
 		try {
 			for (int i = 0; i < args.length; i++)
 				sum += Integer.parseInt(args[i]);
-			System.out.println("Сумма равна " + sum);
+			System.out.println("Summ " + sum);
 		} catch(NumberFormatException err) {
 			System.err.println("Ошибка " + err);
 		}
