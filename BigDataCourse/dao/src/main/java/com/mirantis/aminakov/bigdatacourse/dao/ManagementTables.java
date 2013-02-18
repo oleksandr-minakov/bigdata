@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 public class ManagementTables {
 	public static final Logger LOG = Logger.getLogger(ManagementTables.class);
 	String driverName = "com.mysql.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:1234/bigdata?user=aminakov&password=bigdata";
+	String url = "jdbc:mysql://localhost:3306/bigdata?user=aminakov&password=bigdata";
 	String jdbcutf8 = "&useUnicode=true&characterEncoding=UTF-8";
 	protected Connection con = null;
 	Statement st = null;
