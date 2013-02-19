@@ -8,7 +8,6 @@ import java.util.TreeSet;
 
 import me.prettyprint.hector.api.Cluster;
 import me.prettyprint.hector.api.factory.HFactory;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao1.Book;
@@ -26,7 +25,6 @@ public class GetBookByTests {
 		bstate = new Book();
 		fstate = new Book();
 	}
-	@Ignore
 	@Test
 	public void getBookByTitleTest(){
 		
@@ -54,7 +52,7 @@ public class GetBookByTests {
 		} catch (FileNotFoundException | DAOException e) {e.printStackTrace();}
 		
 	}
-	@Ignore
+	
 	@Test
 	public void getBookByAuthorTest(){
 		
