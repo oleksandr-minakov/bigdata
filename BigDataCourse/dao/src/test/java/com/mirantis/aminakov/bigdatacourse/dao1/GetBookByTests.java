@@ -4,10 +4,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
+
 import me.prettyprint.hector.api.Cluster;
 import me.prettyprint.hector.api.factory.HFactory;
-
-import org.apache.log4j.BasicConfigurator;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao1.Book;
@@ -25,11 +26,10 @@ public class GetBookByTests {
 		bstate = new Book();
 		fstate = new Book();
 	}
-	
+	@Ignore
 	@Test
 	public void getBookByTitleTest(){
 		
-		BasicConfigurator.configure();
 		List<Book> after = new ArrayList<Book>();
 		setUp();
 		Cluster clstr = HFactory.getOrCreateCluster(Constants.CLUSTER_NAME, Constants.HOST_DEF+":9160");
@@ -41,10 +41,10 @@ public class GetBookByTests {
 		try {
 			for(int i = 0; i< 10; ++i){
 				
-				bstate.newBook(i, new String("CassandraTest" + String.valueOf(i)), "Test", "Tester", new FileInputStream("books/testbook"));
+				bstate.newBook("CassandraTest"+i, "Test", "Tester", new FileInputStream("books/testbook"));
 				dao.addBook(bstate);
 			}
-			after = dao.getBookByTitle(1, 40, new String("CassandraTest" + String.valueOf(5)));
+			after = dao.getBookByTitle(1, 10, new String("CassandraTest4"));
 			
 			for(Book book: after){
 				System.out.println(book.getTitle());
@@ -54,22 +54,88 @@ public class GetBookByTests {
 		} catch (FileNotFoundException | DAOException e) {e.printStackTrace();}
 		
 	}
-	
+	@Ignore
 	@Test
 	public void getBookByAuthorTest(){
 		
+		List<Book> after = new ArrayList<Book>();
+		setUp();
+		Cluster clstr = HFactory.getOrCreateCluster(Constants.CLUSTER_NAME, Constants.HOST_DEF+":9160");
+		
+		if(clstr.describeKeyspace(Constants.KEYSPACE_NAME) != null)
+			clstr.dropKeyspace(Constants.KEYSPACE_NAME, true);
+		
+		DAOApp dao = new DAOApp();
+		try {
+			for(int i = 0; i< 10; ++i){
+				
+				bstate.newBook("CassandraTest", "Test"+i, "Tester", new FileInputStream("books/testbook"));
+				dao.addBook(bstate);
+			}
+			after = dao.getBookByAuthor(1, 10, new String("Test4"));
+			
+			for(Book book: after){
+				System.out.println(book.getAuthor());
+			}
+
+			clstr.dropKeyspace(Constants.KEYSPACE_NAME);
+		} catch (FileNotFoundException | DAOException e) {e.printStackTrace();}
 		
 	}
 	
 	@Test
 	public void getBookByGenreTest(){
 		
+		List<Book> after = new ArrayList<Book>();
+		setUp();
+		Cluster clstr = HFactory.getOrCreateCluster(Constants.CLUSTER_NAME, Constants.HOST_DEF+":9160");
+		
+		if(clstr.describeKeyspace(Constants.KEYSPACE_NAME) != null)
+			clstr.dropKeyspace(Constants.KEYSPACE_NAME, true);
+		
+		DAOApp dao = new DAOApp();
+		try {
+			for(int i = 0; i< 10; ++i){
+				
+				bstate.newBook("CassandraTest", "Test", "Tester"+i, new FileInputStream("books/testbook"));
+				dao.addBook(bstate);
+			}
+			after = dao.getBookByGenre(1, 10, new String("Tester4"));
+			
+			for(Book book: after){
+				System.out.println(book.getAuthor());
+			}
+
+			clstr.dropKeyspace(Constants.KEYSPACE_NAME);
+		} catch (FileNotFoundException | DAOException e) {e.printStackTrace();}
 		
 	}
 	
 	@Test
-	public void getBookByTextTest(){
+	public void getAythorByGenreTest(){
 		
+		TreeSet<String> after = new TreeSet<String>();
+		setUp();
+		Cluster clstr = HFactory.getOrCreateCluster(Constants.CLUSTER_NAME, Constants.HOST_DEF+":9160");
+		
+		if(clstr.describeKeyspace(Constants.KEYSPACE_NAME) != null)
+			clstr.dropKeyspace(Constants.KEYSPACE_NAME, true);
+		
+		DAOApp dao = new DAOApp();
+		try {
+			for(int i = 0; i< 10; ++i){
+				
+				bstate.newBook("CassandraTest", "Test"+i, "Tester"+i, new FileInputStream("books/testbook"));
+				dao.addBook(bstate);
+			}
+			after = dao.getAuthorByGenre(1, 10, new String("Tester5"));
+			
+			for(String book: after){
+				System.out.println(book);
+			}
+
+			clstr.dropKeyspace(Constants.KEYSPACE_NAME);
+		} catch (FileNotFoundException | DAOException e) {e.printStackTrace();}
 		
 	}
 	

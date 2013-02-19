@@ -33,7 +33,7 @@ public class GetRangedSliceTest {
 		try {
 			for(int i = 0; i< 40; ++i){
 				
-				beggining_state.newBook(i, new String("CassandraTest" + String.valueOf(i)), new String("Test" + String.valueOf(i)), new String("Tester" + String.valueOf(i)), new FileInputStream("books/testbook"));
+				beggining_state.newBook(new String("CassandraTest" + String.valueOf(i)), new String("Test" + String.valueOf(i)), new String("Tester" + String.valueOf(i)), new FileInputStream("books/testbook"));
 				dao.addBook(beggining_state);
 			}
 			after = dao.getAllBooks(1, 40);

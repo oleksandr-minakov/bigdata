@@ -95,7 +95,7 @@ public class DAOApp implements DAO{
 		
 		for(Book book: books){
 			
-			if(book.getText().equals(title)){
+			if(book.getTitle().equals(title)){
 				titledBooks.add(book);
 			}
 		}
@@ -110,9 +110,12 @@ public class DAOApp implements DAO{
 		
 		for(Book book: books){
 			
-			if(book.getAuthor().equals(text)){
-				booksByText.add(book);
-			}
+			try {
+				if(book.getReadbleText().equals(text)){
+					booksByText.add(book);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();}
 		}
 		return booksByText;
 	}
@@ -154,7 +157,7 @@ public class DAOApp implements DAO{
 		List<Book> authorByGenre = new ArrayList<Book>();
 		TreeSet<String> authors = new TreeSet<String>();
 		for(Book book: books){
-			if(book.getGenre().equalsIgnoreCase(genre)){
+			if(book.getGenre().equals(genre)){
 				authors.add(book.getAuthor());
 			}
 		}

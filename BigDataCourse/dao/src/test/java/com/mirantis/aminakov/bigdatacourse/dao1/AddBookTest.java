@@ -22,7 +22,7 @@ public class AddBookTest {
 		DAOApp dao = new DAOApp();
 		Book beggining_state = new Book();
 		try {
-			beggining_state.newBook(0, "CassandraTest", "Test", "Tester", new FileInputStream("books/testbook"));
+			beggining_state.newBook("CassandraTest", "Test", "Tester", new FileInputStream("books/testbook"));
 			dao.addBook(beggining_state);
 			System.out.println(beggining_state.getId());
 		} catch (FileNotFoundException | DAOException e) {

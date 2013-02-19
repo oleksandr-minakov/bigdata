@@ -12,9 +12,9 @@ public class Book {
 		return new String(newText);
 	}
 	
-	public void newBook(int id, String title, String author, String genre, InputStream text){
+	public void newBook(String title, String author, String genre, InputStream text){
 		
-		this.id=id;this.title=title;this.text=text;
+		this.title=title;this.text=text;
 		this.author=author;this.genre=genre;
 	}
 	
