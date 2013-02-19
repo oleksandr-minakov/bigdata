@@ -1,11 +1,12 @@
 package com.mirantis.aminakov.bigdatacourse.dao1;
 
+import static org.junit.Assert.*;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.Assert;
 import me.prettyprint.hector.api.Cluster;
 import me.prettyprint.hector.api.factory.HFactory;
 
@@ -38,8 +39,8 @@ public class GetPageTest {
 				dao.addBook(beggining_state);
 			}
 			
-			Assert.assertNotNull(dao.getAllBooks(2, 10));
-			Assert.assertEquals(dao.getAllBooks(2, 10).size(), 10);
+			assertNotNull(dao.getAllBooks(2, 10));
+			assertEquals(dao.getAllBooks(2, 10).size(), 10);
 			
 		} catch (FileNotFoundException | DAOException e) {e.printStackTrace();}
 	}

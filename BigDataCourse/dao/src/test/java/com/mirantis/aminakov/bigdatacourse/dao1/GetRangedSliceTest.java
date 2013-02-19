@@ -1,11 +1,11 @@
 package com.mirantis.aminakov.bigdatacourse.dao1;
 
+import static org.junit.Assert.*;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-
-import junit.framework.Assert;
 import me.prettyprint.hector.api.Cluster;
 import me.prettyprint.hector.api.factory.HFactory;
 import org.apache.log4j.BasicConfigurator;
@@ -37,11 +37,11 @@ public class GetRangedSliceTest {
 				dao.addBook(beggining_state);
 			}
 			after = dao.getAllBooks(1, 40);
-			Assert.assertFalse(before.equals(after));
+			assertFalse(before.equals(after));
 			after = dao.getAllBooks(2, 20);
-			Assert.assertFalse(before.equals(after));
+			assertFalse(before.equals(after));
 			after = dao.getAllBooks(3, 11);
-			Assert.assertFalse(before.equals(after));
+			assertFalse(before.equals(after));
 		} catch (FileNotFoundException | DAOException e) {e.printStackTrace();}
 	}
 }
