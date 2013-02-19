@@ -49,7 +49,7 @@ public class DAOApp implements DAO{
 
 	@Override
 	public int addBook(Book book) throws DAOException {
-		
+		bookID++;
 		book.setId(bookID);
 		try{
 			Mutator<String> mutator = HFactory.createMutator(ksOper, StringSerializer.get());
@@ -57,7 +57,6 @@ public class DAOApp implements DAO{
 				mutator.insert("book "+ String.valueOf(book.getId()), Constants.CF_NAME, col);
 		}catch (HectorException | IOException e) {
             e.printStackTrace();}
-		bookID++;
 		return book.getId();
 	}
 

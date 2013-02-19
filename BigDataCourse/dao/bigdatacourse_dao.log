@@ -1,0 +1,210 @@
+16:36:07,513  INFO main CassandraHostRetryService:<init>:48 - Downed Host Retry service started with queue size -1 and retry delay 10s
+16:36:07,520 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:36:07,526 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:36:07,528 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:36:07,528 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:36:07,529 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:36:07,529 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:36:07,529 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:36:07,530 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:36:07,530 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:36:07,531 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:36:07,531 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:36:07,531 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:36:07,532 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:36:07,532 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:36:07,533 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:36:07,533 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:36:07,533 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:36:07,534 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:36:07,534 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:36:07,534 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:36:07,535 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:36:07,535 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:36:07,535 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:36:07,536 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:36:07,536 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:36:07,536 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:36:07,537 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:36:07,537 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:36:07,537 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:36:07,538 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:36:07,538 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:36:07,538 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:36:07,539 DEBUG main ConcurrentHClientPool:<init>:57 - Concurrent Host pool started with 16 active clients; max: 50 exhausted wait: 0
+16:36:07,576  INFO main JmxMonitor:registerMonitor:52 - Registering JMX me.prettyprint.cassandra.service_Test Cluster:ServiceType=hector,MonitorType=hector
+16:36:07,767 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:39:24,679  INFO main CassandraHostRetryService:<init>:48 - Downed Host Retry service started with queue size -1 and retry delay 10s
+16:39:24,687 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:39:24,700 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:39:24,703 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:39:24,703 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:39:24,704 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:39:24,704 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:39:24,705 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:39:24,705 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:39:24,706 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:39:24,706 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:39:24,707 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:39:24,707 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:39:24,707 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:39:24,708 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:39:24,708 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:39:24,708 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:39:24,709 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:39:24,709 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:39:24,710 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:39:24,710 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:39:24,710 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:39:24,711 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:39:24,711 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:39:24,711 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:39:24,712 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:39:24,712 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:39:24,712 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:39:24,713 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:39:24,713 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:39:24,713 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:39:24,714 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:39:24,714 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:39:24,714 DEBUG main ConcurrentHClientPool:<init>:57 - Concurrent Host pool started with 16 active clients; max: 50 exhausted wait: 0
+16:39:24,751  INFO main JmxMonitor:registerMonitor:52 - Registering JMX me.prettyprint.cassandra.service_Test Cluster:ServiceType=hector,MonitorType=hector
+16:39:24,974 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:39:25,179 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:39:25,184 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:39:25,186 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:39:25,187 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:39:25,189 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:42:36,668  INFO main CassandraHostRetryService:<init>:48 - Downed Host Retry service started with queue size -1 and retry delay 10s
+16:42:36,676 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:42:36,681 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:42:36,683 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:42:36,684 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:42:36,684 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:42:36,685 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:42:36,685 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:42:36,685 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:42:36,686 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:42:36,686 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:42:36,687 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:42:36,687 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:42:36,688 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:42:36,688 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:42:36,688 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:42:36,689 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:42:36,689 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:42:36,689 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:42:36,690 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:42:36,690 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:42:36,691 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:42:36,691 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:42:36,691 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:42:36,692 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:42:36,692 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:42:36,692 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:42:36,693 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:42:36,693 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:42:36,693 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:42:36,694 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:42:36,694 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:42:36,694 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:42:36,695 DEBUG main ConcurrentHClientPool:<init>:57 - Concurrent Host pool started with 16 active clients; max: 50 exhausted wait: 0
+16:42:36,732  INFO main JmxMonitor:registerMonitor:52 - Registering JMX me.prettyprint.cassandra.service_Test Cluster:ServiceType=hector,MonitorType=hector
+16:42:36,939 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:42:37,132 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:42:37,137 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:42:37,138 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:42:37,140 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:42:37,141 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:43:19,196  INFO main CassandraHostRetryService:<init>:48 - Downed Host Retry service started with queue size -1 and retry delay 10s
+16:43:19,204 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:19,209 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:19,211 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:19,212 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:19,212 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:19,213 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:19,213 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:19,213 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:19,214 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:19,214 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:19,215 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:19,215 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:19,216 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:19,216 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:19,216 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:19,217 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:19,217 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:19,217 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:19,218 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:19,218 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:19,218 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:19,219 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:19,219 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:19,219 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:19,220 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:19,220 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:19,221 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:19,221 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:19,221 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:19,221 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:19,222 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:19,222 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:19,223 DEBUG main ConcurrentHClientPool:<init>:57 - Concurrent Host pool started with 16 active clients; max: 50 exhausted wait: 0
+16:43:19,259  INFO main JmxMonitor:registerMonitor:52 - Registering JMX me.prettyprint.cassandra.service_Test Cluster:ServiceType=hector,MonitorType=hector
+16:43:19,456 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:43:19,612 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:43:19,617 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:43:19,618 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:43:19,620 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:43:19,621 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:43:36,008  INFO main CassandraHostRetryService:<init>:48 - Downed Host Retry service started with queue size -1 and retry delay 10s
+16:43:36,016 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:36,021 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:36,023 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:36,024 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:36,024 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:36,025 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:36,025 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:36,026 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:36,026 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:36,026 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:36,027 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:36,027 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:36,028 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:36,028 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:36,028 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:36,029 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:36,029 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:36,029 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:36,030 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:36,030 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:36,030 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:36,031 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:36,031 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:36,031 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:36,032 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:36,032 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:36,033 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:36,033 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:36,033 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:36,033 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:36,034 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+16:43:36,034 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+16:43:36,035 DEBUG main ConcurrentHClientPool:<init>:57 - Concurrent Host pool started with 16 active clients; max: 50 exhausted wait: 0
+16:43:36,071  INFO main JmxMonitor:registerMonitor:52 - Registering JMX me.prettyprint.cassandra.service_Test Cluster:ServiceType=hector,MonitorType=hector
+16:43:36,259 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:43:36,528 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:43:36,534 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:43:36,535 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:43:36,536 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:43:36,537 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:43:36,539 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:43:36,540 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:43:36,541 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:43:36,542 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:43:36,542 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:43:36,543 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:43:36,544 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:43:36,545 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:43:36,546 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+16:43:36,547 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf

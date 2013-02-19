@@ -24,6 +24,7 @@ public class AddBookTest {
 		try {
 			beggining_state.newBook(0, "CassandraTest", "Test", "Tester", new FileInputStream("books/testbook"));
 			dao.addBook(beggining_state);
+			System.out.println(beggining_state.getId());
 		} catch (FileNotFoundException | DAOException e) {
 				e.printStackTrace();
 		}
