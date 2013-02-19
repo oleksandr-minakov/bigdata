@@ -27,7 +27,7 @@ public class BookConvTest {
 			
 		try {
 			setUp();
-			bstate.newBook(117, "CassandraTest", "Test", "Tester", new FileInputStream("resources/testbook"));
+			bstate.newBook(117, "CassandraTest", "Test", "Tester", new FileInputStream("books/testbook"));
 			cols = BookConverter.getInstance().book2row(bstate);
 			assertNotNull(cols);
 			

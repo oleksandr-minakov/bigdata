@@ -6,7 +6,6 @@ import me.prettyprint.hector.api.Cluster;
 import me.prettyprint.hector.api.factory.HFactory;
 import org.apache.log4j.BasicConfigurator;
 import org.junit.Test;
-
 import com.mirantis.aminakov.bigdatacourse.dao1.Book;
 import com.mirantis.aminakov.bigdatacourse.dao1.Constants;
 import com.mirantis.aminakov.bigdatacourse.dao1.DAOApp;
@@ -23,12 +22,10 @@ public class AddBookTest {
 		DAOApp dao = new DAOApp();
 		Book beggining_state = new Book();
 		try {
-			beggining_state.newBook(117, "CassandraTest", "Test", "Tester", new FileInputStream("resources/testbook"));
+			beggining_state.newBook(0, "CassandraTest", "Test", "Tester", new FileInputStream("books/testbook"));
 			dao.addBook(beggining_state);
 		} catch (FileNotFoundException | DAOException e) {
 				e.printStackTrace();
 		}
-
 	}
-
 }

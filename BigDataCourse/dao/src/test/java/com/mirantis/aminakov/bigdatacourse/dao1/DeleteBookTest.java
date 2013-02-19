@@ -27,7 +27,7 @@ public class DeleteBookTest {
 		DAOApp dao = new DAOApp();
 		Book beggining_state = new Book();
 		try {
-			beggining_state.newBook(117, "CassandraTest", "Test", "Tester", new FileInputStream("resources/testbook"));
+			beggining_state.newBook(117, "CassandraTest", "Test", "Tester", new FileInputStream("books/testbook"));
 			dao.addBook(beggining_state);
 			dao.delBook(117);
 			clstr.dropKeyspace(Constants.KEYSPACE_NAME);

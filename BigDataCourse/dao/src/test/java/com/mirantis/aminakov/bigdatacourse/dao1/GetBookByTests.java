@@ -41,7 +41,7 @@ public class GetBookByTests {
 		try {
 			for(int i = 0; i< 10; ++i){
 				
-				bstate.newBook(i, new String("CassandraTest" + String.valueOf(i)), "Test", "Tester", new FileInputStream("resources/testbook"));
+				bstate.newBook(i, new String("CassandraTest" + String.valueOf(i)), "Test", "Tester", new FileInputStream("books/testbook"));
 				dao.addBook(bstate);
 			}
 			after = dao.getBookByTitle(1, 40, new String("CassandraTest" + String.valueOf(5)));
