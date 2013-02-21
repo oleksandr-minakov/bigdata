@@ -1,4 +1,4 @@
-package com.mirantis.aminakov.bigdatacourse.dao1;
+package com.mirantis.aminakov.bigdatacourse.dao;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -39,7 +39,7 @@ public class GetBookByTests {
 		try {
 			for(int i = 0; i< 10; ++i){
 				
-				bstate.newBook("CassandraTest"+i, "Test", "Tester", new FileInputStream("books/testbook"));
+				bstate.newBook("CassandraTest"+i, "Test", "Tester", new FileInputStream("src/main/resources/testbook"));
 				dao.addBook(bstate);
 			}
 			after = dao.getBookByTitle(1, 10, new String("CassandraTest4"));
@@ -67,7 +67,7 @@ public class GetBookByTests {
 		try {
 			for(int i = 0; i< 10; ++i){
 				
-				bstate.newBook("CassandraTest", "Test"+i, "Tester", new FileInputStream("books/testbook"));
+				bstate.newBook("CassandraTest", "Test"+i, "Tester", new FileInputStream("src/main/resources/testbook"));
 				dao.addBook(bstate);
 			}
 			after = dao.getBookByAuthor(1, 10, new String("Test4"));
@@ -95,7 +95,7 @@ public class GetBookByTests {
 		try {
 			for(int i = 0; i< 10; ++i){
 				
-				bstate.newBook("CassandraTest", "Test", "Tester"+i, new FileInputStream("books/testbook"));
+				bstate.newBook("CassandraTest", "Test", "Tester"+i, new FileInputStream("src/main/resources/testbook"));
 				dao.addBook(bstate);
 			}
 			after = dao.getBookByGenre(1, 10, new String("Tester4"));
@@ -123,7 +123,7 @@ public class GetBookByTests {
 		try {
 			for(int i = 0; i< 10; ++i){
 				
-				bstate.newBook("CassandraTest", "Test"+i, "Tester"+i, new FileInputStream("books/testbook"));
+				bstate.newBook("CassandraTest", "Test"+i, "Tester"+i, new FileInputStream("src/main/resources/testbook"));
 				dao.addBook(bstate);
 			}
 			after = dao.getAuthorByGenre(1, 10, new String("Tester5"));
