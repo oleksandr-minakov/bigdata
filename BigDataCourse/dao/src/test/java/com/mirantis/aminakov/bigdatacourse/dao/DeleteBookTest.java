@@ -9,10 +9,10 @@ import me.prettyprint.hector.api.factory.HFactory;
 import org.apache.log4j.BasicConfigurator;
 import org.junit.Test;
 
-import com.mirantis.aminakov.bigdatacourse.dao1.Book;
-import com.mirantis.aminakov.bigdatacourse.dao1.Constants;
-import com.mirantis.aminakov.bigdatacourse.dao1.DAOApp;
-import com.mirantis.aminakov.bigdatacourse.dao1.DAOException;
+import com.mirantis.aminakov.bigdatacourse.dao.Book;
+import com.mirantis.aminakov.bigdatacourse.dao.Constants;
+import com.mirantis.aminakov.bigdatacourse.dao.DAOApp;
+import com.mirantis.aminakov.bigdatacourse.dao.DAOException;
 
 public class DeleteBookTest {
 
