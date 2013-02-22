@@ -1,4 +1,4 @@
-package com.mirantis.aminakov.bigdatacourse.dao;
+package com.mirantis.aminakov.bigdatacourse.dao.cassandratests;
 
 import static org.junit.Assert.*;
 
@@ -9,6 +9,7 @@ import java.util.List;
 import me.prettyprint.hector.api.beans.HColumn;
 import org.junit.Test;
 
+import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.BookConverter;
 
 public class BookConvTest {

@@ -1,10 +1,7 @@
-package com.mirantis.aminakov.bigdatacourse.dao;
-
-import static org.junit.Assert.*;
+package com.mirantis.aminakov.bigdatacourse.dao.cassandratests;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 
 import me.prettyprint.hector.api.Cluster;
@@ -14,19 +11,15 @@ import org.apache.log4j.BasicConfigurator;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
-import com.mirantis.aminakov.bigdatacourse.dao.DAOException;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DAOApp;
 
-public class GetPageTest {
-
-	@SuppressWarnings("unused")
+public class GetAllRowKeysTest {
+	
 	@Test
-	public void getpagesTest() {
+	public void getIterList(){
 		
 		BasicConfigurator.configure();
-		List<Book> pagedBookList = new ArrayList<Book>();
-		
 		Cluster clstr = HFactory.getOrCreateCluster(Constants.CLUSTER_NAME, Constants.HOST_DEF+":9160");
 		if(clstr.describeKeyspace(Constants.KEYSPACE_NAME) != null)
 			clstr.dropKeyspace(Constants.KEYSPACE_NAME, true);
@@ -36,14 +29,12 @@ public class GetPageTest {
 			for(int i = 0; i< 40; ++i){
 				
 				beggining_state.newBook(new String("CassandraTest" + String.valueOf(i)), new String("Test" + String.valueOf(i)), new String("Tester" + String.valueOf(i)), new FileInputStream("src/main/resources/testbook"));
-				dao.addBook(beggining_state);
 			}
-			
-			assertNotNull(dao.getAllBooks(2, 10));
-			assertEquals(dao.getAllBooks(2, 10).size(), 10);
-			
-		} catch (FileNotFoundException | DAOException e) {e.printStackTrace();}
+			List<String> keys = dao.getAllRowKeys();
+			for(String key: keys){
+				System.out.println(key);
+			}
+		} catch (FileNotFoundException e) {e.printStackTrace();}
 	}
-		
-}
 
+}

@@ -5,13 +5,10 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TreeSet;
-
 import org.apache.log4j.Logger;
-
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DAO;
 import com.mirantis.aminakov.bigdatacourse.dao.DAOException;
-
 import me.prettyprint.cassandra.model.BasicColumnFamilyDefinition;
 import me.prettyprint.cassandra.model.BasicKeyspaceDefinition;
 import me.prettyprint.cassandra.serializers.StringSerializer;

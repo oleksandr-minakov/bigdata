@@ -1,4 +1,4 @@
-package com.mirantis.aminakov.bigdatacourse.dao;
+package com.mirantis.aminakov.bigdatacourse.dao.cassandratests;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
