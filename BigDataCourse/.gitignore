@@ -13,3 +13,4 @@ webapp/.project
 .project
 *.classpath
 dao/*.txt
+.idea
