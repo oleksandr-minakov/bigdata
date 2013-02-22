@@ -202,7 +202,7 @@ public class DaoJdbc implements Dao {
 			st = con.createStatement();
 			rs = st.executeQuery("SELECT * FROM Books JOIN Authors ON Books.author_id=Authors.id " + 
 					"JOIN Genres ON Books.genre_id=Genres.id JOIN Texts ON Books.book_id=Texts.id " + 
-					"WHERE title = '" + title + "' LIMIT " + (pageNum-1) * pageSize  + "," + pageSize);
+					"WHERE title LIKE '%" + title + "%' LIMIT " + (pageNum-1) * pageSize  + "," + pageSize);
 			BookMapper map = new BookMapper();
 			while (rs.next()) {
 				books.add((Book)map.mapRow(rs, 0));			
@@ -238,7 +238,7 @@ public class DaoJdbc implements Dao {
 			st = con.createStatement();
 			rs = st.executeQuery("SELECT * FROM Books JOIN Authors ON Books.author_id=Authors.id " + 
 					"JOIN Genres ON Books.genre_id=Genres.id JOIN Texts ON Books.book_id=Texts.id " + 
-					"WHERE author = '" + author + "' LIMIT " + (pageNum-1) * pageSize  + "," + pageSize);
+					"WHERE author LIKE '%" + author + "%' LIMIT " + (pageNum-1) * pageSize  + "," + pageSize);
 			BookMapper map = new BookMapper();
 			while (rs.next()) {
 				books.add((Book)map.mapRow(rs, 0));			
@@ -274,7 +274,7 @@ public class DaoJdbc implements Dao {
 			st = con.createStatement();
 			rs = st.executeQuery("SELECT * FROM Books JOIN Authors ON Books.author_id=Authors.id " + 
 					"JOIN Genres ON Books.genre_id=Genres.id JOIN Texts ON Books.book_id=Texts.id " + 
-					"WHERE genre = '" + genre + "' LIMIT " + (pageNum-1) * pageSize  + "," + pageSize);
+					"WHERE genre LIKE '%" + genre + "%' LIMIT " + (pageNum-1) * pageSize  + "," + pageSize);
 			BookMapper map = new BookMapper();
 			while (rs.next()) {
 				books.add((Book)map.mapRow(rs, 0));			
@@ -310,7 +310,7 @@ public class DaoJdbc implements Dao {
 			st = con.createStatement();
 			rs = st.executeQuery("SELECT author FROM Books JOIN Authors ON Books.author_id=Authors.id " + 
 					"JOIN Genres ON Books.genre_id=Genres.id " + 
-					"WHERE genre = '" + genre + "' LIMIT " + (pageNum-1) * pageSize  + "," + pageSize);
+					"WHERE genre LIKE '%" + genre + "%' LIMIT " + (pageNum-1) * pageSize  + "," + pageSize);
 			while (rs.next()) {
 				String name = new String();
 				name = rs.getString("author");
