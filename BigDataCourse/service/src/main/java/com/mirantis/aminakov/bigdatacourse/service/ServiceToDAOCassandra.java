@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.TreeSet;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
-import com.mirantis.aminakov.bigdatacourse.dao.DAOApp;
 import com.mirantis.aminakov.bigdatacourse.dao.DAOException;
+import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DAOApp;
 
 public class ServiceToDAOCassandra implements Service{
 

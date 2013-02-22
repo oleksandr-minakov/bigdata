@@ -372,8 +372,6 @@ public class DaoJdbc implements DAO {
 
 	@Override
 	public void closeConnection() throws DAOException {
-		// TODO Auto-generated method stub
-		
 			if (this.con != null) {
 				try {
 					this.con.close();

@@ -1,10 +1,13 @@
-package com.mirantis.aminakov.bigdatacourse.dao;
+package com.mirantis.aminakov.bigdatacourse.dao.cassandra;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.mirantis.aminakov.bigdatacourse.dao.Book;
+
 import me.prettyprint.hector.api.beans.HColumn;
 import me.prettyprint.hector.api.factory.HFactory;
 

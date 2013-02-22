@@ -1,4 +1,4 @@
-package com.mirantis.aminakov.bigdatacourse.dao;
+package com.mirantis.aminakov.bigdatacourse.dao.cassandra;
 
 public class Constants {
 

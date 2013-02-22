@@ -10,9 +10,9 @@ import org.apache.log4j.BasicConfigurator;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
-import com.mirantis.aminakov.bigdatacourse.dao.Constants;
-import com.mirantis.aminakov.bigdatacourse.dao.DAOApp;
 import com.mirantis.aminakov.bigdatacourse.dao.DAOException;
+import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
+import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DAOApp;
 
 public class DeleteBookTest {
 

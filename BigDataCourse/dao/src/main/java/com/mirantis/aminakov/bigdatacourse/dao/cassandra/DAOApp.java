@@ -1,10 +1,17 @@
-package com.mirantis.aminakov.bigdatacourse.dao;
+package com.mirantis.aminakov.bigdatacourse.dao.cassandra;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TreeSet;
+
+import org.apache.log4j.Logger;
+
+import com.mirantis.aminakov.bigdatacourse.dao.Book;
+import com.mirantis.aminakov.bigdatacourse.dao.DAO;
+import com.mirantis.aminakov.bigdatacourse.dao.DAOException;
+
 import me.prettyprint.cassandra.model.BasicColumnFamilyDefinition;
 import me.prettyprint.cassandra.model.BasicKeyspaceDefinition;
 import me.prettyprint.cassandra.serializers.StringSerializer;
@@ -13,7 +20,6 @@ import me.prettyprint.hector.api.Keyspace;
 import me.prettyprint.hector.api.beans.HColumn;
 import me.prettyprint.hector.api.beans.OrderedRows;
 import me.prettyprint.hector.api.beans.Row;
-import me.prettyprint.hector.api.exceptions.HectorException;
 import me.prettyprint.hector.api.factory.HFactory;
 import me.prettyprint.hector.api.mutation.Mutator;
 import me.prettyprint.hector.api.query.QueryResult;
@@ -21,6 +27,8 @@ import me.prettyprint.hector.api.query.RangeSlicesQuery;
 
 public class DAOApp implements DAO{
 
+	public static final Logger LOG = Logger.getLogger(DAOApp.class);
+	
 	private Cluster clstr;
 	private Keyspace ksOper;
 	private BasicColumnFamilyDefinition CfDef;
@@ -55,8 +63,8 @@ public class DAOApp implements DAO{
 			Mutator<String> mutator = HFactory.createMutator(ksOper, StringSerializer.get());
 			for(HColumn<String, String> col: BookConverter.getInstance().book2row(book))
 				mutator.insert("book "+ String.valueOf(book.getId()), Constants.CF_NAME, col);
-		}catch (HectorException | IOException e) {
-            e.printStackTrace();}
+		}catch (Exception e) {
+            LOG.debug("[" + new Date()+"]"+ "RunTime exception at addBook(Book): "+e.getMessage());}
 		return book.getId();
 	}
 
@@ -71,17 +79,20 @@ public class DAOApp implements DAO{
 	public List<Book> getAllBooks(int pageNum, int pageSize)
 			throws DAOException {
 		
-		List<String> keys = getAllRowKeys();
-		if(pageNum <0 ||pageNum > getPageCount(pageSize)){
+		List<String> keyStorage = getAllRowKeys();
+		
+		List<String> neededKeys;
+		
+		if(pageNum <0 || pageNum > getPageCount(keyStorage, pageSize)){
 			return null;
 		}
 		else{
-			if(pageNum*pageSize > keys.size()){
-				List<String> neededKeys = getAllRowKeys().subList((pageNum-1)*pageSize, keys.size());
+			if(pageNum*pageSize > keyStorage.size()){
+				neededKeys = keyStorage.subList((pageNum-1)*pageSize, keyStorage.size());
 				return getBooks(neededKeys);
 			}
 			else{
-				List<String> neededKeys = getAllRowKeys().subList((pageNum-1)*pageSize, pageNum*pageSize);
+				neededKeys = keyStorage.subList((pageNum-1)*pageSize, pageNum*pageSize);
 				return getBooks(neededKeys);
 			}
 		}
@@ -90,7 +101,9 @@ public class DAOApp implements DAO{
 	@Override
 	public List<Book> getBookByTitle(int pageNum, int pageSize, String title)
 			throws DAOException {
+		
 		List<Book> books = getAllBooks(pageNum, pageSize);
+		
 		List<Book> titledBooks = new ArrayList<Book>();
 		
 		for(Book book: books){
@@ -105,7 +118,9 @@ public class DAOApp implements DAO{
 	@Override
 	public List<Book> getBookByText(int pageNum, int pageSize, String text)
 			throws DAOException {
+		
 		List<Book> books = getAllBooks(pageNum, pageSize);
+		
 		List<Book> booksByText = new ArrayList<Book>();
 		
 		for(Book book: books){
@@ -114,8 +129,8 @@ public class DAOApp implements DAO{
 				if(book.getReadbleText().equals(text)){
 					booksByText.add(book);
 				}
-			} catch (IOException e) {
-				e.printStackTrace();}
+			} catch (Exception e) {
+				 LOG.debug("[" + new Date()+"]"+ "RunTime exception at getBookByText(Book): "+e.getMessage());}
 		}
 		return booksByText;
 	}
@@ -153,6 +168,7 @@ public class DAOApp implements DAO{
 	@Override
 	public TreeSet<String> getAuthorByGenre(int pageNum, int pageSize,
 			String genre) throws DAOException {
+		
 		List<Book> books = getAllBooks(pageNum, pageSize);
 		List<Book> authorByGenre = new ArrayList<Book>();
 		TreeSet<String> authors = new TreeSet<String>();
@@ -189,10 +205,10 @@ public class DAOApp implements DAO{
 		return pagedBooks;
 	}
 
-	public int getPageCount(int pageSize){
+	public int getPageCount(List<String> keys, int pageSize){
 		
-		int pages = getAllRowKeys().size()/pageSize;
-		if(getAllRowKeys().size()%pageSize != 0)
+		int pages = keys.size()/pageSize;
+		if(keys.size()%pageSize != 0)
 			return pages+1;
 		else
 			return pages;

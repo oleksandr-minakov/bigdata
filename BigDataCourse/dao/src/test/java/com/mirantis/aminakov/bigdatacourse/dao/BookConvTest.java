@@ -9,6 +9,8 @@ import java.util.List;
 import me.prettyprint.hector.api.beans.HColumn;
 import org.junit.Test;
 
+import com.mirantis.aminakov.bigdatacourse.dao.cassandra.BookConverter;
+
 public class BookConvTest {
 
 	public Book bstate;
