@@ -104,4 +104,18 @@ public class ServiceToDao implements Service {
 		}
 		return authors;
 	}
+
+	@Override
+	public int getNumberOfRecords() {
+		int numberOfRecords = 0;
+		Dao dao;
+		try {
+			dao = new DaoJdbc();
+			numberOfRecords = dao.getNumberOfRecords();
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return numberOfRecords;
+	}
 }

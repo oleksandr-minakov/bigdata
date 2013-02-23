@@ -28,5 +28,7 @@ public interface Dao {
 			String genre) throws DaoException;
 	
 	public void closeConnection() throws DaoException;
+	
+	public int getNumberOfRecords();
 
 }
