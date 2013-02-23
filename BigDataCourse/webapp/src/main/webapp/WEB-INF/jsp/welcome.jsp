@@ -13,7 +13,7 @@
 </div>
 <br>
 <div style="text-align:center">
-	<h2>Welcome to library</h2>
+	<h2>Welcome to library!</h2>
 	Today is <fmt:formatDate value="${today}" pattern="yyyy-MM-dd" />.
 	<br>
 </div>
