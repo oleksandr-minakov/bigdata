@@ -19,22 +19,22 @@
 <div id="findTitle" style="text-align:center;">
 	<h2>You can find books here</h2>
 </div>
-<form>
-Find:   <input type="text" name="find">
-	by
-	<select name="by">
-	<option value="title">Title</option>
-	<option value="author">Author</option>
-	<option value="genre">Genre</option>
-	<option value="text">Text</option>
+<form name="find" method="GET">
+Find:   <input type="text" name="findString" value="${findString}" >
+	<p>by</p>
+	<select name="findBy">
+	<option>title</option>
+	<option>author</option>
+	<option>genre</option>
+	<option>text</option>
 	</select>
-</form>
+
 <br>
 <div id="find" style="text-align:center;">
-<form name="find" method="GET">
 <input type="submit" value="Search">
-</form> 
 </div>
+</form> 
+
 
 
 
@@ -85,10 +85,8 @@ Find:   <input type="text" name="find">
         <td><a href="search?pageNum=${currentPage + 1}">Next</a></td>
     </c:if>
 
+<h2>Number of records: ${numberOfRecords} </h2>
+
 <br>
-
-<h2>Status: ${numberOfPages} pages.</h2>
-
-
 </body>
 </html>

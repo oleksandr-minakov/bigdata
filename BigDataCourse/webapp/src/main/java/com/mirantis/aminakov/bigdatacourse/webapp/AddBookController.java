@@ -3,7 +3,6 @@ package com.mirantis.aminakov.bigdatacourse.webapp;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,7 @@ import com.mirantis.aminakov.bigdatacourse.service.Service;
 
 @Controller
 public class AddBookController {
-
+	
 	private Service service;
 	
 	@Autowired
@@ -27,60 +26,15 @@ public class AddBookController {
 		this.service = service;
 	}
 	
-	@RequestMapping(method=RequestMethod.GET)
-	public String addForm() {
-		return "addbook";
-	}
-	
 	@RequestMapping("/")
     public String home() {
         return "redirect:/welcome";
     }
 	
-	@RequestMapping(value = "/search", method=RequestMethod.GET)
-	public String getBooks(Map<String, Object> map, /*String find, String by,*/
-			@RequestParam Integer pageNum, Model model) {
-		int pageSize = 10;
-		List<Book> books = new ArrayList<Book>();
-//		if (find.equalsIgnoreCase("")) {
-			books = service.getAllBooks(pageNum, pageSize);
-			map.put("books", books);
-			model.addAttribute("numberOfPages", books.size());
-			model.addAttribute("currentPage", pageNum);
-//		} else {
-//			map.put("books", service.getAllBooks(pageNum, pageSize));
-			/*switch (by) {
-			case "title":
-					map.put("books", service.findByTitle(pageNum, pageSize, find));
-				break;
-				
-			case "author":
-					map.put("books", service.findByAuthor(pageNum, pageSize, find));		
-				break;
-				
-			case "genre":
-					map.put("books", service.findByGenre(pageNum, pageSize, find));
-				break;
-				
-			case "text":
-					map.put("books", service.findByText(pageNum, pageSize, find));
-				break;
-
-			default:
-				break;
-			}*/
-//		}
-		
-		return "search";
+	@RequestMapping(method=RequestMethod.GET)
+	public String addForm() {
+		return "addbook";
 	}
-	
-	/*@RequestMapping(value = "/search", method=RequestMethod.POST)
-	public String findBooks(Map<String, Object> map) {
-		int pageNum = 1;
-		int pageSize = 10;
-		map.put("books", service.getAllBooks(pageNum, pageSize));
-		return "search";
-	}*/
 	
 	@RequestMapping(value = "/addbook", method=RequestMethod.POST)
 	public String processUpload(@ModelAttribute("book") Book book, @RequestParam MultipartFile file, Model model) throws IOException {
@@ -111,4 +65,71 @@ public class AddBookController {
 			throw new ContentTypeError("ERROR. Only *.txt accepted.");
 		}
 	}
+	
+	@RequestMapping(value = "/search", method=RequestMethod.GET)
+	public String getBooks(Integer pageNum, String findString, String findBy, Model model) {
+		
+		int pageSize = 10;
+		if (pageNum == null) {
+			pageNum = 1;
+		} else {
+			//NOP
+		}
+		List<Book> books = new ArrayList<Book>();
+		int numberOfRecords = 0;
+		if (findString == null || findString.equalsIgnoreCase("")) {			//dangerous expression in condition
+			books = service.getAllBooks(pageNum, pageSize);
+			numberOfRecords = service.getNumberOfRecords();
+			model.addAttribute("books", books);
+			model.addAttribute("numberOfPages", books.size());
+			model.addAttribute("currentPage", pageNum);
+			model.addAttribute("numberOfRecords", numberOfRecords);
+		} else {
+//			model.addAttribute("books", service.getAllBooks(pageNum, pageSize));
+//			model.addAttribute("books", service.findByTitle(pageNum, pageSize, findString));
+			model.addAttribute("findString",findString);
+			model.addAttribute("findBy", findBy);
+			by searchBy = by.valueOf(findBy);
+			switch (searchBy) {
+			case title:
+				model.addAttribute("books", service.findByTitle(pageNum, pageSize, findString));
+				model.addAttribute("numberOfRecords", service.getNumberOfRecords());
+				break;
+				
+			case author:
+				model.addAttribute("books", service.findByAuthor(pageNum, pageSize, findString));
+				model.addAttribute("numberOfRecords", service.getNumberOfRecords());
+				break;
+				
+			case genre:
+				model.addAttribute("books", service.findByGenre(pageNum, pageSize, findString));
+				model.addAttribute("numberOfRecords", service.getNumberOfRecords());
+				break;
+				
+			case text:
+				model.addAttribute("books", service.findByText(pageNum, pageSize, findString));
+				model.addAttribute("numberOfRecords", service.getNumberOfRecords());
+				break;
+
+			default:
+				break;
+			}
+		}
+		return "search";
+	}
+	
+	public enum by {
+		title,
+		author,
+		genre,
+		text
+	}
+	
+	/*@RequestMapping(value = "/search", method=RequestMethod.POST)
+	public String findBooks(Map<String, Object> map) {
+		int pageNum = 1;
+		int pageSize = 10;
+		map.put("books", service.getAllBooks(pageNum, pageSize));
+		return "search";
+	}*/
 }
