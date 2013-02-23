@@ -1,4 +1,4 @@
-package com.mirantis.aminakov.bigdatacourse.dao1;
+package com.mirantis.aminakov.bigdatacourse.dao;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
