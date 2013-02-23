@@ -1,6 +1,6 @@
 package com.mirantis.aminakov.bigdatacourse.dao;
 
-public class DeleteException extends DaoException {
+public class DeleteException extends DAOException {
 
 	public DeleteException(Exception e) {
 		super(e);

@@ -4,15 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 
-import com.mirantis.aminakov.bigdatacourse.dao.*;
+import com.mirantis.aminakov.bigdatacourse.dao.Book;
+import com.mirantis.aminakov.bigdatacourse.dao.DAOApp;
+import com.mirantis.aminakov.bigdatacourse.dao.DAOException;
 
-public class ServiceToDao implements Service {
+public class ServiceToDAOCassandra implements Service{
 
+	private DAOApp dao = new DAOApp();
+	
 	@Override
 	public int addBook(Book book) {
 		int ret = 0;
 		try {
-			DAO dao = new DaoJdbc();
 			ret = dao.addBook(book);
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
@@ -24,9 +27,7 @@ public class ServiceToDao implements Service {
 	@Override
 	public List<Book> getAllBooks(int pageNum, int pageSize) {
 		List<Book> books = new ArrayList<Book>();
-		DAO dao;
 		try {
-			dao = new DaoJdbc();
 			books = dao.getAllBooks(pageNum, pageSize);
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
@@ -38,9 +39,7 @@ public class ServiceToDao implements Service {
 	@Override
 	public List<Book> findByAuthor(int pageNum, int pageSize, String author) {
 		List<Book> books = new ArrayList<Book>();
-		DAO dao;
 		try {
-			dao = new DaoJdbc();
 			books = dao.getBookByAuthor(pageNum, pageSize, author);
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
@@ -52,9 +51,7 @@ public class ServiceToDao implements Service {
 	@Override
 	public List<Book> findByTitle(int pageNum, int pageSize, String title) {
 		List<Book> books = new ArrayList<Book>();
-		DAO dao;
 		try {
-			dao = new DaoJdbc();
 			books = dao.getBookByTitle(pageNum, pageSize, title);
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
@@ -66,9 +63,7 @@ public class ServiceToDao implements Service {
 	@Override
 	public List<Book> findByText(int pageNum, int pageSize, String text) {
 		List<Book> books = new ArrayList<Book>();
-		DAO dao;
 		try {
-			dao = new DaoJdbc();
 			books = dao.getBookByText(pageNum, pageSize, text);
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
@@ -80,9 +75,7 @@ public class ServiceToDao implements Service {
 	@Override
 	public List<Book> findByGenre(int pageNum, int pageSize, String genre) {
 		List<Book> books = new ArrayList<Book>();
-		DAO dao;
 		try {
-			dao = new DaoJdbc();
 			books = dao.getBookByGenre(pageNum, pageSize, genre);
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
@@ -94,9 +87,7 @@ public class ServiceToDao implements Service {
 	@Override
 	public TreeSet<String> findAuthorByGenre(int pageNum, int pageSize, String genre) {
 		TreeSet<String> authors = new TreeSet<>();
-		DAO dao;
 		try {
-			dao = new DaoJdbc();
 			authors = dao.getAuthorByGenre(pageNum, pageSize, genre);
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
@@ -104,4 +95,5 @@ public class ServiceToDao implements Service {
 		}
 		return authors;
 	}
+	
 }

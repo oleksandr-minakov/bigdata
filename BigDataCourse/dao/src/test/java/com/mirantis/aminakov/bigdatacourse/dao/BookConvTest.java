@@ -1,4 +1,4 @@
-package com.mirantis.aminakov.bigdatacourse.dao1;
+package com.mirantis.aminakov.bigdatacourse.dao;
 
 import static org.junit.Assert.*;
 
@@ -27,7 +27,7 @@ public class BookConvTest {
 			
 		try {
 			setUp();
-			bstate.newBook("CassandraTest", "Test", "Tester", new FileInputStream("books/testbook"));
+			bstate.newBook("CassandraTest", "Test", "Tester", new FileInputStream("src/main/resources/testbook"));
 			cols = BookConverter.getInstance().book2row(bstate);
 			assertNotNull(cols);
 			
@@ -40,7 +40,7 @@ public class BookConvTest {
 		
 		setUp();
 		try {
-			bstate.newBook("CassandraTest", "Test", "Tester", new FileInputStream("resources/testbook"));
+			bstate.newBook("CassandraTest", "Test", "Tester", new FileInputStream("src/main/resources/testbook"));
 			cols = BookConverter.getInstance().book2row(bstate);
 			fstate = BookConverter.getInstance().row2book(cols);
 			

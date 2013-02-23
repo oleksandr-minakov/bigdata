@@ -1,6 +1,6 @@
 package com.mirantis.aminakov.bigdatacourse.dao;
 
-public class BookAlredyExists extends DaoException {
+public class BookAlredyExists extends DAOException {
 
 	public BookAlredyExists(Exception e) {
 		super(e);
