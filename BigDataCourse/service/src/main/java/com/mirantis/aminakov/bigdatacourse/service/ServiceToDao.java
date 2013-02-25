@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.TreeSet;
 
 import com.mirantis.aminakov.bigdatacourse.dao.*;
+import com.mirantis.aminakov.bigdatacourse.dao.DaoJdbc;
 
 public class ServiceToDao implements Service {
 
@@ -111,7 +112,7 @@ public class ServiceToDao implements Service {
 		Dao dao;
 		try {
 			dao = new DaoJdbc();
-			numberOfRecords = dao.getNumberOfRecords();
+			numberOfRecords = ((ServiceToDao) dao).getNumberOfRecords();
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
