@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf8" pageEncoding="utf8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="java.util.*" %>
 <?xml version="1.0" encoding="UTF-8"?>
 <html>
 <head>
@@ -8,11 +7,11 @@
 </head>
 <body>
 <div id="header" style="background-color:#E6E6E6; text-align:center;">
-	<a href="/webapp/welcome">Welcome page </a> &nbsp;&nbsp;&nbsp;
+	<a href="<c:url value="/welcome"/>">Welcome page </a> &nbsp;&nbsp;&nbsp;
 	
-	<a href="/webapp/addbook">Add book </a> &nbsp;&nbsp;&nbsp;
+	<a href="<c:url value="/addbook"/>">Add book </a> &nbsp;&nbsp;&nbsp;
 	
-	<a href="/webapp/search">Search </a> 
+	<a href="<c:url value="/search"/>">Search </a>
 </div>
 <br>
 
@@ -20,16 +19,21 @@
 	<h2>You can find books here</h2>
 </div>
 <form name="find" method="GET">
-Find:   <input type="text" name="findString" value="${findString}" >
-	<p>by</p>
-	<select name="findBy">
-	<option>title</option>
-	<option>author</option>
-	<option>genre</option>
-	<option>text</option>
-	</select>
+Find: <label>
+    <input type="text" name="findString" value="${findString}">
+</label>
 
-<br>
+    <p>by</p>
+    <label>
+        <select name="findBy">
+            <option>title</option>
+            <option>author</option>
+            <option>genre</option>
+            <option>text</option>
+        </select>
+    </label>
+
+    <br>
 <div id="find" style="text-align:center;">
 <input type="submit" value="Search">
 </div>
