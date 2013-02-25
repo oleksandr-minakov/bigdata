@@ -16,7 +16,7 @@ import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.Dao;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
-import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DAOApp;
+import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoApp;
 @SuppressWarnings("unused")
 
 public class GetBookByTests {
@@ -38,7 +38,7 @@ public class GetBookByTests {
 		List<Book> after = new ArrayList<Book>();
 		setUp();
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
-		Dao dao = new DAOApp(cts);
+		Dao dao = new DaoApp(cts);
 		
 		try {
 			for(int i = 0; i< 10; ++i){
@@ -63,7 +63,7 @@ public class GetBookByTests {
 		List<Book> after = new ArrayList<Book>();
 		setUp();
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
-		Dao dao = new DAOApp(cts);
+		Dao dao = new DaoApp(cts);
 		
 		try {
 			for(int i = 0; i< 10; ++i){
@@ -88,7 +88,7 @@ public class GetBookByTests {
 		List<Book> after = new ArrayList<Book>();
 		setUp();
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
-		Dao dao = new DAOApp(cts);
+		Dao dao = new DaoApp(cts);
 		 
 		try {
 			for(int i = 0; i< 10; ++i){
@@ -114,7 +114,7 @@ public class GetBookByTests {
 		TreeSet<String> after = new TreeSet<String>();
 		setUp();
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
-		Dao dao = new DAOApp(cts);
+		Dao dao = new DaoApp(cts);
 		
 		try {
 			for(int i = 0; i< 10; ++i){

@@ -10,7 +10,7 @@ import org.junit.Test;
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
-import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DAOApp;
+import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoApp;
 
 public class AddBookTest {
 
@@ -20,7 +20,7 @@ public class AddBookTest {
 		BasicConfigurator.configure();
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
 		
-		DAOApp dao = new DAOApp(cts);
+		DaoApp dao = new DaoApp(cts);
 		
 		Book beggining_state = new Book();
 		try {

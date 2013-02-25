@@ -16,7 +16,7 @@ import org.junit.Test;
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
-import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DAOApp;
+import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoApp;
 
 public class GetPageTest {
 
@@ -28,7 +28,7 @@ public class GetPageTest {
 		List<Book> pagedBookList = new ArrayList<Book>();
 		
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
-		DAOApp dao = new DAOApp(cts);
+		DaoApp dao = new DaoApp(cts);
 		
 		
 		Cluster clstr = HFactory.getOrCreateCluster(cts.CLUSTER_NAME, cts.HOST_DEF+":9160");

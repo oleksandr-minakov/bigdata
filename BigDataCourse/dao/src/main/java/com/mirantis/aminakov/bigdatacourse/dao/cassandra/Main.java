@@ -16,7 +16,7 @@ public class Main {
 		System.out.println(cts.getCurrentClstr().getName());
 		System.out.println(cts.getKeyspace().getKeyspaceName());
 		System.out.println(cts.CF_NAME);
-		DAOApp dao = (DAOApp) ctx.getBean("cassandra");
+		DaoApp dao = (DaoApp) ctx.getBean("cassandra");
 		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 	}
 

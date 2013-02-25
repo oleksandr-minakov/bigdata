@@ -1,5 +1,6 @@
 package com.mirantis.aminakov.bigdatacourse.dao;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 public class Book {
@@ -44,4 +45,18 @@ public class Book {
 	public void setText(InputStream text) {
 		this.text = text;
 	}
+	
+	public String getReadbleText() throws IOException{
+		
+		byte[] newText = new byte[this.text.available()];
+		this.text.read(newText);
+		return new String(newText);
+	}
+	
+	public void newBook(String title, String author, String genre, InputStream text){
+		
+		this.title=title;this.text=text;
+		this.author=author;this.genre=genre;
+	}
+	
 }
