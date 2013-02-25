@@ -6,14 +6,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.TreeSet;
 import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DAO;
 import com.mirantis.aminakov.bigdatacourse.dao.DAOException;
-import me.prettyprint.cassandra.model.BasicColumnFamilyDefinition;
-import me.prettyprint.cassandra.model.BasicKeyspaceDefinition;
 import me.prettyprint.cassandra.serializers.StringSerializer;
-import me.prettyprint.hector.api.Cluster;
-import me.prettyprint.hector.api.Keyspace;
 import me.prettyprint.hector.api.beans.HColumn;
 import me.prettyprint.hector.api.beans.OrderedRows;
 import me.prettyprint.hector.api.beans.Row;
@@ -21,54 +20,37 @@ import me.prettyprint.hector.api.factory.HFactory;
 import me.prettyprint.hector.api.mutation.Mutator;
 import me.prettyprint.hector.api.query.QueryResult;
 import me.prettyprint.hector.api.query.RangeSlicesQuery;
+@SuppressWarnings("unused")
 
 public class DAOApp implements DAO{
 
 	public static final Logger LOG = Logger.getLogger(DAOApp.class);
+
+	private Constants cts;
 	
-	private Cluster clstr;
-	private Keyspace ksOper;
-	private BasicColumnFamilyDefinition CfDef;
-	private int bookID;
-	
-	public DAOApp(){
-		
-		clstr = HFactory.getOrCreateCluster(Constants.CLUSTER_NAME, Constants.HOST_DEF+":9160");
-		
-		BasicKeyspaceDefinition KsDef = new BasicKeyspaceDefinition();
-		KsDef.setName(Constants.KEYSPACE_NAME);
-		KsDef.setDurableWrites(true);
-		KsDef.setReplicationFactor(1);
-		KsDef.setStrategyClass("org.apache.cassandra.locator.SimpleStrategy");
-		clstr.addKeyspace(KsDef, true);
-		ksOper = HFactory.createKeyspace(Constants.KEYSPACE_NAME, clstr);
-				
-		CfDef = new BasicColumnFamilyDefinition();
-		CfDef.setKeyspaceName(Constants.KEYSPACE_NAME);
-		CfDef.setName(Constants.CF_NAME);
-        clstr.addColumnFamily(CfDef);
-        
-        
-        bookID= 0;
+	public DAOApp(Constants cts){
+		this.cts = cts;
+		cts.bookID= 0;
 	}
 
 	@Override
 	public int addBook(Book book) throws DAOException {
-		bookID++;
-		book.setId(bookID);
+		
+		cts.bookID++;
+		book.setId(cts.bookID);
 		try{
-			Mutator<String> mutator = HFactory.createMutator(ksOper, StringSerializer.get());
+			Mutator<String> mutator = HFactory.createMutator(cts.getKeyspace(), StringSerializer.get());
 			for(HColumn<String, String> col: BookConverter.getInstance().book2row(book))
-				mutator.insert("book "+ String.valueOf(book.getId()), Constants.CF_NAME, col);
-		}catch (Exception e) {
-            LOG.debug("[" + new Date()+"]"+ "RunTime exception at addBook(Book): "+e.getMessage());}
+				mutator.insert("book "+ String.valueOf(book.getId()), cts.CF_NAME, col);
+		}catch (Exception e) {throw new DAOException(e);
+            }
 		return book.getId();
 	}
 
 	@Override
 	public int delBook(int id) throws DAOException {
-		Mutator<String> mutator = HFactory.createMutator(ksOper, StringSerializer.get());
-		mutator.delete("book"+String.valueOf(id), Constants.CF_NAME, null, StringSerializer.get()); ;
+		Mutator<String> mutator = HFactory.createMutator(cts.getKeyspace(), StringSerializer.get());
+		mutator.delete("book"+String.valueOf(id), cts.CF_NAME, null, StringSerializer.get()); ;
 		return 0;
 	}
 
@@ -84,10 +66,12 @@ public class DAOApp implements DAO{
 			return null;
 		}
 		else{
+			
 			if(pageNum*pageSize > keyStorage.size()){
 				neededKeys = keyStorage.subList((pageNum-1)*pageSize, keyStorage.size());
 				return getBooks(neededKeys);
 			}
+			
 			else{
 				neededKeys = keyStorage.subList((pageNum-1)*pageSize, pageNum*pageSize);
 				return getBooks(neededKeys);
@@ -126,8 +110,7 @@ public class DAOApp implements DAO{
 				if(book.getReadbleText().equals(text)){
 					booksByText.add(book);
 				}
-			} catch (Exception e) {
-				 LOG.debug("[" + new Date()+"]"+ "RunTime exception at getBookByText(Book): "+e.getMessage());}
+			} catch (Exception e) {throw new DAOException(e);}
 		}
 		return booksByText;
 	}
@@ -161,7 +144,6 @@ public class DAOApp implements DAO{
 		return booksByGenre;
 	}
 
-	@SuppressWarnings("unused")
 	@Override
 	public TreeSet<String> getAuthorByGenre(int pageNum, int pageSize,
 			String genre) throws DAOException {
@@ -179,7 +161,7 @@ public class DAOApp implements DAO{
 
 	@Override
 	public void closeConnection() throws DAOException {
-		clstr.getConnectionManager().shutdown();
+		cts.getCurrentClstr().getConnectionManager().shutdown();
 		
 	}
 	
@@ -188,8 +170,8 @@ public class DAOApp implements DAO{
 
 		List<String> pagedBooks = new ArrayList<String>();
 		
-		RangeSlicesQuery<String, String, String> books = HFactory.createRangeSlicesQuery(ksOper, StringSerializer.get(), StringSerializer.get(), StringSerializer.get()); 
-		books.setColumnFamily(CfDef.getName());
+		RangeSlicesQuery<String, String, String> books = HFactory.createRangeSlicesQuery(cts.getKeyspace(), StringSerializer.get(), StringSerializer.get(), StringSerializer.get()); 
+		books.setColumnFamily(cts.CF_NAME);
 		books.setKeys("", "");
 		books.setReturnKeysOnly();
 		
@@ -214,8 +196,8 @@ public class DAOApp implements DAO{
 	public List<Book> getBooks(List<String> rowKeys){
 		
 		List<Book> booksByKeys = new ArrayList<Book>();
-		RangeSlicesQuery<String, String, String> books = HFactory.createRangeSlicesQuery(ksOper, StringSerializer.get(), StringSerializer.get(), StringSerializer.get()); 
-		books.setColumnFamily(CfDef.getName());
+		RangeSlicesQuery<String, String, String> books = HFactory.createRangeSlicesQuery(cts.getKeyspace(), StringSerializer.get(), StringSerializer.get(), StringSerializer.get()); 
+		books.setColumnFamily(cts.CF_NAME);
 		books.setKeys(rowKeys.get(0), rowKeys.get(rowKeys.size()-1));
 		books.setRange("", "", false, 5);
 		books.setRowCount(rowKeys.size());

@@ -1,13 +1,14 @@
 package com.mirantis.aminakov.bigdatacourse.dao;
 
+import java.util.Date;
+
 import org.apache.log4j.Logger;
 
 public class DAOException extends Exception {
 
 	public static final Logger LOG = Logger.getLogger(DAOException.class);
 	public DAOException(Exception e) {
-		e.printStackTrace();
-		LOG.debug(e);
+		LOG.debug("[" + new Date()+"]"+ "RunTime exception:" + e.getMessage());
 	}
 
 	public DAOException (String msg) {

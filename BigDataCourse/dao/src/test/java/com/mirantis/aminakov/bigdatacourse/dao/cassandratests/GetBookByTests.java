@@ -1,5 +1,7 @@
 package com.mirantis.aminakov.bigdatacourse.dao.cassandratests;
 
+import static org.junit.Assert.*;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -11,31 +13,33 @@ import me.prettyprint.hector.api.factory.HFactory;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
+import com.mirantis.aminakov.bigdatacourse.dao.DAO;
 import com.mirantis.aminakov.bigdatacourse.dao.DAOException;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DAOApp;
+@SuppressWarnings("unused")
 
 public class GetBookByTests {
 	
 	public Book bstate;
 	public Book fstate;
-	
+
+	 
+
 	public void setUp(){
 		
 		bstate = new Book();
 		fstate = new Book();
+		
 	}
 	@Test
 	public void getBookByTitleTest(){
 		
 		List<Book> after = new ArrayList<Book>();
 		setUp();
-		Cluster clstr = HFactory.getOrCreateCluster(Constants.CLUSTER_NAME, Constants.HOST_DEF+":9160");
+		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
+		DAO dao = new DAOApp(cts);
 		
-		if(clstr.describeKeyspace(Constants.KEYSPACE_NAME) != null)
-			clstr.dropKeyspace(Constants.KEYSPACE_NAME, true);
-		
-		DAOApp dao = new DAOApp();
 		try {
 			for(int i = 0; i< 10; ++i){
 				
@@ -45,10 +49,10 @@ public class GetBookByTests {
 			after = dao.getBookByTitle(1, 10, new String("CassandraTest4"));
 			
 			for(Book book: after){
-				System.out.println(book.getTitle());
+				assertTrue(book.getTitle().equals(new String("CassandraTest4")));
+				System.out.println(book.getTitle().equals(new String("CassandraTest4")));
 			}
-
-			clstr.dropKeyspace(Constants.KEYSPACE_NAME);
+			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		} catch (FileNotFoundException | DAOException e) {e.printStackTrace();}
 		
 	}
@@ -58,12 +62,9 @@ public class GetBookByTests {
 		
 		List<Book> after = new ArrayList<Book>();
 		setUp();
-		Cluster clstr = HFactory.getOrCreateCluster(Constants.CLUSTER_NAME, Constants.HOST_DEF+":9160");
+		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
+		DAO dao = new DAOApp(cts);
 		
-		if(clstr.describeKeyspace(Constants.KEYSPACE_NAME) != null)
-			clstr.dropKeyspace(Constants.KEYSPACE_NAME, true);
-		
-		DAOApp dao = new DAOApp();
 		try {
 			for(int i = 0; i< 10; ++i){
 				
@@ -73,10 +74,10 @@ public class GetBookByTests {
 			after = dao.getBookByAuthor(1, 10, new String("Test4"));
 			
 			for(Book book: after){
-				System.out.println(book.getAuthor());
+				assertTrue(book.getAuthor().equals(new String("Test4")));
+				System.out.println(book.getAuthor().equals(new String("Test4")));
 			}
-
-			clstr.dropKeyspace(Constants.KEYSPACE_NAME);
+			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		} catch (FileNotFoundException | DAOException e) {e.printStackTrace();}
 		
 	}
@@ -86,12 +87,9 @@ public class GetBookByTests {
 		
 		List<Book> after = new ArrayList<Book>();
 		setUp();
-		Cluster clstr = HFactory.getOrCreateCluster(Constants.CLUSTER_NAME, Constants.HOST_DEF+":9160");
-		
-		if(clstr.describeKeyspace(Constants.KEYSPACE_NAME) != null)
-			clstr.dropKeyspace(Constants.KEYSPACE_NAME, true);
-		
-		DAOApp dao = new DAOApp();
+		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
+		DAO dao = new DAOApp(cts);
+		 
 		try {
 			for(int i = 0; i< 10; ++i){
 				
@@ -101,25 +99,23 @@ public class GetBookByTests {
 			after = dao.getBookByGenre(1, 10, new String("Tester4"));
 			
 			for(Book book: after){
-				System.out.println(book.getAuthor());
+				assertTrue(book.getGenre().equals(new String("Tester4")));
+				System.out.println(book.getGenre().equals(new String("Tester4")));
 			}
-
-			clstr.dropKeyspace(Constants.KEYSPACE_NAME);
+			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		} catch (FileNotFoundException | DAOException e) {e.printStackTrace();}
 		
 	}
 	
+
 	@Test
 	public void getAythorByGenreTest(){
 		
 		TreeSet<String> after = new TreeSet<String>();
 		setUp();
-		Cluster clstr = HFactory.getOrCreateCluster(Constants.CLUSTER_NAME, Constants.HOST_DEF+":9160");
+		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
+		DAO dao = new DAOApp(cts);
 		
-		if(clstr.describeKeyspace(Constants.KEYSPACE_NAME) != null)
-			clstr.dropKeyspace(Constants.KEYSPACE_NAME, true);
-		
-		DAOApp dao = new DAOApp();
 		try {
 			for(int i = 0; i< 10; ++i){
 				
@@ -129,10 +125,10 @@ public class GetBookByTests {
 			after = dao.getAuthorByGenre(1, 10, new String("Tester5"));
 			
 			for(String book: after){
-				System.out.println(book);
+				assertTrue(book.equals(new String("Test5")));
+				System.out.println(book.equals(new String("Test5")));
 			}
-
-			clstr.dropKeyspace(Constants.KEYSPACE_NAME);
+			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		} catch (FileNotFoundException | DAOException e) {e.printStackTrace();}
 		
 	}

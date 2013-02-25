@@ -27,10 +27,12 @@ public class GetPageTest {
 		BasicConfigurator.configure();
 		List<Book> pagedBookList = new ArrayList<Book>();
 		
-		Cluster clstr = HFactory.getOrCreateCluster(Constants.CLUSTER_NAME, Constants.HOST_DEF+":9160");
-		if(clstr.describeKeyspace(Constants.KEYSPACE_NAME) != null)
-			clstr.dropKeyspace(Constants.KEYSPACE_NAME, true);
-		DAOApp dao = new DAOApp();
+		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
+		DAOApp dao = new DAOApp(cts);
+		
+		
+		Cluster clstr = HFactory.getOrCreateCluster(cts.CLUSTER_NAME, cts.HOST_DEF+":9160");
+
 		Book beggining_state = new Book();
 		try {
 			for(int i = 0; i< 40; ++i){
@@ -41,7 +43,7 @@ public class GetPageTest {
 			
 			assertNotNull(dao.getAllBooks(2, 10));
 			assertEquals(dao.getAllBooks(2, 10).size(), 10);
-			
+			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		} catch (FileNotFoundException | DAOException e) {e.printStackTrace();}
 	}
 		

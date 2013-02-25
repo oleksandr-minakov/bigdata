@@ -1,5 +1,7 @@
 package com.mirantis.aminakov.bigdatacourse.dao.cassandratests;
 
+import static org.junit.Assert.*;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -11,9 +13,12 @@ import org.apache.log4j.BasicConfigurator;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
+import com.mirantis.aminakov.bigdatacourse.dao.DAO;
 import com.mirantis.aminakov.bigdatacourse.dao.DAOException;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DAOApp;
+
+@SuppressWarnings("unused")
 
 public class GetPageCountTest {
 
@@ -21,10 +26,10 @@ public class GetPageCountTest {
 	public void getPagesCountTest(){
 		
 		BasicConfigurator.configure();
-		Cluster clstr = HFactory.getOrCreateCluster(Constants.CLUSTER_NAME, Constants.HOST_DEF+":9160");
-		if(clstr.describeKeyspace(Constants.KEYSPACE_NAME) != null)
-			clstr.dropKeyspace(Constants.KEYSPACE_NAME, true);
-		DAOApp dao = new DAOApp();
+		
+		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
+		DAOApp dao = new DAOApp(cts);
+
 		List<String> books = new ArrayList<String>();
 		Book beggining_state = new Book();
 		try {
@@ -34,8 +39,9 @@ public class GetPageCountTest {
 				books.add(beggining_state.getGenre());
 				dao.addBook(beggining_state);
 			}
-			System.out.println(dao.getPageCount(books,20));
+			assertEquals(dao.getPageCount(books,20), 2);
 			
+			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		} catch (FileNotFoundException | DAOException e) {e.printStackTrace();}
 	}
 }

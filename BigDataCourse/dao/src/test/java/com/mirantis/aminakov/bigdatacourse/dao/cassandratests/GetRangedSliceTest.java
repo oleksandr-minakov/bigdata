@@ -6,8 +6,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import me.prettyprint.hector.api.Cluster;
-import me.prettyprint.hector.api.factory.HFactory;
 import org.apache.log4j.BasicConfigurator;
 import org.junit.Test;
 
@@ -25,10 +23,9 @@ public class GetRangedSliceTest {
 		List<Book> before = new ArrayList<Book>();
 		List<Book> after = new ArrayList<Book>();
 		
-		Cluster clstr = HFactory.getOrCreateCluster(Constants.CLUSTER_NAME, Constants.HOST_DEF+":9160");
-		if(clstr.describeKeyspace(Constants.KEYSPACE_NAME) != null)
-			clstr.dropKeyspace(Constants.KEYSPACE_NAME, true);
-		DAOApp dao = new DAOApp();
+		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
+		DAOApp dao = new DAOApp(cts);
+		
 		Book beggining_state = new Book();
 		try {
 			for(int i = 0; i< 40; ++i){
@@ -42,6 +39,8 @@ public class GetRangedSliceTest {
 			assertFalse(before.equals(after));
 			after = dao.getAllBooks(3, 11);
 			assertFalse(before.equals(after));
+			
+			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		} catch (FileNotFoundException | DAOException e) {e.printStackTrace();}
 	}
 }
