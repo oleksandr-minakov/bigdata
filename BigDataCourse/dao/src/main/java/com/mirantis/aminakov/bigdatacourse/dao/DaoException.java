@@ -1,5 +1,6 @@
 package com.mirantis.aminakov.bigdatacourse.dao;
 
+
 import java.util.Date;
 
 import org.apache.log4j.Logger;
@@ -21,3 +22,4 @@ public class DaoException extends Exception {
 	private static final long serialVersionUID = 1L;
 
 }
+
