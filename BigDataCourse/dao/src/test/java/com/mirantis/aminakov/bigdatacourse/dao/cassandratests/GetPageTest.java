@@ -14,7 +14,7 @@ import org.apache.log4j.BasicConfigurator;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
-import com.mirantis.aminakov.bigdatacourse.dao.DAOException;
+import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DAOApp;
 
@@ -44,7 +44,7 @@ public class GetPageTest {
 			assertNotNull(dao.getAllBooks(2, 10));
 			assertEquals(dao.getAllBooks(2, 10).size(), 10);
 			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
-		} catch (FileNotFoundException | DAOException e) {e.printStackTrace();}
+		} catch (FileNotFoundException | DaoException e) {e.printStackTrace();}
 	}
 		
 }

@@ -10,8 +10,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
-import com.mirantis.aminakov.bigdatacourse.dao.DAO;
-import com.mirantis.aminakov.bigdatacourse.dao.DAOException;
+import com.mirantis.aminakov.bigdatacourse.dao.Dao;
+import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import me.prettyprint.cassandra.serializers.StringSerializer;
 import me.prettyprint.hector.api.beans.HColumn;
 import me.prettyprint.hector.api.beans.OrderedRows;
@@ -22,7 +22,7 @@ import me.prettyprint.hector.api.query.QueryResult;
 import me.prettyprint.hector.api.query.RangeSlicesQuery;
 @SuppressWarnings("unused")
 
-public class DAOApp implements DAO{
+public class DAOApp implements Dao{
 
 	public static final Logger LOG = Logger.getLogger(DAOApp.class);
 
@@ -34,7 +34,7 @@ public class DAOApp implements DAO{
 	}
 
 	@Override
-	public int addBook(Book book) throws DAOException {
+	public int addBook(Book book) throws DaoException {
 		
 		cts.bookID++;
 		book.setId(cts.bookID);
@@ -42,13 +42,13 @@ public class DAOApp implements DAO{
 			Mutator<String> mutator = HFactory.createMutator(cts.getKeyspace(), StringSerializer.get());
 			for(HColumn<String, String> col: BookConverter.getInstance().book2row(book))
 				mutator.insert("book "+ String.valueOf(book.getId()), cts.CF_NAME, col);
-		}catch (Exception e) {throw new DAOException(e);
+		}catch (Exception e) {throw new DaoException(e);
             }
 		return book.getId();
 	}
 
 	@Override
-	public int delBook(int id) throws DAOException {
+	public int delBook(int id) throws DaoException {
 		Mutator<String> mutator = HFactory.createMutator(cts.getKeyspace(), StringSerializer.get());
 		mutator.delete("book"+String.valueOf(id), cts.CF_NAME, null, StringSerializer.get()); ;
 		return 0;
@@ -56,7 +56,7 @@ public class DAOApp implements DAO{
 
 	@Override
 	public List<Book> getAllBooks(int pageNum, int pageSize)
-			throws DAOException {
+			throws DaoException {
 		
 		List<String> keyStorage = getAllRowKeys();
 		
@@ -81,7 +81,7 @@ public class DAOApp implements DAO{
 
 	@Override
 	public List<Book> getBookByTitle(int pageNum, int pageSize, String title)
-			throws DAOException {
+			throws DaoException {
 		
 		List<Book> books = getAllBooks(pageNum, pageSize);
 		
@@ -98,7 +98,7 @@ public class DAOApp implements DAO{
 
 	@Override
 	public List<Book> getBookByText(int pageNum, int pageSize, String text)
-			throws DAOException {
+			throws DaoException {
 		
 		List<Book> books = getAllBooks(pageNum, pageSize);
 		
@@ -110,14 +110,14 @@ public class DAOApp implements DAO{
 				if(book.getReadbleText().equals(text)){
 					booksByText.add(book);
 				}
-			} catch (Exception e) {throw new DAOException(e);}
+			} catch (Exception e) {throw new DaoException(e);}
 		}
 		return booksByText;
 	}
 
 	@Override
 	public List<Book> getBookByAuthor(int pageNum, int pageSize, String author)
-			throws DAOException {
+			throws DaoException {
 		List<Book> books = getAllBooks(pageNum, pageSize);
 		List<Book> booksByAuthor = new ArrayList<Book>();
 		
@@ -132,7 +132,7 @@ public class DAOApp implements DAO{
 
 	@Override
 	public List<Book> getBookByGenre(int pageNum, int pageSize, String genre)
-			throws DAOException {
+			throws DaoException {
 		List<Book> books = getAllBooks(pageNum, pageSize);
 		List<Book> booksByGenre = new ArrayList<Book>();
 		
@@ -146,7 +146,7 @@ public class DAOApp implements DAO{
 
 	@Override
 	public TreeSet<String> getAuthorByGenre(int pageNum, int pageSize,
-			String genre) throws DAOException {
+			String genre) throws DaoException {
 		
 		List<Book> books = getAllBooks(pageNum, pageSize);
 		List<Book> authorByGenre = new ArrayList<Book>();
@@ -160,7 +160,7 @@ public class DAOApp implements DAO{
 	}
 
 	@Override
-	public void closeConnection() throws DAOException {
+	public void closeConnection() throws DaoException {
 		cts.getCurrentClstr().getConnectionManager().shutdown();
 		
 	}
@@ -208,6 +208,11 @@ public class DAOApp implements DAO{
         	booksByKeys.add(BookConverter.getInstance().row2book(row.getColumnSlice().getColumns()));
         }        
 		return booksByKeys;
+	}
+
+	@Override
+	public int getNumberOfRecords() {
+		return getAllRowKeys().size();
 	}
 	
 }

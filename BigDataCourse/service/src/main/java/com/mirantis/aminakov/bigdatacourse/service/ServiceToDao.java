@@ -12,9 +12,9 @@ public class ServiceToDao implements Service {
 	public int addBook(Book book) {
 		int ret = 0;
 		try {
-			DAO dao = new DaoJdbc();
+			Dao dao = new DaoJdbc();
 			ret = dao.addBook(book);
-		} catch (DAOException e) {
+		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -24,11 +24,11 @@ public class ServiceToDao implements Service {
 	@Override
 	public List<Book> getAllBooks(int pageNum, int pageSize) {
 		List<Book> books = new ArrayList<Book>();
-		DAO dao;
+		Dao dao;
 		try {
 			dao = new DaoJdbc();
 			books = dao.getAllBooks(pageNum, pageSize);
-		} catch (DAOException e) {
+		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -38,11 +38,11 @@ public class ServiceToDao implements Service {
 	@Override
 	public List<Book> findByAuthor(int pageNum, int pageSize, String author) {
 		List<Book> books = new ArrayList<Book>();
-		DAO dao;
+		Dao dao;
 		try {
 			dao = new DaoJdbc();
 			books = dao.getBookByAuthor(pageNum, pageSize, author);
-		} catch (DAOException e) {
+		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -52,11 +52,11 @@ public class ServiceToDao implements Service {
 	@Override
 	public List<Book> findByTitle(int pageNum, int pageSize, String title) {
 		List<Book> books = new ArrayList<Book>();
-		DAO dao;
+		Dao dao;
 		try {
 			dao = new DaoJdbc();
 			books = dao.getBookByTitle(pageNum, pageSize, title);
-		} catch (DAOException e) {
+		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -66,11 +66,11 @@ public class ServiceToDao implements Service {
 	@Override
 	public List<Book> findByText(int pageNum, int pageSize, String text) {
 		List<Book> books = new ArrayList<Book>();
-		DAO dao;
+		Dao dao;
 		try {
 			dao = new DaoJdbc();
 			books = dao.getBookByText(pageNum, pageSize, text);
-		} catch (DAOException e) {
+		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -80,11 +80,11 @@ public class ServiceToDao implements Service {
 	@Override
 	public List<Book> findByGenre(int pageNum, int pageSize, String genre) {
 		List<Book> books = new ArrayList<Book>();
-		DAO dao;
+		Dao dao;
 		try {
 			dao = new DaoJdbc();
 			books = dao.getBookByGenre(pageNum, pageSize, genre);
-		} catch (DAOException e) {
+		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -94,11 +94,11 @@ public class ServiceToDao implements Service {
 	@Override
 	public TreeSet<String> findAuthorByGenre(int pageNum, int pageSize, String genre) {
 		TreeSet<String> authors = new TreeSet<>();
-		DAO dao;
+		Dao dao;
 		try {
 			dao = new DaoJdbc();
 			authors = dao.getAuthorByGenre(pageNum, pageSize, genre);
-		} catch (DAOException e) {
+		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

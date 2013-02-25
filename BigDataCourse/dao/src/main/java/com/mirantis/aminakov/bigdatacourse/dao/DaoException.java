@@ -4,16 +4,17 @@ import java.util.Date;
 
 import org.apache.log4j.Logger;
 
-public class DAOException extends Exception {
+public class DaoException extends Exception {
 
-	public static final Logger LOG = Logger.getLogger(DAOException.class);
-	public DAOException(Exception e) {
+	public static final Logger LOG = Logger.getLogger(DaoException.class);
+	
+	public DaoException(Exception e) {
 		LOG.debug("[" + new Date()+"]"+ "RunTime exception:" + e.getMessage());
 	}
 
-	public DAOException (String msg) {
+	public DaoException (String msg) {
 		
-		LOG.debug(msg);
+		LOG.debug("[" + new Date()+"]"+ "RunTime exception:" + msg);
 		System.err.println(msg);
 	}
 

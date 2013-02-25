@@ -8,7 +8,7 @@ import org.apache.log4j.BasicConfigurator;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
-import com.mirantis.aminakov.bigdatacourse.dao.DAOException;
+import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DAOApp;
 
@@ -29,7 +29,7 @@ public class AddBookTest {
 			assertEquals(beggining_state.getId(), 1);
 			
 			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
-		} catch (FileNotFoundException | DAOException e) {
+		} catch (FileNotFoundException | DaoException e) {
 				e.printStackTrace();
 		}
 	}

@@ -13,7 +13,7 @@ import java.util.TreeSet;
 
 import org.apache.log4j.Logger;
 
-public class DaoJdbc implements DAO {
+public class DaoJdbc implements Dao {
 	String driverName = "com.mysql.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/bigdata?user=aminakov&password=bigdata";
 	String jdbcutf8 = "&useUnicode=true&characterEncoding=UTF-8";
@@ -23,23 +23,23 @@ public class DaoJdbc implements DAO {
 	PreparedStatement pst = null;
 	public static final Logger LOG = Logger.getLogger(DaoJdbc.class);;
 	
-	public DaoJdbc() throws DAOException {
+	public DaoJdbc() throws DaoException {
 		try {
 			try {
 				Class.forName(driverName).newInstance();
 			} catch (InstantiationException e) {		
-				throw new DAOException(e);
+				throw new DaoException(e);
 			} catch (IllegalAccessException e) {		
-				throw new DAOException(e);
+				throw new DaoException(e);
 			}
 			try {
 				con = DriverManager.getConnection(url + jdbcutf8);
 			} catch (SQLException e) {
-				throw new DAOException(e);
+				throw new DaoException(e);
 			}
 		} catch (ClassNotFoundException e) {
 			LOG.error("Driver not found.", e);
-			throw new DAOException(e);
+			throw new DaoException(e);
 		}
 	}
 	
@@ -47,7 +47,7 @@ public class DaoJdbc implements DAO {
 	 * @see com.mirantis.aminakov.bigdatacourse.Dao#addBook(com.mirantis.aminakov.bigdatacourse.Book)
 	 */
 	@Override
-	public int addBook(Book book) throws DAOException {
+	public int addBook(Book book) throws DaoException {
 		int id = 0;
 		try {
 			con.setAutoCommit(false);
@@ -103,30 +103,30 @@ public class DaoJdbc implements DAO {
 		} catch (SQLException e) {
 			try {
 				con.rollback();
-				throw new DAOException("Transaction filed " + e.getMessage());
+				throw new DaoException("Transaction filed " + e.getMessage());
 			} catch (SQLException e1) {
-				throw new DAOException("Rollback filed " + e1.getMessage());
+				throw new DaoException("Rollback filed " + e1.getMessage());
 			}
 		} finally {
             if (rs != null) {
                 try {
 					rs.close();
 				} catch (SQLException e) {
-					throw new DAOException(e);
+					throw new DaoException(e);
 				}
             }
             if (st != null) {
                 try {
 					st.close();
 				} catch (SQLException e) {
-					throw new DAOException(e);
+					throw new DaoException(e);
 				}
             }
             if (pst != null) {
 				try {
 					pst.close();
 				} catch (SQLException e) {
-					throw new DAOException(e);
+					throw new DaoException(e);
 				}
 			}
         }
@@ -135,7 +135,7 @@ public class DaoJdbc implements DAO {
 	
 	
 	@Override
-	public int delBook(int id) throws DAOException {
+	public int delBook(int id) throws DaoException {
 		try {
 			st = con.createStatement();
 			int count = st.executeUpdate("DELETE Books, Texts FROM Books, Texts WHERE Books.id = " + id + " AND Books.book_id = Texts.id;");
@@ -143,13 +143,13 @@ public class DaoJdbc implements DAO {
 				throw new DeleteException("Book doesn't exist.");
 			}
 		} catch(SQLException | DeleteException e) {
-			throw new DAOException("Can't delete book.");
+			throw new DaoException("Can't delete book.");
 		} finally {
             if (st != null) {
                 try {
 					st.close();
 				} catch (SQLException e) {
-					throw new DAOException(e);
+					throw new DaoException(e);
 				}
             }
         }
@@ -160,7 +160,7 @@ public class DaoJdbc implements DAO {
 	 * @see com.mirantis.aminakov.bigdatacourse.Dao#getAllBooks(int, int)
 	 */
 	@Override
-	public List<Book> getAllBooks(int pageNum, int pageSize) throws DAOException {
+	public List<Book> getAllBooks(int pageNum, int pageSize) throws DaoException {
 		List<Book> books = new ArrayList<Book>();
 		try {
 			st = con.createStatement();
@@ -172,20 +172,20 @@ public class DaoJdbc implements DAO {
 				books.add((Book)map.mapRow(rs, 0));	
 			}
 		} catch (SQLException e) {
-			throw new DAOException(e);
+			throw new DaoException(e);
 		} finally {
             if (rs != null) {
                 try {
 					rs.close();
 				} catch (SQLException e) {
-					throw new DAOException(e);
+					throw new DaoException(e);
 				}
             }
             if (st != null) {
                 try {
 					st.close();
 				} catch (SQLException e) {
-					throw new DAOException(e);
+					throw new DaoException(e);
 				}
             }
         }
@@ -196,7 +196,7 @@ public class DaoJdbc implements DAO {
 	 * @see com.mirantis.aminakov.bigdatacourse.Dao#getBookByTitle(int, int, java.lang.String)
 	 */
 	@Override
-	public List<Book> getBookByTitle(int pageNum, int pageSize, String title) throws DAOException {
+	public List<Book> getBookByTitle(int pageNum, int pageSize, String title) throws DaoException {
 		List<Book> books = new ArrayList<Book>();
 		try {
 			st = con.createStatement();
@@ -208,20 +208,20 @@ public class DaoJdbc implements DAO {
 				books.add((Book)map.mapRow(rs, 0));			
 			}
 		} catch (SQLException e) {
-			throw new DAOException(e);
+			throw new DaoException(e);
 		} finally {
             if (rs != null) {
                 try {
 					rs.close();
 				} catch (SQLException e) {
-					throw new DAOException(e);
+					throw new DaoException(e);
 				}
             }
             if (st != null) {
                 try {
 					st.close();
 				} catch (SQLException e) {
-					throw new DAOException(e);
+					throw new DaoException(e);
 				}
             }
         }
@@ -232,7 +232,7 @@ public class DaoJdbc implements DAO {
 	 * @see com.mirantis.aminakov.bigdatacourse.Dao#getBookByAuthor(int, int, java.lang.String)
 	 */
 	@Override
-	public List<Book> getBookByAuthor(int pageNum, int pageSize, String author) throws DAOException {
+	public List<Book> getBookByAuthor(int pageNum, int pageSize, String author) throws DaoException {
 		List<Book> books = new ArrayList<Book>();
 		try {
 			st = con.createStatement();
@@ -244,20 +244,20 @@ public class DaoJdbc implements DAO {
 				books.add((Book)map.mapRow(rs, 0));			
 			}
 		} catch (SQLException e) {
-			throw new DAOException(e);
+			throw new DaoException(e);
 		} finally {
             if (rs != null) {
                 try {
 					rs.close();
 				} catch (SQLException e) {
-					throw new DAOException(e);
+					throw new DaoException(e);
 				}
             }
             if (st != null) {
                 try {
 					st.close();
 				} catch (SQLException e) {
-					throw new DAOException(e);
+					throw new DaoException(e);
 				}
             }
         }
@@ -268,7 +268,7 @@ public class DaoJdbc implements DAO {
 	 * @see com.mirantis.aminakov.bigdatacourse.Dao#getBookByGenre(int, int, java.lang.String)
 	 */
 	@Override
-	public List<Book> getBookByGenre(int pageNum, int pageSize, String genre) throws DAOException {
+	public List<Book> getBookByGenre(int pageNum, int pageSize, String genre) throws DaoException {
 		List<Book> books = new ArrayList<Book>();
 		try {
 			st = con.createStatement();
@@ -280,20 +280,20 @@ public class DaoJdbc implements DAO {
 				books.add((Book)map.mapRow(rs, 0));			
 			}
 		} catch (SQLException e) {
-			throw new DAOException(e);
+			throw new DaoException(e);
 		} finally {
             if (rs != null) {
                 try {
 					rs.close();
 				} catch (SQLException e) {
-					throw new DAOException(e);
+					throw new DaoException(e);
 				}
             }
             if (st != null) {
                 try {
 					st.close();
 				} catch (SQLException e) {
-					throw new DAOException(e);
+					throw new DaoException(e);
 				}
             }
         }
@@ -304,7 +304,7 @@ public class DaoJdbc implements DAO {
 	 * @see com.mirantis.aminakov.bigdatacourse.Dao#getAuthorByGenre(int, int, java.lang.String)
 	 */
 	@Override
-	public TreeSet<String> getAuthorByGenre(int pageNum, int pageSize, String genre) throws DAOException {
+	public TreeSet<String> getAuthorByGenre(int pageNum, int pageSize, String genre) throws DaoException {
 		TreeSet<String> authors = new TreeSet<String>();
 		try {
 			st = con.createStatement();
@@ -317,20 +317,20 @@ public class DaoJdbc implements DAO {
 				authors.add(name);
 			}
 		} catch (SQLException e) {
-			throw new DAOException(e);
+			throw new DaoException(e);
 		} finally {
             if (rs != null) {
                 try {
 					rs.close();
 				} catch (SQLException e) {
-					throw new DAOException(e);
+					throw new DaoException(e);
 				}
             }
             if (st != null) {
                 try {
 					st.close();
 				} catch (SQLException e) {
-					throw new DAOException(e);
+					throw new DaoException(e);
 				}
             }
         }
@@ -338,7 +338,7 @@ public class DaoJdbc implements DAO {
 	}
 
 	@Override
-	public List<Book> getBookByText(int pageNum, int pageSize, String text) throws DAOException {
+	public List<Book> getBookByText(int pageNum, int pageSize, String text) throws DaoException {
 		List<Book> books = new ArrayList<Book>();
 		try {
 			st = con.createStatement();
@@ -350,20 +350,20 @@ public class DaoJdbc implements DAO {
 				books.add((Book)map.mapRow(rs, 0));			
 			}
 		} catch (SQLException e) {
-			throw new DAOException(e);
+			throw new DaoException(e);
 		} finally {
             if (rs != null) {
                 try {
 					rs.close();
 				} catch (SQLException e) {
-					throw new DAOException(e);
+					throw new DaoException(e);
 				}
             }
             if (st != null) {
                 try {
 					st.close();
 				} catch (SQLException e) {
-					throw new DAOException(e);
+					throw new DaoException(e);
 				}
             }
         }
@@ -371,13 +371,19 @@ public class DaoJdbc implements DAO {
 	}
 
 	@Override
-	public void closeConnection() throws DAOException {
+	public void closeConnection() throws DaoException {
 			if (this.con != null) {
 				try {
 					this.con.close();
 				} catch (SQLException e) {
-					throw new DAOException(e);
+					throw new DaoException(e);
 				}
 			}
+	}
+
+	@Override
+	public int getNumberOfRecords() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

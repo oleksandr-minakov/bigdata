@@ -3,30 +3,32 @@ package com.mirantis.aminakov.bigdatacourse.dao;
 import java.util.List;
 import java.util.TreeSet;
 
-public interface DAO {
+public interface Dao {
 
-	public int addBook(Book book) throws DAOException;
-
-	public int delBook(int id) throws DAOException;
+	public int addBook(Book book) throws DaoException;
+	
+	public int delBook(int id) throws DaoException;
 
 	public List<Book> getAllBooks(int pageNum, int pageSize)
-			throws DAOException;
+			throws DaoException;
 
 	public List<Book> getBookByTitle(int pageNum, int pageSize,
-			String title) throws DAOException;
-
+			String title) throws DaoException;
+	
 	public List<Book> getBookByText(int pageNum, int pageSize,
-			String text) throws DAOException;
+			String text) throws DaoException;
 
 	public List<Book> getBookByAuthor(int pageNum, int pageSize,
-			String author) throws DAOException;
+			String author) throws DaoException;
 
 	public List<Book> getBookByGenre(int pageNum, int pageSize,
-			String genre) throws DAOException;
+			String genre) throws DaoException;
 
 	public TreeSet<String> getAuthorByGenre(int pageNum, int pageSize,
-			String genre) throws DAOException;
-
-	public void closeConnection() throws DAOException;
+			String genre) throws DaoException;
+	
+	public void closeConnection() throws DaoException;
+	
+	public int getNumberOfRecords();
 
 }

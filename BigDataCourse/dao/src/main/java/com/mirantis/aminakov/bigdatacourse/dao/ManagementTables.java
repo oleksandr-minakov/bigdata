@@ -16,30 +16,30 @@ public class ManagementTables {
 	Statement st = null;
 	ResultSet rs = null;
 	
-	public ManagementTables() throws DAOException {
+	public ManagementTables() throws DaoException {
 		try {
 			try {
 				Class.forName(driverName).newInstance();
 			} catch (InstantiationException e) {
 				LOG.error("Instantiation exception driver.");
-				throw new DAOException(e);
+				throw new DaoException(e);
 			} catch (IllegalAccessException e) {	
 				LOG.error("Illegal access to driver class.");
-				throw new DAOException(e);
+				throw new DaoException(e);
 			}
 			try {
 				con = DriverManager.getConnection(url + jdbcutf8);
 			} catch (SQLException e) {
-				throw new DAOException(e);
+				throw new DaoException(e);
 			}
 		} catch (ClassNotFoundException e) {
 			LOG.error("Driver not found.");
-			throw new DAOException(e);
+			throw new DaoException(e);
 		}
 	}
 	
 	
-	public void createTables() throws DAOException {
+	public void createTables() throws DaoException {
 		try {
 			con.setAutoCommit(false);
 			st = con.createStatement();
@@ -63,29 +63,29 @@ public class ManagementTables {
 		} catch (SQLException e) {
 			try {
 				con.rollback();
-				throw new DAOException("Transaction filed " + e.getMessage());
+				throw new DaoException("Transaction filed " + e.getMessage());
 			} catch (SQLException e1) {
-				throw new DAOException("Rollback filed " + e1.getMessage());
+				throw new DaoException("Rollback filed " + e1.getMessage());
 			}
 		} finally {
             if (rs != null) {
                 try {
 					rs.close();
 				} catch (SQLException e) {
-					throw new DAOException(e);
+					throw new DaoException(e);
 				}
             }
             if (st != null) {
                 try {
 					st.close();
 				} catch (SQLException e) {
-					throw new DAOException(e);
+					throw new DaoException(e);
 				}
             }
         }
 	}
 	
-	public void dropTables() throws DAOException {
+	public void dropTables() throws DaoException {
 		try {
 			con.setAutoCommit(false);
 			st = con.createStatement();
@@ -98,34 +98,34 @@ public class ManagementTables {
 		} catch (SQLException e) {
 			try {
 				con.rollback();
-				throw new DAOException("Transaction filed " + e.getMessage());
+				throw new DaoException("Transaction filed " + e.getMessage());
 			} catch (SQLException e1) {
-				throw new DAOException("Rollback filed " + e1.getMessage());
+				throw new DaoException("Rollback filed " + e1.getMessage());
 			}
 		} finally {
             if (rs != null) {
                 try {
 					rs.close();
 				} catch (SQLException e) {
-					throw new DAOException(e);
+					throw new DaoException(e);
 				}
             }
             if (st != null) {
                 try {
 					st.close();
 				} catch (SQLException e) {
-					throw new DAOException(e);
+					throw new DaoException(e);
 				}
             }
         }
 	}
 	
-	public void closeConnection() throws DAOException {
+	public void closeConnection() throws DaoException {
 		if (con != null) {
 			try {
 				con.close();
 			} catch (SQLException e) {
-				throw new DAOException(e);
+				throw new DaoException(e);
 			}
 		}
 	}

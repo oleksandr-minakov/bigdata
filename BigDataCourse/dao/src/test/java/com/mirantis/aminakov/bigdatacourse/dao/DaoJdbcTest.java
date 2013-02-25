@@ -21,7 +21,7 @@ public class DaoJdbcTest {
 	static DaoJdbc dao = null;
 	
 	@BeforeClass
-	public static void testSetup() throws DAOException {
+	public static void testSetup() throws DaoException {
 		ManagementTables mt;
 		dao = new DaoJdbc();
 		mt = new ManagementTables();
@@ -33,7 +33,7 @@ public class DaoJdbcTest {
 	}
 	
 	@AfterClass
-	public static void testCleanup() throws DAOException {
+	public static void testCleanup() throws DaoException {
 		ManagementTables mt;
 		dao.closeConnection();
 		mt = new ManagementTables();
@@ -49,7 +49,7 @@ public class DaoJdbcTest {
 	}
 
 	@Test
-	public void testAddBook() throws DAOException {
+	public void testAddBook() throws DaoException {
 		int i = 5;
 		for (Book book: books) {
 			dao.addBook(book);
@@ -62,13 +62,13 @@ public class DaoJdbcTest {
 	}
 	
 	@Test(expected = BookAlredyExists.class)
-	public void testAddExistBook() throws DAOException {
+	public void testAddExistBook() throws DaoException {
 		int i = 10;
 			dao.addBook(books.get(i));
 	}
 	
 	@Test
-	public void testGetAllBooks() throws DAOException {
+	public void testGetAllBooks() throws DaoException {
 		List<Book> getBooks = new ArrayList<Book>();
 		getBooks = dao.getAllBooks(1, 50);
 		int check = 0;
@@ -84,7 +84,7 @@ public class DaoJdbcTest {
 	}
 
 	@Test
-	public void testGetBookByAuthor() throws DAOException {	//FIXME
+	public void testGetBookByAuthor() throws DaoException {	//FIXME
 		int expectedAuthorCounter = 0;
 		String author = gen.authors.get(5);
 		for (Book book : gen.books) {
@@ -97,7 +97,7 @@ public class DaoJdbcTest {
 	}
 
 	@Test
-	public void testGetBookByGenre() throws DAOException {
+	public void testGetBookByGenre() throws DaoException {
 		int expectedGenreCounter = 0;
 		String genre = gen.genres.get(3);
 		for (Book book : gen.books) {
@@ -110,7 +110,7 @@ public class DaoJdbcTest {
 	}
 
 	@Test
-	public void testGetAuthorByGenre() throws DAOException {
+	public void testGetAuthorByGenre() throws DaoException {
 		HashSet<String> expectedAuthors = new HashSet<String>(); 
 		String genre = gen.genres.get(3);
 		for (Book book : gen.books) {
@@ -123,7 +123,7 @@ public class DaoJdbcTest {
 	}
 	
 	@Test
-	public void testGetBookByText() throws DAOException, IOException {
+	public void testGetBookByText() throws DaoException, IOException {
 		int expected = 0;
 		List<Book> resultBooks = new ArrayList<Book>();
         File fileExpected = new File("file10.txt");
@@ -146,13 +146,13 @@ public class DaoJdbcTest {
 	}
 	
 	@Test
-	public void testDelBook() throws DAOException {
+	public void testDelBook() throws DaoException {
 		int result = dao.delBook(5);
 		assertEquals(0, result);
 	}
 	
 	@Test(expected = DeleteException.class)
-	public void testDelBookException() throws DAOException {
+	public void testDelBookException() throws DaoException {
 		dao.delBook(10);
 		dao.delBook(10);
 	}
