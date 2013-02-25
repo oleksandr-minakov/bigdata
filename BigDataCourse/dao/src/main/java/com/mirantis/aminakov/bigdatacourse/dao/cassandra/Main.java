@@ -10,7 +10,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		BasicConfigurator.configure();
-		ApplicationContext ctx = new FileSystemXmlApplicationContext("src/main/resources/constants.xml");
+		ApplicationContext ctx = new FileSystemXmlApplicationContext("src/main/resources/DAOConfig.xml");
 		
 		Constants cts = (Constants) ctx.getBean("constants");
 		System.out.println(cts.getCurrentClstr().getName());

@@ -69,11 +69,12 @@ public class DaoApp implements Dao{
 			
 			if(pageNum*pageSize > keyStorage.size()){
 				neededKeys = keyStorage.subList((pageNum-1)*pageSize, keyStorage.size());
+				keyStorage = null;
 				return getBooks(neededKeys);
 			}
-			
 			else{
 				neededKeys = keyStorage.subList((pageNum-1)*pageSize, pageNum*pageSize);
+				keyStorage = null;
 				return getBooks(neededKeys);
 			}
 		}

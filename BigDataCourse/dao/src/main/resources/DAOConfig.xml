@@ -14,4 +14,6 @@
     	<constructor-arg> <ref bean="constants"/></constructor-arg>
 	</bean>	
 	
+	<bean id = "DaoJdbc" class = "com.mirantis.aminakov.bigdatacourse.dao.DaoJdbc"/>
+	
 </beans>
