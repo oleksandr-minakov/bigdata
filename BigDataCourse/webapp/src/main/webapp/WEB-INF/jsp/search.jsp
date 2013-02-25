@@ -21,7 +21,7 @@
 </div>
 <form>
 Find:   <input type="text" name="find">
-	by
+	<p>by</p>
 	<select name="by">
 	<option value="title">Title</option>
 	<option value="author">Author</option>
