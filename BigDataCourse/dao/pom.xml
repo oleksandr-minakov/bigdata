@@ -9,7 +9,7 @@
   </parent>
   <groupId>com.mirantis.aminakov.bigdatacourse.dao</groupId>
   <artifactId>dao</artifactId>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.0-SNAPSHOT</version>
   <name>dao</name>
   <url>http://maven.apache.org</url>
   <dependencies>
