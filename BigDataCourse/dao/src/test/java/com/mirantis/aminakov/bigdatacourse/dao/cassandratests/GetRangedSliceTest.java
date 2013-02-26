@@ -15,6 +15,7 @@ import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoApp;
 
 public class GetRangedSliceTest {
 
+	@SuppressWarnings("unused")
 	@Test
 	public void getRangedSlicesTest() throws DaoException{
 		

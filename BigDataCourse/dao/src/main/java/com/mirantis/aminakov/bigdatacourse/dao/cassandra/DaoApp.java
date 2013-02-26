@@ -218,7 +218,7 @@ public class DaoApp implements Dao{
 	@Override
 	public int getNumberOfRecords() {
 		
-		return cts.bookID;
+		return getAllRowKeys().size();
 	}
 	
 }
