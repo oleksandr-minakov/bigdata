@@ -110,7 +110,7 @@ public class GetBookByTests {
 	}
 	
 	@Test
-	public void getAythorByGenreTest() throws DaoException{
+	public void getAuthorByGenreTest() throws DaoException{
 		
 		TreeSet<String> after = new TreeSet<String>();
 		setUp();
