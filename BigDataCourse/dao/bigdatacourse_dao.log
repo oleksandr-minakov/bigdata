@@ -1,0 +1,232 @@
+19:03:28,119 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:03:38,119 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:03:48,120 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:03:58,121 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:04:08,121 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:04:18,122 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:04:28,123 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:04:38,123 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:04:48,124 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:04:58,124 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:05:08,125 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:05:18,125 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:05:28,126 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:05:38,127 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:05:48,127 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:05:58,128 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:06:08,129 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:06:18,129 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:06:28,130 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:06:38,131 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:06:48,131 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:06:58,132 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:07:08,132 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:07:18,133 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:07:28,133 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:07:38,134 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:07:48,135 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:07:58,135 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:08:08,136 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:08:18,136 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:08:28,137 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:08:38,138 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:08:48,138 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:08:58,139 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:09:08,139 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:09:18,140 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:09:28,140 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:09:38,141 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:09:48,142 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:09:58,142 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:10:08,143 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:10:18,144 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:10:28,144 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:10:38,145 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:10:48,146 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:10:58,146 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:11:08,147 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:11:18,147 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:11:25,148 DEBUG main StandardEnvironment:<init>:112 - Initializing new StandardEnvironment
+19:11:25,153 DEBUG main StandardEnvironment:addLast:107 - Adding [systemProperties] PropertySource with lowest search precedence
+19:11:25,155 DEBUG main StandardEnvironment:addLast:107 - Adding [systemEnvironment] PropertySource with lowest search precedence
+19:11:25,155 DEBUG main StandardEnvironment:<init>:116 - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+19:11:25,160  INFO main FileSystemXmlApplicationContext:prepareRefresh:510 - Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@6ff530ab: startup date [Mon Feb 25 19:11:25 EET 2013]; root of context hierarchy
+19:11:25,188 DEBUG main StandardEnvironment:<init>:112 - Initializing new StandardEnvironment
+19:11:25,189 DEBUG main StandardEnvironment:addLast:107 - Adding [systemProperties] PropertySource with lowest search precedence
+19:11:25,189 DEBUG main StandardEnvironment:addLast:107 - Adding [systemEnvironment] PropertySource with lowest search precedence
+19:11:25,190 DEBUG main StandardEnvironment:<init>:116 - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+19:11:25,191 DEBUG main StandardEnvironment:<init>:112 - Initializing new StandardEnvironment
+19:11:25,191 DEBUG main StandardEnvironment:addLast:107 - Adding [systemProperties] PropertySource with lowest search precedence
+19:11:25,191 DEBUG main StandardEnvironment:addLast:107 - Adding [systemEnvironment] PropertySource with lowest search precedence
+19:11:25,192 DEBUG main StandardEnvironment:<init>:116 - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+19:11:25,200  INFO main XmlBeanDefinitionReader:loadBeanDefinitions:315 - Loading XML bean definitions from file [/home/dmakogon/git/internship/BigDataCourse/dao/src/main/resources/DAOConfig.xml]
+19:11:25,201 DEBUG main DefaultDocumentLoader:loadDocument:72 - Using JAXP provider [com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl]
+19:11:25,219 DEBUG main PluggableSchemaResolver:getSchemaMappings:140 - Loading schema mappings from [META-INF/spring.schemas]
+19:11:25,223 DEBUG main PluggableSchemaResolver:getSchemaMappings:146 - Loaded schema mappings: {http://www.springframework.org/schema/util/spring-util.xsd=org/springframework/beans/factory/xml/spring-util-3.2.xsd, http://www.springframework.org/schema/jee/spring-jee-3.2.xsd=org/springframework/ejb/config/spring-jee-3.2.xsd, http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd=org/springframework/web/servlet/config/spring-mvc-3.1.xsd, http://www.springframework.org/schema/beans/spring-beans-3.1.xsd=org/springframework/beans/factory/xml/spring-beans-3.1.xsd, http://www.springframework.org/schema/task/spring-task.xsd=org/springframework/scheduling/config/spring-task-3.2.xsd, http://www.springframework.org/schema/cache/spring-cache.xsd=org/springframework/cache/config/spring-cache-3.2.xsd, http://www.springframework.org/schema/aop/spring-aop-3.0.xsd=org/springframework/aop/config/spring-aop-3.0.xsd, http://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-2.0.xsd, http://www.springframework.org/schema/task/spring-task-3.1.xsd=org/springframework/scheduling/config/spring-task-3.1.xsd, http://www.springframework.org/schema/tool/spring-tool-2.5.xsd=org/springframework/beans/factory/xml/spring-tool-2.5.xsd, http://www.springframework.org/schema/beans/spring-beans.xsd=org/springframework/beans/factory/xml/spring-beans-3.2.xsd, http://www.springframework.org/schema/jee/spring-jee-2.5.xsd=org/springframework/ejb/config/spring-jee-2.5.xsd, http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd=org/springframework/jdbc/config/spring-jdbc-3.1.xsd, http://www.springframework.org/schema/tool/spring-tool-3.1.xsd=org/springframework/beans/factory/xml/spring-tool-3.1.xsd, http://www.springframework.org/schema/aop/spring-aop.xsd=org/springframework/aop/config/spring-aop-3.2.xsd, http://www.springframework.org/schema/jee/spring-jee-3.1.xsd=org/springframework/ejb/config/spring-jee-3.1.xsd, http://www.springframework.org/schema/tx/spring-tx-3.2.xsd=org/springframework/transaction/config/spring-tx-3.2.xsd, http://www.springframework.org/schema/context/spring-context-3.2.xsd=org/springframework/context/config/spring-context-3.2.xsd, http://www.springframework.org/schema/util/spring-util-3.2.xsd=org/springframework/beans/factory/xml/spring-util-3.2.xsd, http://www.springframework.org/schema/beans/spring-beans-2.0.xsd=org/springframework/beans/factory/xml/spring-beans-2.0.xsd, http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd=org/springframework/web/servlet/config/spring-mvc-3.0.xsd, http://www.springframework.org/schema/lang/spring-lang-3.2.xsd=org/springframework/scripting/config/spring-lang-3.2.xsd, http://www.springframework.org/schema/beans/spring-beans-3.0.xsd=org/springframework/beans/factory/xml/spring-beans-3.0.xsd, http://www.springframework.org/schema/cache/spring-cache-3.2.xsd=org/springframework/cache/config/spring-cache-3.2.xsd, http://www.springframework.org/schema/task/spring-task-3.0.xsd=org/springframework/scheduling/config/spring-task-3.0.xsd, http://www.springframework.org/schema/tx/spring-tx-2.5.xsd=org/springframework/transaction/config/spring-tx-2.5.xsd, http://www.springframework.org/schema/context/spring-context-2.5.xsd=org/springframework/context/config/spring-context-2.5.xsd, http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd=org/springframework/jdbc/config/spring-jdbc-3.0.xsd, http://www.springframework.org/schema/tool/spring-tool-3.0.xsd=org/springframework/beans/factory/xml/spring-tool-3.0.xsd, http://www.springframework.org/schema/tx/spring-tx.xsd=org/springframework/transaction/config/spring-tx-3.2.xsd, http://www.springframework.org/schema/util/spring-util-2.5.xsd=org/springframework/beans/factory/xml/spring-util-2.5.xsd, http://www.springframework.org/schema/tool/spring-tool-2.0.xsd=org/springframework/beans/factory/xml/spring-tool-2.0.xsd, http://www.springframework.org/schema/lang/spring-lang.xsd=org/springframework/scripting/config/spring-lang-3.2.xsd, http://www.springframework.org/schema/lang/spring-lang-2.5.xsd=org/springframework/scripting/config/spring-lang-2.5.xsd, http://www.springframework.org/schema/aop/spring-aop-3.2.xsd=org/springframework/aop/config/spring-aop-3.2.xsd, http://www.springframework.org/schema/jee/spring-jee-3.0.xsd=org/springframework/ejb/config/spring-jee-3.0.xsd, http://www.springframework.org/schema/tx/spring-tx-3.1.xsd=org/springframework/transaction/config/spring-tx-3.1.xsd, http://www.springframework.org/schema/jee/spring-jee-2.0.xsd=org/springframework/ejb/config/spring-jee-2.0.xsd, http://www.springframework.org/schema/context/spring-context-3.1.xsd=org/springframework/context/config/spring-context-3.1.xsd, http://www.springframework.org/schema/util/spring-util-3.1.xsd=org/springframework/beans/factory/xml/spring-util-3.1.xsd, http://www.springframework.org/schema/lang/spring-lang-3.1.xsd=org/springframework/scripting/config/spring-lang-3.1.xsd, http://www.springframework.org/schema/cache/spring-cache-3.1.xsd=org/springframework/cache/config/spring-cache-3.1.xsd, http://www.springframework.org/schema/context/spring-context.xsd=org/springframework/context/config/spring-context-3.2.xsd, http://www.springframework.org/schema/jee/spring-jee.xsd=org/springframework/ejb/config/spring-jee-3.2.xsd, http://www.springframework.org/schema/aop/spring-aop-2.5.xsd=org/springframework/aop/config/spring-aop-2.5.xsd, http://www.springframework.org/schema/mvc/spring-mvc.xsd=org/springframework/web/servlet/config/spring-mvc-3.2.xsd, http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd=org/springframework/web/servlet/config/spring-mvc-3.2.xsd, http://www.springframework.org/schema/jdbc/spring-jdbc.xsd=org/springframework/jdbc/config/spring-jdbc-3.2.xsd, http://www.springframework.org/schema/beans/spring-beans-3.2.xsd=org/springframework/beans/factory/xml/spring-beans-3.2.xsd, http://www.springframework.org/schema/tx/spring-tx-2.0.xsd=org/springframework/transaction/config/spring-tx-2.0.xsd, http://www.springframework.org/schema/aop/spring-aop-3.1.xsd=org/springframework/aop/config/spring-aop-3.1.xsd, http://www.springframework.org/schema/task/spring-task-3.2.xsd=org/springframework/scheduling/config/spring-task-3.2.xsd, http://www.springframework.org/schema/tx/spring-tx-3.0.xsd=org/springframework/transaction/config/spring-tx-3.0.xsd, http://www.springframework.org/schema/context/spring-context-3.0.xsd=org/springframework/context/config/spring-context-3.0.xsd, http://www.springframework.org/schema/tool/spring-tool.xsd=org/springframework/beans/factory/xml/spring-tool-3.2.xsd, http://www.springframework.org/schema/util/spring-util-3.0.xsd=org/springframework/beans/factory/xml/spring-util-3.0.xsd, http://www.springframework.org/schema/util/spring-util-2.0.xsd=org/springframework/beans/factory/xml/spring-util-2.0.xsd, http://www.springframework.org/schema/lang/spring-lang-3.0.xsd=org/springframework/scripting/config/spring-lang-3.0.xsd, http://www.springframework.org/schema/lang/spring-lang-2.0.xsd=org/springframework/scripting/config/spring-lang-2.0.xsd, http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd=org/springframework/jdbc/config/spring-jdbc-3.2.xsd, http://www.springframework.org/schema/tool/spring-tool-3.2.xsd=org/springframework/beans/factory/xml/spring-tool-3.2.xsd, http://www.springframework.org/schema/beans/spring-beans-2.5.xsd=org/springframework/beans/factory/xml/spring-beans-2.5.xsd}
+19:11:25,225 DEBUG main PluggableSchemaResolver:resolveEntity:118 - Found XML schema [http://www.springframework.org/schema/beans/spring-beans.xsd] in classpath: org/springframework/beans/factory/xml/spring-beans-3.2.xsd
+19:11:25,263 DEBUG main DefaultBeanDefinitionDocumentReader:registerBeanDefinitions:108 - Loading bean definitions
+19:11:25,275 DEBUG main XmlBeanDefinitionReader:loadBeanDefinitions:216 - Loaded 2 bean definitions from location pattern [src/main/resources/DAOConfig.xml]
+19:11:25,276 DEBUG main FileSystemXmlApplicationContext:obtainFreshBeanFactory:540 - Bean factory for org.springframework.context.support.FileSystemXmlApplicationContext@6ff530ab: org.springframework.beans.factory.support.DefaultListableBeanFactory@52f79c86: defining beans [cassandra state,DAOCassandra]; root of factory hierarchy
+19:11:25,288 DEBUG main FileSystemXmlApplicationContext:initMessageSource:807 - Unable to locate MessageSource with name 'messageSource': using default [org.springframework.context.support.DelegatingMessageSource@53b5168d]
+19:11:25,290 DEBUG main FileSystemXmlApplicationContext:initApplicationEventMulticaster:831 - Unable to locate ApplicationEventMulticaster with name 'applicationEventMulticaster': using default [org.springframework.context.event.SimpleApplicationEventMulticaster@6f434304]
+19:11:25,291  INFO main DefaultListableBeanFactory:preInstantiateSingletons:596 - Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@52f79c86: defining beans [cassandra state,DAOCassandra]; root of factory hierarchy
+19:11:25,292 DEBUG main DefaultListableBeanFactory:getSingleton:215 - Creating shared instance of singleton bean 'cassandra state'
+19:11:25,292 DEBUG main DefaultListableBeanFactory:createBean:435 - Creating instance of bean 'cassandra state'
+19:11:25,376  INFO main CassandraHostRetryService:<init>:48 - Downed Host Retry service started with queue size -1 and retry delay 10s
+19:11:25,382 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:11:25,388 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:11:25,392 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:11:25,393 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:11:25,393 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:11:25,393 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:11:25,394 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:11:25,394 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:11:25,394 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:11:25,395 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:11:25,395 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:11:25,395 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:11:25,396 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:11:25,396 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:11:25,396 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:11:25,397 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:11:25,397 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:11:25,397 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:11:25,398 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:11:25,398 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:11:25,398 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:11:25,399 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:11:25,399 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:11:25,399 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:11:25,400 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:11:25,400 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:11:25,400 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:11:25,401 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:11:25,401 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:11:25,401 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:11:25,402 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:11:25,402 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:11:25,402 DEBUG main ConcurrentHClientPool:<init>:57 - Concurrent Host pool started with 16 active clients; max: 50 exhausted wait: 0
+19:11:25,441  INFO main JmxMonitor:registerMonitor:52 - Registering JMX me.prettyprint.cassandra.service_Test Cluster:ServiceType=hector,MonitorType=hector
+19:11:25,626 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:11:25,774 DEBUG main DefaultListableBeanFactory:doCreateBean:509 - Eagerly caching bean 'cassandra state' to allow for resolving potential circular references
+19:11:25,777 DEBUG main DefaultListableBeanFactory:createBean:463 - Finished creating instance of bean 'cassandra state'
+19:11:25,778 DEBUG main DefaultListableBeanFactory:getSingleton:215 - Creating shared instance of singleton bean 'DAOCassandra'
+19:11:25,787 DEBUG main DefaultListableBeanFactory:createBean:435 - Creating instance of bean 'DAOCassandra'
+19:11:25,787 DEBUG main DefaultListableBeanFactory:doGetBean:246 - Returning cached instance of singleton bean 'cassandra state'
+19:11:25,805 DEBUG main DefaultListableBeanFactory:doCreateBean:509 - Eagerly caching bean 'DAOCassandra' to allow for resolving potential circular references
+19:11:25,806 DEBUG main DefaultListableBeanFactory:createBean:463 - Finished creating instance of bean 'DAOCassandra'
+19:11:25,808 DEBUG main FileSystemXmlApplicationContext:initLifecycleProcessor:858 - Unable to locate LifecycleProcessor with name 'lifecycleProcessor': using default [org.springframework.context.support.DefaultLifecycleProcessor@42f62b5a]
+19:11:25,808 DEBUG main DefaultListableBeanFactory:doGetBean:246 - Returning cached instance of singleton bean 'lifecycleProcessor'
+19:11:25,811 DEBUG main PropertySourcesPropertyResolver:getProperty:70 - Searching for key 'spring.liveBeansView.mbeanDomain' in [systemProperties]
+19:11:25,812 DEBUG main PropertySourcesPropertyResolver:getProperty:70 - Searching for key 'spring.liveBeansView.mbeanDomain' in [systemEnvironment]
+19:11:25,813 DEBUG main PropertySourcesPropertyResolver:getProperty:93 - Could not find key 'spring.liveBeansView.mbeanDomain' in any property source. Returning [null]
+19:11:25,813 DEBUG main DefaultListableBeanFactory:doGetBean:246 - Returning cached instance of singleton bean 'cassandra state'
+19:11:25,813 DEBUG main DefaultListableBeanFactory:doGetBean:246 - Returning cached instance of singleton bean 'DAOCassandra'
+19:11:25,829 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:11:25,839 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:11:25,840 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:11:25,841 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:11:25,843 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:11:25,844 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:11:25,845 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:11:25,846 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:11:25,848 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:11:25,849 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:11:25,850 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:11:25,851 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:11:25,853 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:11:25,854 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:11:25,855 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:12:19,808 DEBUG main StandardEnvironment:<init>:112 - Initializing new StandardEnvironment
+19:12:19,817 DEBUG main StandardEnvironment:addLast:107 - Adding [systemProperties] PropertySource with lowest search precedence
+19:12:19,820 DEBUG main StandardEnvironment:addLast:107 - Adding [systemEnvironment] PropertySource with lowest search precedence
+19:12:19,821 DEBUG main StandardEnvironment:<init>:116 - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+19:12:19,826  INFO main FileSystemXmlApplicationContext:prepareRefresh:510 - Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@183b1e8b: startup date [Mon Feb 25 19:12:19 EET 2013]; root of context hierarchy
+19:12:19,854 DEBUG main StandardEnvironment:<init>:112 - Initializing new StandardEnvironment
+19:12:19,855 DEBUG main StandardEnvironment:addLast:107 - Adding [systemProperties] PropertySource with lowest search precedence
+19:12:19,855 DEBUG main StandardEnvironment:addLast:107 - Adding [systemEnvironment] PropertySource with lowest search precedence
+19:12:19,856 DEBUG main StandardEnvironment:<init>:116 - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+19:12:19,857 DEBUG main StandardEnvironment:<init>:112 - Initializing new StandardEnvironment
+19:12:19,857 DEBUG main StandardEnvironment:addLast:107 - Adding [systemProperties] PropertySource with lowest search precedence
+19:12:19,858 DEBUG main StandardEnvironment:addLast:107 - Adding [systemEnvironment] PropertySource with lowest search precedence
+19:12:19,858 DEBUG main StandardEnvironment:<init>:116 - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+19:12:19,866  INFO main XmlBeanDefinitionReader:loadBeanDefinitions:315 - Loading XML bean definitions from file [/home/dmakogon/git/internship/BigDataCourse/dao/src/main/resources/DAOConfig.xml]
+19:12:19,867 DEBUG main DefaultDocumentLoader:loadDocument:72 - Using JAXP provider [com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl]
+19:12:19,885 DEBUG main PluggableSchemaResolver:getSchemaMappings:140 - Loading schema mappings from [META-INF/spring.schemas]
+19:12:19,890 DEBUG main PluggableSchemaResolver:getSchemaMappings:146 - Loaded schema mappings: {http://www.springframework.org/schema/util/spring-util.xsd=org/springframework/beans/factory/xml/spring-util-3.2.xsd, http://www.springframework.org/schema/jee/spring-jee-3.2.xsd=org/springframework/ejb/config/spring-jee-3.2.xsd, http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd=org/springframework/web/servlet/config/spring-mvc-3.1.xsd, http://www.springframework.org/schema/beans/spring-beans-3.1.xsd=org/springframework/beans/factory/xml/spring-beans-3.1.xsd, http://www.springframework.org/schema/task/spring-task.xsd=org/springframework/scheduling/config/spring-task-3.2.xsd, http://www.springframework.org/schema/cache/spring-cache.xsd=org/springframework/cache/config/spring-cache-3.2.xsd, http://www.springframework.org/schema/aop/spring-aop-3.0.xsd=org/springframework/aop/config/spring-aop-3.0.xsd, http://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-2.0.xsd, http://www.springframework.org/schema/task/spring-task-3.1.xsd=org/springframework/scheduling/config/spring-task-3.1.xsd, http://www.springframework.org/schema/tool/spring-tool-2.5.xsd=org/springframework/beans/factory/xml/spring-tool-2.5.xsd, http://www.springframework.org/schema/beans/spring-beans.xsd=org/springframework/beans/factory/xml/spring-beans-3.2.xsd, http://www.springframework.org/schema/jee/spring-jee-2.5.xsd=org/springframework/ejb/config/spring-jee-2.5.xsd, http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd=org/springframework/jdbc/config/spring-jdbc-3.1.xsd, http://www.springframework.org/schema/tool/spring-tool-3.1.xsd=org/springframework/beans/factory/xml/spring-tool-3.1.xsd, http://www.springframework.org/schema/aop/spring-aop.xsd=org/springframework/aop/config/spring-aop-3.2.xsd, http://www.springframework.org/schema/jee/spring-jee-3.1.xsd=org/springframework/ejb/config/spring-jee-3.1.xsd, http://www.springframework.org/schema/tx/spring-tx-3.2.xsd=org/springframework/transaction/config/spring-tx-3.2.xsd, http://www.springframework.org/schema/context/spring-context-3.2.xsd=org/springframework/context/config/spring-context-3.2.xsd, http://www.springframework.org/schema/util/spring-util-3.2.xsd=org/springframework/beans/factory/xml/spring-util-3.2.xsd, http://www.springframework.org/schema/beans/spring-beans-2.0.xsd=org/springframework/beans/factory/xml/spring-beans-2.0.xsd, http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd=org/springframework/web/servlet/config/spring-mvc-3.0.xsd, http://www.springframework.org/schema/lang/spring-lang-3.2.xsd=org/springframework/scripting/config/spring-lang-3.2.xsd, http://www.springframework.org/schema/beans/spring-beans-3.0.xsd=org/springframework/beans/factory/xml/spring-beans-3.0.xsd, http://www.springframework.org/schema/cache/spring-cache-3.2.xsd=org/springframework/cache/config/spring-cache-3.2.xsd, http://www.springframework.org/schema/task/spring-task-3.0.xsd=org/springframework/scheduling/config/spring-task-3.0.xsd, http://www.springframework.org/schema/tx/spring-tx-2.5.xsd=org/springframework/transaction/config/spring-tx-2.5.xsd, http://www.springframework.org/schema/context/spring-context-2.5.xsd=org/springframework/context/config/spring-context-2.5.xsd, http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd=org/springframework/jdbc/config/spring-jdbc-3.0.xsd, http://www.springframework.org/schema/tool/spring-tool-3.0.xsd=org/springframework/beans/factory/xml/spring-tool-3.0.xsd, http://www.springframework.org/schema/tx/spring-tx.xsd=org/springframework/transaction/config/spring-tx-3.2.xsd, http://www.springframework.org/schema/util/spring-util-2.5.xsd=org/springframework/beans/factory/xml/spring-util-2.5.xsd, http://www.springframework.org/schema/tool/spring-tool-2.0.xsd=org/springframework/beans/factory/xml/spring-tool-2.0.xsd, http://www.springframework.org/schema/lang/spring-lang.xsd=org/springframework/scripting/config/spring-lang-3.2.xsd, http://www.springframework.org/schema/lang/spring-lang-2.5.xsd=org/springframework/scripting/config/spring-lang-2.5.xsd, http://www.springframework.org/schema/aop/spring-aop-3.2.xsd=org/springframework/aop/config/spring-aop-3.2.xsd, http://www.springframework.org/schema/jee/spring-jee-3.0.xsd=org/springframework/ejb/config/spring-jee-3.0.xsd, http://www.springframework.org/schema/tx/spring-tx-3.1.xsd=org/springframework/transaction/config/spring-tx-3.1.xsd, http://www.springframework.org/schema/jee/spring-jee-2.0.xsd=org/springframework/ejb/config/spring-jee-2.0.xsd, http://www.springframework.org/schema/context/spring-context-3.1.xsd=org/springframework/context/config/spring-context-3.1.xsd, http://www.springframework.org/schema/util/spring-util-3.1.xsd=org/springframework/beans/factory/xml/spring-util-3.1.xsd, http://www.springframework.org/schema/lang/spring-lang-3.1.xsd=org/springframework/scripting/config/spring-lang-3.1.xsd, http://www.springframework.org/schema/cache/spring-cache-3.1.xsd=org/springframework/cache/config/spring-cache-3.1.xsd, http://www.springframework.org/schema/context/spring-context.xsd=org/springframework/context/config/spring-context-3.2.xsd, http://www.springframework.org/schema/jee/spring-jee.xsd=org/springframework/ejb/config/spring-jee-3.2.xsd, http://www.springframework.org/schema/aop/spring-aop-2.5.xsd=org/springframework/aop/config/spring-aop-2.5.xsd, http://www.springframework.org/schema/mvc/spring-mvc.xsd=org/springframework/web/servlet/config/spring-mvc-3.2.xsd, http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd=org/springframework/web/servlet/config/spring-mvc-3.2.xsd, http://www.springframework.org/schema/jdbc/spring-jdbc.xsd=org/springframework/jdbc/config/spring-jdbc-3.2.xsd, http://www.springframework.org/schema/beans/spring-beans-3.2.xsd=org/springframework/beans/factory/xml/spring-beans-3.2.xsd, http://www.springframework.org/schema/tx/spring-tx-2.0.xsd=org/springframework/transaction/config/spring-tx-2.0.xsd, http://www.springframework.org/schema/aop/spring-aop-3.1.xsd=org/springframework/aop/config/spring-aop-3.1.xsd, http://www.springframework.org/schema/task/spring-task-3.2.xsd=org/springframework/scheduling/config/spring-task-3.2.xsd, http://www.springframework.org/schema/tx/spring-tx-3.0.xsd=org/springframework/transaction/config/spring-tx-3.0.xsd, http://www.springframework.org/schema/context/spring-context-3.0.xsd=org/springframework/context/config/spring-context-3.0.xsd, http://www.springframework.org/schema/tool/spring-tool.xsd=org/springframework/beans/factory/xml/spring-tool-3.2.xsd, http://www.springframework.org/schema/util/spring-util-3.0.xsd=org/springframework/beans/factory/xml/spring-util-3.0.xsd, http://www.springframework.org/schema/util/spring-util-2.0.xsd=org/springframework/beans/factory/xml/spring-util-2.0.xsd, http://www.springframework.org/schema/lang/spring-lang-3.0.xsd=org/springframework/scripting/config/spring-lang-3.0.xsd, http://www.springframework.org/schema/lang/spring-lang-2.0.xsd=org/springframework/scripting/config/spring-lang-2.0.xsd, http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd=org/springframework/jdbc/config/spring-jdbc-3.2.xsd, http://www.springframework.org/schema/tool/spring-tool-3.2.xsd=org/springframework/beans/factory/xml/spring-tool-3.2.xsd, http://www.springframework.org/schema/beans/spring-beans-2.5.xsd=org/springframework/beans/factory/xml/spring-beans-2.5.xsd}
+19:12:19,892 DEBUG main PluggableSchemaResolver:resolveEntity:118 - Found XML schema [http://www.springframework.org/schema/beans/spring-beans.xsd] in classpath: org/springframework/beans/factory/xml/spring-beans-3.2.xsd
+19:12:19,930 DEBUG main DefaultBeanDefinitionDocumentReader:registerBeanDefinitions:108 - Loading bean definitions
+19:12:19,942 DEBUG main XmlBeanDefinitionReader:loadBeanDefinitions:216 - Loaded 2 bean definitions from location pattern [src/main/resources/DAOConfig.xml]
+19:12:19,942 DEBUG main FileSystemXmlApplicationContext:obtainFreshBeanFactory:540 - Bean factory for org.springframework.context.support.FileSystemXmlApplicationContext@183b1e8b: org.springframework.beans.factory.support.DefaultListableBeanFactory@17829770: defining beans [cassandra state,DAOCassandra]; root of factory hierarchy
+19:12:19,955 DEBUG main FileSystemXmlApplicationContext:initMessageSource:807 - Unable to locate MessageSource with name 'messageSource': using default [org.springframework.context.support.DelegatingMessageSource@53b5168d]
+19:12:19,957 DEBUG main FileSystemXmlApplicationContext:initApplicationEventMulticaster:831 - Unable to locate ApplicationEventMulticaster with name 'applicationEventMulticaster': using default [org.springframework.context.event.SimpleApplicationEventMulticaster@6f434304]
+19:12:19,958  INFO main DefaultListableBeanFactory:preInstantiateSingletons:596 - Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@17829770: defining beans [cassandra state,DAOCassandra]; root of factory hierarchy
+19:12:19,958 DEBUG main DefaultListableBeanFactory:getSingleton:215 - Creating shared instance of singleton bean 'cassandra state'
+19:12:19,958 DEBUG main DefaultListableBeanFactory:createBean:435 - Creating instance of bean 'cassandra state'
+19:12:20,041  INFO main CassandraHostRetryService:<init>:48 - Downed Host Retry service started with queue size -1 and retry delay 10s
+19:12:20,048 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:12:20,054 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:12:20,058 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:12:20,059 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:12:20,059 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:12:20,060 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:12:20,060 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:12:20,060 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:12:20,061 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:12:20,061 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:12:20,061 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:12:20,062 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:12:20,062 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:12:20,062 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:12:20,063 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:12:20,063 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:12:20,063 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:12:20,064 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:12:20,064 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:12:20,064 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:12:20,065 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:12:20,065 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:12:20,065 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:12:20,066 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:12:20,066 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:12:20,066 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:12:20,067 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:12:20,067 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:12:20,067 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:12:20,068 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:12:20,068 DEBUG main HThriftClientFactoryImpl:createClient:26 - Creation of new client for host: 127.0.0.1
+19:12:20,068 DEBUG main HThriftClient:open:120 - Creating a new thrift connection to localhost(127.0.0.1):9160
+19:12:20,069 DEBUG main ConcurrentHClientPool:<init>:57 - Concurrent Host pool started with 16 active clients; max: 50 exhausted wait: 0
+19:12:20,107  INFO main JmxMonitor:registerMonitor:52 - Registering JMX me.prettyprint.cassandra.service_Test Cluster:ServiceType=hector,MonitorType=hector
+19:12:20,305 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:12:20,490 DEBUG main DefaultListableBeanFactory:doCreateBean:509 - Eagerly caching bean 'cassandra state' to allow for resolving potential circular references
+19:12:20,493 DEBUG main DefaultListableBeanFactory:createBean:463 - Finished creating instance of bean 'cassandra state'
+19:12:20,493 DEBUG main DefaultListableBeanFactory:getSingleton:215 - Creating shared instance of singleton bean 'DAOCassandra'
+19:12:20,499 DEBUG main DefaultListableBeanFactory:createBean:435 - Creating instance of bean 'DAOCassandra'
+19:12:20,499 DEBUG main DefaultListableBeanFactory:doGetBean:246 - Returning cached instance of singleton bean 'cassandra state'
+19:12:20,517 DEBUG main DefaultListableBeanFactory:doCreateBean:509 - Eagerly caching bean 'DAOCassandra' to allow for resolving potential circular references
+19:12:20,517 DEBUG main DefaultListableBeanFactory:createBean:463 - Finished creating instance of bean 'DAOCassandra'
+19:12:20,518 DEBUG main FileSystemXmlApplicationContext:initLifecycleProcessor:858 - Unable to locate LifecycleProcessor with name 'lifecycleProcessor': using default [org.springframework.context.support.DefaultLifecycleProcessor@459ad180]
+19:12:20,518 DEBUG main DefaultListableBeanFactory:doGetBean:246 - Returning cached instance of singleton bean 'lifecycleProcessor'
+19:12:20,520 DEBUG main PropertySourcesPropertyResolver:getProperty:70 - Searching for key 'spring.liveBeansView.mbeanDomain' in [systemProperties]
+19:12:20,520 DEBUG main PropertySourcesPropertyResolver:getProperty:70 - Searching for key 'spring.liveBeansView.mbeanDomain' in [systemEnvironment]
+19:12:20,520 DEBUG main PropertySourcesPropertyResolver:getProperty:93 - Could not find key 'spring.liveBeansView.mbeanDomain' in any property source. Returning [null]
+19:12:20,520 DEBUG main DefaultListableBeanFactory:doGetBean:246 - Returning cached instance of singleton bean 'cassandra state'
+19:12:20,521 DEBUG main DefaultListableBeanFactory:doGetBean:246 - Returning cached instance of singleton bean 'DAOCassandra'
+19:12:20,532 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:12:20,537 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:12:20,537 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:12:20,538 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:12:20,538 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:12:20,539 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:12:20,539 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:12:20,540 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:12:20,540 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:12:20,540 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:12:20,541 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:12:20,541 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:12:20,542 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:12:20,542 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:12:20,543 DEBUG main HThriftClient:getCassandra:76 - keyspace reseting from null to Bookshelf
+19:12:30,042 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
+19:12:40,042 DEBUG Hector.me.prettyprint.cassandra.connection.CassandraHostRetryService-1 CassandraHostRetryService:run:123 - Retry service fired... nothing to do.
