@@ -20,7 +20,7 @@ import com.mirantis.aminakov.bigdatacourse.service.Service;
 public class AddBookController {
 	
 	private Service service;
-	
+
 	@Autowired
 	public void setService(Service service) {
 		this.service = service;
@@ -47,7 +47,7 @@ public class AddBookController {
 			model.addAttribute("message", e.getMessage());
 			return "upload";
 		}
-		int id = 0;
+		int id;
 		id = service.addBook(book);
 		if (id != 0) {
 			model.addAttribute("message", "File '" + file.getOriginalFilename() + "' uploaded successfully");
@@ -68,25 +68,22 @@ public class AddBookController {
 	
 	@RequestMapping(value = "/search", method=RequestMethod.GET)
 	public String getBooks(Integer pageNum, String findString, String findBy, Model model) {
-		
-		int pageSize = 10;
+		int numberOfRecords;
+        int pageSize = 10;
 		if (pageNum == null) {
 			pageNum = 1;
 		} else {
 			//NOP
 		}
 		List<Book> books = new ArrayList<Book>();
-		int numberOfRecords = 0;
 		if (findString == null || findString.equalsIgnoreCase("")) {			//dangerous expression in condition
 			books = service.getAllBooks(pageNum, pageSize);
 			numberOfRecords = service.getNumberOfRecords();
 			model.addAttribute("books", books);
-			model.addAttribute("numberOfPages", books.size());
+//			model.addAttribute("numberOfPages", books.size());
 			model.addAttribute("currentPage", pageNum);
 			model.addAttribute("numberOfRecords", numberOfRecords);
 		} else {
-//			model.addAttribute("books", service.getAllBooks(pageNum, pageSize));
-//			model.addAttribute("books", service.findByTitle(pageNum, pageSize, findString));
 			model.addAttribute("findString",findString);
 			model.addAttribute("findBy", findBy);
 			by searchBy = by.valueOf(findBy);
@@ -94,21 +91,25 @@ public class AddBookController {
 			case title:
 				model.addAttribute("books", service.findByTitle(pageNum, pageSize, findString));
 				model.addAttribute("numberOfRecords", service.getNumberOfRecords());
+                model.addAttribute("currentPage", pageNum);
 				break;
 				
 			case author:
 				model.addAttribute("books", service.findByAuthor(pageNum, pageSize, findString));
 				model.addAttribute("numberOfRecords", service.getNumberOfRecords());
+                model.addAttribute("currentPage", pageNum);
 				break;
 				
 			case genre:
 				model.addAttribute("books", service.findByGenre(pageNum, pageSize, findString));
 				model.addAttribute("numberOfRecords", service.getNumberOfRecords());
+                model.addAttribute("currentPage", pageNum);
 				break;
 				
 			case text:
 				model.addAttribute("books", service.findByText(pageNum, pageSize, findString));
 				model.addAttribute("numberOfRecords", service.getNumberOfRecords());
+                model.addAttribute("currentPage", pageNum);
 				break;
 
 			default:

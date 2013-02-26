@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf8" pageEncoding="utf8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="java.util.*" %>
+
 <?xml version="1.0" encoding="UTF-8"?>
 <html>
 <head>
@@ -8,11 +8,11 @@
 </head>
 <body>
 <div id="header" style="background-color:#E6E6E6; text-align:center;">
-	<a href="/webapp/welcome">Welcome page </a> &nbsp;&nbsp;&nbsp;
-	
-	<a href="/webapp/addbook">Add book </a> &nbsp;&nbsp;&nbsp;
-	
-	<a href="/webapp/search">Search </a> 
+	<a href="<c:url value="/welcome"/>">Welcome page </a> &nbsp;&nbsp;&nbsp;
+
+	<a href="<c:url value="/addbook"/>">Add book </a> &nbsp;&nbsp;&nbsp;
+
+	<a href="<c:url value="/search"/>">Search </a>
 </div>
 <br>
 
@@ -20,20 +20,25 @@
 	<h2>You can find books here</h2>
 </div>
 <form name="find" method="GET">
-Find:   <input type="text" name="findString" value="${findString}" >
-	<p>by</p>
-	<select name="findBy">
-	<option>title</option>
-	<option>author</option>
-	<option>genre</option>
-	<option>text</option>
-	</select>
+Find: <label>
+    <input type="text" name="findString" value="${findString}">
+</label>
 
-<br>
+    <p>by</p>
+    <label>
+        <select name="findBy">
+            <option>title</option>
+            <option>author</option>
+            <option>genre</option>
+            <option>text</option>
+        </select>
+    </label>
+
+    <br>
 <div id="find" style="text-align:center;">
 <input type="submit" value="Search">
 </div>
-</form> 
+</form>
 
 
 
@@ -55,21 +60,39 @@ Find:   <input type="text" name="findString" value="${findString}" >
 	</c:forEach>
 </table>
 <br>
-
-    <c:if test="${currentPage != 1}">
-        <td><a href="search?pageNum=${currentPage - 1}">Previous</a></td>
+<div id="pagination" style="background-color:#E6E6E6; text-align:center;">
+    <c:if test="${currentPage eq 1}">
+        <a href="#" onclick="return false;"> Previous </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     </c:if>
-    
-    
-    
+
+    <c:if test="${currentPage > 1}">
+        <a href="search?pageNum=${currentPage - 1}&findString=${findString}&findBy=${findBy}"> Previous </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </c:if>
+
+    ${currentPage} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <c:if test="${numberOfRecords/10 > currentPage}">
+        <a href="search?pageNum=${currentPage + 1}&findString=${findString}&findBy=${findBy}"> Next </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </c:if>
+
+    <c:if test="${currentPage >= numberOfRecords/10}">
+        <a href="#" onclick="return false;"> Next </a>
+    </c:if>
+
+</div>
+
+   <!--
+    <c:if test="${currentPage > 1}">
+        <td><a href="search?pageNum=${currentPage - 1}&findString=${findString}&findBy=${findBy}">Previous</a></td>
+    </c:if>
+
     <table border="1">
         <tr>
-        
-        
-        <!-- 
-            <c:forEach begin="1" end="${numberOfPage}" var="i">
+            <td><p>${currentPage}</p></td>
+
+            <c:forEach begin="1" end="${numberOfRecords/10 + 1}" var="i">
                 <c:choose>
-                    <c:when test="${currentPage eq i}">
+                    <c:when test="${currentPage < i}">
                         <td>${i}</td>
                     </c:when>
                     <c:otherwise>
@@ -77,16 +100,17 @@ Find:   <input type="text" name="findString" value="${findString}" >
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
-         -->
+
         </tr>
     </table>
- 
-    <c:if test="${numberOfPages eq 10}">
-        <td><a href="search?pageNum=${currentPage + 1}">Next</a></td>
+
+    <c:if test="${numberOfRecords/10 > currentPage}">
+        <td><a href="search?pageNum=${currentPage + 1}&findString=${findString}&findBy=${findBy}">Next</a></td>
     </c:if>
-
+    -->
 <h2>Number of records: ${numberOfRecords} </h2>
-
+<h2>Number of pages: ${numberOfRecords/10} </h2>
+<h2>Page num: ${currentPage} </h2>
 <br>
 </body>
 </html>

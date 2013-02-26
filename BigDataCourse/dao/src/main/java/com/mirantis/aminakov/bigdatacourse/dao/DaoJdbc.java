@@ -156,7 +156,7 @@ public class DaoJdbc implements Dao {
 		List<Book> books = new ArrayList<Book>();
 		try {
 			st = con.createStatement();
-			rs = st.executeQuery("SELECT SQL_CALC_FOUND_ROWS * FROM Books JOIN Authors ON Books.author_id=Authors.id " + 
+			rs = st.executeQuery("SELECT SQL_CALC_FOUND_ROWS * FROM Books JOIN Authors ON Books.author_id=Authors.id " +
 					"JOIN Genres ON Books.genre_id=Genres.id " +
 					"JOIN Texts ON Books.book_id=Texts.id LIMIT " + (pageNum-1) * pageSize  + "," + pageSize);
 			BookMapper map = new BookMapper();
@@ -164,9 +164,9 @@ public class DaoJdbc implements Dao {
 				books.add((Book)map.mapRow(rs, 0));	
 			}
 			rs = st.executeQuery("SELECT FOUND_ROWS();");
-			numberOfRecords = rs.getInt("FOUND_ROWS()");
-			System.out.println(numberOfRecords);
-			System.err.println(numberOfRecords);
+            while (rs.next()) {
+                numberOfRecords = rs.getInt(1);
+            }
 		} catch (SQLException e) {
 			throw new DaoException(e);
 		} finally {
@@ -204,7 +204,9 @@ public class DaoJdbc implements Dao {
 				books.add((Book)map.mapRow(rs, 0));			
 			}
 			rs = st.executeQuery("SELECT FOUND_ROWS();");
-			numberOfRecords = rs.getInt(0);
+            while (rs.next()) {
+                numberOfRecords = rs.getInt(1);
+            }
 		} catch (SQLException e) {
 			throw new DaoException(e);
 		} finally {
@@ -234,7 +236,7 @@ public class DaoJdbc implements Dao {
 		List<Book> books = new ArrayList<Book>();
 		try {
 			st = con.createStatement();
-			rs = st.executeQuery("SELECT SQL_CALC_FOUND_ROWS * FROM Books JOIN Authors ON Books.author_id=Authors.id " + 
+			rs = st.executeQuery("SELECT SQL_CALC_FOUND_ROWS * FROM Books JOIN Authors ON Books.author_id=Authors.id " +
 					"JOIN Genres ON Books.genre_id=Genres.id JOIN Texts ON Books.book_id=Texts.id " + 
 					"WHERE author LIKE '%" + author + "%' LIMIT " + (pageNum-1) * pageSize  + "," + pageSize);
 			BookMapper map = new BookMapper();
@@ -242,7 +244,9 @@ public class DaoJdbc implements Dao {
 				books.add((Book)map.mapRow(rs, 0));			
 			}
 			rs = st.executeQuery("SELECT FOUND_ROWS();");
-			numberOfRecords = rs.getInt(0);
+            while (rs.next()) {
+                numberOfRecords = rs.getInt(1);
+            }
 		} catch (SQLException e) {
 			throw new DaoException(e);
 		} finally {
@@ -280,7 +284,9 @@ public class DaoJdbc implements Dao {
 				books.add((Book)map.mapRow(rs, 0));			
 			}
 			rs = st.executeQuery("SELECT FOUND_ROWS();");
-			numberOfRecords = rs.getInt(0);
+            while (rs.next()) {
+                numberOfRecords = rs.getInt(1);
+            }
 		} catch (SQLException e) {
 			throw new DaoException(e);
 		} finally {
@@ -319,7 +325,9 @@ public class DaoJdbc implements Dao {
 				authors.add(name);
 			}
 			rs = st.executeQuery("SELECT FOUND_ROWS();");
-			numberOfRecords = rs.getInt(0);
+            while (rs.next()) {
+                numberOfRecords = rs.getInt(1);
+            }
 		} catch (SQLException e) {
 			throw new DaoException(e);
 		} finally {
@@ -354,7 +362,9 @@ public class DaoJdbc implements Dao {
 				books.add((Book)map.mapRow(rs, 0));			
 			}
 			rs = st.executeQuery("SELECT FOUND_ROWS();");
-			numberOfRecords = rs.getInt(0);
+            while (rs.next()) {
+                numberOfRecords = rs.getInt(1);
+            }
 		} catch (SQLException e) {
 			throw new DaoException(e);
 		} finally {
@@ -378,7 +388,6 @@ public class DaoJdbc implements Dao {
 
 	@Override
 	public void closeConnection() throws DaoException {
-
 		if (this.con != null) {
 			try {
 				this.con.close();
@@ -390,7 +399,6 @@ public class DaoJdbc implements Dao {
 
 	@Override
 	public int getNumberOfRecords() {
-
 		return numberOfRecords;
 	}
 }

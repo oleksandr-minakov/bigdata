@@ -8,11 +8,11 @@
 <title>Add book</title>
 </head> 
 <div id="header" style="background-color:#E6E6E6; text-align:center;">
-	<a href="/webapp/welcome">Welcome page </a> &nbsp;&nbsp;&nbsp;
+	<a href="<c:url value="/welcome"/>">Welcome page </a> &nbsp;&nbsp;&nbsp;
 	
-	<a href="/webapp/addbook">Add book </a> &nbsp;&nbsp;&nbsp;
+	<a href="<c:url value="/addbook"/>">Add book </a> &nbsp;&nbsp;&nbsp;
 	
-	<a href="/webapp/search">Search </a> 
+	<a href="<c:url value="/search"/>">Search </a>
 </div>
 <br>
 <body>
@@ -21,21 +21,27 @@
 </div>
 <br>
 
-<form method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+<form method="post" enctype="multipart/form-data" accept-charset="UTF-8" >
 
 	<table>
 		<tr>
 			<td>Title</td>
-  			<td><input type="text" name="title" value="${title}"></td>
+  			<td><label>
+                  <input type="text" name="title" value="${title}">
+              </label></td>
 		</tr>
 		
 		<tr>
 			<td>Author</td>
-  			<td><input type="text" name="author" value="${author}"></td>
+  			<td><label>
+                  <input type="text" name="author" value="${author}">
+              </label></td>
 		</tr>
 		<tr>
 			<td>Genre</td>
-  			<td><input type="text" name="genre" value="${genre}"></td>
+  			<td><label>
+                  <input type="text" name="genre" value="${genre}">
+              </label></td>
 		</tr>
 		<tr>
 			<td>Text</td>
