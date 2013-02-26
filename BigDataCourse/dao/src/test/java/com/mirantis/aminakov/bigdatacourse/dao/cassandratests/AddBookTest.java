@@ -3,7 +3,6 @@ package com.mirantis.aminakov.bigdatacourse.dao.cassandratests;
 import static org.junit.Assert.*;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import org.apache.log4j.BasicConfigurator;
 import org.junit.Test;
 
@@ -15,7 +14,7 @@ import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoApp;
 public class AddBookTest {
 
 	@Test
-	public void addBookTest(){
+	public void addBookTest() throws DaoException{
 		
 		BasicConfigurator.configure();
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
@@ -29,8 +28,8 @@ public class AddBookTest {
 			assertEquals(beggining_state.getId(), 1);
 			
 			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
-		} catch (FileNotFoundException | DaoException e) {
-				e.printStackTrace();
+		} catch (Exception e) {
+				throw new DaoException(e);
 		}
 	}
 }

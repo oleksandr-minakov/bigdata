@@ -3,7 +3,6 @@ package com.mirantis.aminakov.bigdatacourse.dao.cassandratests;
 import static org.junit.Assert.*;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
@@ -33,7 +32,7 @@ public class GetBookByTests {
 		
 	}
 	@Test
-	public void getBookByTitleTest(){
+	public void getBookByTitleTest() throws DaoException{
 		
 		List<Book> after = new ArrayList<Book>();
 		setUp();
@@ -53,12 +52,12 @@ public class GetBookByTests {
 				System.out.println(book.getTitle().equals(new String("CassandraTest4")));
 			}
 			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
-		} catch (FileNotFoundException | DaoException e) {e.printStackTrace();}
+		} catch (Exception e) {throw new DaoException(e);}
 		
 	}
 	
 	@Test
-	public void getBookByAuthorTest(){
+	public void getBookByAuthorTest() throws DaoException{
 		
 		List<Book> after = new ArrayList<Book>();
 		setUp();
@@ -78,12 +77,12 @@ public class GetBookByTests {
 				System.out.println(book.getAuthor().equals(new String("Test4")));
 			}
 			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
-		} catch (FileNotFoundException | DaoException e) {e.printStackTrace();}
+		} catch (Exception e) {throw new DaoException(e);}
 		
 	}
 	
 	@Test
-	public void getBookByGenreTest(){
+	public void getBookByGenreTest() throws DaoException{
 		
 		List<Book> after = new ArrayList<Book>();
 		setUp();
@@ -103,13 +102,13 @@ public class GetBookByTests {
 				System.out.println(book.getGenre().equals(new String("Tester4")));
 			}
 			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
-		} catch (FileNotFoundException | DaoException e) {e.printStackTrace();}
+		} catch (Exception e) {throw new DaoException(e);}
 		
 	}
 	
 
 	@Test
-	public void getAythorByGenreTest(){
+	public void getAythorByGenreTest() throws DaoException{
 		
 		TreeSet<String> after = new TreeSet<String>();
 		setUp();
@@ -129,7 +128,7 @@ public class GetBookByTests {
 				System.out.println(book.equals(new String("Test5")));
 			}
 			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
-		} catch (FileNotFoundException | DaoException e) {e.printStackTrace();}
+		} catch (Exception e) {throw new DaoException(e);}
 		
 	}
 	

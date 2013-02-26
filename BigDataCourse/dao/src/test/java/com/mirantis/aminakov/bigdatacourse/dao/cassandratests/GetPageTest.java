@@ -3,7 +3,6 @@ package com.mirantis.aminakov.bigdatacourse.dao.cassandratests;
 import static org.junit.Assert.*;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class GetPageTest {
 
 	@SuppressWarnings("unused")
 	@Test
-	public void getpagesTest() {
+	public void getpagesTest() throws DaoException {
 		
 		BasicConfigurator.configure();
 		List<Book> pagedBookList = new ArrayList<Book>();
@@ -44,7 +43,7 @@ public class GetPageTest {
 			assertNotNull(dao.getAllBooks(2, 10));
 			assertEquals(dao.getAllBooks(2, 10).size(), 10);
 			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
-		} catch (FileNotFoundException | DaoException e) {e.printStackTrace();}
+		} catch (Exception e) {throw new DaoException(e);}
 	}
 		
 }

@@ -3,7 +3,6 @@ package com.mirantis.aminakov.bigdatacourse.dao.cassandratests;
 import static org.junit.Assert.*;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.BasicConfigurator;
@@ -17,7 +16,7 @@ import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoApp;
 public class GetRangedSliceTest {
 
 	@Test
-	public void getRangedSlicesTest(){
+	public void getRangedSlicesTest() throws DaoException{
 		
 		BasicConfigurator.configure();
 		List<Book> before = new ArrayList<Book>();
@@ -41,6 +40,6 @@ public class GetRangedSliceTest {
 			assertFalse(before.equals(after));
 			
 			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
-		} catch (FileNotFoundException | DaoException e) {e.printStackTrace();}
+		} catch (Exception e) {throw new DaoException(e);}
 	}
 }

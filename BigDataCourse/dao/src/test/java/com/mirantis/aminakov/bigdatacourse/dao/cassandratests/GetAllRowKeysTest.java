@@ -1,20 +1,20 @@
 package com.mirantis.aminakov.bigdatacourse.dao.cassandratests;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.List;
 
 import org.apache.log4j.BasicConfigurator;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
+import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoApp;
 
 public class GetAllRowKeysTest {
 	
 	@Test
-	public void getIterList(){
+	public void getIterList() throws DaoException{
 		
 		BasicConfigurator.configure();
 		
@@ -33,7 +33,7 @@ public class GetAllRowKeysTest {
 				System.out.println(key);
 			}
 			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
-		} catch (FileNotFoundException e) {e.printStackTrace();}
+		} catch (Exception e) {throw new DaoException(e);}
 	}
 
 }
