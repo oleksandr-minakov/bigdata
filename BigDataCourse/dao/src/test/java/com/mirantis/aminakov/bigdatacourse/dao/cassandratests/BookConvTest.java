@@ -47,8 +47,8 @@ public class BookConvTest {
 			cols = BookConverter.getInstance().book2row(bstate);
 			fstate = BookConverter.getInstance().row2book(cols);
 			
-			System.out.println(bstate.getId() + bstate.getTitle() + bstate.getAuthor() + bstate.getGenre() + bstate.getText());
-			System.out.println(fstate.getId() + fstate.getTitle() + fstate.getAuthor() + fstate.getGenre() + fstate.getText());
+			System.out.println(bstate.getTitle() + bstate.getAuthor() + bstate.getGenre() + bstate.getText());
+			System.out.println(fstate.getTitle() + fstate.getAuthor() + fstate.getGenre() + fstate.getText());
 			assertFalse(bstate.equals(fstate));
 		} catch (Exception e) {
 			e.printStackTrace();

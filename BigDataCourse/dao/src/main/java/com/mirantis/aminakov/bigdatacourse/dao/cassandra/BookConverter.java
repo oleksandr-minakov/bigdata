@@ -26,8 +26,6 @@ public class BookConverter {
 	public List<HColumn<String, String>> book2row(Book newBook) throws IOException{
 		
 		List<HColumn<String, String>> cols = new ArrayList<HColumn<String, String>>();
-			
-		cols.add(HFactory.createColumn("book id", String.valueOf(newBook.getId())));
 		cols.add(HFactory.createColumn("book title", newBook.getTitle()));
 		cols.add(HFactory.createColumn("book author", newBook.getAuthor()));
 		cols.add(HFactory.createColumn("book genre", newBook.getGenre()));
@@ -41,10 +39,6 @@ public class BookConverter {
 		
 		Book newBook = new Book();
 		for(HColumn<String, String> col: book){
-			if(col.getName().equals("book id")){
-			
-				newBook.setId(Integer.parseInt(col.getValue()));									}
-			
 			if(col.getName().equals("book title")){
 				
 				newBook.setTitle(col.getValue());													}
