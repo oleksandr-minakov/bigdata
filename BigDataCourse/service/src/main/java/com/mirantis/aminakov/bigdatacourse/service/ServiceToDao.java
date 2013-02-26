@@ -1,23 +1,26 @@
 package com.mirantis.aminakov.bigdatacourse.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.TreeSet;
 
+import org.apache.log4j.Logger;
+
 import com.mirantis.aminakov.bigdatacourse.dao.*;
-import com.mirantis.aminakov.bigdatacourse.dao.DaoJdbc;
 
 public class ServiceToDao implements Service {
 
+	public static final Logger LOG = Logger.getLogger(ServiceToDao.class);
+	
 	@Override
 	public int addBook(Book book) {
 		int ret = 0;
 		try {
 			Dao dao = new DaoJdbc();
 			ret = dao.addBook(book);
-		} catch (DaoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {
+			LOG.debug("[" + new Date()+"]"+ "RunTime exception:" + e.getMessage());
 		}
 		return ret;
 	}
@@ -30,8 +33,7 @@ public class ServiceToDao implements Service {
 			dao = new DaoJdbc();
 			books = dao.getAllBooks(pageNum, pageSize);
 		} catch (DaoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOG.debug("[" + new Date()+"]"+ "RunTime exception:" + e.getMessage());
 		}
 		return books;
 	}
@@ -44,8 +46,7 @@ public class ServiceToDao implements Service {
 			dao = new DaoJdbc();
 			books = dao.getBookByAuthor(pageNum, pageSize, author);
 		} catch (DaoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOG.debug("[" + new Date()+"]"+ "RunTime exception:" + e.getMessage());
 		}
 		return books;
 	}
@@ -58,8 +59,7 @@ public class ServiceToDao implements Service {
 			dao = new DaoJdbc();
 			books = dao.getBookByTitle(pageNum, pageSize, title);
 		} catch (DaoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOG.debug("[" + new Date()+"]"+ "RunTime exception:" + e.getMessage());
 		}
 		return books;
 	}
@@ -72,8 +72,7 @@ public class ServiceToDao implements Service {
 			dao = new DaoJdbc();
 			books = dao.getBookByText(pageNum, pageSize, text);
 		} catch (DaoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOG.debug("[" + new Date()+"]"+ "RunTime exception:" + e.getMessage());
 		}
 		return books;
 	}
@@ -86,8 +85,7 @@ public class ServiceToDao implements Service {
 			dao = new DaoJdbc();
 			books = dao.getBookByGenre(pageNum, pageSize, genre);
 		} catch (DaoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOG.debug("[" + new Date()+"]"+ "RunTime exception:" + e.getMessage());
 		}
 		return books;
 	}
@@ -100,8 +98,7 @@ public class ServiceToDao implements Service {
 			dao = new DaoJdbc();
 			authors = dao.getAuthorByGenre(pageNum, pageSize, genre);
 		} catch (DaoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOG.debug("[" + new Date()+"]"+ "RunTime exception:" + e.getMessage());
 		}
 		return authors;
 	}
@@ -114,8 +111,7 @@ public class ServiceToDao implements Service {
 			dao = new DaoJdbc();
 			numberOfRecords = ((ServiceToDao) dao).getNumberOfRecords();
 		} catch (DaoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOG.debug("[" + new Date()+"]"+ "RunTime exception:" + e.getMessage());
 		}
 		return numberOfRecords;
 	}
