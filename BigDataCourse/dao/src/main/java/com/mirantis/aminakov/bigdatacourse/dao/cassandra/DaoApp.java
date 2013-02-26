@@ -31,6 +31,7 @@ public class DaoApp implements Dao{
 	public static final Logger LOG = Logger.getLogger(DaoApp.class);
 
 	private Constants cts;
+	private int querySize;
 	
 	public DaoApp(Constants cts){
 		this.cts = cts;
@@ -66,19 +67,17 @@ public class DaoApp implements Dao{
 		
 		List<String> neededKeys;
 		
-		if(pageNum <0 || pageNum > getPageCount(cts.bookID, pageSize)){
+		if(pageNum <0 || pageNum > getPageCount(keyStorage.size(), pageSize)){
 			return null;
 		}
 		else{
 			
 			if(pageNum*pageSize > keyStorage.size()){
 				neededKeys = keyStorage.subList((pageNum-1)*pageSize, keyStorage.size());
-				keyStorage = null;
 				return getBooks(neededKeys);
 			}
 			else{
 				neededKeys = keyStorage.subList((pageNum-1)*pageSize, pageNum*pageSize);
-				keyStorage = null;
 				return getBooks(neededKeys);
 			}
 		}
@@ -148,7 +147,6 @@ public class DaoApp implements Dao{
 	}
 	
 	public List<String> getAllRowKeys(){
-		
 
 		List<String> pagedBooks = new ArrayList<String>();
 		
@@ -211,6 +209,7 @@ public class DaoApp implements Dao{
 				neededKeys.add(key);
 			}
 		}
+		this.querySize = neededKeys.size();
 		
 		return getBooks(neededKeys);
 	}
@@ -218,7 +217,7 @@ public class DaoApp implements Dao{
 	@Override
 	public int getNumberOfRecords() {
 		
-		return getAllRowKeys().size();
+		return this.querySize;
 	}
 	
 }
