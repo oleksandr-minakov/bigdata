@@ -6,7 +6,8 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ AddBookTest.class, BookConvTest.class, DeleteBookTest.class,
-	GetAllRowKeysTest.class, GetBookByTests.class, GetPageCountTest.class, GetPageTest.class, GetRangedSliceTest.class })
+	GetAllRowKeysTest.class, GetBookByTests.class, GetPageCountTest.class, 
+	GetPageTest.class, GetRangedSliceTest.class, PaginateByTokenTest.class })
 public class GloballTestCase {
 
 }

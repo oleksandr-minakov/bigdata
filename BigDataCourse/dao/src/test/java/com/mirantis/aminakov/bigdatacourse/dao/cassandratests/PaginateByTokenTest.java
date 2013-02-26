@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.BasicConfigurator;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -18,11 +18,11 @@ import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoApp;
 
 public class PaginateByTokenTest {
 
-	@SuppressWarnings({ "unused", "resource" })
+	@SuppressWarnings("resource")
 	@Test
 	public void paginationTest() throws DaoException, FileNotFoundException{
 		
-//		BasicConfigurator.configure();
+		BasicConfigurator.configure();
 		ApplicationContext ctx = new FileSystemXmlApplicationContext("src/main/resources/DAOConfig.xml");
 		
 		Constants cts = (Constants) ctx.getBean("cassandra state");
@@ -30,8 +30,7 @@ public class PaginateByTokenTest {
 		DaoApp dao = (DaoApp) ctx.getBean("DAOCassandra");
 		
 		Book beggining_state = new Book();
-		List<Book> before = new ArrayList<Book>();
-		List<Book> after = new ArrayList<Book>();
+		
 		for(int i = 0; i< 500; ++i){
 			beggining_state.newBook("CassandraTest"+i%250, "Test" + i%2  , "Tester"+i%50, new FileInputStream("src/main/resources/testbook"));
 			dao.addBook(beggining_state);

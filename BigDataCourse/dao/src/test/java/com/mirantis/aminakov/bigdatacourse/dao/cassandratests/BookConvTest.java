@@ -10,6 +10,7 @@ import me.prettyprint.hector.api.beans.HColumn;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
+import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.BookConverter;
 
 public class BookConvTest {
@@ -26,7 +27,7 @@ public class BookConvTest {
 	}
 	
 	@Test
-	public void book2rowTest(){
+	public void book2rowTest() throws DaoException{
 			
 		try {
 			setUp();
@@ -35,11 +36,11 @@ public class BookConvTest {
 			assertNotNull(cols);
 			
 		} catch (Exception e) {
-			e.printStackTrace();}
+			throw new DaoException(e);}
 	}
 	
 	@Test
-	public void row2bookTest(){
+	public void row2bookTest() throws DaoException{
 		
 		setUp();
 		try {
@@ -51,7 +52,7 @@ public class BookConvTest {
 			System.out.println(fstate.getTitle() + fstate.getAuthor() + fstate.getGenre() + fstate.getText());
 			assertFalse(bstate.equals(fstate));
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new DaoException(e);
 		}
 		
 		

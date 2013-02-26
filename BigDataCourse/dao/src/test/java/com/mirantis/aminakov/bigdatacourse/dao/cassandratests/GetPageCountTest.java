@@ -23,7 +23,7 @@ import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoApp;
 public class GetPageCountTest {
 
 	@Test
-	public void getPagesCountTest(){
+	public void getPagesCountTest() throws DaoException{
 		
 		BasicConfigurator.configure();
 		
@@ -42,6 +42,6 @@ public class GetPageCountTest {
 			assertEquals(dao.getPageCount(books,20), 2);
 			
 			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
-		} catch (FileNotFoundException | DaoException e) {e.printStackTrace();}
+		} catch (Exception e) {throw new DaoException(e);}
 	}
 }
