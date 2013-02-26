@@ -99,7 +99,7 @@ public class DaoApp implements Dao{
 	public List<Book> getBookByText(int pageNum, int pageSize, String text)
 			throws DaoException {
 		
-		List<Book> lst  = getBooksByToken(text ,"book title");
+		List<Book> lst  = getBooksByToken(text ,"book text");
 		if(pageNum*pageSize > lst.size())
 			return lst.subList((pageNum-1)*pageSize, lst.size());
 		else
@@ -110,7 +110,7 @@ public class DaoApp implements Dao{
 	public List<Book> getBookByAuthor(int pageNum, int pageSize, String author)
 			throws DaoException {
 		
-		List<Book> lst  = getBooksByToken(author ,"book title");
+		List<Book> lst  = getBooksByToken(author ,"book author");
 		if(pageNum*pageSize > lst.size())
 			return lst.subList((pageNum-1)*pageSize, lst.size());
 		else
@@ -121,7 +121,7 @@ public class DaoApp implements Dao{
 	public List<Book> getBookByGenre(int pageNum, int pageSize, String genre)
 			throws DaoException {
 		
-		List<Book> lst  = getBooksByToken(genre ,"book title");
+		List<Book> lst  = getBooksByToken(genre ,"book genre");
 		if(pageNum*pageSize > lst.size())
 			return lst.subList((pageNum-1)*pageSize, lst.size());
 		else
