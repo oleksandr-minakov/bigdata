@@ -103,11 +103,7 @@ public class ServiceToDao implements Service {
 	@Override
 	public int getNumberOfRecords() {
 		int numberOfRecords;
-		try {
-			numberOfRecords = dao.getNumberOfRecords();
-		} catch (DaoException e) {
-			LOG.debug("[" + new Date()+"]"+ "RunTime exception:" + e.getMessage());
-		}
+		numberOfRecords = dao.getNumberOfRecords();
 		return numberOfRecords;
 	}
 }
