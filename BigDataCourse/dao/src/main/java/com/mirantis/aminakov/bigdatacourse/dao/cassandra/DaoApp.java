@@ -88,17 +88,7 @@ public class DaoApp implements Dao{
 	public List<Book> getBookByTitle(int pageNum, int pageSize, String title)
 			throws DaoException {
 		
-		List<Book> books = getAllBooks(pageNum, pageSize);
-		
-		List<Book> titledBooks = new ArrayList<Book>();
-		
-		for(Book book: books){
-			
-			if(book.getTitle().equals(title)){
-				titledBooks.add(book);
-			}
-		}
-		return titledBooks;
+		return getBooksByToken(title ,"book title").subList((pageNum-1)*pageSize, pageNum*pageSize);
 	}
 
 	@Override
@@ -150,13 +140,14 @@ public class DaoApp implements Dao{
 		books.setColumnFamily(cts.CF_NAME);
 		books.setKeys("", "");
 		books.setReturnKeysOnly();
+		books.setRowCount(cts.bookID);
 		
 		QueryResult<OrderedRows<String, String, String>> result = books.execute();
         OrderedRows<String, String, String> orderedRows = result.get();
-        Iterator<Row<String, String, String>> it = orderedRows.getList().iterator();
-        while(it.hasNext()){
-        	pagedBooks.add(it.next().getKey());
-        }        
+        List<Row<String, String, String>> keys = orderedRows.getList();
+        for(Row<String, String, String> row: keys){
+        	pagedBooks.add(row.getKey());
+        }
 		return pagedBooks;
 	}
 
@@ -192,11 +183,12 @@ public class DaoApp implements Dao{
 		List<String> neededKeys = new ArrayList<String>();
 		ColumnQuery<String, String, String> columnQuery;
 		QueryResult<HColumn<String, String>> result;
+		columnQuery = HFactory.createStringColumnQuery(cts.getKeyspace());
+		columnQuery.setColumnFamily(cts.CF_NAME).setName(token);
 		
 		for(String key: keys){
 			
-			columnQuery = HFactory.createStringColumnQuery(cts.getKeyspace());
-			columnQuery.setColumnFamily(cts.CF_NAME).setKey(key).setName(token);
+			columnQuery.setKey(key);
 			result = columnQuery.execute();	
 			HColumn<String, String> col= result.get();
 			if(lookFor.equals(col.getValue())){
@@ -207,8 +199,6 @@ public class DaoApp implements Dao{
 		return getBooks(neededKeys);
 	}
 	
-	
-
 	@Override
 	public int getNumberOfRecords() {
 		
