@@ -21,6 +21,7 @@ public class GetRangedSliceTest {
 		BasicConfigurator.configure();
 		List<Book> before = new ArrayList<Book>();
 		List<Book> after = new ArrayList<Book>();
+		List<Book> after1 = new ArrayList<Book>();
 		
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
 		DaoApp dao = new DaoApp(cts);
@@ -33,11 +34,9 @@ public class GetRangedSliceTest {
 				dao.addBook(beggining_state);
 			}
 			after = dao.getAllBooks(1, 40);
-			assertFalse(before.equals(after));
-			after = dao.getAllBooks(2, 20);
-			assertFalse(before.equals(after));
-			after = dao.getAllBooks(3, 11);
-			assertFalse(before.equals(after));
+			after1 = dao.getAllBooks(2, 20);
+			
+			assertTrue((after.size() + after1.size()) == (40 + 20));
 			
 			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		} catch (Exception e) {throw new DaoException(e);}

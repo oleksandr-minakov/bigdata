@@ -33,13 +33,13 @@ public class GetPageCountTest {
 		List<String> books = new ArrayList<String>();
 		Book beggining_state = new Book();
 		try {
-			for(int i = 0; i< 40; ++i){
+			for(int i = 0; i< 1000; ++i){
 				
 				beggining_state.newBook(new String("CassandraTest" + String.valueOf(i)), new String("Test" + String.valueOf(i)), new String("Tester" + String.valueOf(i)), new FileInputStream("src/main/resources/testbook"));
 				books.add(beggining_state.getGenre());
 				dao.addBook(beggining_state);
 			}
-			assertEquals(dao.getPageCount(books,20), 2);
+			assertEquals(dao.getPageCount(cts.bookID,20), 50);
 			
 			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		} catch (Exception e) {throw new DaoException(e);}

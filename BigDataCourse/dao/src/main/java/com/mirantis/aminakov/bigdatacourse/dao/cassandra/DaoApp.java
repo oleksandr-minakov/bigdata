@@ -66,7 +66,7 @@ public class DaoApp implements Dao{
 		
 		List<String> neededKeys;
 		
-		if(pageNum <0 || pageNum > getPageCount(keyStorage, pageSize)){
+		if(pageNum <0 || pageNum > getPageCount(cts.bookID, pageSize)){
 			return null;
 		}
 		else{
@@ -167,10 +167,10 @@ public class DaoApp implements Dao{
 		return pagedBooks;
 	}
 
-	public int getPageCount(List<String> keys, int pageSize){
+	public int getPageCount(int amountOfRecords, int pageSize){
 		
-		int pages = keys.size()/pageSize;
-		if(keys.size()%pageSize != 0)
+		int pages = amountOfRecords/pageSize;
+		if(amountOfRecords%pageSize != 0)
 			return pages+1;
 		else
 			return pages;

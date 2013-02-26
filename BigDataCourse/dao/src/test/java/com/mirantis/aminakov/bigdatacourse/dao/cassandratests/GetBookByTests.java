@@ -48,8 +48,6 @@ public class GetBookByTests {
 				bstate.newBook("CassandraTest"+i, "Test", "Tester", new FileInputStream("src/main/resources/testbook"));
 				dao.addBook(bstate);
 			}
-//			after = dao.getBooksByToken("CassandraTest4" ,"book title");
-//			after = after.subList(0, 10);
 			after = dao.getBookByTitle(1, 10, new String("CassandraTest4"));
 
 			for(Book book: after){

@@ -34,14 +34,12 @@ public class GetPageTest {
 
 		Book beggining_state = new Book();
 		try {
-			for(int i = 0; i< 40; ++i){
+			for(int i = 0; i< 100; ++i){
 				
 				beggining_state.newBook(new String("CassandraTest" + String.valueOf(i)), new String("Test" + String.valueOf(i)), new String("Tester" + String.valueOf(i)), new FileInputStream("src/main/resources/testbook"));
 				dao.addBook(beggining_state);
 			}
-			
-			assertNotNull(dao.getAllBooks(2, 10));
-			assertEquals(dao.getAllBooks(2, 10).size(), 10);
+			assertEquals(dao.getAllBooks(1, 100).size(), cts.bookID);
 			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		} catch (Exception e) {throw new DaoException(e);}
 	}
