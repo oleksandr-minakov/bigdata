@@ -27,6 +27,7 @@ public class GetAllRowKeysTest {
 			for(int i = 0; i< 40; ++i){
 				
 				beggining_state.newBook(new String("CassandraTest" + String.valueOf(i)), new String("Test" + String.valueOf(i)), new String("Tester" + String.valueOf(i)), new FileInputStream("src/main/resources/testbook"));
+				dao.addBook(beggining_state);
 			}
 			List<String> keys = dao.getAllRowKeys();
 			for(String key: keys){
