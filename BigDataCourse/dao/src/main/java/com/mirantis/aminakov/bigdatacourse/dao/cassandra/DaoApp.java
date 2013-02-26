@@ -55,7 +55,7 @@ public class DaoApp implements Dao{
 	public int delBook(int id) throws DaoException {
 		Mutator<String> mutator = HFactory.createMutator(cts.getKeyspace(), StringSerializer.get());
 		mutator.delete("book"+String.valueOf(id), cts.CF_NAME, null, StringSerializer.get()); ;
-		return 0;
+		return id;
 	}
 
 	@Override
@@ -88,40 +88,56 @@ public class DaoApp implements Dao{
 	public List<Book> getBookByTitle(int pageNum, int pageSize, String title)
 			throws DaoException {
 		
-		return getBooksByToken(title ,"book title").subList((pageNum-1)*pageSize, pageNum*pageSize);
+		List<Book> lst  = getBooksByToken(title ,"book title");
+		if(pageNum*pageSize > lst.size())
+			return lst.subList((pageNum-1)*pageSize, lst.size());
+		else
+			return lst.subList((pageNum-1)*pageSize, pageNum*pageSize);
 	}
 
 	@Override
 	public List<Book> getBookByText(int pageNum, int pageSize, String text)
 			throws DaoException {
 		
-		return getBooksByToken(text ,"book text").subList((pageNum-1)*pageSize, pageNum*pageSize);
+		List<Book> lst  = getBooksByToken(text ,"book title");
+		if(pageNum*pageSize > lst.size())
+			return lst.subList((pageNum-1)*pageSize, lst.size());
+		else
+			return lst.subList((pageNum-1)*pageSize, pageNum*pageSize);
 	}
 
 	@Override
 	public List<Book> getBookByAuthor(int pageNum, int pageSize, String author)
 			throws DaoException {
 		
-		return getBooksByToken(author ,"book author").subList((pageNum-1)*pageSize, pageNum*pageSize);
+		List<Book> lst  = getBooksByToken(author ,"book title");
+		if(pageNum*pageSize > lst.size())
+			return lst.subList((pageNum-1)*pageSize, lst.size());
+		else
+			return lst.subList((pageNum-1)*pageSize, pageNum*pageSize);
 	}
 
 	@Override
 	public List<Book> getBookByGenre(int pageNum, int pageSize, String genre)
 			throws DaoException {
 		
-		return getBooksByToken(genre ,"book genre").subList((pageNum-1)*pageSize, pageNum*pageSize);
+		List<Book> lst  = getBooksByToken(genre ,"book title");
+		if(pageNum*pageSize > lst.size())
+			return lst.subList((pageNum-1)*pageSize, lst.size());
+		else
+			return lst.subList((pageNum-1)*pageSize, pageNum*pageSize);
 	}
 
 	@Override
 	public TreeSet<String> getAuthorByGenre(int pageNum, int pageSize,
 			String genre) throws DaoException {
 		
-		List<Book> lst= getBooksByToken(genre ,"book genre").subList((pageNum-1)*pageSize, pageNum*pageSize);
+		List<Book> lst= getBookByGenre(pageNum, pageSize, genre);
 		TreeSet<String> tree= new TreeSet<String>(); 
 		for(Book book: lst){
 			tree.add(book.getAuthor());
 		}
-		return null;
+		return tree;
 				
 	}
 
@@ -202,7 +218,7 @@ public class DaoApp implements Dao{
 	@Override
 	public int getNumberOfRecords() {
 		
-		return getAllRowKeys().size();
+		return cts.bookID;
 	}
 	
 }

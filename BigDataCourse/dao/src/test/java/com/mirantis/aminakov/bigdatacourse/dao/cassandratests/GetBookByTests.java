@@ -9,11 +9,13 @@ import java.util.TreeSet;
 
 import me.prettyprint.hector.api.Cluster;
 import me.prettyprint.hector.api.factory.HFactory;
+
+import org.apache.log4j.BasicConfigurator;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
-import com.mirantis.aminakov.bigdatacourse.dao.Dao;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoApp;
 @SuppressWarnings("unused")
@@ -34,19 +36,22 @@ public class GetBookByTests {
 	@Test
 	public void getBookByTitleTest() throws DaoException{
 		
+		BasicConfigurator.configure();
 		List<Book> after = new ArrayList<Book>();
 		setUp();
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
-		Dao dao = new DaoApp(cts);
+		DaoApp dao = new DaoApp(cts);
 		
 		try {
-			for(int i = 0; i< 10; ++i){
+			for(int i = 0; i< 100; ++i){
 				
 				bstate.newBook("CassandraTest"+i, "Test", "Tester", new FileInputStream("src/main/resources/testbook"));
 				dao.addBook(bstate);
 			}
+//			after = dao.getBooksByToken("CassandraTest4" ,"book title");
+//			after = after.subList(0, 10);
 			after = dao.getBookByTitle(1, 10, new String("CassandraTest4"));
-			
+
 			for(Book book: after){
 				assertTrue(book.getTitle().equals(new String("CassandraTest4")));
 				System.out.println(book.getTitle().equals(new String("CassandraTest4")));
@@ -62,10 +67,10 @@ public class GetBookByTests {
 		List<Book> after = new ArrayList<Book>();
 		setUp();
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
-		Dao dao = new DaoApp(cts);
+		DaoApp dao = new DaoApp(cts);
 		
 		try {
-			for(int i = 0; i< 10; ++i){
+			for(int i = 0; i< 100; ++i){
 				
 				bstate.newBook("CassandraTest", "Test"+i, "Tester", new FileInputStream("src/main/resources/testbook"));
 				dao.addBook(bstate);
@@ -87,10 +92,10 @@ public class GetBookByTests {
 		List<Book> after = new ArrayList<Book>();
 		setUp();
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
-		Dao dao = new DaoApp(cts);
+		DaoApp dao = new DaoApp(cts);
 		 
 		try {
-			for(int i = 0; i< 10; ++i){
+			for(int i = 0; i< 100; ++i){
 				
 				bstate.newBook("CassandraTest", "Test", "Tester"+i, new FileInputStream("src/main/resources/testbook"));
 				dao.addBook(bstate);
@@ -106,17 +111,16 @@ public class GetBookByTests {
 		
 	}
 	
-
 	@Test
 	public void getAythorByGenreTest() throws DaoException{
 		
 		TreeSet<String> after = new TreeSet<String>();
 		setUp();
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
-		Dao dao = new DaoApp(cts);
+		DaoApp dao = new DaoApp(cts);
 		
 		try {
-			for(int i = 0; i< 10; ++i){
+			for(int i = 0; i< 100; ++i){
 				
 				bstate.newBook("CassandraTest", "Test"+i, "Tester"+i, new FileInputStream("src/main/resources/testbook"));
 				dao.addBook(bstate);
