@@ -50,6 +50,5 @@
     <module>dao</module>
     <module>service</module>
     <module>webapp</module>
-    <module>cassandra</module>
   </modules>
 </project>
