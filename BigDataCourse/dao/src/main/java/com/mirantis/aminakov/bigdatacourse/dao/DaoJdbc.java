@@ -27,12 +27,10 @@ public class DaoJdbc implements Dao {
 		try {
 			try {
 				Class.forName(driverName).newInstance();
-			} catch (InstantiationException e) {		
-				throw new DaoException(e);
-			} catch (IllegalAccessException e) {		
+			} catch (InstantiationException | IllegalAccessException e) {
 				throw new DaoException(e);
 			}
-			try {
+            try {
 				con = DriverManager.getConnection(url + jdbcutf8);
 			} catch (SQLException e) {
 				throw new DaoException(e);
@@ -42,10 +40,7 @@ public class DaoJdbc implements Dao {
 			throw new DaoException(e);
 		}
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.mirantis.aminakov.bigdatacourse.Dao#addBook(com.mirantis.aminakov.bigdatacourse.Book)
-	 */
+
 	@Override
 	public int addBook(Book book) throws DaoException {
 		int id = 0;
@@ -144,13 +139,11 @@ public class DaoJdbc implements Dao {
 			}
 
 		} catch(SQLException | DeleteException e) {
-			throw new DaoException("Can't delete book.");} 
+			throw new DeleteException("Can't delete book.");
+        }
 		return 0;
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.mirantis.aminakov.bigdatacourse.Dao#getAllBooks(int, int)
-	 */
+
 	@Override
 	public List<Book> getAllBooks(int pageNum, int pageSize) throws DaoException {
 		List<Book> books = new ArrayList<Book>();
@@ -187,10 +180,7 @@ public class DaoJdbc implements Dao {
         }
 		return books;
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.mirantis.aminakov.bigdatacourse.Dao#getBookByTitle(int, int, java.lang.String)
-	 */
+
 	@Override
 	public List<Book> getBookByTitle(int pageNum, int pageSize, String title) throws DaoException {
 		List<Book> books = new ArrayList<Book>();
@@ -227,10 +217,7 @@ public class DaoJdbc implements Dao {
         }
 		return books;
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.mirantis.aminakov.bigdatacourse.Dao#getBookByAuthor(int, int, java.lang.String)
-	 */
+
 	@Override
 	public List<Book> getBookByAuthor(int pageNum, int pageSize, String author) throws DaoException {
 		List<Book> books = new ArrayList<Book>();
@@ -267,10 +254,7 @@ public class DaoJdbc implements Dao {
         }
 		return books;
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.mirantis.aminakov.bigdatacourse.Dao#getBookByGenre(int, int, java.lang.String)
-	 */
+
 	@Override
 	public List<Book> getBookByGenre(int pageNum, int pageSize, String genre) throws DaoException {
 		List<Book> books = new ArrayList<Book>();
@@ -307,10 +291,7 @@ public class DaoJdbc implements Dao {
         }
 		return books;
 	}	
-	
-	/* (non-Javadoc)
-	 * @see com.mirantis.aminakov.bigdatacourse.Dao#getAuthorByGenre(int, int, java.lang.String)
-	 */
+
 	@Override
 	public TreeSet<String> getAuthorByGenre(int pageNum, int pageSize, String genre) throws DaoException {
 		TreeSet<String> authors = new TreeSet<String>();

@@ -1,6 +1,9 @@
 package com.mirantis.aminakov.bigdatacourse.webapp;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +50,7 @@ public class AddBookController {
 			model.addAttribute("message", e.getMessage());
 			return "upload";
 		}
+
 		int id;
 		id = service.addBook(book);
 		if (id != 0) {
@@ -126,11 +130,42 @@ public class AddBookController {
 		text
 	}
 	
-	/*@RequestMapping(value = "/search", method=RequestMethod.POST)
-	public String findBooks(Map<String, Object> map) {
-		int pageNum = 1;
-		int pageSize = 10;
-		map.put("books", service.getAllBooks(pageNum, pageSize));
-		return "search";
-	}*/
+	@RequestMapping(value = "/text", method=RequestMethod.GET)
+	public String getTextOfBook(String titleOfBook, Model model) {
+        if (titleOfBook == null || titleOfBook.equalsIgnoreCase(""))
+            return "text";
+        List<Book> books = new ArrayList<Book>();
+        books = service.findByTitle(1, 1, titleOfBook);
+        if (books.size() == 0)
+            return "text";
+        Book book = books.get(0);
+        StringBuilder inputStringBuilder = new StringBuilder();
+        BufferedReader bufferedReader = null;
+        try {
+            bufferedReader = new BufferedReader(new InputStreamReader(book.getText(), "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            return "text";
+        }
+        String line = null;
+        try {
+            if (bufferedReader != null) {
+                line = bufferedReader.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            return "text";
+        }
+        while(line != null){
+            inputStringBuilder.append(line);inputStringBuilder.append('\n');
+            try {
+                line = bufferedReader.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                return "text";
+            }
+        }
+        model.addAttribute("text", inputStringBuilder.toString());
+        return "text";
+	}
 }

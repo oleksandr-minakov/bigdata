@@ -10,12 +10,12 @@ public class DaoException extends Exception {
 	public static final Logger LOG = Logger.getLogger(DaoException.class);
 	
 	public DaoException(Exception e) {
-		LOG.debug("[" + new Date()+"]"+ "RunTime exception:" + e.getMessage());
+		LOG.debug("RunTime exception:" + e.getMessage());
 	}
 
 	public DaoException (String msg) {
 		
-		LOG.debug("[" + new Date()+"]"+ "RunTime exception:" + msg);
+		LOG.debug("RunTime exception:" + msg);
 		System.err.println(msg);
 	}
 
