@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>Text of the book</title>
+    <title>Delete book</title>
 </head>
 <body>
 <div id="header" style="background-color:#E6E6E6; text-align:center;">
@@ -13,6 +13,9 @@
 
     <a href="<c:url value="/search"/>">Search </a>
 </div>
-    ${text}
+<div style="text-align: center;">
+    <h2>Status: ${message}</h2>
+</div>
+<br>
 </body>
 </html>

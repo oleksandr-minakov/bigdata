@@ -168,4 +168,17 @@ public class AddBookController {
         model.addAttribute("text", inputStringBuilder.toString());
         return "text";
 	}
+
+    @RequestMapping(value = "/delete", method=RequestMethod.GET)
+    public String deleteBook(int deleteBookId, Model model) {
+        if (deleteBookId == 0)
+            return "delete";
+        int result = service.delBook(deleteBookId);
+        if (result == 0) {
+            model.addAttribute("message", "Book with ID '" + deleteBookId + "' deleted successfully");
+        } else {
+            model.addAttribute("message", "Book with ID '" + deleteBookId + "' delete failed");
+        }
+        return "delete";
+    }
 }

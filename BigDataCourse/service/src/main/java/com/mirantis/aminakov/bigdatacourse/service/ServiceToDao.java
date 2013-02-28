@@ -33,8 +33,19 @@ public class ServiceToDao implements Service {
 		}
 		return ret;
 	}
-	
-	@Override
+
+    @Override
+    public int delBook(int id) {
+        int result = -1;
+        try {
+            result = dao.delBook(id);
+        } catch (DaoException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        return result;
+    }
+
+    @Override
 	public List<Book> getAllBooks(int pageNum, int pageSize) {
 		List<Book> books = new ArrayList<Book>();
 		try {
