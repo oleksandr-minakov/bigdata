@@ -29,7 +29,12 @@ public class ServiceCassandra implements Service{
 		return book.getId();
 	}
 
-	@Override
+    @Override
+    public int delBook(int id) {
+        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
 	public List<Book> getAllBooks(int pageNum, int pageSize) {
 		
 		try {
