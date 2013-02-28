@@ -5,6 +5,7 @@
 
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 <title>Add book</title>
 </head> 
 <div id="header" style="background-color:#E6E6E6; text-align:center;">
@@ -21,7 +22,7 @@
 </div>
 <br>
 
-<form method="post" enctype="multipart/form-data" accept-charset="UTF-8" >
+<form method="post" enctype="multipart/form-data" >
 
 	<table>
 		<tr>
