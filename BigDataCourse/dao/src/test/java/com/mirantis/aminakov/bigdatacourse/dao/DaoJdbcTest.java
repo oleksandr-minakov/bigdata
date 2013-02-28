@@ -35,8 +35,11 @@ public class DaoJdbcTest {
 	
 	@AfterClass
 	public static void testCleanup() throws DaoException {
-		
+//        ManagementTables mt;
 		dao.closeConnection();
+//        mt = new ManagementTables();
+//        mt.dropTables();
+//        mt.closeConnection();
 		books.clear();
 		gen.deleteFiles();
 	}
