@@ -57,6 +57,7 @@ Find: <label>
 			<td>${book.author}</td>
 			<td>${book.genre}</td>
 			<td>${book.text}</td>
+            <td><a href="<c:url value="/delete?deleteBookId=${book.id}"/>">${book.id}</td>
 		</tr>
 	</c:forEach>
 </table>
