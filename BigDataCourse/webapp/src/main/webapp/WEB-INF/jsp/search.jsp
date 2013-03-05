@@ -1,10 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=utf8" pageEncoding="utf8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <?xml version="1.0" encoding="UTF-8"?>
 <html>
 <head>
-<title>All books</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>All books</title>
 </head>
 <body>
 <div id="header" style="background-color:#E6E6E6; text-align:center;">
@@ -19,7 +20,7 @@
 <div id="findTitle" style="text-align:center;">
 	<h2>You can find books here</h2>
 </div>
-<form name="find" method="GET">
+<form name="find" method="GET" accept-charset="UTF-8">
 Find: <label>
     <input type="text" name="findString" value="${findString}">
 </label>
@@ -52,10 +53,11 @@ Find: <label>
 	</tr>
 	<c:forEach items="${books}" var="book">
 		<tr>
-			<td>${book.title}</td>
+			<td><a href="<c:url value="/text?titleOfBook=${book.title}"/>">${book.title} </a></td>
 			<td>${book.author}</td>
 			<td>${book.genre}</td>
 			<td>${book.text}</td>
+            <td><a href="<c:url value="/delete?deleteBookId=${book.id}"/>">${book.id}</td>
 		</tr>
 	</c:forEach>
 </table>
