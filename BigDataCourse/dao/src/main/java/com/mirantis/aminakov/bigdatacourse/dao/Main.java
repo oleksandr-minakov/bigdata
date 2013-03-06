@@ -6,12 +6,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Hello world!
- *
- */
-public class DaoApp {
-	public static final Logger LOG = Logger.getLogger(DaoApp.class);
+public class Main {
+	public static final Logger LOG = Logger.getLogger(Main.class);
 	
     public static void main( String[] args ) {
     	System.out.println( "Hello World! From dao." );
@@ -38,7 +34,7 @@ public class DaoApp {
             counter = dao.addBook(book);
             books = dao.getBookByAuthor(1, 10, "автор");
         } catch (DaoException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
         for (Book book1 : books) {
             System.out.println(book1.getTitle() + book1.getAuthor() + book1.getGenre() + book1.getText());
