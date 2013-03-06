@@ -13,6 +13,7 @@
 
     <a href="<c:url value="/search"/>">Search </a>
 </div>
+<br>
     ${text}
 </body>
 </html>
