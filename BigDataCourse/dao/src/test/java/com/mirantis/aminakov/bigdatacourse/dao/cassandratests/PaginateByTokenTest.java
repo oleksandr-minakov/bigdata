@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.List;
 
+import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra;
 import org.apache.log4j.BasicConfigurator;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -14,7 +15,6 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
-import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoApp;
 
 public class PaginateByTokenTest {
 
@@ -27,7 +27,7 @@ public class PaginateByTokenTest {
 		
 		Constants cts = (Constants) ctx.getBean("cassandra state");
 		
-		DaoApp dao = (DaoApp) ctx.getBean("DAOCassandra");
+		DaoCassandra dao = (DaoCassandra) ctx.getBean("DAOCassandra");
 		
 		Book beggining_state = new Book();
 		
