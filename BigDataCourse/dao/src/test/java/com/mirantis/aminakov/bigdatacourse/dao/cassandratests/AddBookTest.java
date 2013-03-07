@@ -3,13 +3,14 @@ package com.mirantis.aminakov.bigdatacourse.dao.cassandratests;
 import static org.junit.Assert.*;
 
 import java.io.FileInputStream;
+
+import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra;
 import org.apache.log4j.BasicConfigurator;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
-import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoApp;
 
 public class AddBookTest {
 
@@ -19,7 +20,7 @@ public class AddBookTest {
 		BasicConfigurator.configure();
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
 		
-		DaoApp dao = new DaoApp(cts);
+		DaoCassandra dao = new DaoCassandra(cts);
 		
 		Book beggining_state = new Book();
 		try {

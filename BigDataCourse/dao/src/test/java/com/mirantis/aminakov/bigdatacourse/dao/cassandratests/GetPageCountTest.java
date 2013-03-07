@@ -3,20 +3,16 @@ package com.mirantis.aminakov.bigdatacourse.dao.cassandratests;
 import static org.junit.Assert.*;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.*;
 
-import me.prettyprint.hector.api.Cluster;
-import me.prettyprint.hector.api.factory.HFactory;
+import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra;
 
 import org.apache.log4j.BasicConfigurator;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
-import com.mirantis.aminakov.bigdatacourse.dao.Dao;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
-import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoApp;
 
 @SuppressWarnings("unused")
 
@@ -28,7 +24,7 @@ public class GetPageCountTest {
 		BasicConfigurator.configure();
 		
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
-		DaoApp dao = new DaoApp(cts);
+		DaoCassandra dao = new DaoCassandra(cts);
 
 		List<String> books = new ArrayList<String>();
 		Book beggining_state = new Book();

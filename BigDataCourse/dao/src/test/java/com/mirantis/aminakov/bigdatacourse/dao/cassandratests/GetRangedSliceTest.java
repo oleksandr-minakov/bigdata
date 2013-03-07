@@ -5,13 +5,14 @@ import static org.junit.Assert.*;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra;
 import org.apache.log4j.BasicConfigurator;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
-import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoApp;
 
 public class GetRangedSliceTest {
 
@@ -25,7 +26,7 @@ public class GetRangedSliceTest {
 		List<Book> after1 = new ArrayList<Book>();
 		
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
-		DaoApp dao = new DaoApp(cts);
+		DaoCassandra dao = new DaoCassandra(cts);
 		
 		Book beggining_state = new Book();
 		try {
