@@ -21,8 +21,6 @@ import me.prettyprint.hector.api.query.QueryResult;
 import me.prettyprint.hector.api.query.RangeSlicesQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@SuppressWarnings("unused")
-
 public class DaoCassandra implements Dao{
 
     @Autowired

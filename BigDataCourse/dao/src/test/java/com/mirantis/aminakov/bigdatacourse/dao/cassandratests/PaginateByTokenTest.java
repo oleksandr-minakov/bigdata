@@ -18,17 +18,13 @@ import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
 
 public class PaginateByTokenTest {
 
-	@SuppressWarnings("resource")
 	@Test
 	public void paginationTest() throws DaoException, FileNotFoundException{
 		
 		BasicConfigurator.configure();
-		ApplicationContext ctx = new FileSystemXmlApplicationContext("src/main/resources/DAOConfig.xml");
+		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
 		
-		Constants cts = (Constants) ctx.getBean("cassandra state");
-		
-		DaoCassandra dao = (DaoCassandra) ctx.getBean("DAOCassandra");
-		
+		DaoCassandra dao = new DaoCassandra(cts);
 		Book beggining_state = new Book();
 		
 		for(int i = 0; i< 500; ++i){

@@ -25,7 +25,7 @@ public class GetRangedSliceTest {
 		List<Book> after = new ArrayList<Book>();
 		List<Book> after1 = new ArrayList<Book>();
 		
-		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
+		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "0.0.0.0");
 		DaoCassandra dao = new DaoCassandra(cts);
 		
 		Book beggining_state = new Book();

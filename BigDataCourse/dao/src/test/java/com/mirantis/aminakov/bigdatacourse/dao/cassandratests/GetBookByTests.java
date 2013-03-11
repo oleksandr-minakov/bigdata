@@ -16,8 +16,6 @@ import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
 
-@SuppressWarnings("unused")
-
 public class GetBookByTests {
 	
 	public Book bstate;
@@ -37,7 +35,7 @@ public class GetBookByTests {
 		BasicConfigurator.configure();
 		List<Book> after = new ArrayList<Book>();
 		setUp();
-		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
+		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "0.0.0.0");
 		DaoCassandra dao = new DaoCassandra(cts);
 		
 		try {

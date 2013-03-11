@@ -13,6 +13,7 @@ import org.apache.hadoop.fs.permission.FsPermission;
 import org.apache.log4j.Logger;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
+import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.HadoopConfiguration;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.PathFormer;
 
@@ -23,32 +24,39 @@ public class AddBookJob {
 	
 	private FileSystem hadoopFs;
 	
-	public AddBookJob(HadoopConfiguration conf) throws IOException{
+	public AddBookJob(HadoopConfiguration conf) throws DaoException{
 		
-		this.hadoopFs = conf.getFS();
+		try {
+			this.hadoopFs = conf.getFS();
+		} catch (IOException e) {throw new DaoException(e);}
 	}
 	
-	public int addBookJob(Book book) throws IOException{
+	public int addBookJob(Book book) throws DaoException{
 		
 		String dest = new PathFormer().formAddPath(book, hadoopFs.getHomeDirectory().toString());
 		
 		Path path = new Path(dest);
-		hadoopFs.mkdirs(path, FsPermission.valueOf("rwxrwxrwx"));
-		
-        if (hadoopFs.exists(path)) {
-            LOG.debug("File " + dest + " already exists");
-            return -1;
-        }
-		
-        FSDataOutputStream out = hadoopFs.create(path);
-        InputStream in = new BufferedInputStream( new FileInputStream( new File( book.getTitle() ) ) );
-        byte[] toWrap = new byte[in.available()]; in.read(toWrap);
-        
-        out.write(toWrap);
-        
-        out.close();
-        in.close();
-        hadoopFs.close();
+		try {
+			
+			hadoopFs.mkdirs(path, FsPermission.valueOf("rwxrwxrwx"));
+			
+			
+	        if (hadoopFs.exists(path)) {
+	            LOG.debug("File " + dest + " already exists");
+	            return -1;
+	        }
+			
+	        FSDataOutputStream out = hadoopFs.create(path);
+	        InputStream in = new BufferedInputStream( new FileInputStream( new File( book.getTitle() ) ) );
+	        byte[] toWrap = new byte[in.available()]; in.read(toWrap);
+	        
+	        out.write(toWrap);
+	        
+	        out.close();
+	        in.close();
+	        hadoopFs.close();
+		} catch (IOException e) {throw new DaoException(e);}
+
         
 		return book.getId();
 	}
