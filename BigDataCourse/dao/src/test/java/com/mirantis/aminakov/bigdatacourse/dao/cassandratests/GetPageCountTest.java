@@ -40,8 +40,6 @@ public class GetPageCountTest {
 				dao.addBook(beggining_state);
 			}
 			assertEquals(dao.getPageCount(cts.bookID,20), 50);
-			
-			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		} catch (Exception e) {throw new DaoException(e);}
 	}
 }

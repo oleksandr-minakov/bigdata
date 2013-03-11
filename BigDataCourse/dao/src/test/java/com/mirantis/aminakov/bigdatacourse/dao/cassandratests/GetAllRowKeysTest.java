@@ -33,8 +33,7 @@ public class GetAllRowKeysTest {
 			}
 			List<String> keys = dao.getAllRowKeys();
 			assertTrue(keys.size() == cts.bookID);
-			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		} catch (Exception e) {throw new DaoException(e);}
+		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 	}
-
 }

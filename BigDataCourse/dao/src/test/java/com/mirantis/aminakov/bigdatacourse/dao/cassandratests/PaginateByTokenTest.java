@@ -48,9 +48,8 @@ public class PaginateByTokenTest {
 		List<Book> lst4 = dao.getBooksByToken("Tester1","book genre");
 		int querySize_lst4 = dao.getNumberOfRecords();
 		
-		assertEquals(lst1.size() + lst2.size() + lst3.size() + lst4.size(), querySize_lst1 + querySize_lst2 + querySize_lst3 + querySize_lst4);
-		
 		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
+		assertEquals(lst1.size() + lst2.size() + lst3.size() + lst4.size(), querySize_lst1 + querySize_lst2 + querySize_lst3 + querySize_lst4);
 	}
 
 }

@@ -54,9 +54,8 @@ public class GetBookByTests {
 				assertTrue(book.getTitle().equals(new String("CassandraTest4")));
 				System.out.println(book.getTitle().equals(new String("CassandraTest4")));
 			}
-			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		} catch (Exception e) {throw new DaoException(e);}
-		
+		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 	}
 	
 	@Test
@@ -79,9 +78,8 @@ public class GetBookByTests {
 				assertTrue(book.getAuthor().equals(new String("Test4")));
 				System.out.println(book.getAuthor().equals(new String("Test4")));
 			}
-			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		} catch (Exception e) {throw new DaoException(e);}
-		
+		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 	}
 	
 	@Test
@@ -104,9 +102,8 @@ public class GetBookByTests {
 				assertTrue(book.getGenre().equals(new String("Tester4")));
 				System.out.println(book.getGenre().equals(new String("Tester4")));
 			}
-			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		} catch (Exception e) {throw new DaoException(e);}
-		
+		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 	}
 	
 	@Test
@@ -129,9 +126,8 @@ public class GetBookByTests {
 				assertTrue(book.equals(new String("Test5")));
 				System.out.println(book.equals(new String("Test5")));
 			}
-			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		} catch (Exception e) {throw new DaoException(e);}
-		
+		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 	}
 	
 }

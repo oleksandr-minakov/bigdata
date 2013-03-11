@@ -40,7 +40,6 @@ public class GetPageTest {
 				dao.addBook(beggining_state);
 			}
 			assertEquals(dao.getAllBooks(1, 100).size(), cts.bookID);
-			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		} catch (Exception e) {throw new DaoException(e);}
 	}
 		

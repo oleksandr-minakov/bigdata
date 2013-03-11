@@ -26,10 +26,7 @@ public class AddBookTest {
 			beggining_state.newBook("CassandraTest", "Test", "Tester", new FileInputStream("src/main/resources/testbook"));
 			dao.addBook(beggining_state);
 			assertEquals(beggining_state.getId(), 1);
-			
-			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
-		} catch (Exception e) {
-				throw new DaoException(e);
-		}
+		} catch (Exception e) {throw new DaoException(e);}
+		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 	}
 }

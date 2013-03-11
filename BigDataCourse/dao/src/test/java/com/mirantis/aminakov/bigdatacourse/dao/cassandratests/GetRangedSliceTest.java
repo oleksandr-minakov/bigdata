@@ -38,8 +38,6 @@ public class GetRangedSliceTest {
 			after1 = dao.getAllBooks(2, 20);
 			
 			assertTrue((after.size() + after1.size()) == (40 + 20));
-			
-			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		} catch (Exception e) {throw new DaoException(e);}
 	}
 }
