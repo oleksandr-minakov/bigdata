@@ -27,13 +27,13 @@
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/bigdata" />
+        <property name="url" value="jdbc:mysql://0.0.0.0:3306/bigdata" />
         <property name="username" value="aminakov" />
         <property name="password" value="bigdata" />
         <!--<property name="connectionProperties" ref="mysqlConnectionProperties" />-->
     </bean>
 
-   <!-- <bean id="daoCassandra" class="com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra" >
+    <bean id="daoCassandra" class="com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra" >
         <constructor-arg ref="constants"/>
     </bean>
 
@@ -41,7 +41,7 @@
         <constructor-arg type = "java.lang.String" value="Test Cluster" />
         <constructor-arg type = "java.lang.String" value="Bookshelf"/>
         <constructor-arg type = "java.lang.String" value="Books"/>
-        <constructor-arg type = "java.lang.String" value="localhost"/>
-    </bean>-->
+        <constructor-arg type = "java.lang.String" value="0.0.0.0"/>
+    </bean>
 
 </beans>
