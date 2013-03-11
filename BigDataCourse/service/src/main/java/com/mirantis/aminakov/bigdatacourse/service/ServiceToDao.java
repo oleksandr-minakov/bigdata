@@ -8,28 +8,30 @@ import java.util.TreeSet;
 import org.apache.log4j.Logger;
 
 import com.mirantis.aminakov.bigdatacourse.dao.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.stereotype.Service;
 
-public class ServiceToDao implements Service {
+@Service
+public class ServiceToDao implements com.mirantis.aminakov.bigdatacourse.service.Service {
+
+    @Autowired
     private Dao dao;
 
-    //TODO Need change to Spring DI
-    public ServiceToDao() {
-        try {
-            dao = new DaoJdbc();
-        } catch (DaoException e) {
-            e.printStackTrace();
-        }
+    public static final Logger LOG = Logger.getLogger(ServiceToDao.class);
+
+    public void setDao(Dao dao) {
+        this.dao = dao;
     }
 
-	public static final Logger LOG = Logger.getLogger(ServiceToDao.class);
-	
 	@Override
 	public int addBook(Book book) {
 		int ret = 0;
 		try {
 			ret = dao.addBook(book);
-		} catch (Exception e) {
-			LOG.debug("[" + new Date()+"]"+ "RunTime exception:" + e.getMessage());
+		} catch (DaoException e) {
+			LOG.debug("Add error:" + e.getMessage());
 		}
 		return ret;
 	}
@@ -40,7 +42,7 @@ public class ServiceToDao implements Service {
         try {
             result = dao.delBook(id);
         } catch (DaoException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            LOG.debug("Delete error:" + e.getMessage());
         }
         return result;
     }
@@ -51,7 +53,7 @@ public class ServiceToDao implements Service {
 		try {
 			books = dao.getAllBooks(pageNum, pageSize);
 		} catch (DaoException e) {
-			LOG.debug("[" + new Date()+"]"+ "RunTime exception:" + e.getMessage());
+			LOG.debug("Can't get all books:" + e.getMessage());
 		}
 		return books;
 	}
@@ -62,7 +64,7 @@ public class ServiceToDao implements Service {
 		try {
 			books = dao.getBookByAuthor(pageNum, pageSize, author);
 		} catch (DaoException e) {
-			LOG.debug("[" + new Date()+"]"+ "RunTime exception:" + e.getMessage());
+			LOG.debug("Can't find by author:" + e.getMessage());
 		}
 		return books;
 	}
@@ -73,7 +75,7 @@ public class ServiceToDao implements Service {
 		try {
 			books = dao.getBookByTitle(pageNum, pageSize, title);
 		} catch (DaoException e) {
-			LOG.debug("[" + new Date()+"]"+ "RunTime exception:" + e.getMessage());
+			LOG.debug("Can't find by title:" + e.getMessage());
 		}
 		return books;
 	}
@@ -84,7 +86,7 @@ public class ServiceToDao implements Service {
 		try {
 			books = dao.getBookByText(pageNum, pageSize, text);
 		} catch (DaoException e) {
-			LOG.debug("[" + new Date()+"]"+ "RunTime exception:" + e.getMessage());
+			LOG.debug("Can't find by text:" + e.getMessage());
 		}
 		return books;
 	}
@@ -95,7 +97,7 @@ public class ServiceToDao implements Service {
 		try {
 			books = dao.getBookByGenre(pageNum, pageSize, genre);
 		} catch (DaoException e) {
-			LOG.debug("[" + new Date()+"]"+ "RunTime exception:" + e.getMessage());
+			LOG.debug("Can't find by genre:" + e.getMessage());
 		}
 		return books;
 	}
@@ -106,7 +108,7 @@ public class ServiceToDao implements Service {
 		try {
 			authors = dao.getAuthorByGenre(pageNum, pageSize, genre);
 		} catch (DaoException e) {
-			LOG.debug("[" + new Date()+"]"+ "RunTime exception:" + e.getMessage());
+			LOG.debug("Can't find genre by author:" + e.getMessage());
 		}
 		return authors;
 	}
