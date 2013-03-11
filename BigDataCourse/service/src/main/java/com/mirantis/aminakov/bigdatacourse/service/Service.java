@@ -6,6 +6,7 @@ import com.mirantis.aminakov.bigdatacourse.dao.*;
 
 public interface Service {
 	public int addBook(Book book);
+    public int delBook(int id);
 	public List<Book> getAllBooks(int pageNum, int pageSize);
 	public List<Book> findByAuthor(int pageNum, int pageSize, String author);
 	public List<Book> findByTitle(int pageNum, int pageSize, String title);

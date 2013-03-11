@@ -11,28 +11,48 @@ import java.util.List;
 import java.util.TreeSet;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.context.ApplicationContext;
+//import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.stereotype.Service;
+
+import javax.sql.DataSource;
 
 public class DaoJdbc implements Dao {
-	String driverName = "com.mysql.jdbc.Driver";
+
+    @Autowired
+    private DataSource dataSource;
+
+    protected Connection con;
+    Statement st;
+    ResultSet rs;
+    PreparedStatement pst;
+    private int numberOfRecords = -1;
+    public static final Logger LOG = Logger.getLogger(DaoJdbc.class);
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
+	/*String driverName = "com.mysql.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/bigdata?user=aminakov&password=bigdata";
-	String jdbcutf8 = "&useUnicode=true&characterEncoding=UTF-8";
-	protected Connection con = null;
-	Statement st = null;
-	ResultSet rs = null;
-	PreparedStatement pst = null;
-	public static final Logger LOG = Logger.getLogger(DaoJdbc.class);
-	private int numberOfRecords = -1;
+	String jdbcutf8 = "&useUnicode=true&characterEncoding=UTF-8";*/
+
 	
-	public DaoJdbc() throws DaoException {
-		try {
+	/*public DaoJdbc() throws DaoException {
+        try {
+            con = dataSource.getConnection();
+        } catch (SQLException e) {
+            LOG.error("Connection not established", e);
+            throw new DaoException(e);
+        }*/
+        /*try {
 			try {
 				Class.forName(driverName).newInstance();
-			} catch (InstantiationException e) {		
-				throw new DaoException(e);
-			} catch (IllegalAccessException e) {		
+			} catch (InstantiationException | IllegalAccessException e) {
 				throw new DaoException(e);
 			}
-			try {
+            try {
 				con = DriverManager.getConnection(url + jdbcutf8);
 			} catch (SQLException e) {
 				throw new DaoException(e);
@@ -40,16 +60,14 @@ public class DaoJdbc implements Dao {
 		} catch (ClassNotFoundException e) {
 			LOG.error("Driver not found.", e);
 			throw new DaoException(e);
-		}
-	}
-	
-	/* (non-Javadoc)
-	 * @see com.mirantis.aminakov.bigdatacourse.Dao#addBook(com.mirantis.aminakov.bigdatacourse.Book)
-	 */
+		}*/
+//	}
+
 	@Override
 	public int addBook(Book book) throws DaoException {
 		int id = 0;
 		try {
+            con = dataSource.getConnection();
 			con.setAutoCommit(false);
 			st = con.createStatement();
 			int book_id = 0;
@@ -137,6 +155,7 @@ public class DaoJdbc implements Dao {
 	@Override
 	public int delBook(int id) throws DaoException {
 		try {
+            con = dataSource.getConnection();
 			st = con.createStatement();
 			int count = st.executeUpdate("DELETE Books, Texts FROM Books, Texts WHERE Books.id = " + id + " AND Books.book_id = Texts.id;");
 			if (count == 0) {
@@ -144,17 +163,16 @@ public class DaoJdbc implements Dao {
 			}
 
 		} catch(SQLException | DeleteException e) {
-			throw new DaoException("Can't delete book.");} 
+			throw new DeleteException("Can't delete book.");
+        }
 		return 0;
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.mirantis.aminakov.bigdatacourse.Dao#getAllBooks(int, int)
-	 */
+
 	@Override
 	public List<Book> getAllBooks(int pageNum, int pageSize) throws DaoException {
 		List<Book> books = new ArrayList<Book>();
 		try {
+            con = dataSource.getConnection();
 			st = con.createStatement();
 			rs = st.executeQuery("SELECT SQL_CALC_FOUND_ROWS * FROM Books JOIN Authors ON Books.author_id=Authors.id " +
 					"JOIN Genres ON Books.genre_id=Genres.id " +
@@ -187,14 +205,12 @@ public class DaoJdbc implements Dao {
         }
 		return books;
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.mirantis.aminakov.bigdatacourse.Dao#getBookByTitle(int, int, java.lang.String)
-	 */
+
 	@Override
 	public List<Book> getBookByTitle(int pageNum, int pageSize, String title) throws DaoException {
 		List<Book> books = new ArrayList<Book>();
 		try {
+            con = dataSource.getConnection();
 			st = con.createStatement();
 			rs = st.executeQuery("SELECT SQL_CALC_FOUND_ROWS * FROM Books JOIN Authors ON Books.author_id=Authors.id " + 
 					"JOIN Genres ON Books.genre_id=Genres.id JOIN Texts ON Books.book_id=Texts.id " + 
@@ -227,14 +243,12 @@ public class DaoJdbc implements Dao {
         }
 		return books;
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.mirantis.aminakov.bigdatacourse.Dao#getBookByAuthor(int, int, java.lang.String)
-	 */
+
 	@Override
 	public List<Book> getBookByAuthor(int pageNum, int pageSize, String author) throws DaoException {
 		List<Book> books = new ArrayList<Book>();
 		try {
+            con = dataSource.getConnection();
 			st = con.createStatement();
 			rs = st.executeQuery("SELECT SQL_CALC_FOUND_ROWS * FROM Books JOIN Authors ON Books.author_id=Authors.id " +
 					"JOIN Genres ON Books.genre_id=Genres.id JOIN Texts ON Books.book_id=Texts.id " + 
@@ -267,14 +281,12 @@ public class DaoJdbc implements Dao {
         }
 		return books;
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.mirantis.aminakov.bigdatacourse.Dao#getBookByGenre(int, int, java.lang.String)
-	 */
+
 	@Override
 	public List<Book> getBookByGenre(int pageNum, int pageSize, String genre) throws DaoException {
 		List<Book> books = new ArrayList<Book>();
 		try {
+            con = dataSource.getConnection();
 			st = con.createStatement();
 			rs = st.executeQuery("SELECT SQL_CALC_FOUND_ROWS * FROM Books JOIN Authors ON Books.author_id=Authors.id " + 
 					"JOIN Genres ON Books.genre_id=Genres.id JOIN Texts ON Books.book_id=Texts.id " + 
@@ -307,14 +319,12 @@ public class DaoJdbc implements Dao {
         }
 		return books;
 	}	
-	
-	/* (non-Javadoc)
-	 * @see com.mirantis.aminakov.bigdatacourse.Dao#getAuthorByGenre(int, int, java.lang.String)
-	 */
+
 	@Override
 	public TreeSet<String> getAuthorByGenre(int pageNum, int pageSize, String genre) throws DaoException {
 		TreeSet<String> authors = new TreeSet<String>();
 		try {
+            con = dataSource.getConnection();
 			st = con.createStatement();
 			rs = st.executeQuery("SELECT SQL_CALC_FOUND_ROWS author FROM Books JOIN Authors ON Books.author_id=Authors.id " + 
 					"JOIN Genres ON Books.genre_id=Genres.id " + 
@@ -353,6 +363,7 @@ public class DaoJdbc implements Dao {
 	public List<Book> getBookByText(int pageNum, int pageSize, String text) throws DaoException {
 		List<Book> books = new ArrayList<Book>();
 		try {
+            con = dataSource.getConnection();
 			st = con.createStatement();
 			rs = st.executeQuery("SELECT SQL_CALC_FOUND_ROWS * FROM Books JOIN Authors ON Books.author_id=Authors.id " + 
 					"JOIN Genres ON Books.genre_id=Genres.id JOIN Texts ON Books.book_id=Texts.id " + 

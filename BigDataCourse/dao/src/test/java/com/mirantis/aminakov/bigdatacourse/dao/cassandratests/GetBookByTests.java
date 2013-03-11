@@ -7,17 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 
-import me.prettyprint.hector.api.Cluster;
-import me.prettyprint.hector.api.factory.HFactory;
+import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra;
 
 import org.apache.log4j.BasicConfigurator;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
-import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoApp;
+
 @SuppressWarnings("unused")
 
 public class GetBookByTests {
@@ -40,7 +38,7 @@ public class GetBookByTests {
 		List<Book> after = new ArrayList<Book>();
 		setUp();
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
-		DaoApp dao = new DaoApp(cts);
+		DaoCassandra dao = new DaoCassandra(cts);
 		
 		try {
 			for(int i = 0; i< 100; ++i){
@@ -54,9 +52,8 @@ public class GetBookByTests {
 				assertTrue(book.getTitle().equals(new String("CassandraTest4")));
 				System.out.println(book.getTitle().equals(new String("CassandraTest4")));
 			}
-			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		} catch (Exception e) {throw new DaoException(e);}
-		
+		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 	}
 	
 	@Test
@@ -65,7 +62,7 @@ public class GetBookByTests {
 		List<Book> after = new ArrayList<Book>();
 		setUp();
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
-		DaoApp dao = new DaoApp(cts);
+		DaoCassandra dao = new DaoCassandra(cts);
 		
 		try {
 			for(int i = 0; i< 100; ++i){
@@ -79,9 +76,8 @@ public class GetBookByTests {
 				assertTrue(book.getAuthor().equals(new String("Test4")));
 				System.out.println(book.getAuthor().equals(new String("Test4")));
 			}
-			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		} catch (Exception e) {throw new DaoException(e);}
-		
+		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 	}
 	
 	@Test
@@ -90,7 +86,7 @@ public class GetBookByTests {
 		List<Book> after = new ArrayList<Book>();
 		setUp();
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
-		DaoApp dao = new DaoApp(cts);
+		DaoCassandra dao = new DaoCassandra(cts);
 		 
 		try {
 			for(int i = 0; i< 100; ++i){
@@ -104,9 +100,8 @@ public class GetBookByTests {
 				assertTrue(book.getGenre().equals(new String("Tester4")));
 				System.out.println(book.getGenre().equals(new String("Tester4")));
 			}
-			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		} catch (Exception e) {throw new DaoException(e);}
-		
+		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 	}
 	
 	@Test
@@ -115,7 +110,7 @@ public class GetBookByTests {
 		TreeSet<String> after = new TreeSet<String>();
 		setUp();
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
-		DaoApp dao = new DaoApp(cts);
+		DaoCassandra dao = new DaoCassandra(cts);
 		
 		try {
 			for(int i = 0; i< 100; ++i){
@@ -129,9 +124,8 @@ public class GetBookByTests {
 				assertTrue(book.equals(new String("Test5")));
 				System.out.println(book.equals(new String("Test5")));
 			}
-			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		} catch (Exception e) {throw new DaoException(e);}
-		
+		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 	}
 	
 }

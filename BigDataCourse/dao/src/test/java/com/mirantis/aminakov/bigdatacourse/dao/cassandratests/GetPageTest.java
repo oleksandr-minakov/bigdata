@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra;
 import me.prettyprint.hector.api.Cluster;
 import me.prettyprint.hector.api.factory.HFactory;
 
@@ -15,7 +16,6 @@ import org.junit.Test;
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
-import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoApp;
 
 public class GetPageTest {
 
@@ -27,7 +27,7 @@ public class GetPageTest {
 		List<Book> pagedBookList = new ArrayList<Book>();
 		
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
-		DaoApp dao = new DaoApp(cts);
+		DaoCassandra dao = new DaoCassandra(cts);
 		
 		
 		Cluster clstr = HFactory.getOrCreateCluster(cts.CLUSTER_NAME, cts.HOST_DEF+":9160");
@@ -40,7 +40,6 @@ public class GetPageTest {
 				dao.addBook(beggining_state);
 			}
 			assertEquals(dao.getAllBooks(1, 100).size(), cts.bookID);
-			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		} catch (Exception e) {throw new DaoException(e);}
 	}
 		

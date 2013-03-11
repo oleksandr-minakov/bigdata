@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.List;
 
+import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra;
 import org.apache.log4j.BasicConfigurator;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -14,7 +15,6 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
-import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoApp;
 
 public class PaginateByTokenTest {
 
@@ -27,7 +27,7 @@ public class PaginateByTokenTest {
 		
 		Constants cts = (Constants) ctx.getBean("cassandra state");
 		
-		DaoApp dao = (DaoApp) ctx.getBean("DAOCassandra");
+		DaoCassandra dao = (DaoCassandra) ctx.getBean("DAOCassandra");
 		
 		Book beggining_state = new Book();
 		
@@ -48,9 +48,8 @@ public class PaginateByTokenTest {
 		List<Book> lst4 = dao.getBooksByToken("Tester1","book genre");
 		int querySize_lst4 = dao.getNumberOfRecords();
 		
-		assertEquals(lst1.size() + lst2.size() + lst3.size() + lst4.size(), querySize_lst1 + querySize_lst2 + querySize_lst3 + querySize_lst4);
-		
 		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
+		assertEquals(lst1.size() + lst2.size() + lst3.size() + lst4.size(), querySize_lst1 + querySize_lst2 + querySize_lst3 + querySize_lst4);
 	}
 
 }

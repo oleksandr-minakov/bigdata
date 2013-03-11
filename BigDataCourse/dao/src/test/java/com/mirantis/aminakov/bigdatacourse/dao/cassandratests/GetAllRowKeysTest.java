@@ -5,13 +5,13 @@ import static org.junit.Assert.*;
 import java.io.FileInputStream;
 import java.util.List;
 
+import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra;
 import org.apache.log4j.BasicConfigurator;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
-import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoApp;
 
 public class GetAllRowKeysTest {
 	
@@ -22,7 +22,7 @@ public class GetAllRowKeysTest {
 		
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
 		
-		DaoApp dao = new DaoApp(cts);
+		DaoCassandra dao = new DaoCassandra(cts);
 		
 		Book beggining_state = new Book();
 		try {
@@ -33,8 +33,7 @@ public class GetAllRowKeysTest {
 			}
 			List<String> keys = dao.getAllRowKeys();
 			assertTrue(keys.size() == cts.bookID);
-			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		} catch (Exception e) {throw new DaoException(e);}
+		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 	}
-
 }
