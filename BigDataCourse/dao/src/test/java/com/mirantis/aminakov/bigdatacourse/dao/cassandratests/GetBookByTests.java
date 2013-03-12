@@ -35,7 +35,7 @@ public class GetBookByTests {
 		BasicConfigurator.configure();
 		List<Book> after = new ArrayList<Book>();
 		setUp();
-		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "0.0.0.0");
+		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", CassandraIP.IP);
 		DaoCassandra dao = new DaoCassandra(cts);
 		
 		try {
@@ -59,7 +59,7 @@ public class GetBookByTests {
 		
 		List<Book> after = new ArrayList<Book>();
 		setUp();
-		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
+		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", CassandraIP.IP);
 		DaoCassandra dao = new DaoCassandra(cts);
 		
 		try {
@@ -83,7 +83,7 @@ public class GetBookByTests {
 		
 		List<Book> after = new ArrayList<Book>();
 		setUp();
-		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
+		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", CassandraIP.IP);
 		DaoCassandra dao = new DaoCassandra(cts);
 		 
 		try {
@@ -107,7 +107,7 @@ public class GetBookByTests {
 		
 		TreeSet<String> after = new TreeSet<String>();
 		setUp();
-		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
+		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", CassandraIP.IP);
 		DaoCassandra dao = new DaoCassandra(cts);
 		
 		try {

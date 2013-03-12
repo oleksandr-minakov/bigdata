@@ -20,7 +20,7 @@ public class GetAllRowKeysTest {
 		
 		BasicConfigurator.configure();
 		
-		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "0.0.0.0");
+		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", CassandraIP.IP);
 		
 		DaoCassandra dao = new DaoCassandra(cts);
 		

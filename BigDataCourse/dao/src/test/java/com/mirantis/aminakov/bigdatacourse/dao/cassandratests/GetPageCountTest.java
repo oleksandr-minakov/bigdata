@@ -21,7 +21,7 @@ public class GetPageCountTest {
 		
 		BasicConfigurator.configure();
 		
-		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "0.0.0.0");
+		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", CassandraIP.IP);
 		DaoCassandra dao = new DaoCassandra(cts);
 
 		List<String> books = new ArrayList<String>();
