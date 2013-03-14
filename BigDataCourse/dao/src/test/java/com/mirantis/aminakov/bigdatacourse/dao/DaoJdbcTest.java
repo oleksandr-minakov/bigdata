@@ -14,17 +14,23 @@ import java.util.TreeSet;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
+import javax.sql.DataSource;
 
 public class DaoJdbcTest {
 	
 	static List<Book> books = null;
 	static ManagementBooks gen = null;
 	static DaoJdbc dao = null;
+    static DataSource dataSource = null;
 	
 	@BeforeClass
 	public static void testSetup() throws DaoException {
-		ManagementTables mt;
+        ManagementTables mt;
+        dataSource = new DriverManagerDataSource("com.mysql.jdbc.Driver", "jdbc:mysql://localhost:3306/bigdata", "aminakov", "bigdata");
 		dao = new DaoJdbc();
+        dao.setDataSource(dataSource);
 		mt = new ManagementTables();
 		mt.createTables();
 		mt.closeConnection();
