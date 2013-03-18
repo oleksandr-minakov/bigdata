@@ -2,7 +2,8 @@ package com.mirantis.aminakov.bigdatacourse.service;
 
 import java.util.List;
 import java.util.TreeSet;
-import com.mirantis.aminakov.bigdatacourse.dao.*;
+
+import com.mirantis.aminakov.bigdatacourse.dao.Book;
 
 public interface Service {
 	public int addBook(Book book);

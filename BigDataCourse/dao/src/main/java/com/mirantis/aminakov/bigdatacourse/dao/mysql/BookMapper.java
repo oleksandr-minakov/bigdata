@@ -1,4 +1,6 @@
-package com.mirantis.aminakov.bigdatacourse.dao;
+package com.mirantis.aminakov.bigdatacourse.dao.mysql;
+
+import com.mirantis.aminakov.bigdatacourse.dao.Book;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

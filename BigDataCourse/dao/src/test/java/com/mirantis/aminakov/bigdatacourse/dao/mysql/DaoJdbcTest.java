@@ -1,4 +1,4 @@
-package com.mirantis.aminakov.bigdatacourse.dao;
+package com.mirantis.aminakov.bigdatacourse.dao.mysql;
 
 import static org.junit.Assert.*;
 
@@ -11,20 +11,30 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.TreeSet;
 
+import com.mirantis.aminakov.bigdatacourse.dao.Book;
+import com.mirantis.aminakov.bigdatacourse.dao.BookAlredyExists;
+import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
+import com.mirantis.aminakov.bigdatacourse.dao.DeleteException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
+import javax.sql.DataSource;
 
 public class DaoJdbcTest {
 	
 	static List<Book> books = null;
 	static ManagementBooks gen = null;
 	static DaoJdbc dao = null;
+    static DataSource dataSource = null;
 	
 	@BeforeClass
 	public static void testSetup() throws DaoException {
-		ManagementTables mt;
+        ManagementTables mt;
+        dataSource = new DriverManagerDataSource("com.mysql.jdbc.Driver", "jdbc:mysql://localhost:3306/bigdata", "aminakov", "bigdata");
 		dao = new DaoJdbc();
+        dao.setDataSource(dataSource);
 		mt = new ManagementTables();
 		mt.createTables();
 		mt.closeConnection();
@@ -35,11 +45,11 @@ public class DaoJdbcTest {
 	
 	@AfterClass
 	public static void testCleanup() throws DaoException {
-//        ManagementTables mt;
+        ManagementTables mt;
 		dao.closeConnection();
-//        mt = new ManagementTables();
-//        mt.dropTables();
-//        mt.closeConnection();
+        mt = new ManagementTables();
+        mt.dropTables();
+        mt.closeConnection();
 		books.clear();
 		gen.deleteFiles();
 	}

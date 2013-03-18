@@ -1,7 +1,6 @@
-package com.mirantis.aminakov.bigdatacourse.dao;
+package com.mirantis.aminakov.bigdatacourse.dao.mysql;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 
+import com.mirantis.aminakov.bigdatacourse.dao.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.context.ApplicationContext;
 //import org.springframework.context.support.FileSystemXmlApplicationContext;
-import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 

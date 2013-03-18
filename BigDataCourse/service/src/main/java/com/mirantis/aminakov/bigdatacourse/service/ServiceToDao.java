@@ -1,16 +1,15 @@
 package com.mirantis.aminakov.bigdatacourse.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.TreeSet;
 
+import com.mirantis.aminakov.bigdatacourse.dao.Book;
+import com.mirantis.aminakov.bigdatacourse.dao.Dao;
+import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import org.apache.log4j.Logger;
 
-import com.mirantis.aminakov.bigdatacourse.dao.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
 @Service
