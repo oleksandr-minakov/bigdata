@@ -9,8 +9,6 @@ import java.util.List;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra;
 import org.apache.log4j.BasicConfigurator;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;

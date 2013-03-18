@@ -50,9 +50,13 @@ public class DaoCassandra implements Dao{
 
 	@Override
 	public int delBook(int id) throws DaoException {
+		
 		Mutator<String> mutator = HFactory.createMutator(constants.getKeyspace(), StringSerializer.get());
-		mutator.delete("book" + String.valueOf(id), constants.CF_NAME, null, StringSerializer.get()); ;
-		return id;
+		try{
+			mutator.delete("book "+ String.valueOf(id), constants.CF_NAME, null, StringSerializer.get());
+		}catch(Exception e){throw new DaoException(e);}
+		
+		return 0;
 	}
 
 	@Override
@@ -64,7 +68,7 @@ public class DaoCassandra implements Dao{
 		List<String> neededKeys;
 
 		if(pageNum <0 || pageNum > getPageCount(keyStorage.size(), pageSize)){
-			return null;
+			return new ArrayList<Book>();
 		}
 		else{
 
