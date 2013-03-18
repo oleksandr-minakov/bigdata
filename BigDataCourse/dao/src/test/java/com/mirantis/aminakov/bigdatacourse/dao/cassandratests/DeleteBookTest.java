@@ -17,7 +17,7 @@ public class DeleteBookTest {
 		
 		BasicConfigurator.configure();
 
-		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
+		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", CassandraIP.IP);
 		
 		DaoCassandra dao = new DaoCassandra(cts);
 		
@@ -25,10 +25,20 @@ public class DeleteBookTest {
 		
 		try {
 			beggining_state.newBook("CassandraTest", "Test", "Tester", new FileInputStream("src/main/resources/testbook"));
+			
 			dao.addBook(beggining_state);
+<<<<<<< HEAD
 			dao.delBook(117);
 		} catch (Exception e) {throw new DaoException(e);}
 		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
+=======
+			
+			dao.delBook(beggining_state.getId());
+			
+			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
+		} catch (Exception e) {throw new DaoException(e);}
+		
+>>>>>>> macbranch
 	}
 	
 }

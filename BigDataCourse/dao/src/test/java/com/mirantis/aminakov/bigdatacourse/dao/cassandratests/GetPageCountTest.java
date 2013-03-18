@@ -14,8 +14,6 @@ import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
 
-@SuppressWarnings("unused")
-
 public class GetPageCountTest {
 
 	@Test
@@ -23,7 +21,7 @@ public class GetPageCountTest {
 		
 		BasicConfigurator.configure();
 		
-		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
+		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", CassandraIP.IP);
 		DaoCassandra dao = new DaoCassandra(cts);
 
 		List<String> books = new ArrayList<String>();
