@@ -1,10 +1,12 @@
-package com.mirantis.aminakov.bigdatacourse.dao;
+package com.mirantis.aminakov.bigdatacourse.dao.mysql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import org.apache.log4j.Logger;
 
 public class ManagementTables {

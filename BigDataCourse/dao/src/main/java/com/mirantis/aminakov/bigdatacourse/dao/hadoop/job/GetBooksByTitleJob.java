@@ -1,9 +1,7 @@
 package com.mirantis.aminakov.bigdatacourse.dao.hadoop.job;
 
-import java.util.Arrays;
 import java.util.List;
 
-import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
