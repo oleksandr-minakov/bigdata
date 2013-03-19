@@ -34,6 +34,6 @@ public class DeleteBookJob {
 			
 		} catch (IOException e){throw new DaoException(e);}
 		
-        return id;
+        return 0;
 	}
 }
