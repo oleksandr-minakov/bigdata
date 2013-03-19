@@ -10,12 +10,16 @@ public class HadoopConnector {
 
 	private Configuration newConf;
 	public FileSystem newFS;
+	private String hadoopIP;
+	private String hadoopPort;
 	private String hadoopURI;
 	public String workingDirectory;
 	public int bookID;
 	
 	
 	public HadoopConnector(String hadoopIP, String hadoopPort, String workingDirectory){
+		this.hadoopIP = hadoopIP;
+		this.hadoopPort = hadoopPort;
 		hadoopURI = ("hdfs://" + hadoopIP + ":" + hadoopPort);
 		this.workingDirectory = workingDirectory;
 		bookID = 0;
@@ -43,6 +47,18 @@ public class HadoopConnector {
 	
 	public void closeConnection() throws DaoException{
 		try {newFS.close();} catch (IOException e) {throw new DaoException(e);}
+	}
+	
+	public String getIP(){
+		return this.hadoopIP;
+	}
+	
+	public String getPort(){
+		return this.hadoopPort;
+	}
+	
+	public String getURI(){
+		return this.hadoopURI;
 	}
 }
 

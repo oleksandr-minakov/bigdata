@@ -54,10 +54,10 @@ public class GetAllBooksJob {
 				
 			}
 			if(pathList.size() != 0)
-				return new GetBookByPath().getBooksByPathList(pathList.subList((pageNum-1)*pageSize, pageSize*pageNum), fs);
+				return new GetBookByPath().getBooksByPathList(pathList.subList((pageNum-1)*pageSize, pageSize*pageNum), hadoopConf);
 			
 		} catch (IOException e) {throw new DaoException(e);}
 		
-		return null;
+		return new ArrayList<Book>();
 	}
 }
