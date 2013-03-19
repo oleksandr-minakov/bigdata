@@ -30,9 +30,11 @@ public class DaoCassandra implements Dao{
     private int querySize;
     public static final Logger LOG = Logger.getLogger(DaoCassandra.class);
 
-    public DaoCassandra(Constants constants){
+    public DaoCassandra(Constants constants) throws DaoException{
 		this.constants = constants;
-		constants.bookID= 0;
+		try {
+			constants.bookID= getAllRowKeys().size();
+		} catch (DaoException e) {throw new DaoException(e);}
 	}
 
 	@Override
@@ -167,7 +169,7 @@ public class DaoCassandra implements Dao{
 		books.setColumnFamily(constants.CF_NAME);
 		books.setKeys("", "");
 		books.setReturnKeysOnly();
-		books.setRowCount(Integer.MAX_VALUE);
+		books.setRowCount(Integer.MAX_VALUE-1);
 		try{
 			QueryResult<OrderedRows<String, String, String>> result = books.execute();
 		

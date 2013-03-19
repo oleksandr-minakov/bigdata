@@ -12,12 +12,14 @@ public class HadoopConnector {
 	public FileSystem newFS;
 	private String hadoopIP;
 	private String hadoopPort;
+	private String hadoopUser;
 	private String hadoopURI;
 	public String workingDirectory;
 	public int bookID;
 	
 	
-	public HadoopConnector(String hadoopIP, String hadoopPort, String workingDirectory){
+	public HadoopConnector(String hadoopIP, String hadoopPort, String user,String workingDirectory){
+		this.hadoopUser = user;
 		this.hadoopIP = hadoopIP;
 		this.hadoopPort = hadoopPort;
 		hadoopURI = ("hdfs://" + hadoopIP + ":" + hadoopPort);
@@ -36,8 +38,9 @@ public class HadoopConnector {
 			
 			setConfiguration();
 			try {
-				this.newFS = FileSystem.get(URI.create(hadoopURI),newConf);
-			} catch (IOException e) {throw new DaoException(e);}
+//				this.newFS = FileSystem.get(URI.create(hadoopURI),newConf);
+				this.newFS = FileSystem.get(URI.create(hadoopURI),newConf, this.hadoopUser);
+			} catch (Exception e) {throw new DaoException(e);}
 			
 			return this.newFS;
 		}
