@@ -29,7 +29,7 @@ public class PaginationAndRemoving {
 		Book beggining_state = new Book();
 		try {
 			
-			for(int i = 0; i< 10000; ++i){
+			for(int i = 0; i< 1000; ++i){
 				
 				beggining_state.newBook(new String("CassandraTest" + String.valueOf(i)), new String("Test" + String.valueOf(i)), new String("Tester" + String.valueOf(i)), new FileInputStream("src/main/resources/testbook"));
 				dao.addBook(beggining_state);
@@ -38,8 +38,8 @@ public class PaginationAndRemoving {
 			dao.delBook(5);
 			dao.delBook(1);
 			dao.delBook(7);
-			after = dao.getAllBooks(1, 10000);
-			assertEquals(dao.getNumberOfRecords(), 10000-3);
+			after = dao.getAllBooks(1, 1000);
+			assertEquals(dao.getNumberOfRecords(), 1000-3);
 			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		}catch (Exception e) {throw new DaoException(e);}
 	}
