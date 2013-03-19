@@ -39,7 +39,7 @@ public class GetPageTest {
 				beggining_state.newBook(new String("CassandraTest" + String.valueOf(i)), new String("Test" + String.valueOf(i)), new String("Tester" + String.valueOf(i)), new FileInputStream("src/main/resources/testbook"));
 				dao.addBook(beggining_state);
 			}
-			assertEquals(dao.getAllBooks(1, 100).size(), cts.bookID);
+			assertEquals(dao.getAllBooks(1, 100).size(), 100);
 		} catch (Exception e) {throw new DaoException(e);}
 	}
 		
