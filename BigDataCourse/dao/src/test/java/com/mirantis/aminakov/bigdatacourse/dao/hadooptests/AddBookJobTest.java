@@ -20,7 +20,7 @@ public class AddBookJobTest {
 		
 		BasicConfigurator.configure();
 		
-		HadoopConnector newOne = new HadoopConnector("172.18.196.59","54310", "/bookshelf/books/");
+		HadoopConnector newOne = new HadoopConnector("172.18.196.59","54310", "dmakogon", "/bookshelf/books/");
 		
 		Book beggining_state = new Book();
 		beggining_state.newBook("CassandraTest", "Test", "Tester", new FileInputStream("src/main/resources/testbook"));
@@ -28,7 +28,5 @@ public class AddBookJobTest {
 		int res = new AddBookJob(newOne).addBookJob(beggining_state);
 		res= new AddBookJob(newOne).addBookJob(beggining_state);
 		assertEquals(res, beggining_state.getId());
-		
 	}
-
 }

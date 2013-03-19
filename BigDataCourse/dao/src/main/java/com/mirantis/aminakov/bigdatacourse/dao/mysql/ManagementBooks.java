@@ -78,30 +78,26 @@ public class ManagementBooks {
             	file = new File("file" + i + ".txt");
             	if(!file.exists()) {
              	   try {
-					file.createNewFile();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+					    file.createNewFile();
+				    } catch (IOException e) {
+					    e.printStackTrace();
+				    }
                 }
 				fos = new FileOutputStream(file);
 				try {
-					fos.write(strb.toString().getBytes());  //maybe use utf8
+					fos.write(strb.toString().getBytes());
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} 
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
             FileInputStream fis = null;
             File file_r = new File("file" + i + ".txt");
     		try {
     			fis = new FileInputStream(file_r);
-    		} catch (FileNotFoundException e1) {
-    			// TODO Auto-generated catch block
-    			e1.printStackTrace();
+    		} catch (FileNotFoundException e) {
+    			e.printStackTrace();
     		}
             texts.add(fis);
 		}

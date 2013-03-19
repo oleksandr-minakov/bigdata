@@ -4,7 +4,6 @@ public class BookAlredyExists extends DaoException {
 
 	public BookAlredyExists(Exception e) {
 		super(e);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public BookAlredyExists (String msg) {

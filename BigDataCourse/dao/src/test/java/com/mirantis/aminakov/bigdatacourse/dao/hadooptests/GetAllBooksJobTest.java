@@ -24,9 +24,11 @@ public class GetAllBooksJobTest {
 
 		BasicConfigurator.configure();
 		
-		HadoopConnector newOne = new HadoopConnector("172.18.196.59","54310", "/bookshelf/books/");
+		HadoopConnector newOne = new HadoopConnector("172.18.196.59","54310", "dmakogon", "/bookshelf/books/");
+		
 		AddBookJob add = new AddBookJob(newOne);
 		GetAllBooksJob get = new GetAllBooksJob(newOne);
+		
 		List<Book> before = new ArrayList<Book>();
 		List<Book> after = new ArrayList<Book>();
 		
