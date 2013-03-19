@@ -65,7 +65,7 @@ public class DaoCassandra implements Dao{
 			throws DaoException {
 
 		List<String> keyStorage = getAllRowKeys();
-
+		List<Book> ret = new ArrayList<Book>();
 		List<String> neededKeys;
 
 		if(pageNum <0 || pageNum > getPageCount(keyStorage.size(), pageSize)){
@@ -75,11 +75,24 @@ public class DaoCassandra implements Dao{
 
 			if(pageNum*pageSize > keyStorage.size()){
 				neededKeys = keyStorage.subList((pageNum-1)*pageSize, keyStorage.size());
-				return getBooks(neededKeys);
+				for(Book book:getBooks(neededKeys)){
+					if(!book.getAuthor().equals(null) && !book.getGenre().equals(null) && !book.getTitle().equals(null) && !book.getText().equals(null)){
+						ret.add(book);
+					}
+				}
+				this.querySize = ret.size();	
+				return ret;
 			}
 			else{
 				neededKeys = keyStorage.subList((pageNum-1)*pageSize, pageNum*pageSize);
-				return getBooks(neededKeys);
+				for(Book book:getBooks(neededKeys)){
+					
+					if(!book.equals(null) && book.getId() != 0){
+						ret.add(book);
+					}
+				}
+				this.querySize = ret.size();	
+				return ret;
 			}
 		}
 	}
