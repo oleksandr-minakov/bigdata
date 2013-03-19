@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 
-import org.apache.cassandra.thrift.InvalidRequestException;
 import org.apache.log4j.Logger;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
@@ -148,7 +147,7 @@ public class DaoCassandra implements Dao{
 
 	}
 
-	public List<String> getAllRowKeys(){
+	public List<String> getAllRowKeys() throws DaoException{
 
 		List<String> pagedBooks = new ArrayList<String>();
 
@@ -165,7 +164,7 @@ public class DaoCassandra implements Dao{
         	for(Row<String, String, String> row: keys){
         		pagedBooks.add(row.getKey());
         	}
-		} catch (Exception e){		}
+		} catch (Exception e){throw new DaoException(e);}
         this.querySize = pagedBooks.size();
         
 		return pagedBooks;
@@ -180,7 +179,7 @@ public class DaoCassandra implements Dao{
 			return pages;
 	}
 
-	public List<Book> getBooks(List<String> rowKeys){
+	public List<Book> getBooks(List<String> rowKeys) throws DaoException{
 
 		List<Book> booksByKeys = new ArrayList<Book>();
 
@@ -188,16 +187,17 @@ public class DaoCassandra implements Dao{
 		books.setColumnFamily(constants.CF_NAME);
 		books.setKeys(rowKeys);
 		books.setRange("", "", false, 5);
-
+		try{
 		QueryResult<Rows<String, String, String>> result = books.execute();
         Rows<String, String, String> orderedRows = result.get();
         for(Row<String, String, String> row:orderedRows){
    			booksByKeys.add(BookConverter.getInstance().row2book(row.getColumnSlice().getColumns()));
         }
 		return booksByKeys;
+		}catch (Exception e){throw new DaoException(e);}
 	}
 
-	public List<Book> getBooksByToken(String lookFor, String token){
+	public List<Book> getBooksByToken(String lookFor, String token) throws DaoException{
 
 		List<String> keys = getAllRowKeys();
 		List<String> neededKeys = new ArrayList<String>();
