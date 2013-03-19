@@ -9,12 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 
-import com.mirantis.aminakov.bigdatacourse.dao.*;
+import com.mirantis.aminakov.bigdatacourse.dao.Book;
+import com.mirantis.aminakov.bigdatacourse.dao.Dao;
+import com.mirantis.aminakov.bigdatacourse.dao.BookAlredyExists;
+import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
+import com.mirantis.aminakov.bigdatacourse.dao.DeleteException;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.context.ApplicationContext;
-//import org.springframework.context.support.FileSystemXmlApplicationContext;
-
 import javax.sql.DataSource;
 
 public class DaoJdbc implements Dao {
