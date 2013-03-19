@@ -3,6 +3,7 @@ package com.mirantis.aminakov.bigdatacourse.dao.cassandra;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
+
 import org.apache.log4j.Logger;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
@@ -146,7 +147,7 @@ public class DaoCassandra implements Dao{
 
 	}
 
-	public List<String> getAllRowKeys(){
+	public List<String> getAllRowKeys() throws DaoException{
 
 		List<String> pagedBooks = new ArrayList<String>();
 
@@ -155,13 +156,17 @@ public class DaoCassandra implements Dao{
 		books.setKeys("", "");
 		books.setReturnKeysOnly();
 		books.setRowCount(constants.bookID);
-
-		QueryResult<OrderedRows<String, String, String>> result = books.execute();
-        OrderedRows<String, String, String> orderedRows = result.get();
-        List<Row<String, String, String>> keys = orderedRows.getList();
-        for(Row<String, String, String> row: keys){
-        	pagedBooks.add(row.getKey());
-        }
+		try{
+			QueryResult<OrderedRows<String, String, String>> result = books.execute();
+		
+			OrderedRows<String, String, String> orderedRows = result.get();
+        	List<Row<String, String, String>> keys = orderedRows.getList();
+        	for(Row<String, String, String> row: keys){
+        		pagedBooks.add(row.getKey());
+        	}
+		} catch (Exception e){throw new DaoException(e);}
+        this.querySize = pagedBooks.size();
+        
 		return pagedBooks;
 	}
 
@@ -174,7 +179,7 @@ public class DaoCassandra implements Dao{
 			return pages;
 	}
 
-	public List<Book> getBooks(List<String> rowKeys){
+	public List<Book> getBooks(List<String> rowKeys) throws DaoException{
 
 		List<Book> booksByKeys = new ArrayList<Book>();
 
@@ -182,16 +187,17 @@ public class DaoCassandra implements Dao{
 		books.setColumnFamily(constants.CF_NAME);
 		books.setKeys(rowKeys);
 		books.setRange("", "", false, 5);
-
+		try{
 		QueryResult<Rows<String, String, String>> result = books.execute();
         Rows<String, String, String> orderedRows = result.get();
         for(Row<String, String, String> row:orderedRows){
    			booksByKeys.add(BookConverter.getInstance().row2book(row.getColumnSlice().getColumns()));
         }
 		return booksByKeys;
+		}catch (Exception e){throw new DaoException(e);}
 	}
 
-	public List<Book> getBooksByToken(String lookFor, String token){
+	public List<Book> getBooksByToken(String lookFor, String token) throws DaoException{
 
 		List<String> keys = getAllRowKeys();
 		List<String> neededKeys = new ArrayList<String>();
@@ -210,7 +216,12 @@ public class DaoCassandra implements Dao{
 			}
 		}
 		this.querySize = neededKeys.size();
-
+		if(this.querySize == 0){
+			
+			neededKeys.add(null);
+			return getBooks(neededKeys);
+		}
+		
 		return getBooks(neededKeys);
 	}
 
