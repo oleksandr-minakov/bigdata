@@ -18,7 +18,7 @@ public class ConnectionTest {
 		
 		BasicConfigurator.configure();
 		
-		HadoopConnector newOne = new HadoopConnector("172.18.196.59","54310", "/bookshelf/books/");		
+		HadoopConnector newOne = new HadoopConnector("172.18.196.59","54310", "dmakogon", "/bookshelf/books/");		
 		FileSystem fs = newOne.getFS();
 		assertNotNull(fs);
 		fs.close();
