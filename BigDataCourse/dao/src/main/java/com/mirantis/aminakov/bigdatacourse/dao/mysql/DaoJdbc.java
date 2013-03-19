@@ -67,6 +67,9 @@ public class DaoJdbc implements Dao {
 	@Override
 	public int addBook(Book book) throws DaoException {
 		int id = 0;
+        ManagementTables mt = new ManagementTables(dataSource);
+        mt.createTables();
+        mt.closeConnection();
 		try {
             con = dataSource.getConnection();
 			con.setAutoCommit(false);
