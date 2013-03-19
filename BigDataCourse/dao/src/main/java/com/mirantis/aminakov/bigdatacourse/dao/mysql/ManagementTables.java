@@ -8,16 +8,21 @@ import java.sql.Statement;
 
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.sql.DataSource;
 
 public class ManagementTables {
 	public static final Logger LOG = Logger.getLogger(ManagementTables.class);
+
 	String driverName = "com.mysql.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/bigdata?user=aminakov&password=bigdata";
 	String jdbcutf8 = "&useUnicode=true&characterEncoding=UTF-8";
 	protected Connection con = null;
 	Statement st = null;
 	ResultSet rs = null;
-	
+    private DataSource dataSource;
+
 	public ManagementTables() throws DaoException {
 		try {
 			try {
@@ -25,7 +30,7 @@ public class ManagementTables {
 			} catch (InstantiationException e) {
 				LOG.error("Instantiation exception driver.");
 				throw new DaoException(e);
-			} catch (IllegalAccessException e) {	
+			} catch (IllegalAccessException e) {
 				LOG.error("Illegal access to driver class.");
 				throw new DaoException(e);
 			}
@@ -39,9 +44,17 @@ public class ManagementTables {
 			throw new DaoException(e);
 		}
 	}
-	
-	
-	public void createTables() throws DaoException {
+
+    public ManagementTables(DataSource dataSource) throws DaoException {
+        this.dataSource = dataSource;
+        try {
+            con = dataSource.getConnection();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    public void createTables() throws DaoException {
 		try {
 			con.setAutoCommit(false);
 			st = con.createStatement();

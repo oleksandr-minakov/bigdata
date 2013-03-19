@@ -25,7 +25,6 @@ public class Main {
         try {
             fis = new FileInputStream(file_r);
         } catch (FileNotFoundException e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
         book.setTitle("рлофыравфар");
