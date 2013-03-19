@@ -3,6 +3,8 @@ package com.mirantis.aminakov.bigdatacourse.dao.cassandra;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
+
+import org.apache.cassandra.thrift.InvalidRequestException;
 import org.apache.log4j.Logger;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
@@ -155,13 +157,17 @@ public class DaoCassandra implements Dao{
 		books.setKeys("", "");
 		books.setReturnKeysOnly();
 		books.setRowCount(constants.bookID);
-
-		QueryResult<OrderedRows<String, String, String>> result = books.execute();
-        OrderedRows<String, String, String> orderedRows = result.get();
-        List<Row<String, String, String>> keys = orderedRows.getList();
-        for(Row<String, String, String> row: keys){
-        	pagedBooks.add(row.getKey());
-        }
+		try{
+			QueryResult<OrderedRows<String, String, String>> result = books.execute();
+		
+			OrderedRows<String, String, String> orderedRows = result.get();
+        	List<Row<String, String, String>> keys = orderedRows.getList();
+        	for(Row<String, String, String> row: keys){
+        		pagedBooks.add(row.getKey());
+        	}
+		} catch (Exception e){		}
+        this.querySize = pagedBooks.size();
+        
 		return pagedBooks;
 	}
 
@@ -210,7 +216,12 @@ public class DaoCassandra implements Dao{
 			}
 		}
 		this.querySize = neededKeys.size();
-
+		if(this.querySize == 0){
+			
+			neededKeys.add(null);
+			return getBooks(neededKeys);
+		}
+		
 		return getBooks(neededKeys);
 	}
 

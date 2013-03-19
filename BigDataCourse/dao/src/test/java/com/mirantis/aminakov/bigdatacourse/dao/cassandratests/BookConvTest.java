@@ -51,6 +51,7 @@ public class BookConvTest {
 			
 			System.out.println(bstate.getId() + bstate.getTitle() + bstate.getAuthor() + bstate.getGenre() + bstate.getText());
 			System.out.println(fstate.getId() + fstate.getTitle() + fstate.getAuthor() + fstate.getGenre() + fstate.getText());
+			System.out.println(fstate.getReadbleText());
 			assertFalse(bstate.equals(fstate));
 		} catch (Exception e) {
 			throw new DaoException(e);
