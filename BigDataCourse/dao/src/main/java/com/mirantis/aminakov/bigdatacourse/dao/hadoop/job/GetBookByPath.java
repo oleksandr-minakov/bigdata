@@ -12,12 +12,13 @@ import org.apache.hadoop.fs.Path;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
+import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
 
 public class GetBookByPath {
 	
-	public Book getBookByPath(Path path, FileSystem hadoop) throws DaoException{
+	public Book getBookByPath(Path path, HadoopConnector hadoop) throws DaoException{
 		
-		String stringPath = path.toString();
+		String stringPath = path.toString().substring(hadoop.getURI().length()+1);
 		List<String> pathLevels = Arrays.asList(stringPath.split("/"));
 		
 		List<String> book = pathLevels.subList(2, pathLevels.size());
@@ -29,7 +30,7 @@ public class GetBookByPath {
 		
 		FSDataInputStream in;
 		try {
-			in = hadoop.open(path);
+			in = hadoop.getFS().open(path);
 			byte[] toWrite = new byte[in.available()];
 			in.read(toWrite);
 			newBook.setText(new ByteArrayInputStream(toWrite));
@@ -40,12 +41,14 @@ public class GetBookByPath {
 	}
 	
 	
-	public List<Book> getBooksByPathList(List<Path> pathList, FileSystem hadoop) throws DaoException{
+	public List<Book> getBooksByPathList(List<Path> pathList, HadoopConnector hadoop) throws DaoException{
 		
 		List<Book> books = new ArrayList<Book>();
 		for(Path path: pathList){
 			try {
+				
 				books.add(getBookByPath(path, hadoop));
+				
 			} catch (DaoException e) {throw new DaoException(e);}
 		}
 		return books;

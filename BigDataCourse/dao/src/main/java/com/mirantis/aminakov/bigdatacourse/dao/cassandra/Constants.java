@@ -45,7 +45,6 @@ public class Constants {
 			this.CfDef = new BasicColumnFamilyDefinition();
 			this.CfDef.setKeyspaceName(KEYSPACE_NAME);
 			this.CfDef.setName(CF_NAME);
-			this.CfDef.setRowCacheKeysToSave(1<<31);
 			return this.CfDef;
 	}
 	

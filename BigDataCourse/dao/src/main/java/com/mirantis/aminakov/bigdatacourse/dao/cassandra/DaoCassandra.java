@@ -66,17 +66,16 @@ public class DaoCassandra implements Dao{
 
 		List<String> keyStorage = getAllRowKeys();
 		List<Book> ret = new ArrayList<Book>();
-		List<String> neededKeys;
+		List<String> neededKeys = new ArrayList<String>();
 
 		if(pageNum <0 || pageNum > getPageCount(keyStorage.size(), pageSize)){
-			return new ArrayList<Book>();
+			return ret;
 		}
 		else{
 
 			if(pageNum*pageSize > keyStorage.size()){
-				neededKeys = keyStorage.subList((pageNum-1)*pageSize, keyStorage.size());
-				for(Book book:getBooks(neededKeys)){
-					if(!book.getAuthor().equals(null) && !book.getGenre().equals(null) && !book.getTitle().equals(null) && !book.getText().equals(null)){
+				for(Book book:getBooks(keyStorage)){
+					if(!book.equals(null) && book.getId() != 0){
 						ret.add(book);
 					}
 				}
@@ -168,7 +167,7 @@ public class DaoCassandra implements Dao{
 		books.setColumnFamily(constants.CF_NAME);
 		books.setKeys("", "");
 		books.setReturnKeysOnly();
-		books.setRowCount(constants.bookID);
+		books.setRowCount(Integer.MAX_VALUE);
 		try{
 			QueryResult<OrderedRows<String, String, String>> result = books.execute();
 		

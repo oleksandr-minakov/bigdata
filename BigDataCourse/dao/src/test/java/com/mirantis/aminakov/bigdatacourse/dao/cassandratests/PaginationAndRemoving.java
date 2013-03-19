@@ -1,5 +1,7 @@
 package com.mirantis.aminakov.bigdatacourse.dao.cassandratests;
 
+import static org.junit.Assert.*;
+
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +39,7 @@ public class PaginationAndRemoving {
 			dao.delBook(1);
 			dao.delBook(7);
 			after = dao.getAllBooks(1, 10000);
-			System.out.print(dao.getNumberOfRecords());
+			assertEquals(dao.getNumberOfRecords(), 10000-3);
 			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		}catch (Exception e) {throw new DaoException(e);}
 	}
