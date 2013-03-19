@@ -36,7 +36,7 @@ public class BookConverter {
 		return cols;
 	}
 	
-	public Book row2book(List<HColumn<String, String>> book){
+	public Book row2book(List<HColumn<String, String>> book) throws IOException{
 		
 		Book newBook = new Book();
 		for(HColumn<String, String> col: book){
@@ -59,7 +59,7 @@ public class BookConverter {
 			
 			if(col.getName().equals("book text")){
 				
-				InputStream is =new ByteArrayInputStream(col.getValueBytes().array()); 
+				InputStream is =new ByteArrayInputStream(col.getValue().getBytes("UTF8")); 
 				newBook.setText(is);																}
 		}
 		
