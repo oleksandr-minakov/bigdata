@@ -12,10 +12,13 @@ public class HadoopConnector {
 	public FileSystem newFS;
 	private String hadoopURI;
 	public String workingDirectory;
+	public int bookID;
+	
 	
 	public HadoopConnector(String hadoopIP, String hadoopPort, String workingDirectory){
 		hadoopURI = ("hdfs://" + hadoopIP + ":" + hadoopPort);
 		this.workingDirectory = workingDirectory;
+		bookID = 0;
 	}
 	
 	private void  setConfiguration() throws DaoException{

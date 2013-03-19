@@ -26,6 +26,7 @@ public class AddBookJob {
 	
 	public int addBookJob(Book book) throws DaoException{
 		
+		book.setId(hadoopConf.bookID);
 		FileSystem fs = hadoopConf.getFS();
 		String dest = new PathFormer().formAddPath(book, hadoopConf.workingDirectory);
 		
@@ -36,6 +37,8 @@ public class AddBookJob {
 	        
 	        out.write(book.getReadbleText().getBytes());	        
 	        out.close();
+	        
+	        hadoopConf.bookID++;
 	        
 	        return book.getId();
 	        
