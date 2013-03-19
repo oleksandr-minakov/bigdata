@@ -50,6 +50,7 @@ public class Book {
 		
 		byte[] newText = new byte[this.text.available()];
 		this.text.read(newText);
+		
 		return new String(newText);
 	}
 	
