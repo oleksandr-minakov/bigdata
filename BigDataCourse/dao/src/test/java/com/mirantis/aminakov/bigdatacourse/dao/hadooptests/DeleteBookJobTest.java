@@ -16,6 +16,7 @@ import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.DeleteBookJob;
 
 public class DeleteBookJobTest {
 	
+	@SuppressWarnings("unused")
 	@Test
 	public void deleteBookJobTest()throws DaoException, IOException{
 		

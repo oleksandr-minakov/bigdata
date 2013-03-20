@@ -27,7 +27,7 @@ public class GetBookByTokenJob {
 		int pos = -1;
 		if(tokenName.equals("title")){
 		
-			pos = 0;
+			pos = 3;
 		}
 		if(tokenName.equals("author")){
 			
@@ -36,10 +36,6 @@ public class GetBookByTokenJob {
 		if(tokenName.equals("genre")){
 			
 			pos = 2;
-		}
-		if(tokenName.equals("text")){
-			
-			pos = 3;
 		}
 		
 		List<FileStatus> statList;
