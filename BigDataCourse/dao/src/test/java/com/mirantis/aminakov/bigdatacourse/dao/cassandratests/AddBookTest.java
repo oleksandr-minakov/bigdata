@@ -25,9 +25,8 @@ public class AddBookTest {
 		Book beggining_state = new Book();
 		try {
 			beggining_state.newBook("CassandraTest", "Test", "Tester", new FileInputStream("src/main/resources/testbook"));
-//			System.out.println(beggining_state.getReadbleText());
 			dao.addBook(beggining_state);
-			assertNotEquals(beggining_state.getId(), 0);
+			assertEquals(beggining_state.getId(), cts.bookID-1);
 		} catch (Exception e) {throw new DaoException(e);}
 		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 	}

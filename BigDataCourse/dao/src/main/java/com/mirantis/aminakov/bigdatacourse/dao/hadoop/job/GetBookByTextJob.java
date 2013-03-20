@@ -9,17 +9,16 @@ import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
 
-public class GetBooksByTitleJob {
-	
+public class GetBookByTextJob {
 	private HadoopConnector hadoop;
 	
-	public GetBooksByTitleJob(HadoopConnector hadoop){
+	public GetBookByTextJob(HadoopConnector hadoop){
 		
 		this.hadoop = hadoop;
 	}
 	
 	
-	public List<Book> getBooksByTitle(int pageNum, int pageSize, String title, FileSystem hadoopFs) throws DaoException{
+	public List<Book> getBooksBy(int pageNum, int pageSize, String title, FileSystem hadoopFs) throws DaoException{
 		
 		List<Book> ret = new ArrayList<Book>();
 		
