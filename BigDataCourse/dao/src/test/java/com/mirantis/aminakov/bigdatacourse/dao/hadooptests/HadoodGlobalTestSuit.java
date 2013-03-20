@@ -6,8 +6,8 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ AddBookJobTest.class, ConnectionTest.class,
-		DeleteBookJobTest.class, GetAllBooksJobTest.class })
-public class HadoopGlobalTestSuit {
+		DeleteBookJobTest.class, GetAllBooksJobTest.class,
+		GetBookByTokenJobTest.class, GetBookCountJobTest.class })
+public class HadoodGlobalTestSuit {
 
 }
-	

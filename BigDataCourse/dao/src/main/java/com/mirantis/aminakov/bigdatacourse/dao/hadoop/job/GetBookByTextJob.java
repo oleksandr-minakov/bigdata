@@ -18,7 +18,7 @@ public class GetBookByTextJob {
 	}
 	
 	
-	public List<Book> getBooksBy(int pageNum, int pageSize, String title, FileSystem hadoopFs) throws DaoException{
+	public List<Book> getBooksBy(int pageNum, int pageSize, String title) throws DaoException{
 		
 		List<Book> ret = new ArrayList<Book>();
 		

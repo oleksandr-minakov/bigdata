@@ -18,7 +18,7 @@ private HadoopConnector hadoop;
 	}
 	
 	
-	public List<Book> getBooksBy(int pageNum, int pageSize, String genre, FileSystem hadoopFs) throws DaoException{
+	public List<Book> getBooksBy(int pageNum, int pageSize, String genre) throws DaoException{
 		
 		List<Book> ret = new ArrayList<Book>();
 		
