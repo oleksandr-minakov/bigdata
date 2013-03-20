@@ -32,7 +32,6 @@ public class DeleteBookJobTest {
 		newOne.closeConnection();
 		
 		assertEquals(resDel, 0);
-
 	}
 
 }
