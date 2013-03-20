@@ -33,8 +33,12 @@ public class DaoCassandra implements Dao{
     public DaoCassandra(Constants constants) throws DaoException{
 		this.constants = constants;
 		try {
-			constants.bookID= getAllRowKeys().size();
-		} catch (DaoException e) {throw new DaoException(e);}
+			constants.bookID= getAllRowKeys().size();//FIXME
+            if(constants.bookID == 0)
+                constants.bookID++;
+		} catch (DaoException e) {
+            throw new DaoException(e);
+        }
 	}
 
 	@Override
@@ -45,7 +49,8 @@ public class DaoCassandra implements Dao{
 			Mutator<String> mutator = HFactory.createMutator(constants.getKeyspace(), StringSerializer.get());
 			for(HColumn<String, String> col: BookConverter.getInstance().book2row(book))
 				mutator.insert("book "+ String.valueOf(book.getId()), constants.CF_NAME, col);
-		}catch (Exception e) {throw new DaoException(e);
+		}catch (Exception e) {
+            throw new DaoException(e);
             }
 		constants.bookID++;
 		return book.getId();
@@ -108,10 +113,10 @@ public class DaoCassandra implements Dao{
 		if(lst.size() > pageSize*pageNum)
 			lstCut =  lst.subList((pageNum-1)*pageSize, pageNum*pageSize);
 		
-		if(lst.size() > pageSize*(pageNum-1) && pageNum*pageSize > lst.size())
+		if(lst.size() > pageSize*(pageNum-1) && pageNum*pageSize >= lst.size())
 			lstCut = lst.subList(pageSize*(pageNum-1), lst.size());
 		
-		if(lst.size() < pageSize && lst.size() < pageNum*pageSize)
+		if(lst.size() < pageSize && lst.size() <= pageNum*pageSize)
 			lstCut = lst.subList(0, lst.size());
 		
 		if(lst.size() ==0)
@@ -126,15 +131,15 @@ public class DaoCassandra implements Dao{
 
 		List<Book> lst  = getBooksByToken(text ,"book text");
 		List<Book> lstCut = new ArrayList<Book>();
-		
-		if(lst.size() > pageSize*pageNum)
-			lstCut =  lst.subList((pageNum-1)*pageSize, pageNum*pageSize);
-		
-		if(lst.size() > pageSize*(pageNum-1) && pageNum*pageSize > lst.size())
-			lstCut = lst.subList(pageSize*(pageNum-1), lst.size());
-		
-		if(lst.size() < pageSize && lst.size() < pageNum*pageSize)
-			lstCut = lst.subList(0, lst.size());
+
+        if(lst.size() > pageSize*pageNum)
+            lstCut =  lst.subList((pageNum-1)*pageSize, pageNum*pageSize);
+
+        if(lst.size() > pageSize*(pageNum-1) && pageNum*pageSize >= lst.size())
+            lstCut = lst.subList(pageSize*(pageNum-1), lst.size());
+
+        if(lst.size() < pageSize && lst.size() <= pageNum*pageSize)
+            lstCut = lst.subList(0, lst.size());
 		
 		if(lst.size() ==0)
 			lstCut = lst;
@@ -148,15 +153,15 @@ public class DaoCassandra implements Dao{
 
 		List<Book> lst  = getBooksByToken(author ,"book author");
 		List<Book> lstCut = new ArrayList<Book>();
-		
-		if(lst.size() > pageSize*pageNum)
-			lstCut =  lst.subList((pageNum-1)*pageSize, pageNum*pageSize);
-		
-		if(lst.size() > pageSize*(pageNum-1) && pageNum*pageSize > lst.size())
-			lstCut = lst.subList(pageSize*(pageNum-1), lst.size());
-		
-		if(lst.size() < pageSize && lst.size() < pageNum*pageSize)
-			lstCut = lst.subList(0, lst.size());
+
+        if(lst.size() > pageSize*pageNum)
+            lstCut =  lst.subList((pageNum-1)*pageSize, pageNum*pageSize);
+
+        if(lst.size() > pageSize*(pageNum-1) && pageNum*pageSize >= lst.size())
+            lstCut = lst.subList(pageSize*(pageNum-1), lst.size());
+
+        if(lst.size() < pageSize && lst.size() <= pageNum*pageSize)
+            lstCut = lst.subList(0, lst.size());
 		
 		if(lst.size() ==0)
 			lstCut = lst;
@@ -170,15 +175,15 @@ public class DaoCassandra implements Dao{
 
 		List<Book> lst  = getBooksByToken(genre ,"book genre");
 		List<Book> lstCut = new ArrayList<Book>();
-		
-		if(lst.size() > pageSize*pageNum)
-			lstCut =  lst.subList((pageNum-1)*pageSize, pageNum*pageSize);
-		
-		if(lst.size() > pageSize*(pageNum-1) && pageNum*pageSize > lst.size())
-			lstCut = lst.subList(pageSize*(pageNum-1), lst.size());
-		
-		if(lst.size() < pageSize && lst.size() < pageNum*pageSize)
-			lstCut = lst.subList(0, lst.size());
+
+        if(lst.size() > pageSize*pageNum)
+            lstCut =  lst.subList((pageNum-1)*pageSize, pageNum*pageSize);
+
+        if(lst.size() > pageSize*(pageNum-1) && pageNum*pageSize >= lst.size())
+            lstCut = lst.subList(pageSize*(pageNum-1), lst.size());
+
+        if(lst.size() < pageSize && lst.size() <= pageNum*pageSize)
+            lstCut = lst.subList(0, lst.size());
 		
 		if(lst.size() ==0)
 			lstCut = lst;
@@ -192,15 +197,15 @@ public class DaoCassandra implements Dao{
 
 		List<Book> lst= getBookByGenre(pageNum, pageSize, genre);
 		List<Book> lstCut = new ArrayList<Book>();
-		
-		if(lst.size() > pageSize*pageNum)
-			lstCut =  lst.subList((pageNum-1)*pageSize, pageNum*pageSize);
-		
-		if(lst.size() > pageSize*(pageNum-1) && pageNum*pageSize > lst.size())
-			lstCut = lst.subList(pageSize*(pageNum-1), lst.size());
-		
-		if(lst.size() < pageSize && lst.size() < pageNum*pageSize)
-			lstCut = lst.subList(0, lst.size());
+
+        if(lst.size() > pageSize*pageNum)
+            lstCut =  lst.subList((pageNum-1)*pageSize, pageNum*pageSize);
+
+        if(lst.size() > pageSize*(pageNum-1) && pageNum*pageSize >= lst.size())
+            lstCut = lst.subList(pageSize*(pageNum-1), lst.size());
+
+        if(lst.size() < pageSize && lst.size() <= pageNum*pageSize)
+            lstCut = lst.subList(0, lst.size());
 		
 		if(lst.size() ==0)
 			lstCut = lst;
@@ -306,4 +311,14 @@ public class DaoCassandra implements Dao{
 		return this.querySize;
 	}
 
+    private int getMaxIndex() throws DaoException {
+
+        List<String> keys = getAllRowKeys();
+
+        for(String key:keys){
+
+            //parse key, get int, init ID and so on;
+        }
+        return 0;
+    }
 }
