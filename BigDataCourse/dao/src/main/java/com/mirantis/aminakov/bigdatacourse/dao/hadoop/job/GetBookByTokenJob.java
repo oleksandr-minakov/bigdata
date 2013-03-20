@@ -15,12 +15,38 @@ import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.HadoopConnec
 
 public class GetBookByTokenJob {
 	
+	private HadoopConnector hadoop;
 	
-	public List<Book> getBookByToken(int pageNum, int pageSize, String token, HadoopConnector hadoop) throws DaoException{
+	public GetBookByTokenJob(HadoopConnector hadoop){
+		
+		this.hadoop = hadoop;
+	}
+	
+	public List<Book> getBookByToken(int pageNum, int pageSize, String tokenName, String tokenValue) throws DaoException{
+		
+		int pos = -1;
+		if(tokenName.equals("title")){
+		
+			pos = 0;
+		}
+		if(tokenName.equals("author")){
+			
+			pos = 1;
+		}
+		if(tokenName.equals("genre")){
+			
+			pos = 2;
+		}
+		if(tokenName.equals("text")){
+			
+			pos = 3;
+		}
 		
 		List<FileStatus> statList;
+		List<Book> ret = new ArrayList<Book>();
 		try {
-			statList = Arrays.asList(hadoop.getFS().listStatus(hadoop.getFS().getHomeDirectory()));
+			String stringPath;
+			statList = Arrays.asList(hadoop.getFS().listStatus(new Path(hadoop.workingDirectory)));
 			List<Path> pathList = new ArrayList<Path>();
 			
 			for(FileStatus fStat: statList){
@@ -37,18 +63,25 @@ public class GetBookByTokenJob {
 				Path lvl3 = Arrays.asList(hadoop.getFS().listStatus(hadoop.getFS().getWorkingDirectory())).get(0).getPath(); // Title
 				hadoop.getFS().setWorkingDirectory(lvl3);
 				
-				Path lvl4 = Arrays.asList(hadoop.getFS().listStatus(hadoop.getFS().getWorkingDirectory())).get(0).getPath(); // File
-				
-				if(lvl0.getName().equals(token) || lvl1.getName().equals(token) || lvl2.getName().equals(token) || lvl3.getName().equals(token) ){
-					pathList.add(lvl4);
+				stringPath = lvl3.toString().substring(hadoop.getURI().length()+1);
+				List<String> pathLevels = Arrays.asList(stringPath.split("/"));
+				List<String> book = pathLevels.subList(2, pathLevels.size());
+				String curToken = book.get(pos);
+				if(curToken.equals(tokenValue)){
+					pathList.add(lvl3);
 				}
-				
 			}
 			
-			if(pathList.size() != 0)
-				return new GetBookByPath().getBooksByPathList(pathList.subList((pageNum-1)*pageSize, pageSize*pageNum), hadoop);
+			if(pathList.size() != 0 && pathList.size() >= pageNum*pageSize){
+				ret = new GetBookByPath().getBooksByPathList(pathList.subList((pageNum-1)*pageSize, pageSize*pageNum), hadoop);
+				return ret;
+			}
+			if(pathList.size() >= 0 && pathList.size() < pageNum*pageSize){
+				ret = new GetBookByPath().getBooksByPathList(pathList.subList(0, pathList.size()), hadoop);
+				return ret;
+			}
 			else
-				return null;
+				return ret;
 		} catch (IOException e) {throw new DaoException(e);}
 		
 	}
