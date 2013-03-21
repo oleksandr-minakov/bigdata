@@ -19,6 +19,7 @@ public class GetAllBooksJob {
 	
 	public static final Logger LOG = Logger.getLogger(DeleteBookJob.class);
 	private HadoopConnector hadoopConf;
+	public int querySize = 0;
 	
 	public GetAllBooksJob(HadoopConnector hadoopConf){
 		this.hadoopConf = hadoopConf;
@@ -53,9 +54,10 @@ public class GetAllBooksJob {
 				pathList.add(lvl4);
 				
 			}
-			if(pathList.size() != 0)
+			if(pathList.size() != 0){
+				this.querySize = pathList.size();
 				return new GetBookByPath().getBooksByPathList(pathList.subList((pageNum-1)*pageSize, pageSize*pageNum), hadoopConf);
-			
+			}
 		} catch (IOException e) {throw new DaoException(e);}
 		
 		return new ArrayList<Book>();

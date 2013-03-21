@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.BasicConfigurator;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
@@ -17,7 +18,7 @@ import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.AddBookJob;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.GetAllBooksJob;
 
 public class GetAllBooksJobTest {
-
+	@Ignore
 	@Test
 	public void getAllBooksJobTest() throws IOException, DaoException{
 		

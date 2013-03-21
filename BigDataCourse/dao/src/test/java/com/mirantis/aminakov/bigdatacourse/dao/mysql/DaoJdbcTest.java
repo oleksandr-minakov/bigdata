@@ -17,6 +17,7 @@ import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.DeleteException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
@@ -24,11 +25,12 @@ import javax.sql.DataSource;
 
 public class DaoJdbcTest {
 	
+
+	
 	static List<Book> books = null;
 	static ManagementBooks gen = null;
 	static DaoJdbc dao = null;
     static DataSource dataSource = null;
-	
 	@BeforeClass
 	public static void testSetup() throws DaoException {
         ManagementTables mt;
@@ -42,7 +44,6 @@ public class DaoJdbcTest {
     	gen = new ManagementBooks();
     	books = gen.generateBooks();
 	}
-	
 	@AfterClass
 	public static void testCleanup() throws DaoException {
         ManagementTables mt;
@@ -53,12 +54,10 @@ public class DaoJdbcTest {
 		books.clear();
 		gen.deleteFiles();
 	}
-	
 	@Test
 	public void testDaoJdbc() {
 		assertNotNull(dao);
 	}
-
 	@Test
 	public void testAddBook() throws DaoException {
 		int i = 5;
@@ -71,13 +70,11 @@ public class DaoJdbcTest {
 		assertEquals(books.get(i).getAuthor(), actual.get(0).getAuthor());
 		assertEquals(books.get(i).getGenre(), actual.get(0).getGenre());
 	}
-	
 	@Test(expected = BookAlredyExists.class)
 	public void testAddExistBook() throws DaoException {
 		int i = 10;
 			dao.addBook(books.get(i));
 	}
-	
 	@Test
 	public void testGetAllBooks() throws DaoException {
 		List<Book> getBooks = new ArrayList<Book>();
@@ -93,7 +90,6 @@ public class DaoJdbcTest {
 		}
 		assertEquals(-1, check);
 	}
-
 	@Test
 	public void testGetBookByAuthor() throws DaoException {
 		int expectedAuthorCounter = 0;
@@ -106,7 +102,6 @@ public class DaoJdbcTest {
 		books = dao.getBookByAuthor(1, 50, author);
 		assertEquals(expectedAuthorCounter, books.size());
 	}
-
 	@Test
 	public void testGetBookByGenre() throws DaoException {
 		int expectedGenreCounter = 0;
@@ -119,7 +114,6 @@ public class DaoJdbcTest {
 		books = dao.getBookByGenre(1, 50, genre);
 		assertEquals(expectedGenreCounter, books.size());
 	}
-
 	@Test
 	public void testGetAuthorByGenre() throws DaoException {
 		HashSet<String> expectedAuthors = new HashSet<String>(); 
@@ -132,7 +126,6 @@ public class DaoJdbcTest {
 		authors = dao.getAuthorByGenre(1, 50, genre);
 		assertEquals(expectedAuthors.size(), authors.size());
 	}
-	
 	@Test
 	public void testGetBookByText() throws DaoException, IOException {
 		int expected = 0;
@@ -155,13 +148,11 @@ public class DaoJdbcTest {
 		fis.close();
 		assertEquals(expected, 1);
 	}
-	
 	@Test
 	public void testDelBook() throws DaoException {
 		int result = dao.delBook(5);
 		assertEquals(0, result);
 	}
-	
 	@Test(expected = DeleteException.class)
 	public void testDelBookException() throws DaoException {
 		dao.delBook(10);

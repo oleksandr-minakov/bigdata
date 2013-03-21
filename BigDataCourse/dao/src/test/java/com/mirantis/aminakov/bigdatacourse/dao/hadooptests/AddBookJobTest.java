@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import org.apache.log4j.BasicConfigurator;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
@@ -14,7 +15,7 @@ import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.HadoopConnec
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.AddBookJob;
 
 public class AddBookJobTest {
-	
+	@Ignore
 	@Test
 	public void addBookTest()throws DaoException, IOException{
 		
