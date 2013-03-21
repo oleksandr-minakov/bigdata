@@ -25,8 +25,6 @@ import javax.sql.DataSource;
 
 public class DaoJdbcTest {
 	
-
-	
 	static List<Book> books = null;
 	static ManagementBooks gen = null;
 	static DaoJdbc dao = null;
@@ -34,7 +32,7 @@ public class DaoJdbcTest {
 	@BeforeClass
 	public static void testSetup() throws DaoException {
         ManagementTables mt;
-        dataSource = new DriverManagerDataSource("com.mysql.jdbc.Driver", "jdbc:mysql://localhost:3306/bigdata", "aminakov", "bigdata");
+        dataSource = new DriverManagerDataSource("com.mysql.jdbc.Driver", "jdbc:mysql://0.0.0.0:3306/bigdata", "aminakov", "bigdata");
 		dao = new DaoJdbc();
         dao.setDataSource(dataSource);
 		mt = new ManagementTables();
@@ -158,4 +156,5 @@ public class DaoJdbcTest {
 		dao.delBook(10);
 		dao.delBook(10);
 	}
+
 }

@@ -24,16 +24,16 @@ public class GetPageCountTest {
 		List<String> books = new ArrayList<String>();
 		Book beggining_state = new Book();
 		try {
-			for(int i = 0; i< 1000; ++i){
+			for(int i = 0; i< 100; ++i){
 				
 				beggining_state.newBook(new String("CassandraTest" + String.valueOf(i)), new String("Test" + String.valueOf(i)), new String("Tester" + String.valueOf(i)), new FileInputStream("src/main/resources/testbook"));
 				books.add(beggining_state.getGenre());
 				dao.addBook(beggining_state);
 			}
 			
-			System.out.println( dao.getPageCount(1000,20) == 50);
+			System.out.println( dao.getPageCount(100,20) == 5);
 			
-			assertEquals(dao.getPageCount(1000,20), 50);
+			assertEquals(dao.getPageCount(100,20), 5);
 			
 		} catch (Exception e) {throw new DaoException(e);}
 	}

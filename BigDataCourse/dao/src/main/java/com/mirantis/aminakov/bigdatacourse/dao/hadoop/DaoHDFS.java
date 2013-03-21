@@ -16,15 +16,17 @@ import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.GetBookByAuthorJob;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.GetBookByGenreJob;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.GetBookByTextJob;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.GetBookByTitleJob;
+import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.GetLastIndexJob;
 
 public class DaoHDFS implements Dao{
 
 	private HadoopConnector hadoop;
 	private int querySize = 0;
 	
-	public DaoHDFS(HadoopConnector hadoop){
+	public DaoHDFS(HadoopConnector hadoop) throws DaoException{
 		
 		this.hadoop = hadoop;
+		this.hadoop.bookID = new GetLastIndexJob(this.hadoop).getIncrementedNewID();
 	}
 	
 	
@@ -49,6 +51,7 @@ public class DaoHDFS implements Dao{
 		List<Book> books = new ArrayList<Book>();
 		GetAllBooksJob get = new GetAllBooksJob(this.hadoop);
 		books = get.getAllBooksJob(pageNum, pageSize);
+		
 		this.querySize = get.querySize;
 		return books;
 	}
@@ -71,6 +74,7 @@ public class DaoHDFS implements Dao{
 			throws DaoException {
 		
 		List<Book> books = new ArrayList<Book>();
+		
 		books = new GetBookByTextJob(this.hadoop).getBooksBy(pageNum, pageSize, text);
 		
 		this.querySize = books.size();
@@ -83,7 +87,9 @@ public class DaoHDFS implements Dao{
 			throws DaoException {
 		
 		List<Book> books = new ArrayList<Book>();
+		
 		books = new GetBookByAuthorJob(this.hadoop).getBooksBy(pageNum, pageSize, author);
+		
 		this.querySize = books.size();
 		return books;
 	}
@@ -100,10 +106,13 @@ public class DaoHDFS implements Dao{
 	@Override
 	public TreeSet<String> getAuthorByGenre(int pageNum, int pageSize,
 			String genre) throws DaoException {
+		
 		List<Book> books = new ArrayList<Book>();
+		
 		books = new GetBookByGenreJob(this.hadoop).getBooksBy(pageNum, pageSize, genre);
 		
 		TreeSet<String> tree= new TreeSet<String>();
+		
 		for(Book book: books){
 			tree.add(book.getAuthor());
 		}
@@ -113,9 +122,13 @@ public class DaoHDFS implements Dao{
 
 	@Override
 	public void closeConnection() throws DaoException {
+		
 		try {
+			
 			this.hadoop.getFS().close();
+			
 		} catch (IOException e) {
+			
 			throw new DaoException(e);
 		}
 		
@@ -123,8 +136,8 @@ public class DaoHDFS implements Dao{
 
 	@Override
 	public int getNumberOfRecords() {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return this.querySize;
 	}
 
 }

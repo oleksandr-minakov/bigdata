@@ -5,8 +5,8 @@ import static org.junit.Assert.assertEquals;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import org.apache.hadoop.fs.Path;
 import org.apache.log4j.BasicConfigurator;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
@@ -16,12 +16,9 @@ import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.AddBookJob;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.DeleteBookJob;
 
 public class DeleteBookJobTest {
-	@Ignore
 	@SuppressWarnings("unused")
 	@Test
 	public void deleteBookJobTest()throws DaoException, IOException{
-		
-		BasicConfigurator.configure();
 		
 		HadoopConnector newOne = new HadoopConnector("172.18.196.59","54310", "dmakogon", "/bookshelf/books/");	
 		
@@ -31,9 +28,10 @@ public class DeleteBookJobTest {
 		
 		int resAdd = new AddBookJob(newOne).addBookJob(beggining_state);	
 		int resDel = new DeleteBookJob(newOne).deleteBookJob(100);
-		newOne.closeConnection();
 		
+		System.out.println( resDel == 0);
 		assertEquals(resDel, 0);
+		newOne.getFS().delete(new Path("/bookshelf/"), true);
 	}
 
 }

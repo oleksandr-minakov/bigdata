@@ -21,23 +21,16 @@ public class FormNewIDTest {
 		
 		int testCond = 100; // adding <--- that amount of data to Cassandra
 		int last = dao.getMaxIndex();
-		int rounds = 5;
+		int rounds = 50;
 		Book beggining_state = new Book();
 		try {
 			for(int j = 0; j < rounds; ++j){
-				if(last == 0){
-					for(int i = last; i< testCond + last; ++i){
-				
-						beggining_state.newBook(new String("CassandraTest" + String.valueOf(i)), "Test" + String.valueOf(i), new String("Tester" + String.valueOf(i)), new FileInputStream("src/main/resources/testbook"));
-						dao.addBook(beggining_state);
-					}
+				for(int i = last; i< testCond + last; ++i){
+			
+					beggining_state.newBook(new String("CassandraTest" + String.valueOf(i)), "Test" + String.valueOf(i), new String("Tester" + String.valueOf(i)), new FileInputStream("src/main/resources/testbook"));
+					dao.addBook(beggining_state);
 				}
-				else
-					for(int i = last; i< testCond + last+j; ++i){
-					
-						beggining_state.newBook(new String("CassandraTest" + String.valueOf(j)), "Test" + String.valueOf(j), new String("Tester" + String.valueOf(j)), new FileInputStream("src/main/resources/testbook"));
-						dao.addBook(beggining_state);
-					}
+				
 			}
 			
 			System.out.println(dao.getMaxIndex() == testCond*rounds);

@@ -18,7 +18,7 @@ public class HadoopConnector {
 	public int bookID;
 	
 	
-	public HadoopConnector(String hadoopIP, String hadoopPort, String user,String workingDirectory){
+	public HadoopConnector(String hadoopIP, String hadoopPort, String user, String workingDirectory){
 		this.hadoopUser = user;
 		this.hadoopIP = hadoopIP;
 		this.hadoopPort = hadoopPort;
@@ -38,7 +38,6 @@ public class HadoopConnector {
 			
 			setConfiguration();
 			try {
-//				this.newFS = FileSystem.get(URI.create(hadoopURI),newConf);
 				this.newFS = FileSystem.get(URI.create(hadoopURI),newConf, this.hadoopUser);
 			} catch (Exception e) {throw new DaoException(e);}
 			
