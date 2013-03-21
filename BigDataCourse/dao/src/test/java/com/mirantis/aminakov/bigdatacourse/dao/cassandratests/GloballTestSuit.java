@@ -9,4 +9,6 @@ import org.junit.runners.Suite.SuiteClasses;
 	GetAllRowKeysTest.class, GetBookByTests.class, GetPageCountTest.class, 
 	GetPageTest.class, GetRangedSliceTest.class, PaginateByTokenTest.class, PaginationAndRemoving.class, FormNewIDTest.class})
 public class GloballTestSuit {
+	
+	//Global test suit of cassandra misc
 }
