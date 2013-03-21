@@ -18,7 +18,7 @@ public class HadoopConnector {
 	public int bookID;
 	
 	
-	public HadoopConnector(String hadoopIP, String hadoopPort, String user,String workingDirectory){
+	public HadoopConnector(String hadoopIP, String hadoopPort, String user, String workingDirectory){
 		this.hadoopUser = user;
 		this.hadoopIP = hadoopIP;
 		this.hadoopPort = hadoopPort;

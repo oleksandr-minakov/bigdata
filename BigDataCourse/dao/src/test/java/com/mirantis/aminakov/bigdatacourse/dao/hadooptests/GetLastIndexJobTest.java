@@ -45,7 +45,6 @@ public class GetLastIndexJobTest {
 		
 		System.out.println( newOne.bookID - 1 == res + 100);
 		assertTrue(get.getIncrementedNewID() == newOne.bookID);
-		
 		newOne.getFS().delete(new Path("/bookshelf/"), true);
 	}
 }

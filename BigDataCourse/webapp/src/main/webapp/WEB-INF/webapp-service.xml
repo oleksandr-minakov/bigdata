@@ -18,7 +18,7 @@
 
     <bean id="dao"
           class="com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra" >
-        <constructor-arg ref="constants"/>
+        <constructor-arg ref="configuration"/>
     </bean>
 
     <bean id="daoJdbc" class="com.mirantis.aminakov.bigdatacourse.dao.mysql.DaoJdbc">
@@ -29,7 +29,7 @@
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/bigdata" />
+        <property name="url" value="jdbc:mysql://0.0.0.0:3306/bigdata" />
         <property name="username" value="aminakov" />
         <property name="password" value="bigdata" />
         <!--<property name="connectionProperties" ref="mysqlConnectionProperties" />-->
@@ -43,7 +43,18 @@
         <constructor-arg type = "java.lang.String" value="Test Cluster" />
         <constructor-arg type = "java.lang.String" value="Bookshelf"/>
         <constructor-arg type = "java.lang.String" value="Books"/>
-        <constructor-arg type = "java.lang.String" value="172.18.196.59"/>
+        <constructor-arg type = "java.lang.String" value="0.0.0.0"/>
     </bean>
-
+	
+    <bean id="hdfs" class="com.mirantis.aminakov.bigdatacourse.dao.hadoop.DaoHDFS">
+        <constructor-arg ref="configuration"/>
+    </bean>
+    
+    <bean id="configuration" class="com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.HadoopConnector">
+        <constructor-arg type = "java.lang.String" value="172.18.196.59"></constructor-arg>
+        <constructor-arg type = "java.lang.String" value="54310"></constructor-arg>
+        <constructor-arg type = "java.lang.String" value="dmakogon"></constructor-arg>
+        <constructor-arg type = "java.lang.String" value="/bookshelf/books/"></constructor-arg>
+    </bean>
+    
 </beans>

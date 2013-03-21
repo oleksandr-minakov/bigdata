@@ -39,6 +39,7 @@ public class GetRangedSliceTest {
 			System.out.println((after.size() + after1.size()) == (40 + 20));
 			
 			assertTrue((after.size() + after1.size()) == (40 + 20));
+			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		} catch (Exception e) {throw new DaoException(e);}
 	}
 }

@@ -22,8 +22,8 @@ public class PaginationAndRemoving {
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", CassandraIP.IP);
 		DaoCassandra dao = new DaoCassandra(cts);
 		
-		int testCond = 10000; // adding that amount of data to Cassandra
-		int testIndexBlanker = 1000; // cutting indexes of rows
+		int testCond = 100; // adding that amount of data to Cassandra
+		int testIndexBlanker = 10; // cutting indexes of rows
 		List<Book> before = new ArrayList<Book>();
 		List<Book> after = new ArrayList<Book>();
 		List<Book> after1 = new ArrayList<Book>();
@@ -41,7 +41,6 @@ public class PaginationAndRemoving {
 			dao.delBook(1);
 			dao.delBook(7);
 			
-//			after = dao.getAllBooks(1, 1000);
 			after1 = dao.getBookByAuthor(1, 1000, "Test4");
 			if(testCond%testIndexBlanker == 0){
 				
