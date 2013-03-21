@@ -8,6 +8,7 @@ import java.util.*;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra;
 
 import org.apache.log4j.BasicConfigurator;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
@@ -16,7 +17,7 @@ import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
 
 public class GetPageCountTest {
 
-	@Test
+    @Test
 	public void getPagesCountTest() throws DaoException{
 		
 		BasicConfigurator.configure();
@@ -33,7 +34,7 @@ public class GetPageCountTest {
 				books.add(beggining_state.getGenre());
 				dao.addBook(beggining_state);
 			}
-			assertEquals(dao.getPageCount(cts.bookID,20), 50);
+			assertEquals(dao.getPageCount(1000,20), 50);
 		} catch (Exception e) {throw new DaoException(e);}
 	}
 }

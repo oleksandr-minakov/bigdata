@@ -17,7 +17,9 @@
 		class="com.mirantis.aminakov.bigdatacourse.service.ServiceToDao" />
 
     <bean id="dao"
-          class="com.mirantis.aminakov.bigdatacourse.dao.mysql.DaoJdbc" />
+          class="com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra" >
+        <constructor-arg ref="constants"/>
+    </bean>
 
     <bean id="daoJdbc" class="com.mirantis.aminakov.bigdatacourse.dao.mysql.DaoJdbc">
         <property name="dataSource" ref="dataSource" />
