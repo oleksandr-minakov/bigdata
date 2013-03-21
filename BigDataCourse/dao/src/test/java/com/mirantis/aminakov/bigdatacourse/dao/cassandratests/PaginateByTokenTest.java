@@ -19,7 +19,6 @@ public class PaginateByTokenTest {
 	@Test
 	public void paginationTest() throws DaoException, FileNotFoundException{
 		
-		BasicConfigurator.configure();
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
 		
 		DaoCassandra dao = new DaoCassandra(cts);
@@ -43,6 +42,9 @@ public class PaginateByTokenTest {
 		int querySize_lst4 = dao.getNumberOfRecords();
 		
 		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
+		
+		System.out.println((lst1.size() + lst2.size() + lst3.size() + lst4.size()) == (querySize_lst1 + querySize_lst2 + querySize_lst3 + querySize_lst4));
+		
 		assertEquals(lst1.size() + lst2.size() + lst3.size() + lst4.size(), querySize_lst1 + querySize_lst2 + querySize_lst3 + querySize_lst4);
 	}
 

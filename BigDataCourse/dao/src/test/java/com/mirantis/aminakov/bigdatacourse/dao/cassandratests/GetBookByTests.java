@@ -32,7 +32,6 @@ public class GetBookByTests {
 	@Test
 	public void getBookByTitleTest() throws DaoException{
 		
-		BasicConfigurator.configure();
 		List<Book> after = new ArrayList<Book>();
 		setUp();
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", CassandraIP.IP);

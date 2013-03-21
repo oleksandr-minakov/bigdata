@@ -22,7 +22,7 @@ public class PaginationAndRemoving {
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", CassandraIP.IP);
 		DaoCassandra dao = new DaoCassandra(cts);
 		
-		int testCond = 10000 + cts.bookID; // adding that amount of data to Cassandra
+		int testCond = 10000; // adding that amount of data to Cassandra
 		int testIndexBlanker = 1000; // cutting indexes of rows
 		List<Book> before = new ArrayList<Book>();
 		List<Book> after = new ArrayList<Book>();
@@ -31,7 +31,7 @@ public class PaginationAndRemoving {
 		Book beggining_state = new Book();
 		try {
 			
-			for(int i = cts.bookID; i< testCond; ++i){
+			for(int i = 0; i< testCond; ++i){
 				
 				beggining_state.newBook(new String("CassandraTest" + String.valueOf(i)), "Test" + String.valueOf(i%testIndexBlanker), new String("Tester" + String.valueOf(i)), new FileInputStream("src/main/resources/testbook"));
 				dao.addBook(beggining_state);
@@ -43,10 +43,16 @@ public class PaginationAndRemoving {
 			
 //			after = dao.getAllBooks(1, 1000);
 			after1 = dao.getBookByAuthor(1, 1000, "Test4");
-			if(testCond%testIndexBlanker == 0)
-				assertEquals("Push with deletion and Pop-pagination",dao.getNumberOfRecords(), testCond/testIndexBlanker);
-			else
+			if(testCond%testIndexBlanker == 0){
+				
+				System.out.println(dao.getNumberOfRecords() == testCond/testIndexBlanker);
+				assertEquals(dao.getNumberOfRecords(), testCond/testIndexBlanker);
+			}
+			else{
+				
+				System.out.println(dao.getNumberOfRecords() == testCond/testIndexBlanker + 1);
 				assertEquals(dao.getNumberOfRecords(), testCond/testIndexBlanker +1);
+			}
 			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		}catch (Exception e) {throw new DaoException(e);}
 	}

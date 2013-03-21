@@ -18,8 +18,6 @@ public class GetAllRowKeysTest {
 	@Test
 	public void getIterList() throws DaoException{
 		
-		BasicConfigurator.configure();
-		
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", CassandraIP.IP);
 		
 		DaoCassandra dao = new DaoCassandra(cts);
@@ -33,7 +31,11 @@ public class GetAllRowKeysTest {
 				dao.addBook(beggining_state);
 			}
 			List<String> keys = dao.getAllRowKeys();
+			
+			System.out.println( keys.size() == 100);
+			
 			assertTrue(keys.size() == 100);
+			
 		} catch (Exception e) {throw new DaoException(e);}
 		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 	}

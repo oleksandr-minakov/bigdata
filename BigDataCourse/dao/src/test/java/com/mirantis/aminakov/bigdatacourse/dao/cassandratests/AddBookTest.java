@@ -17,7 +17,6 @@ public class AddBookTest {
 	@Test
 	public void addBookTest() throws DaoException{
 		
-		BasicConfigurator.configure();
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", CassandraIP.IP);
 		
 		DaoCassandra dao = new DaoCassandra(cts);
@@ -26,8 +25,14 @@ public class AddBookTest {
 		try {
 			beggining_state.newBook("CassandraTest", "Test", "Tester", new FileInputStream("src/main/resources/testbook"));
 			dao.addBook(beggining_state);
+			
+			System.out.println(beggining_state.getId() == cts.bookID-1);
+			
 			assertEquals(beggining_state.getId(), cts.bookID-1);
+			
+			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
+			
 		} catch (Exception e) {throw new DaoException(e);}
-		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
+		
 	}
 }

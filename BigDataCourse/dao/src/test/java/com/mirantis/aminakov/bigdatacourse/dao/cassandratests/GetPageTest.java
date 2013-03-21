@@ -22,8 +22,7 @@ public class GetPageTest {
 	@SuppressWarnings("unused")
 	@Test
 	public void getpagesTest() throws DaoException {
-		
-		BasicConfigurator.configure();
+
 		List<Book> pagedBookList = new ArrayList<Book>();
 		
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", CassandraIP.IP);
