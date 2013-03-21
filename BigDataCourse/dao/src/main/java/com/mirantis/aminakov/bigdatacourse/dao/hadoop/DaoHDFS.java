@@ -6,9 +6,13 @@ import java.util.TreeSet;
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.Dao;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
+import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
 
 public class DaoHDFS implements Dao{
 
+	private HadoopConnector hadoop;
+	
+	
 	@Override
 	public int addBook(Book book) throws DaoException {
 		// TODO Auto-generated method stub
