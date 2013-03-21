@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Ignore;
+import org.apache.hadoop.fs.Path;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
@@ -20,7 +20,7 @@ import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.GetBookByTokenJob;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.GetBookByTitleJob;
 
 public class GetBookByTokenJobTest {
-	@Ignore
+
 	@Test
 	public void test() throws DaoException, IOException {
 		
@@ -64,6 +64,11 @@ public class GetBookByTokenJobTest {
 		 afterGetGenre1 = getGenre.getBooksBy(pageNum, pageSize, "Tester10");
 		 assertEquals( afterGetGenre.get(0).getId(),afterGetGenre1.get(0).getId());
 		
+		 System.out.println( afterGetTitle.get(0).getId() + afterGetAuthor.get(0).getId() +  afterGetGenre.get(0).getId() 
+				 == afterGetTitle1.get(0).getId() + afterGetAuthor1.get(0).getId() +  afterGetGenre1.get(0).getId());
+		
+		 
+		 newOne.getFS().delete(new Path("/bookshelf/"), true);
 	}
 
 }

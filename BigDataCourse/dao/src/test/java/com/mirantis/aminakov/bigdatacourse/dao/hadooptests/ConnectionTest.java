@@ -5,15 +5,14 @@ import static org.junit.Assert.assertNotNull;
 import java.io.IOException;
 
 import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
 import org.apache.log4j.BasicConfigurator;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
 
 public class ConnectionTest {
-	@Ignore
 	@Test
 	public void getConnetionTest() throws DaoException, IOException{
 		
@@ -21,8 +20,10 @@ public class ConnectionTest {
 		
 		HadoopConnector newOne = new HadoopConnector("172.18.196.59","54310", "dmakogon", "/bookshelf/books/");		
 		FileSystem fs = newOne.getFS();
+		
+		System.out.println( fs != null);
+		
 		assertNotNull(fs);
-		fs.close();
+		newOne.getFS().delete(new Path("/bookshelf/"), true);
 	}
-
 }

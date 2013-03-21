@@ -38,7 +38,6 @@ public class HadoopConnector {
 			
 			setConfiguration();
 			try {
-//				this.newFS = FileSystem.get(URI.create(hadoopURI),newConf);
 				this.newFS = FileSystem.get(URI.create(hadoopURI),newConf, this.hadoopUser);
 			} catch (Exception e) {throw new DaoException(e);}
 			

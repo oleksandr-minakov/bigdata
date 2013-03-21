@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.hadoop.fs.Path;
 import org.apache.log4j.BasicConfigurator;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
@@ -18,7 +18,6 @@ import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.AddBookJob;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.GetAllBooksJob;
 
 public class GetAllBooksJobTest {
-	@Ignore
 	@Test
 	public void getAllBooksJobTest() throws IOException, DaoException{
 		
@@ -41,7 +40,10 @@ public class GetAllBooksJobTest {
 			add.addBookJob(beggining_state);
 		}
 		after = get.getAllBooksJob(1, 100);
-		assertEquals(before.size(),after.size());
 		
+		System.out.println( before.size() == after.size() );
+		
+		assertEquals(before.size(),after.size());
+		newOne.getFS().delete(new Path("/bookshelf/"), true);
 	}
 }
