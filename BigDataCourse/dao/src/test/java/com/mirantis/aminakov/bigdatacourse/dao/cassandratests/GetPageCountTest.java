@@ -7,7 +7,6 @@ import java.util.*;
 
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra;
 
-import org.apache.log4j.BasicConfigurator;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;

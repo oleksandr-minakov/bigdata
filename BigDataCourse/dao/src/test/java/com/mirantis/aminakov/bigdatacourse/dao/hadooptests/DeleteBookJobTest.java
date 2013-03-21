@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import org.apache.log4j.BasicConfigurator;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
@@ -15,7 +16,7 @@ import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.AddBookJob;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.DeleteBookJob;
 
 public class DeleteBookJobTest {
-	
+	@Ignore
 	@SuppressWarnings("unused")
 	@Test
 	public void deleteBookJobTest()throws DaoException, IOException{

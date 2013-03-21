@@ -6,13 +6,14 @@ import java.io.IOException;
 
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.log4j.BasicConfigurator;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
 
 public class ConnectionTest {
-	
+	@Ignore
 	@Test
 	public void getConnetionTest() throws DaoException, IOException{
 		

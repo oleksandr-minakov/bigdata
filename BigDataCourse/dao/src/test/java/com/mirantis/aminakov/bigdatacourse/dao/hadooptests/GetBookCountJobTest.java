@@ -3,13 +3,12 @@ package com.mirantis.aminakov.bigdatacourse.dao.hadooptests;
 import static org.junit.Assert.*;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.Path;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
@@ -19,7 +18,7 @@ import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.AddBookJob;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.GetBooksCountJob;
 
 public class GetBookCountJobTest {
-	
+	@Ignore
 	@Test
 	public void testCase() throws DaoException, IOException{
 		

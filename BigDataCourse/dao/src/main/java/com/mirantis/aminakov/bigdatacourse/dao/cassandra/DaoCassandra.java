@@ -34,9 +34,7 @@ public class DaoCassandra implements Dao{
     public DaoCassandra(Constants constants) throws DaoException{
 		this.constants = constants;
 		try {
-			constants.bookID= getMaxIndex();
-            if(constants.bookID == 0)
-                constants.bookID = 1;
+			constants.bookID= getMaxIndex()+1;
 		} catch (DaoException e) {
             throw new DaoException(e);
         }
