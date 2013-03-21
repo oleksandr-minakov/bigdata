@@ -1,5 +1,7 @@
 package com.mirantis.aminakov.bigdatacourse.dao.cassandratests;
 
+import static org.junit.Assert.*;
+
 import java.io.FileInputStream;
 
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra;
@@ -15,8 +17,6 @@ public class DeleteBookTest {
 	@Test
 	public void deleteBookTest() throws DaoException{
 		
-		BasicConfigurator.configure();
-
 		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", CassandraIP.IP);
 		
 		DaoCassandra dao = new DaoCassandra(cts);
@@ -28,7 +28,11 @@ public class DeleteBookTest {
 			
 			dao.addBook(beggining_state);
 			
-			dao.delBook(beggining_state.getId());
+			int res = dao.delBook(beggining_state.getId());
+			
+			System.out.println( res == 0 );
+			
+			assertTrue(res == 0);
 			
 			cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 		} catch (Exception e) {throw new DaoException(e);}

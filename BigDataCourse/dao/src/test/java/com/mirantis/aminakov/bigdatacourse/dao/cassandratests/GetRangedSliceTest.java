@@ -20,7 +20,6 @@ public class GetRangedSliceTest {
 	@Test
 	public void getRangedSlicesTest() throws DaoException{
 		
-		BasicConfigurator.configure();
 		List<Book> before = new ArrayList<Book>();
 		List<Book> after = new ArrayList<Book>();
 		List<Book> after1 = new ArrayList<Book>();
@@ -37,6 +36,8 @@ public class GetRangedSliceTest {
 			}
 			after = dao.getAllBooks(1, 40);
 			after1 = dao.getAllBooks(2, 20);
+			
+			System.out.println((after.size() + after1.size()) == (40 + 20));
 			
 			assertTrue((after.size() + after1.size()) == (40 + 20));
 		} catch (Exception e) {throw new DaoException(e);}

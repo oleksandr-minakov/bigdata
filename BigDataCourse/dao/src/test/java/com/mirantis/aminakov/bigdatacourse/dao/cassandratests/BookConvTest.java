@@ -48,11 +48,8 @@ public class BookConvTest {
 			bstate.newBook("CassandraTest", "Test", "Tester", new FileInputStream("src/main/resources/testbook"));
 			cols = BookConverter.getInstance().book2row(bstate);
 			fstate = BookConverter.getInstance().row2book(cols);
+			assertNotNull(cols);
 			
-			System.out.println(bstate.getId() + bstate.getTitle() + bstate.getAuthor() + bstate.getGenre() + bstate.getText());
-			System.out.println(fstate.getId() + fstate.getTitle() + fstate.getAuthor() + fstate.getGenre() + fstate.getText());
-			System.out.println(fstate.getReadbleText());
-			assertFalse(bstate.equals(fstate));
 		} catch (Exception e) {
 			throw new DaoException(e);
 		}
