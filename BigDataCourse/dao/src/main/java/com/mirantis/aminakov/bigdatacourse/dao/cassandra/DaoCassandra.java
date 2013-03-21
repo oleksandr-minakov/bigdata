@@ -1,6 +1,7 @@
 package com.mirantis.aminakov.bigdatacourse.dao.cassandra;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -33,9 +34,9 @@ public class DaoCassandra implements Dao{
     public DaoCassandra(Constants constants) throws DaoException{
 		this.constants = constants;
 		try {
-			constants.bookID= getAllRowKeys().size();//FIXME
+			constants.bookID= getMaxIndex();
             if(constants.bookID == 0)
-                constants.bookID++;
+                constants.bookID = 1;
 		} catch (DaoException e) {
             throw new DaoException(e);
         }
@@ -232,7 +233,7 @@ public class DaoCassandra implements Dao{
 		books.setColumnFamily(constants.CF_NAME);
 		books.setKeys("", "");
 		books.setReturnKeysOnly();
-		books.setRowCount(Integer.MAX_VALUE-1);
+		books.setRowCount(Integer.MAX_VALUE);
 		try{
 			QueryResult<OrderedRows<String, String, String>> result = books.execute();
 		
@@ -242,6 +243,7 @@ public class DaoCassandra implements Dao{
         		pagedBooks.add(row.getKey());
         	}
 		} catch (Exception e){throw new DaoException(e);}
+		
         this.querySize = pagedBooks.size();
         
 		return pagedBooks;
@@ -311,14 +313,32 @@ public class DaoCassandra implements Dao{
 		return this.querySize;
 	}
 
-    private int getMaxIndex() throws DaoException {
+	public int getMaxIndex() throws DaoException {
 
-        List<String> keys = getAllRowKeys();
-
-        for(String key:keys){
-
-            //parse key, get int, init ID and so on;
-        }
-        return 0;
+    	int max = 0;
+		List<String> keys = getAllRowKeys();
+		if(keys.size() != 0 ){
+			
+        	List<String> bookIDs = new ArrayList<String>();
+        
+        	int[] ids = new int[keys.size()];
+        	String[] stringIDs = new String[keys.size()];
+        
+        	for(String key:keys){
+        		bookIDs.add(key.substring("book ".length()));
+        	}
+        
+        	bookIDs.toArray(stringIDs);
+        
+        	for(int i = 0; i < bookIDs.size(); ++i){
+        	
+        		ids[i] = Integer.valueOf(stringIDs[i]);
+        	}
+        	Arrays.sort(ids);
+        	max = ids[ids.length-1];
+		}
+		
+        return max;
     }
+    
 }
