@@ -20,7 +20,9 @@ public class AddBookJobTest {
 		
 		BasicConfigurator.configure();
 		
-		HadoopConnector newOne = new HadoopConnector("172.18.196.59","54310", "dmakogon", "/bookshelf/books/");
+		HadoopConnector newOne = new HadoopConnector("0.0.0.0","54310", "hduser", "/bookshelf/books/");
+		
+		newOne.bookID = 100;
 		
 		Book beggining_state = new Book();
 		beggining_state.newBook("CassandraTest", "Test", "Tester", new FileInputStream("src/main/resources/testbook"));
@@ -28,9 +30,10 @@ public class AddBookJobTest {
 		int res = new AddBookJob(newOne).addBookJob(beggining_state);
 		res= new AddBookJob(newOne).addBookJob(beggining_state);
 		
-		System.out.println( res == beggining_state.getId());
+		System.out.println("AddBookJobTest " + (res == beggining_state.getId()) );
 		
 		assertEquals(res, beggining_state.getId());
-		newOne.getFS().delete(new Path("/bookshelf/"), true);
+		newOne.getFS().delete(new Path("/bookshelf/books/"+100+"/"), true);
+		newOne.getFS().delete(new Path("/bookshelf/books/"+101+"/"), true);
 	}
 }

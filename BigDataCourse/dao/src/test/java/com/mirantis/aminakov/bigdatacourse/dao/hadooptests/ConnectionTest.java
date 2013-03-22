@@ -21,7 +21,7 @@ public class ConnectionTest {
 		HadoopConnector newOne = new HadoopConnector("172.18.196.59","54310", "dmakogon", "/bookshelf/books/");		
 		FileSystem fs = newOne.getFS();
 		
-		System.out.println( fs != null);
+		System.out.println("ConnectionTest " + ( fs != null ));
 		
 		assertNotNull(fs);
 		newOne.getFS().delete(new Path("/bookshelf/"), true);

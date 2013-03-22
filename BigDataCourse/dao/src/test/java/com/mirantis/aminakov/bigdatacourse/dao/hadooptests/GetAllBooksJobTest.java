@@ -16,6 +16,7 @@ import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.AddBookJob;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.GetAllBooksJob;
+import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.GetLastIndexJob;
 
 public class GetAllBooksJobTest {
 	@Test
@@ -25,6 +26,8 @@ public class GetAllBooksJobTest {
 		BasicConfigurator.configure();
 		
 		HadoopConnector newOne = new HadoopConnector("172.18.196.59","54310", "dmakogon", "/bookshelf/books/");
+		GetLastIndexJob id = new GetLastIndexJob(newOne);
+		newOne.bookID = id.getIncrementedNewID();
 		
 		AddBookJob add = new AddBookJob(newOne);
 		GetAllBooksJob get = new GetAllBooksJob(newOne);
@@ -32,7 +35,8 @@ public class GetAllBooksJobTest {
 		List<Book> before = new ArrayList<Book>();
 		List<Book> after = new ArrayList<Book>();
 		
-		for(int i=0; i<100; ++i){
+		
+		for(int i=0; i<10; ++i){
 			
 			Book beggining_state = new Book();
 			beggining_state.newBook("CassandraTest"+i, "Test"+i, "Tester"+i, new FileInputStream("src/main/resources/testbook"));
@@ -41,9 +45,11 @@ public class GetAllBooksJobTest {
 		}
 		after = get.getAllBooksJob(1, 100);
 		
-		System.out.println( before.size() == after.size() );
+		System.out.println("GetAllBooksJobTest " + ( before.size() == after.size() ));
 		
 		assertEquals(before.size(),after.size());
-		newOne.getFS().delete(new Path("/bookshelf/"), true);
+		
+		for(int i = 1; i< 11; ++i)
+			newOne.getFS().delete(new Path("/bookshelf/books/"+i+"/"), true);
 	}
 }

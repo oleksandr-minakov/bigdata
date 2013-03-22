@@ -41,8 +41,10 @@ public class GetLastIndexJob {
 			for(FileStatus fs: fsList){
 				
 				pathLevels = Arrays.asList(fs.getPath().toString().split("/"));
-				List<String> book = pathLevels.subList(2, pathLevels.size());
-				stringIDs.add(book.get(book.size()-1));
+				List<String> book = pathLevels.subList(5, pathLevels.size());
+				if(book.size() == 0 )
+					return 0;
+				stringIDs.add(book.get(0));
 				
 			}
 			

@@ -22,6 +22,7 @@ public class GetBookCountJobTest {
 	public void testCase() throws DaoException, IOException{
 		
 		HadoopConnector newOne = new HadoopConnector("172.18.196.59","54310", "dmakogon", "/bookshelf/books/");
+		newOne.bookID = 1;
 		GetBooksCountJob count = new GetBooksCountJob(newOne);
 		AddBookJob add = new AddBookJob(newOne);
 		
@@ -31,12 +32,11 @@ public class GetBookCountJobTest {
 			beggining_state.newBook("CassandraTest" + i%100, "Test", "Tester"+i%100, new FileInputStream("src/main/resources/testbook"));
 			add.addBookJob(beggining_state);
 		}
-		assertNotEquals(count.getBooksCount(), 0);
 		
-		for(FileStatus fs: Arrays.asList(newOne.getFS().listStatus(new Path(newOne.workingDirectory)))){
-			newOne.getFS().delete(fs.getPath(), true);
-		}
+		System.out.println("GetBookCountJobTest " + (count.getBooksCount() == Arrays.asList(newOne.getFS().listStatus(new Path(newOne.workingDirectory))).size()));
+		assertEquals(count.getBooksCount(), Arrays.asList(newOne.getFS().listStatus(new Path(newOne.workingDirectory))).size());
 		
-		newOne.getFS().delete(new Path("/bookshelf/"), true);
+		for(int i = 1; i< 101; ++i)
+			newOne.getFS().delete(new Path("/bookshelf/books/"+i+"/"), true);
 	}
 }

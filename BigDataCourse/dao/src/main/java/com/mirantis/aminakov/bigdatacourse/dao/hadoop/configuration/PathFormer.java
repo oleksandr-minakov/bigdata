@@ -8,7 +8,7 @@ public class PathFormer {
 	 */
 
 	public String formAddPath(Book book, String root){
-		return new String(root + book.getId() + "/" + book.getAuthor() + "/" + book.getGenre() + "/" + book.getTitle());
+		return new String(root + "/" +book.getId() + "/" + book.getAuthor() + "/" + book.getGenre() + "/" + book.getTitle());
 	}
 	
 	public String formDeletePath(String root, int id){

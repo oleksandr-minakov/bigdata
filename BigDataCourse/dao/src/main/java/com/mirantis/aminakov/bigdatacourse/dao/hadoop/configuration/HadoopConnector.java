@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URI;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 
 public class HadoopConnector {
@@ -19,6 +21,7 @@ public class HadoopConnector {
 	
 	
 	public HadoopConnector(String hadoopIP, String hadoopPort, String user, String workingDirectory){
+		
 		this.hadoopUser = user;
 		this.hadoopIP = hadoopIP;
 		this.hadoopPort = hadoopPort;
