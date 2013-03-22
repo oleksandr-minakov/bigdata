@@ -25,10 +25,10 @@ public class GetBookByTokenJobTest {
 	public void test() throws DaoException, IOException {
 		
 		int testCase = 1000;
-		int pageSize = 5;
-		int pageNum = 2;
+		int pageSize = 10000;
+		int pageNum = 1;
 		HadoopConnector newOne = new HadoopConnector("172.18.196.59","54310", "dmakogon", "/bookshelf/books/");
-		
+		newOne.bookID = 1;
 		AddBookJob add = new AddBookJob(newOne);
 		GetBookByTokenJob get = new GetBookByTokenJob(newOne);
 		GetBookByTitleJob getTitle = new GetBookByTitleJob(newOne);
@@ -64,11 +64,12 @@ public class GetBookByTokenJobTest {
 		 afterGetGenre1 = getGenre.getBooksBy(pageNum, pageSize, "Tester10");
 		 assertEquals( afterGetGenre.get(0).getId(),afterGetGenre1.get(0).getId());
 		
-		 System.out.println( afterGetTitle.get(0).getId() + afterGetAuthor.get(0).getId() +  afterGetGenre.get(0).getId() 
-				 == afterGetTitle1.get(0).getId() + afterGetAuthor1.get(0).getId() +  afterGetGenre1.get(0).getId());
+		 System.out.println("GetBookByTokenJobTest " + (afterGetTitle.get(0).getId() + afterGetAuthor.get(0).getId() +  afterGetGenre.get(0).getId() 
+				 == afterGetTitle1.get(0).getId() + afterGetAuthor1.get(0).getId() +  afterGetGenre1.get(0).getId()));
 		
 		 
-		 newOne.getFS().delete(new Path("/bookshelf/"), true);
+		for(int i = 1; i< testCase+1; ++i)
+			newOne.getFS().delete(new Path("/bookshelf/books/"+i+"/"), true);
 	}
 
 }

@@ -21,17 +21,16 @@ public class DeleteBookJobTest {
 	public void deleteBookJobTest()throws DaoException, IOException{
 		
 		HadoopConnector newOne = new HadoopConnector("172.18.196.59","54310", "dmakogon", "/bookshelf/books/");	
+		newOne.bookID = 100;
 		
 		Book beggining_state = new Book();
 		beggining_state.newBook("CassandraTest", "Test", "Tester", new FileInputStream("src/main/resources/testbook"));
-		beggining_state.setId(100);
 		
 		int resAdd = new AddBookJob(newOne).addBookJob(beggining_state);	
 		int resDel = new DeleteBookJob(newOne).deleteBookJob(100);
 		
-		System.out.println( resDel == 0);
+		System.out.println("DeleteBookJobTest " + ( resDel == 0));
 		assertEquals(resDel, 0);
-		newOne.getFS().delete(new Path("/bookshelf/"), true);
 	}
 
 }

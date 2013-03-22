@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 
 import org.apache.hadoop.fs.Path;
 import org.junit.Test;
@@ -21,7 +22,7 @@ public class GetLastIndexJobTest {
 	public void testCase() throws DaoException, IOException{
 		
 		HadoopConnector newOne = new HadoopConnector("172.18.196.59","54310", "dmakogon", "/bookshelf/books/");
-		
+		newOne.bookID =1;
 		AddBookJob add = new AddBookJob(newOne);
 		GetLastIndexJob get = new GetLastIndexJob(newOne);
 		
@@ -37,14 +38,15 @@ public class GetLastIndexJobTest {
 		for(int i = 999; i > 900; i--)
 			new DeleteBookJob(newOne).deleteBookJob(i);
 		
-		int res = get.getLastIndex();
-		
 		Book book = new Book();
 		book.newBook("CassandraTest", "Test", "Tester", new FileInputStream("src/main/resources/testbook"));
 		add.addBookJob(book);
-		
-		System.out.println( newOne.bookID - 1 == res + 100);
+
+		int res = get.getLastIndex();
+		System.out.println("GetLastIndexJobTest" + (newOne.bookID - 1 == res));
 		assertTrue(get.getIncrementedNewID() == newOne.bookID);
-		newOne.getFS().delete(new Path("/bookshelf/"), true);
+		
+		for(int i = 1; i< 1002; ++i)
+			newOne.getFS().delete(new Path("/bookshelf/books/"+i+"/"), true);
 	}
 }
