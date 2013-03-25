@@ -20,7 +20,7 @@ public class AddBookJobTest {
 		
 		BasicConfigurator.configure();
 		
-		HadoopConnector newOne = new HadoopConnector("0.0.0.0","54310", "hduser", "/bookshelf/books/");
+		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP,"54310", "hduser", "/bookshelf/books/");
 		
 		newOne.bookID = 100;
 		
