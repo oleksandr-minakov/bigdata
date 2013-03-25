@@ -21,7 +21,7 @@ public class GetLastIndexJobTest {
 	@Test
 	public void testCase() throws DaoException, IOException{
 		
-		HadoopConnector newOne = new HadoopConnector("172.18.196.59","54310", "dmakogon", "/bookshelf/books/");
+		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP,"54310", "dmakogon", "/bookshelf/books/");
 		newOne.bookID =1;
 		AddBookJob add = new AddBookJob(newOne);
 		GetLastIndexJob get = new GetLastIndexJob(newOne);
