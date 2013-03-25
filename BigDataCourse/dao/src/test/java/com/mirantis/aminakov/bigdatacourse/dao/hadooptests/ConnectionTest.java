@@ -17,7 +17,7 @@ public class ConnectionTest {
 		
 		BasicConfigurator.configure();
 		
-		HadoopConnector newOne = new HadoopConnector( new HdfsIP().HadoopIP,"54310", "hduser", "/bookshelf/books/");		
+		HadoopConnector newOne = new HadoopConnector( new HdfsIP().HadoopIP,"54310", new HdfsIP().HadoopUser, "/bookshelf/books/");		
 		FileSystem fs = newOne.getFS();
 		
 		System.out.println("ConnectionTest " + ( fs != null ));

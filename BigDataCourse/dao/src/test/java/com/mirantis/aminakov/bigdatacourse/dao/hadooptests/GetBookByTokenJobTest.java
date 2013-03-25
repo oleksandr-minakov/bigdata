@@ -27,7 +27,7 @@ public class GetBookByTokenJobTest {
 		int testCase = 1000;
 		int pageSize = 10000;
 		int pageNum = 1;
-		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP,"54310", "dmakogon", "/bookshelf/books/");
+		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP,"54310", new HdfsIP().HadoopUser, "/bookshelf/books/");
 		newOne.bookID = 1;
 		AddBookJob add = new AddBookJob(newOne);
 		GetBookByTokenJob get = new GetBookByTokenJob(newOne);
