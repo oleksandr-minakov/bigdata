@@ -62,7 +62,7 @@ public class GetAllBooksJob {
 				
 			}
 			
-			this.querySize = pathList.size();
+			querySize = pathList.size();
 			
 			if(pathList.size() > pageNum*pageSize){
 				ret = new GetBookByPath().getBooksByPathList(pathList.subList((pageNum-1)*pageSize, pageSize*pageNum), hadoopConf);

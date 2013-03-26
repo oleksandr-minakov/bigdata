@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.apache.hadoop.fs.FSDataOutputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.fs.permission.FsPermission;
 import org.apache.log4j.Logger;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
@@ -39,7 +40,7 @@ public class AddBookJob {
 	        out.close();
 	        
 	        hadoopConf.bookID++;
-	        
+	        fs.setPermission(path, new FsPermission("777"));
 	        return book.getId();
 	        
 		} catch (IOException e) {throw new DaoException(e);}

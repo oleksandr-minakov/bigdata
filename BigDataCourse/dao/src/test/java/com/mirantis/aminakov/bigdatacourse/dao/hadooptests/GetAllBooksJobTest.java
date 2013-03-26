@@ -25,7 +25,7 @@ public class GetAllBooksJobTest {
 
 		BasicConfigurator.configure();
 		
-		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP,"54310", "dmakogon", "/bookshelf/books/");
+		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP,"54310", new HdfsIP().HadoopUser, "/bookshelf/books/");
 		GetLastIndexJob id = new GetLastIndexJob(newOne);
 		newOne.bookID = id.getIncrementedNewID();
 		
