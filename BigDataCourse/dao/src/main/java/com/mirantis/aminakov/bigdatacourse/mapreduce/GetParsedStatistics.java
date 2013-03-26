@@ -23,12 +23,13 @@ public class GetParsedStatistics {
 		this.hadoop = hadoop;
 	}
 	
-	public List<Pair<String, Long>> getParsedStatistics(Path statPath) throws IOException, DaoException{
+	public List<Pair<String, Double>> getParsedStatistics(Path statPath) throws IOException, DaoException{
 		
+		List<Pair<String, Double>> retFrequency = new ArrayList<Pair<String, Double>>();
 		List<Pair<String, Long>> ret = new ArrayList<Pair<String, Long>>();
 		
 		if(statPath.equals(new Path(this.hadoop.workingDirectory))){
-			return ret;
+			return retFrequency;
 		}
 		List<FileStatus> fsList = Arrays.asList(hadoop.getFS().listStatus(statPath));
 		
@@ -40,20 +41,22 @@ public class GetParsedStatistics {
 			in.read(toWrite);
 			hadoop.getFS().delete(statPath, true);
 			
+			int filesNum= Arrays.asList(hadoop.getFS().listStatus(new Path(hadoop.workingDirectory))).size();
+			
 			StringTokenizer tokens = new StringTokenizer(new String(toWrite), "'\n'");
 			while(tokens.hasMoreElements()){
 				
 				StringTokenizer innerTokens = new StringTokenizer(new String(tokens.nextToken()), "'\t'");
 				while(innerTokens.hasMoreElements()){
-					Pair<String, Long> pair = new Pair<String, Long>();
+					Pair<String, Double> pair = new Pair<String, Double>();
 					pair.setWord(innerTokens.nextToken());
-					pair.setCount(Long.valueOf(innerTokens.nextToken()));
-					ret.add(pair);
+					pair.setCount(Double.valueOf(Long.valueOf(innerTokens.nextToken())/filesNum));
+					retFrequency.add(pair);
 				}
 			}
 			
 		}
 		
-		return ret;
+		return retFrequency;
 	}
 }

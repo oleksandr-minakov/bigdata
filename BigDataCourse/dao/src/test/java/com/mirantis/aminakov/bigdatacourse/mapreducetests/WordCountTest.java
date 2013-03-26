@@ -23,7 +23,7 @@ public class WordCountTest {
 	@Test
 	public void testCase() throws DaoException, IOException{
 		
-		int testCase = 100;
+		int testCase = 10;
 		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP,"54310", new HdfsIP().HadoopUser, "/bookshelf/books/");
 		
 		newOne.bookID = 1;
@@ -44,7 +44,7 @@ public class WordCountTest {
 		JobRunner jobba = new JobRunner(newOne, WordCounterJob.class , WordCounterJob.Map.class, WordCounterJob.Reduce.class);
 		GetParsedStatistics  getP = new GetParsedStatistics(newOne);
 		Path path = jobba.getPathToEvaluatedStatistics();
-		List<Pair<String, Long>> pairs = getP.getParsedStatistics(path);
+		List<Pair<String, Double>> pairs = getP.getParsedStatistics(path);
 		
 		if(pairs.size() == 0 )
 			Assert.assertEquals(pairs.size(), 0);
