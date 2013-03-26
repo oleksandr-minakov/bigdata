@@ -25,8 +25,13 @@ public class GetParsedStatistics {
 	
 	public List<Pair<String, Long>> getParsedStatistics(Path statPath) throws IOException, DaoException{
 		
-		List<FileStatus> fsList = Arrays.asList(hadoop.getFS().listStatus(statPath));
 		List<Pair<String, Long>> ret = new ArrayList<Pair<String, Long>>();
+		
+		if(statPath.equals(new Path(this.hadoop.workingDirectory))){
+			return ret;
+		}
+		List<FileStatus> fsList = Arrays.asList(hadoop.getFS().listStatus(statPath));
+		
 		if(fsList.size() >= 2){
 			
 			FSDataInputStream in = hadoop.getFS().open(fsList.get(1).getPath());
