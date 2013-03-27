@@ -35,7 +35,7 @@ public class AddBookJob {
 
 	        FSDataOutputStream out = fs.create(path);
 	        
-	        out.write(book.getReadbleText().getBytes());	        
+	        out.write(book.getReadableText().getBytes());
 	        out.close();
 	        
 	        hadoopConf.bookID++;
