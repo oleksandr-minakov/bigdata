@@ -73,7 +73,6 @@ public class JobRunner {
 		FileOutputFormat.setOutputPath(conf, statPath);
 		JobClient.runJob(conf);
 		
-		return statPath;
-		
+		return statPath;		
 	}
 }

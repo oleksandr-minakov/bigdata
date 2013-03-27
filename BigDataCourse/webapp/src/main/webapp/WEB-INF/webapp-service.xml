@@ -16,6 +16,8 @@
 	<bean id="service"
 		class="com.mirantis.aminakov.bigdatacourse.service.ServiceToDao" />
 
+	
+	
     <bean id="dao"
           class="com.mirantis.aminakov.bigdatacourse.dao.memcached.DaoMemcached" >
     </bean>
@@ -43,6 +45,7 @@
         <constructor-arg type = "java.lang.String" value = "0.0.0.0"/>
         <constructor-arg type = "int" value = "11211"/>
     </bean>
+<<<<<<< HEAD
 
         <bean id="daoCassandra" class="com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra" >
             <constructor-arg ref="constants"/>
@@ -66,4 +69,13 @@
             <constructor-arg type = "java.lang.String" value="/bookshelf/books/"/>
         </bean>
 
+=======
+    
+    <!-- Beans that are configuration of MapReduce Job -->
+
+    <bean id="job" class="com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob"/>
+	<bean id="mapper" class="com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob.Map"/>
+    <bean id="reducer" class="com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob.Reduce"/>
+    
+>>>>>>> macbranch
 </beans>
