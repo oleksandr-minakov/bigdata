@@ -13,10 +13,10 @@ import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.HadoopConnec
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.Pair;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.PathFormer;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.AddBookJob;
+import com.mirantis.aminakov.bigdatacourse.dao.hadoop.mapreduce.GetParsedStatistics;
+import com.mirantis.aminakov.bigdatacourse.dao.hadoop.mapreduce.JobRunner;
+import com.mirantis.aminakov.bigdatacourse.dao.hadoop.mapreduce.WordCounterJob;
 import com.mirantis.aminakov.bigdatacourse.dao.hadooptests.HdfsIP;
-import com.mirantis.aminakov.bigdatacourse.mapreduce.GetParsedStatistics;
-import com.mirantis.aminakov.bigdatacourse.mapreduce.JobRunner;
-import com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob;
 
 public class WordCountTest {
 	
@@ -32,14 +32,14 @@ public class WordCountTest {
 		List<Path> pathList = new ArrayList<Path>();
 		Book beggining_state;
 		
-		for(int i = 0; i < testCase; ++i){
+		/*for(int i = 0; i < testCase; ++i){
 			
 			beggining_state = new Book();
 			beggining_state.newBook("CassandraTest", "Test", "Tester", new FileInputStream("src/main/resources/testbook"));
 			job.addBookJob(beggining_state);
 			pathList.add(new Path(newOne.getURI() + new PathFormer().formAddPath(beggining_state, newOne.workingDirectory)));
 			
-		}
+		}*/
 		
 		JobRunner jobba = new JobRunner(newOne, WordCounterJob.class , WordCounterJob.Map.class, WordCounterJob.Reduce.class);
 		GetParsedStatistics  getP = new GetParsedStatistics(newOne);
