@@ -10,7 +10,9 @@
 	
 	<a href="<c:url value="/addbook"/>">Add book </a> &nbsp;&nbsp;&nbsp;
 	
-	<a href="<c:url value="/search"/>">Search </a>
+	<a href="<c:url value="/search"/>">Search </a> &nbsp;&nbsp;&nbsp;
+	
+	<a href="<c:url value="/statistics"/>">Statistics </a> &nbsp;&nbsp;&nbsp;
 </div>
 <br>
 <div style="text-align:center">

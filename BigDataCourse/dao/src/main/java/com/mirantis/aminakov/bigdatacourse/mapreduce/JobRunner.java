@@ -51,7 +51,7 @@ public class JobRunner {
 		List<Book> bookList = get.getAllBooksJob(1, count);
 
 
-		Path statPath = new Path(hadoop.getURI() + hadoop.workingDirectory +"/Statistics");
+		Path statPath = new Path(hadoop.getURI() + "/Statistics");
 		
 		for(Book book: bookList){
 			pathList.add(new Path(this.hadoop.getURI() + new PathFormer().formAddPath(book, this.hadoop.workingDirectory)));
