@@ -35,35 +35,6 @@ public class DaoJdbc implements Dao {
         this.dataSource = dataSource;
     }
 
-	/*String driverName = "com.mysql.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/bigdata?user=aminakov&password=bigdata";
-	String jdbcutf8 = "&useUnicode=true&characterEncoding=UTF-8";*/
-
-	
-	/*public DaoJdbc() throws DaoException {
-        try {
-            con = dataSource.getConnection();
-        } catch (SQLException e) {
-            LOG.error("Connection not established", e);
-            throw new DaoException(e);
-        }*/
-        /*try {
-			try {
-				Class.forName(driverName).newInstance();
-			} catch (InstantiationException | IllegalAccessException e) {
-				throw new DaoException(e);
-			}
-            try {
-				con = DriverManager.getConnection(url + jdbcutf8);
-			} catch (SQLException e) {
-				throw new DaoException(e);
-			}
-		} catch (ClassNotFoundException e) {
-			LOG.error("Driver not found.", e);
-			throw new DaoException(e);
-		}*/
-//	}
-
 	@Override
 	public int addBook(Book book) throws DaoException {
 		int id = 0;
