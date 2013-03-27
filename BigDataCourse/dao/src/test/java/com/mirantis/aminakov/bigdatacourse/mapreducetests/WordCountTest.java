@@ -32,14 +32,14 @@ public class WordCountTest {
 		List<Path> pathList = new ArrayList<Path>();
 		Book beggining_state;
 		
-		/*for(int i = 0; i < testCase; ++i){
+		for(int i = 0; i < testCase; ++i){
 			
 			beggining_state = new Book();
 			beggining_state.newBook("CassandraTest", "Test", "Tester", new FileInputStream("src/main/resources/testbook"));
 			job.addBookJob(beggining_state);
 			pathList.add(new Path(newOne.getURI() + new PathFormer().formAddPath(beggining_state, newOne.workingDirectory)));
 			
-		}*/
+		}
 		
 		JobRunner jobba = new JobRunner(newOne, WordCounterJob.class , WordCounterJob.Map.class, WordCounterJob.Reduce.class);
 		GetParsedStatistics  getP = new GetParsedStatistics(newOne);
@@ -51,7 +51,6 @@ public class WordCountTest {
 		if(pairs.size() != 0)
 			Assert.assertNotEquals(pairs.size(), 0);
 		
-		newOne.getFS().delete(new Path("/bookshelf/books/"), true);
 	}
 
 }
