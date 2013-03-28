@@ -8,18 +8,18 @@ import org.junit.Test;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-public class GetBookByTextTest {
+
+public class GetNumberOfRecordsTest {
 
     @Test
-    public void getBookByTextTest() throws DaoException, IOException {
+    public void getNumberOfRecordsTest() throws IOException, DaoException {
         DaoMemcached daoMemcached = new DaoMemcached();
         daoMemcached.setClient(new MemClient(new InetSocketAddress("0.0.0.0" , 11211)));
         DaoJdbc dao = new DaoJdbc();
@@ -32,9 +32,8 @@ public class GetBookByTextTest {
         int id = daoMemcached.addBook(book);
         List<Book> books = new ArrayList<Book>();
         books = daoMemcached.getBookByText(1, 1, "hisdu");
-        String str1 = books.get(0).getReadableText();
-        String str2 = book.getReadableText();
-        assertTrue(str1.equals(str2));
+        int records = daoMemcached.getNumberOfRecords();
+        assertTrue(records == 1);
         daoMemcached.delBook(id);
     }
 }

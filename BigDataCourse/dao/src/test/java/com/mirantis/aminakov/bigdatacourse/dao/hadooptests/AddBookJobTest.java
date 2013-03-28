@@ -23,7 +23,7 @@ public class AddBookJobTest {
 		newOne.bookID = 100;
 		
 		Book beggining_state = new Book();
-		beggining_state.newBook("CassandraTest", "Test", "Tester", new FileInputStream("src/main/resources/testbook"));
+		beggining_state.newBook("CassandraTest", "Test", "Tester", new FileInputStream("testbook"));
 		
 		int res = new AddBookJob(newOne).addBookJob(beggining_state);
 		res= new AddBookJob(newOne).addBookJob(beggining_state);
