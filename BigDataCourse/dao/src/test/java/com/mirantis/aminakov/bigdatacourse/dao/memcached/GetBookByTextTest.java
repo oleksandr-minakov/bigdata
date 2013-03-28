@@ -33,7 +33,6 @@ public class GetBookByTextTest {
         List<Book> books = new ArrayList<Book>();
         books = daoMemcached.getBookByText(1, 1, "hisdu");
         String str1 = books.get(0).getReadableText();
-        book.newBook("title", "author", "genre", new FileInputStream("testbook"));
         String str2 = book.getReadableText();
         assertTrue(str1.equals(str2));
         daoMemcached.delBook(id);
