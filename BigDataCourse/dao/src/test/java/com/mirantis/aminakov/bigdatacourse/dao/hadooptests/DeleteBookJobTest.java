@@ -24,7 +24,7 @@ public class DeleteBookJobTest {
 		newOne.bookID = 100;
 		
 		Book beggining_state = new Book();
-		beggining_state.newBook("CassandraTest", "Test", "Tester", new FileInputStream("src/main/resources/testbook"));
+		beggining_state.newBook("CassandraTest", "Test", "Tester", new FileInputStream("testbook"));
 		
 		int resAdd = new AddBookJob(newOne).addBookJob(beggining_state);	
 		int resDel = new DeleteBookJob(newOne).deleteBookJob(100);

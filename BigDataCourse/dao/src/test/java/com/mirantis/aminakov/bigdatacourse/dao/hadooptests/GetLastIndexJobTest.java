@@ -26,27 +26,27 @@ public class GetLastIndexJobTest {
 		AddBookJob add = new AddBookJob(newOne);
 		GetLastIndexJob get = new GetLastIndexJob(newOne);
 		
-		int testCond = 1000; 
+		int testCond = 100;
 		
 		for(int i= 0; i< testCond; ++i){
 			
 			Book beggining_state = new Book();
-			beggining_state.newBook("CassandraTest" + i, "Test", "Tester"+i, new FileInputStream("src/main/resources/testbook"));
+			beggining_state.newBook("CassandraTest" + i, "Test", "Tester"+i, new FileInputStream("testbook"));
 			add.addBookJob(beggining_state);
 		}
 		
-		for(int i = 999; i > 900; i--)
+		for(int i = 99; i > 90; i--)
 			new DeleteBookJob(newOne).deleteBookJob(i);
 		
 		Book book = new Book();
-		book.newBook("CassandraTest", "Test", "Tester", new FileInputStream("src/main/resources/testbook"));
+		book.newBook("CassandraTest", "Test", "Tester", new FileInputStream("testbook"));
 		add.addBookJob(book);
 
 		int res = get.getLastIndex();
 		System.out.println("GetLastIndexJobTest" + (newOne.bookID - 1 == res));
 		assertTrue(get.getIncrementedNewID() == newOne.bookID);
 		
-		for(int i = 1; i< 1002; ++i)
+		for(int i = 1; i< 102; ++i)
 			newOne.getFS().delete(new Path("/bookshelf/books/"+i+"/"), true);
 	}
 }

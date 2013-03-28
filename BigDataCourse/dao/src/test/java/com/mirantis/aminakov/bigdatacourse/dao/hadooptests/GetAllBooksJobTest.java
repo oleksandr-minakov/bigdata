@@ -39,7 +39,7 @@ public class GetAllBooksJobTest {
 		for(int i=0; i<10; ++i){
 			
 			Book beggining_state = new Book();
-			beggining_state.newBook("CassandraTest"+i, "Test"+i, "Tester"+i, new FileInputStream("src/main/resources/testbook"));
+			beggining_state.newBook("CassandraTest"+i, "Test"+i, "Tester"+i, new FileInputStream("testbook"));
 			before.add(beggining_state);
 			add.addBookJob(beggining_state);
 		}
