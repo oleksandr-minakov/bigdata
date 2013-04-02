@@ -50,7 +50,10 @@ public class GetParsedStatistics {
 				while(innerTokens.hasMoreElements()){
 					Pair<String, Double> pair = new Pair<String, Double>();
 					pair.setWord(innerTokens.nextToken());
-					pair.setCount(Double.valueOf(Long.valueOf(innerTokens.nextToken())/filesNum));
+					if(!innerTokens.hasMoreElements()){
+						pair.setCount(Double.valueOf(Long.valueOf(pair.getWord())/filesNum));
+						pair.setWord("");
+					}
 					retFrequency.add(pair);
 				}
 			}
