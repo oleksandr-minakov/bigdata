@@ -187,29 +187,5 @@ public class AddBookController {
         }
         return "delete";
     }
-    
-    private HadoopConnector configuration;
-	
-	@Autowired
-	public void setConfiguration(HadoopConnector configuration){
-		
-		this.configuration = configuration;
-	}
-	@RequestMapping(value = "/statistics", method=RequestMethod.GET)
-	public String getStatistics(Model model) throws Exception{
-		
-		WordCounterJob job = new WordCounterJob();
-		WordCounterJob.Map mapper = new WordCounterJob.Map();
-		WordCounterJob.Reduce reducer = new WordCounterJob.Reduce();
-		
-		JobRunner jobba = new JobRunner(this.configuration, job.getClass(), mapper.getClass(), reducer.getClass());
-		GetParsedStatistics  getP = new GetParsedStatistics(this.configuration);
-		Path path = jobba.getPathToEvaluatedStatistics();
-		List<Pair<String, Double>> pairs = getP.getParsedStatistics(path);
-		
-		model.addAttribute("pairs", pairs);
-		
-		return "statistics";
-	}
-    
+ 
 }
