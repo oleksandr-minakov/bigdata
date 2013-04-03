@@ -61,12 +61,14 @@
 	   <bean id="configuration" class="com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.HadoopConnector">
 	        <constructor-arg type = "java.lang.String" value="0.0.0.0"/>
 	        <constructor-arg type = "java.lang.String" value="54310"/>
-	        <constructor-arg type = "java.lang.String" value="dmakogon"/>
+	        <constructor-arg type = "java.lang.String" value="hduser"/>
 	        <constructor-arg type = "java.lang.String" value="/bookshelf/books/"/>
 	   </bean>
     
     <!-- Beans that are configuration of MapReduce Job -->
 
+	<bean id="statService"	class="com.mirantis.aminakov.bigdatacourse.service.StatService" />
+	
     <bean id="job" class="com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob"/>
 	<bean id="mapper" class="com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob.Map"/>
     <bean id="reducer" class="com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob.Reduce"/>
