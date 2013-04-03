@@ -7,7 +7,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.hadoop.fs.Path;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,11 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
-import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
-import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.Pair;
-import com.mirantis.aminakov.bigdatacourse.mapreduce.GetParsedStatistics;
-import com.mirantis.aminakov.bigdatacourse.mapreduce.JobRunner;
-import com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob;
 import com.mirantis.aminakov.bigdatacourse.service.Service;
 
 @Controller

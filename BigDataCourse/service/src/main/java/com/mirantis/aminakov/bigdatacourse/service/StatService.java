@@ -69,7 +69,7 @@ public class StatService {
 		return pool;
 	}
 	
-	private void setUpService(){
+	public void setUpService(){
 		
 		mapRedThread = new MapReduceThread();
 			mapRedThread.setConfiguration(this.configuration);

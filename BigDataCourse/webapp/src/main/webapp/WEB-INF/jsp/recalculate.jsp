@@ -8,17 +8,6 @@
 </head>
 <jsp:include page="menu.jsp"/>
 <body>
-		<table border="1">
-			<tr>
-				<th>Word</th>
-				<th>Frequency</th>
-			</tr>
-			<c:forEach items="${pairs}" var="pair">
-				<tr>	
-					<td>${pair.word}</td>
-					<td>${pair.count}</td>
-				</tr>
-			</c:forEach>
-		</table>
+	<h1>Status: "${status}"</h1>
 </body>
 </html>

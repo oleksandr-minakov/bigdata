@@ -31,22 +31,18 @@ public class StatisticsController {
 	
 	@Autowired
 	public void setService(StatService statService) {
+		
 		this.statService = statService;
+		this.statService.setUpService();
 	}
 	
 	@RequestMapping(value = "/statview", method=RequestMethod.GET)
 	public String getStatView(Model model) throws IOException, DaoException{
 		
 		List<Pair<String, Double>> pairs = new ArrayList<Pair<String, Double>>();
+		pairs = this.statService.viewStatistics();
 		
-		if(this.statService.getConfiguration().getFS().exists(new Path("/Statistics/")) == false)
-			model.addAttribute("pairs", pairs);
-		else{
-			
-			this.statService.getConfiguration().getFS().setPermission(new Path("/Statistics/part-00000"), new FsPermission("666"));
-			pairs = this.statService.viewStatistics();
-			model.addAttribute("pairs", pairs);
-		}
+		model.addAttribute("pairs", pairs);
 		return "statview";
 	}
 	
@@ -73,6 +69,8 @@ public class StatisticsController {
 		}
 		else
 			flag = true;
+		
+		model.addAttribute("flag", flag);
 		
 		return "statistics";
 	}
