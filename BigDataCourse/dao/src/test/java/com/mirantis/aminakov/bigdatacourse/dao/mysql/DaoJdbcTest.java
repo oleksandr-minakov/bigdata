@@ -17,18 +17,18 @@ import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.DeleteException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
-
+@SuppressWarnings("deprecation")
 public class DaoJdbcTest {
 	
 	static List<Book> books = null;
 	static ManagementBooks gen = null;
 	static DaoJdbc dao = null;
     static DataSource dataSource = null;
+
 	@BeforeClass
 	public static void testSetup() throws DaoException {
         ManagementTables mt;

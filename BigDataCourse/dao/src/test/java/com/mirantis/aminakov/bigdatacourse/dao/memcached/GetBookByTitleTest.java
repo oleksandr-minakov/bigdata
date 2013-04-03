@@ -18,7 +18,8 @@ import static org.junit.Assert.assertTrue;
 
 public class GetBookByTitleTest {
 
-    @Test
+    @SuppressWarnings({ "deprecation", "unused" })
+	@Test
     public void getBookByTitleTest() throws DaoException, IOException {
         DaoMemcached daoMemcached = new DaoMemcached();
         daoMemcached.setClient(new MemClient(new InetSocketAddress("0.0.0.0" , 11211)));

@@ -2,6 +2,7 @@ package com.mirantis.aminakov.bigdatacourse.dao;
 
 import java.io.*;
 
+@SuppressWarnings("serial")
 public class Book implements Serializable {
 	
 	private int id;

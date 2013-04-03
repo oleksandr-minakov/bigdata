@@ -20,41 +20,47 @@ public class GetParsedStatistics {
 	
 	public GetParsedStatistics(HadoopConnector hadoop){
 		
-		this.hadoop = hadoop;
+			this.hadoop = hadoop;
 	}
 	
 	public List<Pair<String, Double>> getParsedStatistics(Path statPath) throws IOException, DaoException{
 		
 		List<Pair<String, Double>> retFrequency = new ArrayList<Pair<String, Double>>();
-		List<Pair<String, Long>> ret = new ArrayList<Pair<String, Long>>();
 		
-		if(statPath.equals(new Path(this.hadoop.workingDirectory))){
+		if(statPath.equals(new Path("/")))
 			return retFrequency;
-		}
+		
+		if(!this.hadoop.getFS().exists(statPath))
+			return retFrequency;
+		
 		List<FileStatus> fsList = Arrays.asList(hadoop.getFS().listStatus(statPath));
 		
 		if(fsList.size() >= 2){
 			
+			int count = Arrays.asList(hadoop.getFS().listStatus(new Path(hadoop.workingDirectory))).size();
 			FSDataInputStream in = hadoop.getFS().open(fsList.get(1).getPath());
 			
 			byte[] toWrite = new byte[in.available()];
 			in.read(toWrite);
-			hadoop.getFS().delete(statPath, true);
-			
-			int filesNum= Arrays.asList(hadoop.getFS().listStatus(new Path(hadoop.workingDirectory))).size();
 			
 			StringTokenizer tokens = new StringTokenizer(new String(toWrite), "'\n'");
 			while(tokens.hasMoreElements()){
 				
-				StringTokenizer innerTokens = new StringTokenizer(new String(tokens.nextToken()), "'\t'");
+				StringTokenizer innerTokens = new StringTokenizer(new String(tokens.nextToken()), "' \t'");
 				while(innerTokens.hasMoreElements()){
+					
 					Pair<String, Double> pair = new Pair<String, Double>();
 					pair.setWord(innerTokens.nextToken());
-					pair.setCount(Double.valueOf(Long.valueOf(innerTokens.nextToken())/filesNum));
+					if(!innerTokens.hasMoreElements()){
+						
+						pair.setCount(Double.valueOf(Long.valueOf(pair.getWord())/count));
+						pair.setWord(" ");
+					}
+					
 					retFrequency.add(pair);
 				}
 			}
-			
+			in.close();
 		}
 		
 		return retFrequency;
