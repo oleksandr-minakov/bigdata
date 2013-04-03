@@ -32,7 +32,7 @@ public class WordCountTest {
 		
 		AddBookJob job = new AddBookJob(newOne);
 		List<Path> pathList = new ArrayList<Path>();
-		Book beggining_state;
+		/*Book beggining_state;
 		
 		for(int i = 0; i < testCase; ++i){
 			
@@ -42,7 +42,7 @@ public class WordCountTest {
 			pathList.add(new Path(newOne.getURI() + new PathFormer().formAddPath(beggining_state, newOne.workingDirectory)));
 			
 		}
-		
+		*/
 		JobRunner jobba = new JobRunner(newOne, WordCounterJob.class , Map.class, Reduce.class);
 		GetParsedStatistics  getP = new GetParsedStatistics(newOne);
 		Path path = jobba.getPathToEvaluatedStatistics();

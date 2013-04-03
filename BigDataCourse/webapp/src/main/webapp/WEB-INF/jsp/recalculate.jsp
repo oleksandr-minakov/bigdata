@@ -4,10 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>MapReduce Statistics Calculator</title>
 </head>
 <jsp:include page="menu.jsp"/>
 <body>
-	<h1>Status: "${status}"</h1>
+	<div align="center">
+    	<h3>Status: ${status}</h3>
+	</div>
 </body>
 </html>

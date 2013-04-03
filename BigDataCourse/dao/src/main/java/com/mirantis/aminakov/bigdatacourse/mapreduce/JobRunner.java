@@ -42,18 +42,21 @@ public class JobRunner {
 
 	public Path getPathToEvaluatedStatistics() throws DaoException, IOException{
 		
+		Path statPath = new Path(this.hadoop.getURI() + "/Statistics");
+		if(this.hadoop.getFS().exists(new Path("/Statistics")) && this.hadoop.getFS().listStatus(new Path("/Statistics")).length > 1)
+			return statPath;
+
 		GetAllBooksJob get = new GetAllBooksJob(this.hadoop);
 		List<Path> pathList = new ArrayList<Path>();
+		
 		int count = new GetBooksCountJob(this.hadoop).getBooksCount();
+		
 		if(count == 0)
 			return new Path(this.hadoop.workingDirectory);
 		
 		List<Book> bookList = get.getAllBooksJob(1, count);
 
-
-		Path statPath = new Path(hadoop.getURI() + "/Statistics");
-		
-		for(Book book: bookList){
+				for(Book book: bookList){
 			pathList.add(new Path(this.hadoop.getURI() + new PathFormer().formAddPath(book, this.hadoop.workingDirectory)));
 		}
 		Path[] paths = new Path[pathList.size()];
