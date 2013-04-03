@@ -26,7 +26,6 @@ public class GetParsedStatistics {
 	public List<Pair<String, Double>> getParsedStatistics(Path statPath) throws IOException, DaoException{
 		
 		List<Pair<String, Double>> retFrequency = new ArrayList<Pair<String, Double>>();
-		List<Pair<String, Long>> ret = new ArrayList<Pair<String, Long>>();
 		
 		if(statPath.equals(new Path(this.hadoop.workingDirectory))){
 			return retFrequency;

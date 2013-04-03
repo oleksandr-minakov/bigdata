@@ -6,15 +6,7 @@
     <title>Text of the book</title>
 </head>
 <body>
-<div id="header" style="background-color:#E6E6E6; text-align:center;">
-    <a href="<c:url value="/welcome"/>">Welcome page </a> &nbsp;&nbsp;&nbsp;
-
-    <a href="<c:url value="/addbook"/>">Add book </a> &nbsp;&nbsp;&nbsp;
-
-    <a href="<c:url value="/search"/>">Search </a> &nbsp;&nbsp;&nbsp;
-	
-	<a href="<c:url value="/statistics"/>">Statistics </a> &nbsp;&nbsp;&nbsp;
-</div>
+	<jsp:include page="menu.jsp"/>
 <br>
     ${text}
 </body>
