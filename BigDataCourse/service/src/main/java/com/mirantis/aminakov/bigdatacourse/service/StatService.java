@@ -36,28 +36,38 @@ public class StatService {
 	public Object getJob() {
 		return job;
 	}
+	
 	public void setJob(Object job) {
 		this.job = job;
 	}
+	
 	public Object getMapper() {
 		return mapper;
 	}
+	
 	public void setMapper(Object mapper) {
 		this.mapper = mapper;
 	}
+	
 	public Object getReducer() {
 		return reducer;
 	}
+	
 	public void setReducer(Object reducer) {
 		this.reducer = reducer;
 	}
+	
 	public HadoopConnector getConfiguration() {
 		return configuration;
 	}
+	
 	public void setConfiguration(HadoopConnector configuration) {
 		this.configuration = configuration;
 	}
 	
+	public ThreadPoolTaskExecutor getPool() {
+		return pool;
+	}
 	
 	private void setUpService(){
 		
@@ -95,7 +105,7 @@ public class StatService {
 		
 	}
 	
-	public List<Pair<String, Double>> recalculatetatistics() throws IOException, DaoException{
+	public List<Pair<String, Double>> recalculateStatistics() throws IOException, DaoException{
 		
 		List<Pair<String, Double>> pairs = new ArrayList<Pair<String, Double>>();
 		
@@ -107,4 +117,5 @@ public class StatService {
 		
 		return pairs;
 	}
+
 }
