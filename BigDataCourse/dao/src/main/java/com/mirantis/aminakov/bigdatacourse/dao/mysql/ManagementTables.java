@@ -8,7 +8,6 @@ import java.sql.Statement;
 
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.sql.DataSource;
 
@@ -21,7 +20,8 @@ public class ManagementTables {
 	protected Connection con = null;
 	Statement st = null;
 	ResultSet rs = null;
-    private DataSource dataSource;
+    @SuppressWarnings("unused")
+	private DataSource dataSource;
 
 	public ManagementTables() throws DaoException {
 		try {

@@ -9,7 +9,6 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
@@ -17,7 +16,8 @@ import static org.junit.Assert.assertNull;
 
 public class AddBookTest {
 
-    @Test
+    @SuppressWarnings("deprecation")
+	@Test
     public void addBookTest() throws DaoException, IOException {
         DaoMemcached daoMemcached = new DaoMemcached();
         daoMemcached.setClient(new MemClient(new InetSocketAddress("0.0.0.0" , 11211)));

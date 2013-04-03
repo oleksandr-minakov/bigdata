@@ -18,7 +18,8 @@ import static org.junit.Assert.assertTrue;
 
 public class GetAuthorByGenreTest {
 
-    @Ignore
+    @SuppressWarnings({ "deprecation", "unused" })
+	@Ignore
     @Test
     public void getAuthorByGenreTest() throws DaoException, IOException {
         DaoMemcached daoMemcached = new DaoMemcached();

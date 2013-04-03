@@ -4,8 +4,6 @@ import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import net.spy.memcached.MemcachedClient;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
@@ -60,7 +58,8 @@ public class MemClient {
         return resultList;
     }
 
-    public TreeSet<String> pagination(int pageNum, int pageSize, TreeSet<String> set) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public TreeSet<String> pagination(int pageNum, int pageSize, TreeSet<String> set) {
         List list = new ArrayList<>(set);
         List resultList = new ArrayList<>();
         if (list.size() > pageSize * pageNum) {

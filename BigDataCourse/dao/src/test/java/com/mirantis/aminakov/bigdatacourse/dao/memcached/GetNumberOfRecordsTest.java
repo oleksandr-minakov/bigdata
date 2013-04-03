@@ -18,7 +18,8 @@ import static org.junit.Assert.assertTrue;
 
 public class GetNumberOfRecordsTest {
 
-    @Test
+    @SuppressWarnings({ "deprecation", "unused" })
+	@Test
     public void getNumberOfRecordsTest() throws IOException, DaoException {
         DaoMemcached daoMemcached = new DaoMemcached();
         daoMemcached.setClient(new MemClient(new InetSocketAddress("0.0.0.0" , 11211)));

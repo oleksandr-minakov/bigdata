@@ -3,12 +3,7 @@ package com.mirantis.aminakov.bigdatacourse.dao.memcached;
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.Dao;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
-import com.mirantis.aminakov.bigdatacourse.dao.mysql.DaoJdbc;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.stereotype.Service;
-
-import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
@@ -40,7 +35,8 @@ public class DaoMemcached implements Dao {
         return daoJdbc.delBook(id);
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<Book> getAllBooks(int pageNum, int pageSize) throws DaoException {
         List<Book> books = new ArrayList<Book>();
         books = (List<Book>) client.get("allBooks");
@@ -57,7 +53,8 @@ public class DaoMemcached implements Dao {
         return books;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<Book> getBookByTitle(int pageNum, int pageSize, String title) throws DaoException {
         List<Book> books = new ArrayList<Book>();
         books = (List<Book>) client.get(title);
@@ -74,7 +71,8 @@ public class DaoMemcached implements Dao {
         return books;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<Book> getBookByText(int pageNum, int pageSize, String text) throws DaoException {
         List<Book> books = new ArrayList<Book>();
         books = (List<Book>) client.get(text);
@@ -91,7 +89,8 @@ public class DaoMemcached implements Dao {
         return books;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<Book> getBookByAuthor(int pageNum, int pageSize, String author) throws DaoException {
         List<Book> books = new ArrayList<Book>();
         books = (List<Book>) client.get(author);
@@ -108,7 +107,8 @@ public class DaoMemcached implements Dao {
         return books;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<Book> getBookByGenre(int pageNum, int pageSize, String genre) throws DaoException {
         List<Book> books = new ArrayList<Book>();
         books = (List<Book>) client.get(genre);

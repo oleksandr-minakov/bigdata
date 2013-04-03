@@ -12,12 +12,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class DelBookTest {
 
-    @Test
+    @SuppressWarnings({ "deprecation", "unused" })
+	@Test
     public void delBookTest() throws DaoException, IOException {
         DaoMemcached daoMemcached = new DaoMemcached();
         daoMemcached.setClient(new MemClient(new InetSocketAddress("0.0.0.0" , 11211)));

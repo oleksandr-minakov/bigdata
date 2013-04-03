@@ -5,8 +5,6 @@ import static org.junit.Assert.assertEquals;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import org.apache.hadoop.fs.Path;
-import org.apache.log4j.BasicConfigurator;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
