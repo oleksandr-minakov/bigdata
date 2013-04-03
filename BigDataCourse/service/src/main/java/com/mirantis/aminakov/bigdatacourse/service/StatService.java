@@ -51,12 +51,15 @@ public class StatService {
 		this.configuration = configuration;
 	}
 	
-	public List<Pair<String, Double>> viewStatistics(Path path) throws IOException, DaoException{
+	@SuppressWarnings("rawtypes")
+	public List<Pair<String, Double>> viewStatistics() throws IOException, DaoException{
 		
 		List<Pair<String, Double>> pairs = new ArrayList<Pair<String, Double>>();
-		if(this.configuration.getFS().exists(path)){
+		if(this.configuration.getFS().exists(new Path("/Statistics")) && this.configuration.getFS().listStatus(new Path("/Statistics")).length != 1){
 			
 			GetParsedStatistics  parser = new GetParsedStatistics(this.configuration);
+			JobRunner jobRunner = new JobRunner(this.configuration, job.getClass(), ((Mapper)mapper).getClass(), ((Reducer)reducer).getClass());
+			Path path = jobRunner.getPathToEvaluatedStatistics();
 			pairs = parser.getParsedStatistics(path);
 			
 			return pairs;
@@ -70,8 +73,10 @@ public class StatService {
 	public List<Pair<String, Double>> recalculatetatistics() throws IOException, DaoException{
 		
 		List<Pair<String, Double>> pairs = new ArrayList<Pair<String, Double>>();
+		
 		if(this.configuration.getFS().exists(new Path("/Statistics")))
 			this.configuration.getFS().delete(new Path("/Statistics"), true);
+		
 		JobRunner jobRunner = new JobRunner(this.configuration, job.getClass(), ((Mapper)mapper).getClass(), ((Reducer)reducer).getClass());
 		GetParsedStatistics  getP = new GetParsedStatistics(this.configuration);
 		Path path = jobRunner.getPathToEvaluatedStatistics();
