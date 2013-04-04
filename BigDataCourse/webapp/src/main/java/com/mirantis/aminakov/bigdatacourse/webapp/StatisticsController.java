@@ -65,7 +65,7 @@ public class StatisticsController {
 		boolean flag = true;
 		if(this.statService.getPool().getActiveCount() != 0){
 			flag = false;
-			model.addAttribute("aviability", "MapReduce servise is busy");
+			model.addAttribute("aviability", "Previous statistics were deleted. MapReduce servise calculating new one.");
 		}
 		else
 			flag = true;
