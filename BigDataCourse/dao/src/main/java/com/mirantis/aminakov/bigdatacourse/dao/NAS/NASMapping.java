@@ -12,7 +12,7 @@ import java.security.NoSuchAlgorithmException;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.FSMapping;
 
-public class DaoNAS implements FSMapping{
+public class NASMapping implements FSMapping{
 	
 	
 	private String workingDirectory;
@@ -20,7 +20,7 @@ public class DaoNAS implements FSMapping{
 	private final String hashType = "MD5";
 	private File directory;
 	
-	public DaoNAS(String workingDirectory, int nastity) {
+	public NASMapping(String workingDirectory, int nastity) {
 		
 		super();
 		this.workingDirectory = workingDirectory;
