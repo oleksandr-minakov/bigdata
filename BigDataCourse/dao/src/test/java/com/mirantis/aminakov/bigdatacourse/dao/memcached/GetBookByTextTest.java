@@ -28,13 +28,17 @@ public class GetBookByTextTest {
         daoMemcached.setDaoJdbc(dao);
         MemcachedClient client = new MemcachedClient(new InetSocketAddress("0.0.0.0", 11211));
         Book book = new Book();
+        List<Book> books = new ArrayList<Book>();
         book.newBook("title", "author", "genre", new FileInputStream("testbook"));
         int id = daoMemcached.addBook(book);
-        List<Book> books = new ArrayList<Book>();
-        books = daoMemcached.getBookByText(1, 1, "hisdu");
-        String str1 = books.get(0).getReadableText();
-        String str2 = book.getReadableText();
-        assertTrue(str1.equals(str2));
-        daoMemcached.delBook(id);
+        try {
+            books = daoMemcached.getBookByText(1, 1, "teststring");
+            String str1 = books.get(0).getReadableText();
+            String str2 = book.getReadableText();
+            assertTrue(str1.equals(str2));
+        } finally {
+            daoMemcached.delBook(id);
+            dao.closeConnection();
+        }
     }
 }

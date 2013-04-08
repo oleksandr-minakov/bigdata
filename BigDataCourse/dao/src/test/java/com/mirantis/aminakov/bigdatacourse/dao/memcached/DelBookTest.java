@@ -30,5 +30,6 @@ public class DelBookTest {
         book.newBook("title", "author", "genre", new FileInputStream("testbook"));
         int id = daoMemcached.addBook(book);
         assertTrue(daoMemcached.delBook(id) == 0);
+        dao.closeConnection();
     }
 }
