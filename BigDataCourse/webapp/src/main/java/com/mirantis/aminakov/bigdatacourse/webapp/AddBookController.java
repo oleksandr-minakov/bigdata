@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.hadoop.fs.Path;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +30,7 @@ import com.mirantis.aminakov.bigdatacourse.service.Service;
 public class AddBookController {
 	
 	private Service service;
+    public static final Logger LOG = Logger.getLogger(AddBookController.class);
 
 	@Autowired
 	public void setService(Service service) {
@@ -163,7 +165,8 @@ public class AddBookController {
             return "text";
         }
         while(line != null){
-            inputStringBuilder.append(line);inputStringBuilder.append('\n');
+            inputStringBuilder.append(line);
+            inputStringBuilder.append('\n');
             try {
                 line = bufferedReader.readLine();
             } catch (IOException e) {
@@ -171,6 +174,7 @@ public class AddBookController {
                 return "text";
             }
         }
+//        LOG.info(inputStringBuilder.toString());
         model.addAttribute("text", inputStringBuilder.toString());
         return "text";
 	}
