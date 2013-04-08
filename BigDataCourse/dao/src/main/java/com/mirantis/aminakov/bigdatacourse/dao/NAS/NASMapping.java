@@ -10,20 +10,21 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
+import com.mirantis.aminakov.bigdatacourse.dao.FSMapping;
 
-public class DaoNAS {
+public class NASMapping implements FSMapping{
 	
 	
 	private String workingDirectory;
-	private int lvl;
+	private int nastity;
 	private final String hashType = "MD5";
 	private File directory;
 	
-	public DaoNAS(String workingDirectory, int lvl) {
+	public NASMapping(String workingDirectory, int nastity) {
 		
 		super();
 		this.workingDirectory = workingDirectory;
-		this.lvl = lvl;
+		this.nastity = nastity;
 		if(!new File(this.workingDirectory).exists()){
 			
 			directory = new File(this.workingDirectory);
@@ -41,29 +42,30 @@ public class DaoNAS {
 		this.directory = directory;
 	}
 
+	@Override
 	public String getWorkingDirectory() {
 		return workingDirectory;
 	}
-
+	@Override
 	public void setWorkingDirectory(String workingDirectory) {
 		this.workingDirectory = workingDirectory;
 	}
-
+	@Override
 	public String getAbsolutePath(int id) throws DaoException{
 		
 		String hash = new String();
 		String absPath = this.workingDirectory;
 		hash = getHash(id);
 		
-		for(int i = 0; i < this.lvl; ++i){
-			String lvl = hash.substring(i*this.lvl, (i+1)*this.lvl) + "/";
-			absPath +=lvl;
+		for(int i = 0; i < this.nastity; ++i){
+			String nastity = hash.substring(i*this.nastity, (i+1)*this.nastity) + "/";
+			absPath +=nastity;
 		}
 		
 		return absPath;
 	}
-
-	private String getHash(int id) throws DaoException{
+	@Override
+	public String getHash(int id) throws DaoException{
 		
 		String hash = new String();
 		MessageDigest hashAlg;
@@ -82,7 +84,7 @@ public class DaoNAS {
 		
 		return hash;
 	}
-
+	@Override
 	public int createDirectoryRecursively(int id) throws DaoException{
 		
 		boolean flag = new File(getAbsolutePath(id)).mkdirs();
@@ -93,7 +95,7 @@ public class DaoNAS {
 			return 0;
 		}
 	}
-	
+	@Override
 	public int writeFile(int id, InputStream is) throws DaoException, IOException{
 		
 		int res = createDirectoryRecursively(id);
@@ -113,12 +115,12 @@ public class DaoNAS {
 		else
 			return 0;
 	}
-	
+	@Override
 	public int removeFile(int id) throws DaoException{
 		
 		try {
 			if(new File(getAbsolutePath(id)).exists()){
-				Runtime.getRuntime().exec("rm -R " + this.workingDirectory + getHash(id).substring(0, this.lvl));
+				Runtime.getRuntime().exec("rm -R " + this.workingDirectory + getHash(id).substring(0, this.nastity));
 				return id;
 			}
 			else
@@ -127,7 +129,7 @@ public class DaoNAS {
 			throw new DaoException(e);
 		}
 	}
-	
+	@Override
 	public InputStream readFile(int id) throws DaoException, IOException{
 		
 		String path= getAbsolutePath(id);

@@ -8,16 +8,16 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
-import com.mirantis.aminakov.bigdatacourse.dao.NAS.DaoNAS;
+import com.mirantis.aminakov.bigdatacourse.dao.NAS.NASMapping;
 
 public class DaoNASTests {
 	
-	public DaoNAS nas;
+	public NASMapping nas;
 	public String directory = "bookshelf/";
 	
 	public void setUp() throws DaoException{
 		
-		nas = new DaoNAS(directory, 3);
+		nas = new NASMapping(directory, 3);
 
 	}
 	
