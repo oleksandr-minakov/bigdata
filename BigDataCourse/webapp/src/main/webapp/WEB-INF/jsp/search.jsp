@@ -4,7 +4,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>All books</title>
 </head>
 <body>
@@ -105,8 +105,8 @@ Find: <label>
     </c:if>
     -->
 <h2>Number of records: ${numberOfRecords} </h2>
-<h2>Number of pages: ${numberOfRecords/10} </h2>
-<h2>Page num: ${currentPage} </h2>
+<%--<h2>Number of pages: ${numberOfRecords/10} </h2>--%>
+<h2>Current page: ${currentPage} </h2>
 <br>
 </body>
 </html>

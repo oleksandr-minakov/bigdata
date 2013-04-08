@@ -30,11 +30,20 @@ public class GetNumberOfRecordsTest {
         MemcachedClient client = new MemcachedClient(new InetSocketAddress("0.0.0.0", 11211));
         Book book = new Book();
         book.newBook("title", "author", "genre", new FileInputStream("testbook"));
-        int id = daoMemcached.addBook(book);
         List<Book> books = new ArrayList<Book>();
-        books = daoMemcached.getBookByText(1, 1, "hisdu");
-        int records = daoMemcached.getNumberOfRecords();
-        assertTrue(records == 1);
-        daoMemcached.delBook(id);
+        String str = 1 + 1 + "teststr";
+        int i = str.hashCode();
+        client.delete(Integer.toString(i));
+        int id = daoMemcached.addBook(book);
+        try {
+            books = daoMemcached.getBookByText(1, 1, "teststr");
+            System.out.println(books.size());
+            int records = daoMemcached.getNumberOfRecords();
+            System.out.println(records);
+            assertTrue(records == 1);
+        } finally {
+            daoMemcached.delBook(id);
+            dao.closeConnection();
+        }
     }
 }
