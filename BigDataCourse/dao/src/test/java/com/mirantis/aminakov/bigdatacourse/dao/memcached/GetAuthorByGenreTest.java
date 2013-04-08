@@ -18,8 +18,6 @@ import static org.junit.Assert.assertTrue;
 
 public class GetAuthorByGenreTest {
 
-    @SuppressWarnings({ "deprecation", "unused" })
-	@Ignore
     @Test
     public void getAuthorByGenreTest() throws DaoException, IOException {
         DaoMemcached daoMemcached = new DaoMemcached();
@@ -33,12 +31,16 @@ public class GetAuthorByGenreTest {
         Book book2 = new Book();
         book.newBook("title", "author", "genre", new FileInputStream("testbook"));
         book2.newBook("title2", "author2", "genre", new FileInputStream("testbook"));
+        TreeSet<String> authors = new TreeSet<String>();
         int id = daoMemcached.addBook(book);
         int id2 = daoMemcached.addBook(book2);
-        TreeSet<String> authors = new TreeSet<String>();
-        authors = daoMemcached.getAuthorByGenre(1, 2, "genre");
-        assertTrue(authors.size() == 2);
-        daoMemcached.delBook(id);
-        daoMemcached.delBook(id2);
+        try {
+            authors = daoMemcached.getAuthorByGenre(1, 2, "genre");
+            assertTrue(authors.size() == 2);
+        } finally {
+            daoMemcached.delBook(id);
+            daoMemcached.delBook(id2);
+            dao.closeConnection();
+        }
     }
 }

@@ -30,10 +30,14 @@ public class GetBookByAuthorTest {
         MemcachedClient client = new MemcachedClient(new InetSocketAddress("0.0.0.0", 11211));
         Book book = new Book();
         book.newBook("title", "author", "genre", new FileInputStream("testbook"));
-        int id = daoMemcached.addBook(book);
         List<Book> books = new ArrayList<Book>();
-        books = daoMemcached.getBookByAuthor(1, 1, "author");
-        assertTrue(books.get(0).getAuthor().equals(book.getAuthor()));
-        daoMemcached.delBook(id);
+        int id = daoMemcached.addBook(book);
+        try {
+            books = daoMemcached.getBookByAuthor(1, 1, "author");
+            assertTrue(books.get(0).getAuthor().equals(book.getAuthor()));
+        } finally {
+            daoMemcached.delBook(id);
+            dao.closeConnection();
+        }
     }
 }

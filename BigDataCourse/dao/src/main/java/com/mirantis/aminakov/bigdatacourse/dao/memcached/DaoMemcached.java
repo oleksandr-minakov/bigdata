@@ -25,13 +25,17 @@ public class DaoMemcached implements Dao {
 
     @Override
     public int addBook(Book book) throws DaoException {
-        client.delete("allBooks");
+        String str = "allBooks";
+        int i = str.hashCode();
+        client.delete(Integer.toString(i));
         return daoJdbc.addBook(book);
     }
 
     @Override
     public int delBook(int id) throws DaoException {
-        client.delete("allBooks");
+        String str = "allBooks";
+        int i = str.hashCode();
+        client.delete(Integer.toString(i));
         return daoJdbc.delBook(id);
     }
 
@@ -39,14 +43,16 @@ public class DaoMemcached implements Dao {
 	@Override
     public List<Book> getAllBooks(int pageNum, int pageSize) throws DaoException {
         List<Book> books = new ArrayList<Book>();
-        books = (List<Book>) client.get("allBooks");
+        String keystring = pageNum + pageSize + "allBooks";
+        int hash = keystring.hashCode();
+        books = (List<Book>) client.get(Integer.toString(hash));
         if (books != null) {
             return client.pagination(pageNum, pageSize, books);
         } else {
             books = daoJdbc.getAllBooks(pageNum, pageSize);
             if (!books.isEmpty()) {
-                client.set("allBooks", 6, books);
-                books = (List<Book>) client.get("allBooks");
+                client.set(Integer.toString(hash), 60, books);
+                books = (List<Book>) client.get(Integer.toString(hash));
                 books = client.pagination(pageNum, pageSize, books);
             }
         }
@@ -57,14 +63,16 @@ public class DaoMemcached implements Dao {
 	@Override
     public List<Book> getBookByTitle(int pageNum, int pageSize, String title) throws DaoException {
         List<Book> books = new ArrayList<Book>();
-        books = (List<Book>) client.get(title);
+        String keystring = pageNum + pageSize + title;
+        int hash = keystring.hashCode();
+        books = (List<Book>) client.get(Integer.toString(hash));
         if (books != null) {
             return client.pagination(pageNum, pageSize, books);
         } else {
             books = daoJdbc.getBookByTitle(pageNum, pageSize, title);
             if (!books.isEmpty()) {
-                client.set(title, 6, books);
-                books = (List<Book>) client.get(title);
+                client.set(Integer.toString(hash), 60, books);
+                books = (List<Book>) client.get(Integer.toString(hash));
                 books = client.pagination(pageNum, pageSize, books);
             }
         }
@@ -75,14 +83,16 @@ public class DaoMemcached implements Dao {
 	@Override
     public List<Book> getBookByText(int pageNum, int pageSize, String text) throws DaoException {
         List<Book> books = new ArrayList<Book>();
-        books = (List<Book>) client.get(text);
+        String keystring = pageNum + pageSize + "getBookByText" + text;
+        int hash = keystring.hashCode();
+        books = (List<Book>) client.get(Integer.toString(hash));
         if (books != null) {
             return client.pagination(pageNum, pageSize, books);
         } else {
             books = daoJdbc.getBookByText(pageNum, pageSize, text);
             if (!books.isEmpty()) {
-                client.set(text, 6, books);
-                books = (List<Book>) client.get(text);
+                client.set(Integer.toString(hash), 60, books);
+                books = (List<Book>) client.get(Integer.toString(hash));
                 books = client.pagination(pageNum, pageSize, books);
             }
         }
@@ -93,14 +103,16 @@ public class DaoMemcached implements Dao {
 	@Override
     public List<Book> getBookByAuthor(int pageNum, int pageSize, String author) throws DaoException {
         List<Book> books = new ArrayList<Book>();
-        books = (List<Book>) client.get(author);
+        String keystring = pageNum + pageSize + "getBookByAuthor" + author;
+        int hash = keystring.hashCode();
+        books = (List<Book>) client.get(Integer.toString(hash));
         if (books != null) {
             return client.pagination(pageNum, pageSize, books);
         } else {
             books = daoJdbc.getBookByAuthor(pageNum, pageSize, author);
             if (!books.isEmpty()) {
-                client.set(author, 6, books);
-                books = (List<Book>) client.get(author);
+                client.set(Integer.toString(hash), 60, books);
+                books = (List<Book>) client.get(Integer.toString(hash));
                 books = client.pagination(pageNum, pageSize, books);
             }
         }
@@ -111,14 +123,16 @@ public class DaoMemcached implements Dao {
 	@Override
     public List<Book> getBookByGenre(int pageNum, int pageSize, String genre) throws DaoException {
         List<Book> books = new ArrayList<Book>();
-        books = (List<Book>) client.get(genre);
+        String keystring = pageNum + pageSize + "getBookByGenre" + genre;
+        int hash = keystring.hashCode();
+        books = (List<Book>) client.get(Integer.toString(hash));
         if (books != null) {
             return client.pagination(pageNum, pageSize, books);
         } else {
             books = daoJdbc.getBookByGenre(pageNum, pageSize, genre);
             if (!books.isEmpty()) {
-                client.set(genre, 6, books);
-                books = (List<Book>) client.get(genre);
+                client.set(Integer.toString(hash), 60, books);
+                books = (List<Book>) client.get(Integer.toString(hash));
                 books = client.pagination(pageNum, pageSize, books);
             }
         }
@@ -129,17 +143,19 @@ public class DaoMemcached implements Dao {
     public TreeSet<String> getAuthorByGenre(int pageNum, int pageSize, String genre) throws DaoException {
         TreeSet<String> authors = new TreeSet<String>();
         //Cache conflict with getBookByGenre
-        /*authors = (TreeSet<String>) client.get(genre);
+        String keystring = pageNum + pageSize + "getAuthorByGenre" + genre;
+        int hash = keystring.hashCode();
+        authors = (TreeSet<String>) client.get(Integer.toString(hash));
         if (authors != null) {
             return client.pagination(pageNum, pageSize, authors);
         } else {
             authors = daoJdbc.getAuthorByGenre(pageNum, pageSize, genre);
             if (!authors.isEmpty()) {
-                client.set(genre, 6, authors);
-                authors = (TreeSet<String>) client.get(genre);
+                client.set(Integer.toString(hash), 60, authors);
+                authors = (TreeSet<String>) client.get(Integer.toString(hash));
                 authors = client.pagination(pageNum, pageSize, authors);
             }
-        }*/
+        }
         authors = daoJdbc.getAuthorByGenre(pageNum, pageSize, genre);
         return authors;
     }

@@ -30,12 +30,18 @@ public class GetAllBooksTest {
         MemcachedClient client = new MemcachedClient(new InetSocketAddress("0.0.0.0", 11211));
         Book book = new Book();
         book.newBook("title", "author", "genre", new FileInputStream("testbook"));
-        int id = daoMemcached.addBook(book);
         List<Book> books = new ArrayList<Book>();
-        books = daoMemcached.getAllBooks(1,1);
         List<Book> resultList = new ArrayList<Book>();
-        resultList = (List<Book>) client.get("allBooks");
-        assertTrue(books.size() == resultList.size());
-        daoMemcached.delBook(id);
+        int id = daoMemcached.addBook(book);
+        try {
+            books = daoMemcached.getAllBooks(1,1);
+            String str = 1 + 1 + "allBooks";
+            int i = str.hashCode();
+            resultList = (List<Book>) client.get(Integer.toString(i));
+            assertTrue(books.size() == resultList.size());
+        } finally {
+            daoMemcached.delBook(id);
+            dao.closeConnection();
+        }
     }
 }

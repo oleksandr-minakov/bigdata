@@ -12,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 public class AddBookTest {
@@ -29,7 +30,11 @@ public class AddBookTest {
         Book book = new Book();
         book.newBook("title", "author", "genre", new FileInputStream("testbook"));
         int id = daoMemcached.addBook(book);
-        assertNull(client.get("allBooks"));
-        daoMemcached.delBook(id);
+        try {
+            assertNull(client.get("allBooks"));
+        } finally {
+            daoMemcached.delBook(id);
+            dao.closeConnection();
+        }
     }
 }
