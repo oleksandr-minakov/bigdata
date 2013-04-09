@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+import com.mirantis.aminakov.bigdatacourse.dao.Dao;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.Pair;
@@ -28,6 +29,8 @@ public class StatService {
 	private Object reducer;
 	@Autowired
 	private HadoopConnector configuration;
+    @Autowired
+    private Dao dao;
 	
 	private MapReduceThread mapRedThread;
 	private ThreadPoolTaskExecutor pool;
@@ -67,6 +70,14 @@ public class StatService {
 	
 	public ThreadPoolTaskExecutor getPool() {
 		return pool;
+	}
+	
+	public Dao getDao() {
+		return dao;
+	}
+
+	public void setDao(Dao dao) {
+		this.dao = dao;
 	}
 	
 	public void setUpService(){
