@@ -14,13 +14,20 @@
 	<a href="<c:url value="/statview"/>">View Calculated Statistics </a> &nbsp;&nbsp;&nbsp;
 	<br/><br/><br/>
 	<c:choose>
-		<c:when test="${flag == true}">
-			<a href="<c:url value="/recalculate"/>">Calculated New Statistics </a> &nbsp;&nbsp;&nbsp;
+		<c:when test="${instanceof_flag == true}">
+			<c:when test="${flag == true}">
+				<a href="<c:url value="/recalculate"/>">Calculated New Statistics </a> &nbsp;&nbsp;&nbsp;
+			</c:when>
+			<c:when test="${flag == false}">
+				<div align="center">
+    				<h3>Status: ${avaibility}</h3>
+				</div>
+			</c:when>
 		</c:when>
-		<c:when test="${flag == false}">
+		<c:when test="${instanceof_flag == false}">
 			<div align="center">
-    			<h3>Status: ${aviability}</h3>
-			</div>
+    				<h3>Status: ${instance}</h3>
+				</div>
 		</c:when>
 	</c:choose>
 </div>
