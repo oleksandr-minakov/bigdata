@@ -42,6 +42,15 @@
         <constructor-arg type = "int" value = "11211"/>
     </bean>
 
+    <bean id="daoSolr" class="com.mirantis.aminakov.bigdatacourse.dao.solr.DaoSolr">
+        <constructor-arg ref = "parameters"/>
+    </bean>
+
+    <bean id="parameters" class="com.mirantis.aminakov.bigdatacourse.dao.solr.Parameters">
+        <constructor-arg type = "java.lang.String" value = "http://localhost:8080/solr-web"/>
+
+    </bean>
+
        <bean id="constants" class="com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants" >
            <constructor-arg type = "java.lang.String" value="Test Cluster" />
            <constructor-arg type = "java.lang.String" value="Bookshelf"/>
