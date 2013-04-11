@@ -117,12 +117,8 @@ public class DaoNAS {
 	public int removeFile(int id) throws DaoException{
 		
 		try {
-			if(new File(getAbsolutePath(id)).exists()){
-				Runtime.getRuntime().exec("rm -R " + this.workingDirectory + getHash(id).substring(0, this.lvl));
-				return id;
-			}
-			else
-				return 0;
+            Runtime.getRuntime().exec("rm -R " + this.workingDirectory + getHash(id).substring(0, this.lvl));
+            return id;
 		} catch (IOException e) {
 			throw new DaoException(e);
 		}
