@@ -1,7 +1,10 @@
 package com.mirantis.aminakov.bigdatacourse.dao.cassandra;
 
+import java.util.List;
+
 import me.prettyprint.cassandra.model.BasicColumnFamilyDefinition;
 import me.prettyprint.cassandra.model.BasicKeyspaceDefinition;
+import me.prettyprint.cassandra.service.CassandraHost;
 import me.prettyprint.hector.api.Cluster;
 import me.prettyprint.hector.api.Keyspace;
 import me.prettyprint.hector.api.ddl.ColumnFamilyDefinition;
@@ -14,7 +17,7 @@ public class Constants {
 	public String CLUSTER_NAME;//= "Test Cluster";
 	public String KEYSPACE_NAME;//= "Bookshelf";
 	public String CF_NAME;//= "Books";
-	public String HOST_DEF;//= "localhost";
+	public List<String> HOST_DEFS;//= "localhost";
 
 	private Cluster clstr;
 
@@ -56,7 +59,7 @@ public class Constants {
 			this.KsDef  = this.getNewKeyspaceDef();
 			this.CfDef = getNewCfDef(this.CF_NAME);
 			
-			this.clstr = HFactory.getOrCreateCluster(this.CLUSTER_NAME, this.HOST_DEF+":9160");
+			this.clstr = HFactory.getOrCreateCluster(this.CLUSTER_NAME, this.HOST_DEFS.get(0)+":9160");
 			boolean flg = false;
 			boolean cf_flg = false;
 			
@@ -90,14 +93,17 @@ public class Constants {
 			return this.clstr;
 	}	
 
-	public Constants(String clName, String ksName, String cfName, String hostDef){
+	public Constants(String clName, String ksName, String cfName, List<String> hostDef){
 		
-		HOST_DEF = hostDef;
+		HOST_DEFS = hostDef;
 		CLUSTER_NAME = clName;
 		KEYSPACE_NAME = ksName;
 		CF_NAME = cfName;
 		
 		this.clstr = getCurrentClstr();
+		
+		for(String host: HOST_DEFS)
+			this.clstr.addHost(new CassandraHost(host), false);
 		
 		this.bookID = 0;
 	}

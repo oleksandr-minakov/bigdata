@@ -3,6 +3,8 @@ package com.mirantis.aminakov.bigdatacourse.dao.cassandratests;
 import static org.junit.Assert.assertEquals;
 
 import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -16,7 +18,12 @@ public class FormNewIDTest {
 	@Test
 	public void testCase() throws DaoException{
 		
-		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", CassandraIP.IP);
+		List<String> hosts = new ArrayList<String>();
+		hosts.add(CassandraIP.IP1);
+		hosts.add(CassandraIP.IP2);
+		hosts.add(CassandraIP.IP3);
+		
+		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
 		DaoCassandra dao = new DaoCassandra(cts);
 		
 		int testCond = 100; // adding <--- that amount of data to Cassandra

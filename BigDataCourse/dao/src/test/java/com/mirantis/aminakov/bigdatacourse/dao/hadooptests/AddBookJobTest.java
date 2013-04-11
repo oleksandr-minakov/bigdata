@@ -17,7 +17,7 @@ public class AddBookJobTest {
 	@Test
 	public void addBookTest()throws DaoException, IOException{
 		
-		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP,"54310", new HdfsIP().HadoopUser, "/bookshelf/books/");
+		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP,"9000", new HdfsIP().HadoopUser, "/bookshelf/books/");
 		
 		newOne.bookID = 100;
 		
