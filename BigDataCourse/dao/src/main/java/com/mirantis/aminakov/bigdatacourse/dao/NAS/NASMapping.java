@@ -109,7 +109,6 @@ public class NASMapping implements FSMapping{
 			fileWriter.write(toWrap);
 			fileWriter.flush();
 			fileWriter.close();
-			is.close();
 			return res;
 		}
 		else
@@ -119,12 +118,9 @@ public class NASMapping implements FSMapping{
 	public int removeFile(int id) throws DaoException{
 		
 		try {
-			if(new File(getAbsolutePath(id)).exists()){
-				Runtime.getRuntime().exec("rm -R " + this.workingDirectory + getHash(id).substring(0, this.nastity));
-				return id;
-			}
-			else
-				return 0;
+			
+			Runtime.getRuntime().exec("rm -R " + this.workingDirectory + getHash(id).substring(0, this.nastity));
+			return id;
 		} catch (IOException e) {
 			throw new DaoException(e);
 		}

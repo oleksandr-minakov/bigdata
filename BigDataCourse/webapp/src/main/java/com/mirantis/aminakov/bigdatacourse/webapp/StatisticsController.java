@@ -64,15 +64,18 @@ public class StatisticsController {
 	public String getStatistics(Model model) throws IOException, DaoException{
 		
 		boolean instanceof_flag = true;
+		boolean flag = true;
 		
 		if(!(this.statService.getDao() instanceof DaoHDFS)){
+			flag = true;
 			instanceof_flag = false;
+			model.addAttribute("flag", flag);
 			model.addAttribute("instanceof_flag", instanceof_flag);
 			model.addAttribute("instance", "No Statistics available. Swith to Hadoop and redeploy your app.");
 			return "statistics";
 		}
 		
-		boolean flag = true;
+
 		if(this.statService.getPool().getActiveCount() != 0){
 			flag = false;
 			model.addAttribute("avaibility", "Previous statistics were deleted. MapReduce servise calculating new one.");

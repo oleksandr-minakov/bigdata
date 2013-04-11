@@ -3,6 +3,8 @@ package com.mirantis.aminakov.bigdatacourse.dao.cassandratests;
 import static org.junit.Assert.*;
 
 import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra;
 import org.junit.Test;
@@ -16,8 +18,12 @@ public class DeleteBookTest {
 	@Test
 	public void deleteBookTest() throws DaoException{
 		
-		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", CassandraIP.IP);
+		List<String> hosts = new ArrayList<String>();
+		hosts.add(CassandraIP.IP1);
+		hosts.add(CassandraIP.IP2);
+		hosts.add(CassandraIP.IP3);
 		
+		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
 		DaoCassandra dao = new DaoCassandra(cts);
 		
 		Book beggining_state = new Book();

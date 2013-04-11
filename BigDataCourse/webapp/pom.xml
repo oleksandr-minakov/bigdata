@@ -78,7 +78,7 @@
         <configuration>
           <server>tomcat7</server>
           <url>http://0.0.0.0:8080/manager/text</url>
-          <path>/bigdata_hadoop_debug</path>
+          <path>/bigdata_cassandra_debug</path>
         </configuration>
       </plugin>
   	</plugins>

@@ -33,7 +33,12 @@ public class GetBookByTests {
 		
 		List<Book> after = new ArrayList<Book>();
 		setUp();
-		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", CassandraIP.IP);
+		List<String> hosts = new ArrayList<String>();
+		hosts.add(CassandraIP.IP1);
+		hosts.add(CassandraIP.IP2);
+		hosts.add(CassandraIP.IP3);
+		
+		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
 		DaoCassandra dao = new DaoCassandra(cts);
 		
 		try {
@@ -57,7 +62,12 @@ public class GetBookByTests {
 		
 		List<Book> after = new ArrayList<Book>();
 		setUp();
-		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", CassandraIP.IP);
+		List<String> hosts = new ArrayList<String>();
+		hosts.add(CassandraIP.IP1);
+		hosts.add(CassandraIP.IP2);
+		hosts.add(CassandraIP.IP3);
+		
+		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
 		DaoCassandra dao = new DaoCassandra(cts);
 		
 		try {
@@ -81,7 +91,12 @@ public class GetBookByTests {
 		
 		List<Book> after = new ArrayList<Book>();
 		setUp();
-		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", CassandraIP.IP);
+		List<String> hosts = new ArrayList<String>();
+		hosts.add(CassandraIP.IP1);
+		hosts.add(CassandraIP.IP2);
+		hosts.add(CassandraIP.IP3);
+		
+		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
 		DaoCassandra dao = new DaoCassandra(cts);
 		 
 		try {
@@ -105,7 +120,12 @@ public class GetBookByTests {
 		
 		TreeSet<String> after = new TreeSet<String>();
 		setUp();
-		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", CassandraIP.IP);
+		List<String> hosts = new ArrayList<String>();
+		hosts.add(CassandraIP.IP1);
+		hosts.add(CassandraIP.IP2);
+		hosts.add(CassandraIP.IP3);
+		
+		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
 		DaoCassandra dao = new DaoCassandra(cts);
 		
 		try {

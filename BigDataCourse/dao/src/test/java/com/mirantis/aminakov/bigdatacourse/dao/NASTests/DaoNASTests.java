@@ -30,7 +30,7 @@ public class DaoNASTests {
 	public void getHashByIDTest() throws DaoException, IOException{
 		
 		setUp();
-		for(int i = 0; i <= 100; ++i){
+		for(int i = 0; i <= 10; ++i){
 			System.out.println(nas.getAbsolutePath(i));
 		}
 		cleanUp();
@@ -67,13 +67,20 @@ public class DaoNASTests {
 		
 		setUp();
 		
-		InputStream is = new FileInputStream("src/test/java/testbook");
-		int id = 100;
-		int res1 = nas.writeFile(id, is);
-		int res2 = nas.removeFile(id);
-		cleanUp();
+		InputStream is;
 		
-		Assert.assertEquals(res1, res2);
+		int res1, res2;
+		for(int i = 1; i <= 1000; ++i){
+			is = new FileInputStream("src/test/java/testbook");
+			res1 = nas.writeFile(i, is);
+			is.close();
+		}
+		
+		for(int i = 1; i <= 1000; ++i){
+			res2 = nas.removeFile(i);
+		}
+		
+		cleanUp();
 
 	}
 	

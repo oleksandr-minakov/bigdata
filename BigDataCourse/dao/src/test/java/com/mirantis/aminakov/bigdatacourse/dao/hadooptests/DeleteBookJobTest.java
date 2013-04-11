@@ -18,7 +18,7 @@ public class DeleteBookJobTest {
 	@Test
 	public void deleteBookJobTest()throws DaoException, IOException{
 		
-		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP,"54310", new HdfsIP().HadoopUser, "/bookshelf/books/");	
+		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP, "9000", new HdfsIP().HadoopUser, "/bookshelf/books/");	
 		newOne.bookID = 100;
 		
 		Book beggining_state = new Book();
