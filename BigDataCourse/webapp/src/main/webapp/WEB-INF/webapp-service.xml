@@ -16,7 +16,7 @@
 	<bean id="service"
 		class="com.mirantis.aminakov.bigdatacourse.service.ServiceToDao" />
 	
-    <bean id="dao" class="com.mirantis.aminakov.bigdatacourse.dao.memcached.DaoMemcached" >
+    <bean id="dao" class="com.mirantis.aminakov.bigdatacourse.dao.mysql.DaoJdbc" >
     </bean>
 		
     <bean id="daoJdbc" class="com.mirantis.aminakov.bigdatacourse.dao.mysql.DaoJdbc">
@@ -34,40 +34,45 @@
 
 
     <bean id="memClient" class="com.mirantis.aminakov.bigdatacourse.dao.memcached.MemClient">
-        <constructor-arg type = "java.net.InetSocketAddress" ref = "memcachedAddress"/>
+        <constructor-arg type="java.net.InetSocketAddress" ref="memcachedAddress"/>
     </bean>
 
     <bean id="memcachedAddress" class="java.net.InetSocketAddress">
-        <constructor-arg type = "java.lang.String" value = "0.0.0.0"/>
-        <constructor-arg type = "int" value = "11211"/>
+        <constructor-arg type="java.lang.String" value="0.0.0.0"/>
+        <constructor-arg type="int" value="11211"/>
     </bean>
 
     <bean id="daoSolr" class="com.mirantis.aminakov.bigdatacourse.dao.solr.DaoSolr">
-        <constructor-arg ref = "parameters"/>
+        <constructor-arg ref="parameters"/>
     </bean>
 
     <bean id="parameters" class="com.mirantis.aminakov.bigdatacourse.dao.solr.Parameters">
-        <constructor-arg type = "java.lang.String" value = "http://localhost:8080/solr-web"/>
-
+        <constructor-arg type="java.lang.String" value="http://localhost:8080/solr-web"/>
+        <constructor-arg type="com.mirantis.aminakov.bigdatacourse.dao.NAS.DaoNAS" ref="nas"/>
     </bean>
 
-       <bean id="constants" class="com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants" >
-           <constructor-arg type = "java.lang.String" value="Test Cluster" />
-           <constructor-arg type = "java.lang.String" value="Bookshelf"/>
-           <constructor-arg type = "java.lang.String" value="Books"/>
-           <constructor-arg type = "java.lang.String" value="0.0.0.0"/>
-       </bean>
+    <bean id="nas" class="com.mirantis.aminakov.bigdatacourse.dao.NAS.DaoNAS">
+        <constructor-arg type="java.lang.String" value="/tmp/solr_nas/"/>
+        <constructor-arg type="int" value="3" />
+    </bean>
 
-       <bean id="hdfs" class="com.mirantis.aminakov.bigdatacourse.dao.hadoop.DaoHDFS">
-           <constructor-arg ref="configuration"/>
-       </bean>
+    <bean id="constants" class="com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants" >
+        <constructor-arg type="java.lang.String" value="Test Cluster" />
+        <constructor-arg type="java.lang.String" value="Bookshelf"/>
+        <constructor-arg type="java.lang.String" value="Books"/>
+        <constructor-arg type="java.lang.String" value="0.0.0.0"/>
+    </bean>
 
-	  <bean id="configuration" class="com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.HadoopConnector">
-	        <constructor-arg type = "java.lang.String" value="0.0.0.0"/>
-	        <constructor-arg type = "java.lang.String" value="54310"/>
-	        <constructor-arg type = "java.lang.String" value="hduser"/>
-	        <constructor-arg type = "java.lang.String" value="/bookshelf/books/"/>
-	   </bean>
+    <bean id="hdfs" class="com.mirantis.aminakov.bigdatacourse.dao.hadoop.DaoHDFS">
+        <constructor-arg ref="configuration"/>
+    </bean>
+
+    <bean id="configuration" class="com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.HadoopConnector">
+        <constructor-arg type="java.lang.String" value="0.0.0.0"/>
+        <constructor-arg type="java.lang.String" value="54310"/>
+        <constructor-arg type="java.lang.String" value="hduser"/>
+        <constructor-arg type="java.lang.String" value="/bookshelf/books/"/>
+    </bean>
 
     <!-- Beans that are configuration of MapReduce Job -->
 
