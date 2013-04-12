@@ -6,6 +6,7 @@ import org.apache.solr.common.SolrDocument;
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 public class BookUtils {
 
@@ -19,8 +20,9 @@ public class BookUtils {
         return book;
     }
 
-    public static List<Book> pagination(int pageNum, int pageSize, List<Book> list) {
-        List<Book> resultList = new ArrayList<Book>();
+    public static TreeSet<String> pagination(int pageNum, int pageSize, TreeSet<String> set) {
+        List<String> list = new ArrayList<>(set);
+        List<String> resultList = new ArrayList<String>();
         if (list.size() > pageSize * pageNum) {
             resultList = list.subList((pageNum - 1) * pageSize, pageNum * pageSize);
         } else if (list.size() > pageSize * (pageNum - 1) && pageNum * pageSize >= list.size()) {
@@ -30,6 +32,6 @@ public class BookUtils {
         } else if (list.size() == 0) {
             resultList = list;
         }
-        return resultList;
+        return new TreeSet<String>(resultList);
     }
 }
