@@ -33,7 +33,8 @@ public class GetNumberOfRecordsTest {
             query.addSortField("id", SolrQuery.ORDER.desc);
             QueryResponse response = daoSolr.server.query(query);
             SolrDocumentList results = response.getResults();
-            assertTrue(results.getNumFound() == 54);
+            daoSolr.getAllBooks(1,1);
+            assertTrue(daoSolr.getNumberOfRecords() == 54);
         } finally {
             for (int i = 1; i < 55; i++) {
                 daoSolr.delBook(i);
