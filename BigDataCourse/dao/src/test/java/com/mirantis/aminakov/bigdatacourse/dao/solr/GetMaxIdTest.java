@@ -10,7 +10,6 @@ import org.apache.solr.common.SolrDocumentList;
 import org.junit.Test;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static org.junit.Assert.assertTrue;
