@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.TreeSet;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
-import com.mirantis.aminakov.bigdatacourse.dao.BookAlredyExists;
+import com.mirantis.aminakov.bigdatacourse.dao.BookAlreadyExists;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.DeleteException;
 import org.junit.AfterClass;
@@ -67,7 +67,7 @@ public class DaoJdbcTest {
 		assertEquals(books.get(i).getGenre(), actual.get(0).getGenre());
 	}
 
-	@Test(expected = BookAlredyExists.class)
+	@Test(expected = BookAlreadyExists.class)
 	public void testAddExistBook() throws DaoException {
 		int i = 10;
 			dao.addBook(books.get(i));

@@ -9,11 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 
-import com.mirantis.aminakov.bigdatacourse.dao.Book;
-import com.mirantis.aminakov.bigdatacourse.dao.Dao;
-import com.mirantis.aminakov.bigdatacourse.dao.BookAlredyExists;
-import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
-import com.mirantis.aminakov.bigdatacourse.dao.DeleteException;
+import com.mirantis.aminakov.bigdatacourse.dao.*;
+import com.mirantis.aminakov.bigdatacourse.dao.BookAlreadyExists;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +46,7 @@ public class DaoJdbc implements Dao {
 			rs = st.executeQuery("SELECT * FROM Books WHERE title = '" + book.getTitle() + "';");
 			if (rs.first()) {
 				con.rollback();
-				throw new BookAlredyExists("Book already exists.");
+				throw new BookAlreadyExists("Book already exists.");
 			}
 			String sql = "INSERT INTO Texts(text) VALUES (?)";
 			pst = con.prepareStatement(sql);
