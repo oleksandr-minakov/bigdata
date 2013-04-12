@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra;
-import me.prettyprint.hector.api.Cluster;
-import me.prettyprint.hector.api.factory.HFactory;
 
 import org.junit.Test;
 
@@ -24,12 +22,14 @@ public class GetPageTest {
 
 		List<Book> pagedBookList = new ArrayList<Book>();
 		
-		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", CassandraIP.IP);
+		List<String> hosts = new ArrayList<String>();
+		hosts.add(CassandraIP.IP1);
+		hosts.add(CassandraIP.IP2);
+		hosts.add(CassandraIP.IP3);
+		
+		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
 		DaoCassandra dao = new DaoCassandra(cts);
 		
-		
-		Cluster clstr = HFactory.getOrCreateCluster(cts.CLUSTER_NAME, cts.HOST_DEF+":9160");
-
 		Book beggining_state = new Book();
 		try {
 			for(int i = 0; i< 100; ++i){

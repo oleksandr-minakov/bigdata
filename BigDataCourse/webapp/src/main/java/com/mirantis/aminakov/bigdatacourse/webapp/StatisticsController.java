@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
+import com.mirantis.aminakov.bigdatacourse.dao.hadoop.DaoHDFS;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.Pair;
 import com.mirantis.aminakov.bigdatacourse.mapreduce.GetParsedStatistics;
@@ -62,10 +63,22 @@ public class StatisticsController {
 	@RequestMapping(value = "/statistics", method=RequestMethod.GET)
 	public String getStatistics(Model model) throws IOException, DaoException{
 		
+		boolean instanceof_flag = true;
 		boolean flag = true;
+		
+		if(!(this.statService.getDao() instanceof DaoHDFS)){
+			flag = true;
+			instanceof_flag = false;
+			model.addAttribute("flag", flag);
+			model.addAttribute("instanceof_flag", instanceof_flag);
+			model.addAttribute("instance", "No Statistics available. Swith to Hadoop and redeploy your app.");
+			return "statistics";
+		}
+		
+
 		if(this.statService.getPool().getActiveCount() != 0){
 			flag = false;
-			model.addAttribute("aviability", "Previous statistics were deleted. MapReduce servise calculating new one.");
+			model.addAttribute("avaibility", "Previous statistics were deleted. MapReduce servise calculating new one.");
 		}
 		else
 			flag = true;

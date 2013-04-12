@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra;
@@ -18,7 +19,12 @@ public class PaginateByTokenTest {
 	@Test
 	public void paginationTest() throws DaoException, FileNotFoundException{
 		
-		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", "localhost");
+		List<String> hosts = new ArrayList<String>();
+		hosts.add(CassandraIP.IP1);
+		hosts.add(CassandraIP.IP2);
+		hosts.add(CassandraIP.IP3);
+		
+		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
 		
 		DaoCassandra dao = new DaoCassandra(cts);
 		Book beggining_state = new Book();

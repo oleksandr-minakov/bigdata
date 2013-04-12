@@ -2,13 +2,12 @@ package com.mirantis.aminakov.bigdatacourse.dao.cassandratests;
 
 import static org.junit.Assert.*;
 
-import java.io.FileInputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra;
 import org.junit.Test;
 
-import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
 
@@ -17,11 +16,16 @@ public class GetAllRowKeysTest {
 	@Test
 	public void getIterList() throws DaoException{
 		
-		Constants cts = new Constants("Test Cluster", "Bookshelf", "Books", CassandraIP.IP);
+		List<String> hosts = new ArrayList<String>();
+		hosts.add(CassandraIP.IP1);
+		hosts.add(CassandraIP.IP2);
+		hosts.add(CassandraIP.IP3);
+		
+		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
 		
 		DaoCassandra dao = new DaoCassandra(cts);
 		
-		Book beggining_state = new Book();
+/*		Book beggining_state = new Book();
 		try {
 			for(int i = 0; i< 100; ++i){
 				
@@ -29,7 +33,7 @@ public class GetAllRowKeysTest {
 				beggining_state.newBook(new String("CassandraTest" + String.valueOf(i)), new String("Test" + String.valueOf(i)), new String("Tester" + String.valueOf(i)), new FileInputStream("src/main/resources/testbook"));
 				dao.addBook(beggining_state);
 			}
-			List<String> keys = dao.getAllRowKeys();
+
 			
 			System.out.println( keys.size() == 100);
 			
@@ -37,5 +41,8 @@ public class GetAllRowKeysTest {
 			
 		} catch (Exception e) {throw new DaoException(e);}
 		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
+	}*/
+		List<String> keys = dao.getAllRowKeys();
+		assertTrue(keys.size() != 0);
 	}
 }

@@ -308,6 +308,12 @@ public class DaoCassandra implements Dao{
 	@Override
 	public int getNumberOfRecords() {
 
+		try {
+			return getAllRowKeys().size();
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return this.querySize;
 	}
 
