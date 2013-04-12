@@ -118,7 +118,6 @@ public class NASMapping implements FSMapping{
 	public int removeFile(int id) throws DaoException{
 		
 		try {
-			
 			Runtime.getRuntime().exec("rm -R " + this.workingDirectory + getHash(id).substring(0, this.nastity));
 			return id;
 		} catch (IOException e) {
