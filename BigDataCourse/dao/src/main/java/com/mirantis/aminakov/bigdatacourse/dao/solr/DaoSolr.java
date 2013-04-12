@@ -24,6 +24,7 @@ public class DaoSolr implements Dao {
 
     public SolrServer server = null;
     public DaoNAS daoNAS = null;
+    private int numberOfRecords = -1;
 
     @Autowired
     Parameters parameters;
@@ -76,14 +77,16 @@ public class DaoSolr implements Dao {
         List<Book> books = new ArrayList<Book>();
         ModifiableSolrParams params = new ModifiableSolrParams();
         params.set("q", "*:*");
+        params.set("rows", pageSize);
+        params.set("start", (pageNum - 1) * pageSize);
         QueryResponse response;
         try {
             response = server.query(params);
             SolrDocumentList results = response.getResults();
+            numberOfRecords = (int) results.getNumFound();
             for (SolrDocument result : results) {
                 books.add(BookUtils.map(result));
             }
-            books = BookUtils.pagination(pageNum, pageSize, books);
         } catch (SolrServerException e) {
             throw new DaoException(e);
         }
@@ -95,14 +98,16 @@ public class DaoSolr implements Dao {
         List<Book> books = new ArrayList<Book>();
         ModifiableSolrParams params = new ModifiableSolrParams();
         params.set("q", "title:" + title);
+        params.set("rows", pageSize);
+        params.set("start", (pageNum - 1) * pageSize);
         QueryResponse response;
         try {
             response = server.query(params);
             SolrDocumentList results = response.getResults();
+            numberOfRecords = (int) results.getNumFound();
             for (SolrDocument result : results) {
                 books.add(BookUtils.map(result));
             }
-            books = BookUtils.pagination(pageNum, pageSize, books);
         } catch (SolrServerException e) {
             throw new DaoException(e);
         }
@@ -114,14 +119,16 @@ public class DaoSolr implements Dao {
         List<Book> books = new ArrayList<Book>();
         ModifiableSolrParams params = new ModifiableSolrParams();
         params.set("q", "author:" + author);
+        params.set("rows", pageSize);
+        params.set("start", (pageNum - 1) * pageSize);
         QueryResponse response;
         try {
             response = server.query(params);
             SolrDocumentList results = response.getResults();
+            numberOfRecords = (int) results.getNumFound();
             for (SolrDocument result : results) {
                 books.add(BookUtils.map(result));
             }
-            books = BookUtils.pagination(pageNum, pageSize, books);
         } catch (SolrServerException e) {
             throw new DaoException(e);
         }
@@ -133,14 +140,39 @@ public class DaoSolr implements Dao {
         List<Book> books = new ArrayList<Book>();
         ModifiableSolrParams params = new ModifiableSolrParams();
         params.set("q", "genre:" + genre);
+        params.set("rows", pageSize);
+        params.set("start", (pageNum - 1) * pageSize);
         QueryResponse response;
         try {
             response = server.query(params);
             SolrDocumentList results = response.getResults();
+            numberOfRecords = (int) results.getNumFound();
             for (SolrDocument result : results) {
                 books.add(BookUtils.map(result));
             }
-            books = BookUtils.pagination(pageNum, pageSize, books);
+        } catch (SolrServerException e) {
+            throw new DaoException(e);
+        }
+        return books;
+    }
+
+
+    //TODO add search index
+    @Override
+    public List<Book> getBookByText(int pageNum, int pageSize, String text) throws DaoException {
+        List<Book> books = new ArrayList<Book>();
+        ModifiableSolrParams params = new ModifiableSolrParams();
+        params.set("q", "text:" + text);
+        params.set("rows", pageSize);
+        params.set("start", (pageNum - 1) * pageSize);
+        QueryResponse response;
+        try {
+            response = server.query(params);
+            SolrDocumentList results = response.getResults();
+            numberOfRecords = (int) results.getNumFound();
+            for (SolrDocument result : results) {
+                books.add(BookUtils.map(result));
+            }
         } catch (SolrServerException e) {
             throw new DaoException(e);
         }
@@ -148,13 +180,24 @@ public class DaoSolr implements Dao {
     }
 
     @Override
-    public List<Book> getBookByText(int pageNum, int pageSize, String text) throws DaoException {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
     public TreeSet<String> getAuthorByGenre(int pageNum, int pageSize, String genre) throws DaoException {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        TreeSet<String> authors = new TreeSet<>();
+        ModifiableSolrParams params = new ModifiableSolrParams();
+        params.set("q", "genre:" + genre);
+        params.set("rows", pageSize); //TODO add pagination
+        QueryResponse response;
+        try {
+            response = server.query(params);
+            SolrDocumentList results = response.getResults();
+            numberOfRecords = (int) results.getNumFound();
+            for (SolrDocument result : results) {
+                authors.add((String) result.get("author"));
+            }
+//            authors = BookUtils.pagination(pageNum, pageSize, authors);
+        } catch (SolrServerException e) {
+            throw new DaoException(e);
+        }
+        return authors;
     }
 
     @Override
@@ -164,7 +207,7 @@ public class DaoSolr implements Dao {
 
     @Override
     public int getNumberOfRecords() {
-        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+        return numberOfRecords;
     }
 
     public int getMaxId() throws DaoException {
