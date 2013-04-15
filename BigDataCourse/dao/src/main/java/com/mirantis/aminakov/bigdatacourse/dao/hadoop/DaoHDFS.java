@@ -140,4 +140,22 @@ public class DaoHDFS implements Dao{
 		return this.querySize;
 	}
 
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		
+		if(this.hadoop == null)
+			throw new DaoException("Error with hadoop bean inition");
+		
+	}
+
+
+	@Override
+	public void destroy() throws Exception {
+		
+		this.hadoop.getFS().close();
+		this.hadoop = null;
+		
+	}
+
 }

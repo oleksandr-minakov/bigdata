@@ -311,7 +311,6 @@ public class DaoCassandra implements Dao{
 		try {
 			return getAllRowKeys().size();
 		} catch (DaoException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return this.querySize;
@@ -344,5 +343,21 @@ public class DaoCassandra implements Dao{
 		
         return max;
     }
-    
+
+	@Override
+	public void afterPropertiesSet() throws DaoException {
+		
+		if(this.constants == null)
+			throw new DaoException("Error with cassandra bean inition");
+		
+	}
+
+	@Override
+	public void destroy() throws Exception {
+		
+		this.constants.getCurrentClstr().getConnectionManager().shutdown();
+		this.constants = null;
+		
+	}
+
 }

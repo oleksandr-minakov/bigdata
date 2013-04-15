@@ -169,4 +169,16 @@ public class DaoMemcached implements Dao {
     public int getNumberOfRecords() {
         return daoJdbc.getNumberOfRecords();
     }
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void destroy() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 }
