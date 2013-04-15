@@ -227,4 +227,16 @@ public class DaoSolr implements Dao {
         }
         return max;
     }
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void destroy() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 }
