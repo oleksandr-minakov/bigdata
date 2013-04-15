@@ -30,7 +30,7 @@ public class StatisticsController {
 	
 	private StatService statService;
 	
-	@Autowired
+	@Autowired(required = false)
 	public void setService(StatService statService) {
 		
 		this.statService = statService;
@@ -40,10 +40,13 @@ public class StatisticsController {
 	@RequestMapping(value = "/statview", method=RequestMethod.GET)
 	public String getStatView(Model model) throws IOException, DaoException{
 		
-		List<Pair<String, Double>> pairs = new ArrayList<Pair<String, Double>>();
-		pairs = this.statService.viewStatistics();
-		
-		model.addAttribute("pairs", pairs);
+		if(!(this.statService == null)){
+			List<Pair<String, Double>> pairs = new ArrayList<Pair<String, Double>>();
+			pairs = this.statService.viewStatistics();
+			
+			model.addAttribute("pairs", pairs);
+			return "statview";
+		}
 		return "statview";
 	}
 	
@@ -63,34 +66,37 @@ public class StatisticsController {
 	@RequestMapping(value = "/statistics", method=RequestMethod.GET)
 	public String getStatistics(Model model) throws IOException, DaoException{
 		
-		boolean instanceof_flag = true;
-		boolean flag = true;
-		
-		if(!(this.statService.getDao() instanceof DaoHDFS)){
+		if(!(this.statService == null)){
+			boolean instanceof_flag = true;
+			boolean flag = true;
 			
-			flag = true;
-			instanceof_flag = false;
-			model.addAttribute("instance", "No Statistics available. Swith to Hadoop and redeploy your app.");
+			if(!(this.statService.getDao() instanceof DaoHDFS)){
+				
+				flag = true;
+				instanceof_flag = false;
+				model.addAttribute("instance", "No Statistics available. Swith to Hadoop and redeploy your app.");
+				return "statistics";
+			}
+			else{
+				
+				flag = true;
+				instanceof_flag = true;
+				model.addAttribute("flag", flag);
+
+			}
+			
+
+			if(this.statService.getPool().getActiveCount() != 0){
+				flag = false;
+				model.addAttribute("avaibility", "Previous statistics were deleted. MapReduce servise calculating new one.");
+			}
+			else
+				flag = true;
+			
+			model.addAttribute("instanceof_flag", instanceof_flag);
+			model.addAttribute("flag", flag);
 			return "statistics";
 		}
-		else{
-			
-			flag = true;
-			instanceof_flag = true;
-			model.addAttribute("flag", flag);
-
-		}
-		
-
-		if(this.statService.getPool().getActiveCount() != 0){
-			flag = false;
-			model.addAttribute("avaibility", "Previous statistics were deleted. MapReduce servise calculating new one.");
-		}
-		else
-			flag = true;
-		
-		model.addAttribute("instanceof_flag", instanceof_flag);
-		model.addAttribute("flag", flag);
 		
 		return "statistics";
 	}

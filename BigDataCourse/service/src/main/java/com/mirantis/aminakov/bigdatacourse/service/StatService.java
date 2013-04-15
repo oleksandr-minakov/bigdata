@@ -21,15 +21,15 @@ import com.mirantis.aminakov.bigdatacourse.mapreduce.MapReduceThread;
 
 public class StatService {
 	
-	@Autowired
+	@Autowired(required = false)
 	private Object job;
-	@Autowired
+	@Autowired(required = false)
 	private Object mapper;
-	@Autowired
+	@Autowired(required = false)
 	private Object reducer;
-	@Autowired
+	@Autowired(required = false)
 	private HadoopConnector configuration;
-    @Autowired
+    @Autowired(required = false)
     private Dao dao;
 	
 	private MapReduceThread mapRedThread;
