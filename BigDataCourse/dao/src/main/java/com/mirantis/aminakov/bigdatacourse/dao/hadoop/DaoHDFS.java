@@ -143,14 +143,18 @@ public class DaoHDFS implements Dao{
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		// TODO Auto-generated method stub
+		
+		if(this.hadoop == null)
+			throw new DaoException("Error with hadoop bean inition");
 		
 	}
 
 
 	@Override
 	public void destroy() throws Exception {
-		// TODO Auto-generated method stub
+		
+		this.hadoop.getFS().close();
+		this.hadoop = null;
 		
 	}
 

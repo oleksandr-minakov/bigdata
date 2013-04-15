@@ -345,14 +345,18 @@ public class DaoCassandra implements Dao{
     }
 
 	@Override
-	public void afterPropertiesSet() throws Exception {
-		// TODO Auto-generated method stub
+	public void afterPropertiesSet() throws DaoException {
+		
+		if(this.constants == null)
+			throw new DaoException("Error with cassandra bean inition");
 		
 	}
 
 	@Override
 	public void destroy() throws Exception {
-		// TODO Auto-generated method stub
+		
+		this.constants.getCurrentClstr().getConnectionManager().shutdown();
+		this.constants = null;
 		
 	}
 
