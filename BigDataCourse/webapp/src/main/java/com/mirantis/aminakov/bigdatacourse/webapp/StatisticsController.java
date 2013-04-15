@@ -30,7 +30,7 @@ public class StatisticsController {
 	
 	private StatService statService;
 	
-	@Autowired
+	@Autowired(required = false)
 	public void setService(StatService statService) {
 		
 		this.statService = statService;
