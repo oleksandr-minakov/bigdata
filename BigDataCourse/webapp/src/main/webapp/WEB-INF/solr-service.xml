@@ -1,0 +1,37 @@
+<beans 	xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xsi:schemaLocation="http://www.springframework.org/schema/context 
+							http://www.springframework.org/schema/context/spring-context-3.0.xsd
+							http://www.springframework.org/schema/beans
+							http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	
+	<context:annotation-config/>
+
+    <context:component-scan
+            base-package="com.mirantis.aminakov.bigdatacourse.dao" />
+    <context:component-scan
+            base-package="com.mirantis.aminakov.bigdatacourse.service" />
+	
+	<bean id="service"
+		class="com.mirantis.aminakov.bigdatacourse.service.ServiceToDao" />
+
+    <bean id="dao" class="com.mirantis.aminakov.bigdatacourse.dao.solr.DaoSolr">
+        <constructor-arg ref="parameters"/>
+    </bean>
+	
+    <bean id="daoSolr" class="com.mirantis.aminakov.bigdatacourse.dao.solr.DaoSolr">
+        <constructor-arg ref="parameters"/>
+    </bean>
+
+    <bean id="parameters" class="com.mirantis.aminakov.bigdatacourse.dao.solr.Parameters">
+        <constructor-arg type="java.lang.String" value="http://localhost:8080/solr-web"/>
+        <constructor-arg type="com.mirantis.aminakov.bigdatacourse.dao.NAS.NASMapping" ref="nas"/>
+    </bean>
+
+    <bean id="nas" class="com.mirantis.aminakov.bigdatacourse.dao.NAS.NASMapping">
+        <constructor-arg type="java.lang.String" value="/tmp/solr_nas/"/>
+        <constructor-arg type="int" value="3" />
+    </bean>
+
+</beans>
