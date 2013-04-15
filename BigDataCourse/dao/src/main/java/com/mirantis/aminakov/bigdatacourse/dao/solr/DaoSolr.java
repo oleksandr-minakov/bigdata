@@ -1,6 +1,7 @@
 package com.mirantis.aminakov.bigdatacourse.dao.solr;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
+import com.mirantis.aminakov.bigdatacourse.dao.BookAlreadyExists;
 import com.mirantis.aminakov.bigdatacourse.dao.Dao;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.NAS.NASMapping;
@@ -40,6 +41,16 @@ public class DaoSolr implements Dao {
     public int addBook(Book book) throws DaoException {
         book.setId(parameters.bookId);
         try {
+            List<Book> books = new ArrayList<Book>();
+            ModifiableSolrParams params = new ModifiableSolrParams();
+            params.set("q", "title:" + book.getTitle());
+            params.set("rows", 1);
+            params.set("start", 0);
+            QueryResponse response;
+            response = server.query(params);
+            SolrDocumentList results = response.getResults();
+            if (results.size() != 0)
+                throw new BookAlreadyExists("Book already exists.");
             SolrInputDocument doc = new SolrInputDocument();
             doc.addField("id", book.getId());
             doc.addField("title", book.getTitle());
@@ -156,13 +167,12 @@ public class DaoSolr implements Dao {
         return books;
     }
 
-
     //TODO add search index
     @Override
     public List<Book> getBookByText(int pageNum, int pageSize, String text) throws DaoException {
         List<Book> books = new ArrayList<Book>();
         ModifiableSolrParams params = new ModifiableSolrParams();
-        params.set("q", "text:" + text);
+        params.set("q", "text:*" + text + "*");
         params.set("rows", pageSize);
         params.set("start", (pageNum - 1) * pageSize);
         QueryResponse response;
@@ -183,9 +193,17 @@ public class DaoSolr implements Dao {
     public TreeSet<String> getAuthorByGenre(int pageNum, int pageSize, String genre) throws DaoException {
         TreeSet<String> authors = new TreeSet<>();
         ModifiableSolrParams params = new ModifiableSolrParams();
-        params.set("q", "genre:" + genre);
-        params.set("rows", pageSize); //TODO add pagination
+        params.set("q", "*:*");
         QueryResponse response;
+        int allRecords;
+        try {
+            response = server.query(params);
+            allRecords = (int) response.getResults().getNumFound();
+        } catch (SolrServerException e) {
+            throw new DaoException(e);
+        }
+        params.set("q", "genre:" + genre);
+        params.set("rows", allRecords);
         try {
             response = server.query(params);
             SolrDocumentList results = response.getResults();
@@ -193,7 +211,7 @@ public class DaoSolr implements Dao {
             for (SolrDocument result : results) {
                 authors.add((String) result.get("author"));
             }
-//            authors = BookUtils.pagination(pageNum, pageSize, authors);
+            authors = BookUtils.pagination(pageNum, pageSize, authors);
         } catch (SolrServerException e) {
             throw new DaoException(e);
         }
