@@ -220,7 +220,11 @@ public class DaoSolr implements Dao {
 
     @Override
     public void closeConnection() throws DaoException {
-        //To change body of implemented methods use File | Settings | File Templates.
+        try {
+            server.rollback();
+        } catch (SolrServerException | IOException e) {
+            throw new DaoException(e);
+        }
     }
 
     @Override
@@ -246,15 +250,19 @@ public class DaoSolr implements Dao {
         return max;
     }
 
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void destroy() throws Exception {
+        try {
+            server.rollback();
+        } catch (SolrServerException | IOException e) {
+            throw new DaoException(e);
+        }
+    }
 
-	@Override
-	public void destroy() throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        if((this.parameters == null) || (this.daoNAS == null) || (this.server == null)) {
+            throw new DaoException("Error with memcached bean initialization");
+        }
+    }
 }

@@ -4,7 +4,6 @@ import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.mysql.DaoJdbc;
 import net.spy.memcached.MemcachedClient;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
@@ -21,12 +20,12 @@ public class GetAuthorByGenreTest {
     @Test
     public void getAuthorByGenreTest() throws DaoException, IOException {
         DaoMemcached daoMemcached = new DaoMemcached();
-        daoMemcached.setClient(new MemClient(new InetSocketAddress("0.0.0.0" , 11211)));
+        daoMemcached.setClient(new MemClient(new InetSocketAddress("localhost" , 11211)));
         DaoJdbc dao = new DaoJdbc();
-        DataSource dataSource = new DriverManagerDataSource("com.mysql.jdbc.Driver", "jdbc:mysql://0.0.0.0:3306/bigdata", "aminakov", "bigdata");
+        DataSource dataSource = new DriverManagerDataSource("com.mysql.jdbc.Driver", "jdbc:mysql://localhost:3306/bigdata", "aminakov", "bigdata");
         dao.setDataSource(dataSource);
         daoMemcached.setDaoJdbc(dao);
-        MemcachedClient client = new MemcachedClient(new InetSocketAddress("0.0.0.0", 11211));
+        MemcachedClient client = new MemcachedClient(new InetSocketAddress("localhost", 11211));
         Book book = new Book();
         Book book2 = new Book();
         book.newBook("title", "author", "genre", new FileInputStream("testbook"));

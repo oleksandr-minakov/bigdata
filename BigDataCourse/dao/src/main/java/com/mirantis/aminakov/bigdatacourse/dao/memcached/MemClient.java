@@ -1,9 +1,9 @@
 package com.mirantis.aminakov.bigdatacourse.dao.memcached;
 
-import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import net.spy.memcached.MemcachedClient;
 import org.apache.log4j.Logger;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class MemClient {
 
     public void set(String key, int ttl, Object o) {
         client.set(key, ttl, o);
-        LOG.info("Delete " + key + " from cache");
+        LOG.info("Add " + key + " to cache");
     }
 
     public Object get(String key) {
@@ -44,20 +44,6 @@ public class MemClient {
         return client.delete(key);
     }
 
-    public List<Book> pagination(int pageNum, int pageSize, List<Book> list) {
-        List<Book> resultList = new ArrayList<Book>();
-        if (list.size() > pageSize * pageNum) {
-            resultList = list.subList((pageNum - 1) * pageSize, pageNum * pageSize);
-        } else if (list.size() > pageSize * (pageNum - 1) && pageNum * pageSize >= list.size()) {
-            resultList = list.subList((pageNum - 1) * pageSize, list.size());
-        } else if (list.size() < pageSize && list.size() <= pageNum * pageSize) {
-            resultList = list.subList(0, list.size());
-        } else if (list.size() == 0) {
-            resultList = list;
-        }
-        return resultList;
-    }
-
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	public TreeSet<String> pagination(int pageNum, int pageSize, TreeSet<String> set) {
         List list = new ArrayList<>(set);
@@ -73,5 +59,10 @@ public class MemClient {
         }
         TreeSet resultSet = new TreeSet(resultList);
         return resultSet;
+    }
+
+    public void close() {
+        client.flush();
+        client.shutdown();
     }
 }

@@ -1,20 +1,14 @@
 package com.mirantis.aminakov.bigdatacourse.dao.mysql;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import com.mirantis.aminakov.bigdatacourse.dao.*;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.sql.DataSource;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
-
-import com.mirantis.aminakov.bigdatacourse.dao.*;
-import com.mirantis.aminakov.bigdatacourse.dao.BookAlreadyExists;
-
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import javax.sql.DataSource;
 
 public class DaoJdbc implements Dao {
 
@@ -387,13 +381,34 @@ public class DaoJdbc implements Dao {
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		// TODO Auto-generated method stub
+        if(this.dataSource == null) {
+            throw new DaoException("Error with memcached bean initialization");
+        }
 		
 	}
 
 	@Override
-	public void destroy() throws Exception {
-		// TODO Auto-generated method stub
-		
+	public void destroy() throws DaoException {
+        if (this.rs != null) {
+            try {
+                this.rs.close();
+            } catch (SQLException e) {
+                throw new DaoException(e);
+            }
+        }
+        if (this.st != null) {
+            try {
+                this.st.close();
+            } catch (SQLException e) {
+                throw new DaoException(e);
+            }
+        }
+        if (this.con != null) {
+            try {
+                this.con.close();
+            } catch (SQLException e) {
+                throw new DaoException(e);
+            }
+        }
 	}
 }

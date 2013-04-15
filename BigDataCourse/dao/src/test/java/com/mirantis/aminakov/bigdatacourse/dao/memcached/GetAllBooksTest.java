@@ -22,12 +22,12 @@ public class GetAllBooksTest {
 	@Test
     public void getAllBooksTest() throws DaoException, IOException {
         DaoMemcached daoMemcached = new DaoMemcached();
-        daoMemcached.setClient(new MemClient(new InetSocketAddress("0.0.0.0" , 11211)));
+        daoMemcached.setClient(new MemClient(new InetSocketAddress("localhost" , 11211)));
         DaoJdbc dao = new DaoJdbc();
-        DataSource dataSource = new DriverManagerDataSource("com.mysql.jdbc.Driver", "jdbc:mysql://0.0.0.0:3306/bigdata", "aminakov", "bigdata");
+        DataSource dataSource = new DriverManagerDataSource("com.mysql.jdbc.Driver", "jdbc:mysql://localhost:3306/bigdata", "aminakov", "bigdata");
         dao.setDataSource(dataSource);
         daoMemcached.setDaoJdbc(dao);
-        MemcachedClient client = new MemcachedClient(new InetSocketAddress("0.0.0.0", 11211));
+        MemcachedClient client = new MemcachedClient(new InetSocketAddress("localhost", 11211));
         Book book = new Book();
         book.newBook("title", "author", "genre", new FileInputStream("testbook"));
         List<Book> books = new ArrayList<Book>();
@@ -35,7 +35,7 @@ public class GetAllBooksTest {
         int id = daoMemcached.addBook(book);
         try {
             books = daoMemcached.getAllBooks(1,1);
-            String str = 1 + 1 + "allBooks";
+            String str = 1 + "allBooks" + 1;
             int i = str.hashCode();
             resultList = (List<Book>) client.get(Integer.toString(i));
             assertTrue(books.size() == resultList.size());
