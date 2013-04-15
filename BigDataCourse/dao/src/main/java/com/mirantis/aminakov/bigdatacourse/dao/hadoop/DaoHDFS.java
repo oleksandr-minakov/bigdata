@@ -140,4 +140,18 @@ public class DaoHDFS implements Dao{
 		return this.querySize;
 	}
 
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void destroy() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -3,7 +3,10 @@ package com.mirantis.aminakov.bigdatacourse.dao;
 import java.util.List;
 import java.util.TreeSet;
 
-public interface Dao {
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
+
+public interface Dao extends InitializingBean, DisposableBean{
 
 	public int addBook(Book book) throws DaoException;
 	

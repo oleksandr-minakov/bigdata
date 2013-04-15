@@ -387,4 +387,16 @@ public class DaoJdbc implements Dao {
 	public int getNumberOfRecords() {
 		return numberOfRecords;
 	}
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void destroy() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 }
