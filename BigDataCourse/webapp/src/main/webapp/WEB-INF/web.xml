@@ -6,7 +6,7 @@
       
     <context-param><param-name>contextConfigLocation</param-name>
     	<param-value>
-			/WEB-INF/webapp-service.xml
+			/WEB-INF/cassandra-service.xml
 		</param-value>
 	</context-param>
 	
