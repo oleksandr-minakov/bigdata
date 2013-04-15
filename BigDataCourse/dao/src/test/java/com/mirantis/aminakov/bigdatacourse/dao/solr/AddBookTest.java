@@ -8,6 +8,7 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.params.ModifiableSolrParams;
 import org.junit.Test;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -18,7 +19,7 @@ public class AddBookTest {
     @Test
     public void addBookTest() throws DaoException, IOException, SolrServerException {
         NASMapping daoNAS = new NASMapping("/tmp/solr_nas/", 3);
-        Parameters parameters = new Parameters("http://localhost:8080/solr-web", daoNAS);
+        Parameters parameters = new Parameters("http://0.0.0.0:8080/solr-web", daoNAS);
         DaoSolr daoSolr = new DaoSolr(parameters);
         daoSolr.server.deleteByQuery("*:*");
         Book book = new Book();

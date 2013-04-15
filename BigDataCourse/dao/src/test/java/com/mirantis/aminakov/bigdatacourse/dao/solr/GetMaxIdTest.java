@@ -19,7 +19,7 @@ public class GetMaxIdTest {
     @Test
     public void getMaxIdTest() throws DaoException, IOException, SolrServerException {
         NASMapping daoNAS = new NASMapping("/tmp/solr_nas/", 3);
-        Parameters parameters = new Parameters("http://localhost:8080/solr-web", daoNAS);
+        Parameters parameters = new Parameters("http://0.0.0.0:8080/solr-web", daoNAS);
         DaoSolr daoSolr = new DaoSolr(parameters);
         daoSolr.server.deleteByQuery("*:*");
         Book book = new Book();
