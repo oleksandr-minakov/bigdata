@@ -178,7 +178,8 @@ public class DaoMemcached implements Dao {
 
 	@Override
 	public void destroy() throws Exception {
-		// TODO Auto-generated method stub
+		this.daoJdbc.closeConnection();
+		this.daoJdbc = null;
 		
 	}
 }
