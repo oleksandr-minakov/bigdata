@@ -67,12 +67,18 @@ public class StatisticsController {
 		boolean flag = true;
 		
 		if(!(this.statService.getDao() instanceof DaoHDFS)){
+			
 			flag = true;
 			instanceof_flag = false;
-			model.addAttribute("flag", flag);
-			model.addAttribute("instanceof_flag", instanceof_flag);
 			model.addAttribute("instance", "No Statistics available. Swith to Hadoop and redeploy your app.");
 			return "statistics";
+		}
+		else{
+			
+			flag = true;
+			instanceof_flag = true;
+			model.addAttribute("flag", flag);
+
 		}
 		
 
@@ -83,6 +89,7 @@ public class StatisticsController {
 		else
 			flag = true;
 		
+		model.addAttribute("instanceof_flag", instanceof_flag);
 		model.addAttribute("flag", flag);
 		
 		return "statistics";
