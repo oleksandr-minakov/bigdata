@@ -3,8 +3,10 @@ package com.mirantis.aminakov.bigdatacourse.dao;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.springframework.beans.factory.DisposableBean;
 
-public interface FSMapping {
+
+public interface FSMapping extends DisposableBean{
 	
 	public void setWorkingDirectory(String workingDirectory);
 	public String getWorkingDirectory(); 

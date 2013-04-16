@@ -11,6 +11,7 @@ import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.Dao;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import me.prettyprint.cassandra.serializers.StringSerializer;
+import me.prettyprint.cassandra.service.CassandraHost;
 import me.prettyprint.hector.api.beans.HColumn;
 import me.prettyprint.hector.api.beans.OrderedRows;
 import me.prettyprint.hector.api.beans.Rows;
@@ -355,8 +356,13 @@ public class DaoCassandra implements Dao{
 	@Override
 	public void destroy() throws Exception {
 		
+		for(String host: this.constants.HOST_DEFS)
+			this.constants.getCurrentClstr().getConnectionManager().removeCassandraHost(new CassandraHost(host));
+		
+		this.constants.getCurrentClstr().getConnectionManager().notifyAll();
 		this.constants.getCurrentClstr().getConnectionManager().shutdown();
 		this.constants = null;
+		System.runFinalization();
 		
 	}
 
