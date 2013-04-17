@@ -61,8 +61,7 @@ public class MapReduceThread implements Runnable {
 			GetParsedStatistics  getPath = new GetParsedStatistics(this.configuration);
 			JobRunner jobRunner = new JobRunner(this.configuration, this.job.getClass(), ((Mapper)this.mapper).getClass(), ((Reducer)this.reducer).getClass());
 			this.path = jobRunner.getPathToEvaluatedStatistics();
-			this.pairs = getPath.getParsedStatistics(this.path);
-			
+			this.pairs = getPath.getParsedStatistics(this.path);			
 		} catch (DaoException | IOException e) {
 			e.printStackTrace();
 		}

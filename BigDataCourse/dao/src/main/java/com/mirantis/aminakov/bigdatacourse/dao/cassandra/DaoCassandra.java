@@ -2,6 +2,8 @@ package com.mirantis.aminakov.bigdatacourse.dao.cassandra;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -10,6 +12,8 @@ import org.apache.log4j.Logger;
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.Dao;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
+
+import me.prettyprint.cassandra.connection.HClientPool;
 import me.prettyprint.cassandra.serializers.StringSerializer;
 import me.prettyprint.cassandra.service.CassandraHost;
 import me.prettyprint.hector.api.beans.HColumn;
@@ -356,13 +360,23 @@ public class DaoCassandra implements Dao{
 	@Override
 	public void destroy() throws Exception {
 		
+		Collection<HClientPool> pList =
+				this.constants.getCurrentClstr().getConnectionManager().getActivePools();
+		Iterator<HClientPool> iter = pList.iterator();
+		while(iter.hasNext())
+			iter.next().shutdown();
+		
 		for(String host: this.constants.HOST_DEFS)
 			this.constants.getCurrentClstr().getConnectionManager().removeCassandraHost(new CassandraHost(host));
 		
-		this.constants.getCurrentClstr().getConnectionManager().notifyAll();
+		
 		this.constants.getCurrentClstr().getConnectionManager().shutdown();
+		HFactory.shutdownCluster(this.constants.getCurrentClstr());
+		
 		this.constants = null;
+		
 		System.runFinalization();
+		System.gc();
 		
 	}
 

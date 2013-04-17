@@ -20,8 +20,6 @@ public class CassandraUploaderTest {
 
 		List<String> hosts = new ArrayList<String>();
 		hosts.add(CassandraIP.IP1);
-		hosts.add(CassandraIP.IP2);
-		hosts.add(CassandraIP.IP3);
 		
 		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
 		DaoCassandra dao = new DaoCassandra(cts);

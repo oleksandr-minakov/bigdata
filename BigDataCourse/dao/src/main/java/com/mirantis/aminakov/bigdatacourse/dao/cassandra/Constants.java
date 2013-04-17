@@ -5,6 +5,7 @@ import java.util.List;
 import me.prettyprint.cassandra.model.BasicColumnFamilyDefinition;
 import me.prettyprint.cassandra.model.BasicKeyspaceDefinition;
 import me.prettyprint.cassandra.service.CassandraHost;
+import me.prettyprint.cassandra.service.CassandraHostConfigurator;
 import me.prettyprint.hector.api.Cluster;
 import me.prettyprint.hector.api.Keyspace;
 import me.prettyprint.hector.api.ddl.ColumnFamilyDefinition;
@@ -59,7 +60,13 @@ public class Constants {
 			this.KsDef  = this.getNewKeyspaceDef();
 			this.CfDef = getNewCfDef(this.CF_NAME);
 			
-			this.clstr = HFactory.getOrCreateCluster(this.CLUSTER_NAME, this.HOST_DEFS.get(0)+":9160");
+			CassandraHostConfigurator cassandraHostConfigurator = new CassandraHostConfigurator();
+			cassandraHostConfigurator.setAutoDiscoverHosts(true);
+			cassandraHostConfigurator.setHosts(this.HOST_DEFS.get(0));
+			cassandraHostConfigurator.setPort(9160);
+			cassandraHostConfigurator.setMaxActive(1);
+			this.clstr = HFactory.getOrCreateCluster(this.CLUSTER_NAME, cassandraHostConfigurator);
+//			this.clstr = HFactory.getOrCreateCluster(this.CLUSTER_NAME, this.HOST_DEFS.get(0)+":9160");
 			boolean flg = false;
 			boolean cf_flg = false;
 			
