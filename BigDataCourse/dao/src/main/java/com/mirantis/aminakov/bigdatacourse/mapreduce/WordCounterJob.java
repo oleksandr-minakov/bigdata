@@ -23,6 +23,7 @@ public class WordCounterJob {
 				words.set(tokenizer.nextToken());
 				output.collect(words, new IntWritable(1));
 			}
+			close();
 		}
 		
 	}
@@ -37,6 +38,7 @@ public class WordCounterJob {
 				summary +=	values.next().get();
 			}
 			output.collect(key, new IntWritable(summary));
+			close();
 		}
 		
 	}

@@ -23,7 +23,7 @@ public class MapRedObjInniter {
 	public void getObjsTest() throws Exception{
 		
 		List<Pair<String, Double>> pairs = new ArrayList<Pair<String, Double>>();
-		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP,"54310", new HdfsIP().HadoopUser, "/bookshelf/books/");
+		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP, "9000", new HdfsIP().HadoopUser, "/bookshelf/books/");
 		newOne.getFS().delete(new Path("/Statistics"), true);
 		WordCounterJob words = new WordCounterJob();
 		

@@ -146,5 +146,9 @@ public class NASMapping implements FSMapping{
 		}
 			
 	}
+
+	@Override
+	public void destroy() throws Exception {
+	}
 	
 }

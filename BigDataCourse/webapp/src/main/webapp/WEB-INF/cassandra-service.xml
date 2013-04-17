@@ -31,8 +31,6 @@
 	    <constructor-arg>
 	            <list>
 	                <value>0.0.0.0</value>
-	                <value>0.0.0.0</value>
-	                <value>0.0.0.0</value>
 	            </list>
 	    </constructor-arg>
 	</bean>
