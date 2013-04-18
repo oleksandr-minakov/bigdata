@@ -1,54 +1,28 @@
 package com.mirantis.aminakov.bigdatacourse.dao.mysql;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import org.apache.log4j.Logger;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class ManagementTables {
 	public static final Logger LOG = Logger.getLogger(ManagementTables.class);
 
-	String driverName = "com.mysql.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/bigdata?user=aminakov&password=bigdata";
-	String jdbcutf8 = "&useUnicode=true&characterEncoding=UTF-8";
 	protected Connection con = null;
 	Statement st = null;
 	ResultSet rs = null;
     @SuppressWarnings("unused")
 	private DataSource dataSource;
 
-	public ManagementTables() throws DaoException {
-		try {
-			try {
-				Class.forName(driverName).newInstance();
-			} catch (InstantiationException e) {
-				LOG.error("Instantiation exception driver.");
-				throw new DaoException(e);
-			} catch (IllegalAccessException e) {
-				LOG.error("Illegal access to driver class.");
-				throw new DaoException(e);
-			}
-			try {
-				con = DriverManager.getConnection(url + jdbcutf8);
-			} catch (SQLException e) {
-				throw new DaoException(e);
-			}
-		} catch (ClassNotFoundException e) {
-			LOG.error("Driver not found.");
-			throw new DaoException(e);
-		}
-	}
-
     public ManagementTables(DataSource dataSource) throws DaoException {
         this.dataSource = dataSource;
         try {
             con = dataSource.getConnection();
+            LOG.debug("Get connection");
         } catch (SQLException e) {
             throw new DaoException(e);
         }
@@ -75,7 +49,8 @@ public class ManagementTables {
 					  	"FOREIGN KEY (genre_id) REFERENCES Genres (id)) ENGINE=INNODB CHARACTER SET utf8;");
 			con.commit();
 			con.setAutoCommit(true);
-		} catch (SQLException e) {
+            LOG.debug("Create tables if not exists");
+        } catch (SQLException e) {
 			try {
 				con.rollback();
 				throw new DaoException("Transaction filed " + e.getMessage());
@@ -110,13 +85,15 @@ public class ManagementTables {
 			st.executeUpdate("DROP TABLE IF EXISTS Texts;");
 			con.commit();
 			con.setAutoCommit(true);
-		} catch (SQLException e) {
+            LOG.debug("Drop tables");
+        } catch (SQLException e) {
 			try {
 				con.rollback();
 				throw new DaoException("Transaction filed " + e.getMessage());
 			} catch (SQLException e1) {
 				throw new DaoException("Rollback filed " + e1.getMessage());
 			}
+
 		} finally {
             if (rs != null) {
                 try {
@@ -136,12 +113,13 @@ public class ManagementTables {
 	}
 	
 	public void closeConnection() throws DaoException {
-		if (con != null) {
+        if (con != null) {
 			try {
 				con.close();
 			} catch (SQLException e) {
 				throw new DaoException(e);
 			}
 		}
-	}
+        LOG.debug("Close connection");
+    }
 }
