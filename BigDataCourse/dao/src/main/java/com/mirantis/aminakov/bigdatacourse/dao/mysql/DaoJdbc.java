@@ -24,15 +24,16 @@ public class DaoJdbc implements Dao {
 
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
+        LOG.debug("Set dataSource");
     }
 
-	@Override
+    @Override
 	public int addBook(Book book) throws DaoException {
 		int id = 0;
         ManagementTables mt = new ManagementTables(dataSource);
         mt.createTables();
         mt.closeConnection();
-		try {
+        try {
             con = dataSource.getConnection();
 			con.setAutoCommit(false);
 			st = con.createStatement();
@@ -40,6 +41,7 @@ public class DaoJdbc implements Dao {
 			rs = st.executeQuery("SELECT * FROM Books WHERE title = '" + book.getTitle() + "';");
 			if (rs.first()) {
 				con.rollback();
+                LOG.debug("Book already exist");
 				throw new BookAlreadyExists("Book already exists.");
 			}
 			String sql = "INSERT INTO Texts(text) VALUES (?)";
@@ -84,7 +86,8 @@ public class DaoJdbc implements Dao {
 			pst.clearParameters();
 			con.commit();
 			con.setAutoCommit(true);
-		} catch (SQLException e) {
+            LOG.info("Add book. Id = " + id);
+        } catch (SQLException e) {
 			try {
 				con.rollback();
 				throw new DaoException("Transaction filed " + e.getMessage());
@@ -116,8 +119,7 @@ public class DaoJdbc implements Dao {
         }
 		return id;
 	}
-	
-	
+
 	@Override
 	public int delBook(int id) throws DaoException {
 		try {
@@ -125,10 +127,11 @@ public class DaoJdbc implements Dao {
 			st = con.createStatement();
 			int count = st.executeUpdate("DELETE Books, Texts FROM Books, Texts WHERE Books.id = " + id + " AND Books.book_id = Texts.id;");
 			if (count == 0) {
-				throw new DeleteException("Book doesn't exist.");
+                LOG.debug("Book doesn't exist. Id = " + id);
+                throw new DeleteException("Book doesn't exist.");
 			}
-
-		} catch(SQLException | DeleteException e) {
+            LOG.info("Delete book. Id = " + id);
+        } catch(SQLException | DeleteException e) {
 			throw new DeleteException("Can't delete book.");
         }
 		return 0;
@@ -147,11 +150,12 @@ public class DaoJdbc implements Dao {
 			while (rs.next()) {
 				books.add((Book)map.mapRow(rs, 0));	
 			}
-			rs = st.executeQuery("SELECT FOUND_ROWS();");
+            LOG.info("Get all books");
+            rs = st.executeQuery("SELECT FOUND_ROWS();");
             while (rs.next()) {
                 numberOfRecords = rs.getInt(1);
             }
-		} catch (SQLException e) {
+        } catch (SQLException e) {
 			throw new DaoException(e);
 		} finally {
             if (rs != null) {
@@ -185,11 +189,12 @@ public class DaoJdbc implements Dao {
 			while (rs.next()) {
 				books.add((Book)map.mapRow(rs, 0));			
 			}
-			rs = st.executeQuery("SELECT FOUND_ROWS();");
+            LOG.info("Get book by title -> " + title);
+            rs = st.executeQuery("SELECT FOUND_ROWS();");
             while (rs.next()) {
                 numberOfRecords = rs.getInt(1);
             }
-		} catch (SQLException e) {
+        } catch (SQLException e) {
 			throw new DaoException(e);
 		} finally {
             if (rs != null) {
@@ -223,7 +228,8 @@ public class DaoJdbc implements Dao {
 			while (rs.next()) {
 				books.add((Book)map.mapRow(rs, 0));			
 			}
-			rs = st.executeQuery("SELECT FOUND_ROWS();");
+            LOG.info("Get book by author -> " + author);
+            rs = st.executeQuery("SELECT FOUND_ROWS();");
             while (rs.next()) {
                 numberOfRecords = rs.getInt(1);
             }
@@ -261,6 +267,7 @@ public class DaoJdbc implements Dao {
 			while (rs.next()) {
 				books.add((Book)map.mapRow(rs, 0));			
 			}
+            LOG.info("Get book by genre -> " + genre);
 			rs = st.executeQuery("SELECT FOUND_ROWS();");
             while (rs.next()) {
                 numberOfRecords = rs.getInt(1);
@@ -300,6 +307,7 @@ public class DaoJdbc implements Dao {
 				name = rs.getString("author");
 				authors.add(name);
 			}
+            LOG.info("Get author by genre -> " + genre);
 			rs = st.executeQuery("SELECT FOUND_ROWS();");
             while (rs.next()) {
                 numberOfRecords = rs.getInt(1);
@@ -338,6 +346,7 @@ public class DaoJdbc implements Dao {
 			while (rs.next()) {
 				books.add((Book)map.mapRow(rs, 0));			
 			}
+            LOG.info("Get book by text -> " + text);
 			rs = st.executeQuery("SELECT FOUND_ROWS();");
             while (rs.next()) {
                 numberOfRecords = rs.getInt(1);
@@ -365,50 +374,34 @@ public class DaoJdbc implements Dao {
 
 	@Override
 	public void closeConnection() throws DaoException {
-		if (this.con != null) {
+        LOG.debug("Close connection");
+        if (this.con != null) {
 			try {
 				this.con.close();
 			} catch (SQLException e) {
 				throw new DaoException(e);
 			}
 		}
-	}
+    }
 
 	@Override
 	public int getNumberOfRecords() {
-		return numberOfRecords;
+        LOG.debug("Get number of records");
+        return numberOfRecords;
 	}
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
+        LOG.debug("IN SECTION afterPropertiesSet");
         if(this.dataSource == null) {
-            throw new DaoException("Error with memcached bean initialization");
+            throw new DaoException("Error with MySQL bean initialization");
         }
 		
 	}
 
 	@Override
 	public void destroy() throws DaoException {
-        if (this.rs != null) {
-            try {
-                this.rs.close();
-            } catch (SQLException e) {
-                throw new DaoException(e);
-            }
-        }
-        if (this.st != null) {
-            try {
-                this.st.close();
-            } catch (SQLException e) {
-                throw new DaoException(e);
-            }
-        }
-        if (this.con != null) {
-            try {
-                this.con.close();
-            } catch (SQLException e) {
-                throw new DaoException(e);
-            }
-        }
+        LOG.debug("IN SECTION destroy");
+        closeConnection();
 	}
 }
