@@ -1,13 +1,5 @@
 package com.mirantis.aminakov.bigdatacourse.dao.mysql;
 
-import static org.junit.Assert.*;
-
-import java.io.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.TreeSet;
-
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.BookAlreadyExists;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
@@ -18,6 +10,15 @@ import org.junit.Test;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.TreeSet;
+
+import static org.junit.Assert.*;
 @SuppressWarnings("deprecation")
 public class DaoJdbcTest {
 	
@@ -32,7 +33,7 @@ public class DaoJdbcTest {
         dataSource = new DriverManagerDataSource("com.mysql.jdbc.Driver", "jdbc:mysql://localhost:3306/bigdata", "aminakov", "bigdata");
 		dao = new DaoJdbc();
         dao.setDataSource(dataSource);
-		mt = new ManagementTables();
+		mt = new ManagementTables(dataSource);
 		mt.createTables();
 		mt.closeConnection();
 		books = new ArrayList<Book>();
@@ -44,7 +45,7 @@ public class DaoJdbcTest {
 	public static void testCleanup() throws DaoException {
         ManagementTables mt;
 		dao.closeConnection();
-        mt = new ManagementTables();
+        mt = new ManagementTables(dataSource);
         mt.dropTables();
         mt.closeConnection();
 		books.clear();
@@ -82,7 +83,6 @@ public class DaoJdbcTest {
 
 	@Test
 	public void testGetBookByAuthor() throws DaoException {
-        System.out.println("================= testGetBookByAuthor ===================");
 		int expectedAuthorCounter = 0;
 		String author = gen.authors.get(5);
         System.out.println(author);
