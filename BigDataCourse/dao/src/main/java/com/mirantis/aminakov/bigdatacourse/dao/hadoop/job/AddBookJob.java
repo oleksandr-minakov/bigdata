@@ -29,18 +29,21 @@ public class AddBookJob {
 		
 		book.setId(hadoopConf.bookID);
 		FileSystem fs = hadoopConf.getFS();
+		LOG.debug("Getting FileSistem ...");
 		String dest = new PathFormer().formAddPath(book, hadoopConf.workingDirectory);
 		
 		Path path = new Path(dest);
 		try {
 
 	        FSDataOutputStream out = fs.create(path);
-	        
+	        LOG.debug("creating new FS stream writer...");
 	        out.write(book.getReadableText().getBytes());
+	        LOG.debug("Writing ...");
 	        out.close();
-	        
+	        LOG.debug("Closing writer stream ...");
 	        hadoopConf.bookID++;
 	        fs.setPermission(path, new FsPermission("777"));
+	        LOG.debug("Setting permissions ...");
 	        return book.getId();
 	        
 		} catch (IOException e) {throw new DaoException(e);}

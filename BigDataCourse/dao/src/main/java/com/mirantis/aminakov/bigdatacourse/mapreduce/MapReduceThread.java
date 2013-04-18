@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.mapred.Mapper;
 import org.apache.hadoop.mapred.Reducer;
+import org.apache.log4j.Logger;
 
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
@@ -16,6 +17,8 @@ import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.Pair;
 
 public class MapReduceThread implements Runnable {
 
+	public static final Logger LOG = Logger.getLogger(MapReduceThread.class);
+	
 	private Object job;
 	private Object mapper;
 	private Object reducer;
@@ -54,7 +57,7 @@ public class MapReduceThread implements Runnable {
 	}
 	
 	@Override
-	public void run() {
+	public void run(){
 		
 		try {
 			
@@ -63,7 +66,8 @@ public class MapReduceThread implements Runnable {
 			this.path = jobRunner.getPathToEvaluatedStatistics();
 			this.pairs = getPath.getParsedStatistics(this.path);			
 		} catch (DaoException | IOException e) {
-			e.printStackTrace();
+			LOG.info("Exception in MapReduce job, Message:" + e.getMessage());
+			LOG.debug("Exception in MapReduce job, Message:" + e.getMessage());
 		}
 	}
 
