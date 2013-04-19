@@ -26,8 +26,8 @@
     </bean>
 
     <bean id="parameters" class="com.mirantis.aminakov.bigdatacourse.dao.solr.Parameters">
-        <constructor-arg type="java.lang.String" value="http://0.0.0.0:8081/solr-web"/>
-        <constructor-arg type="com.mirantis.aminakov.bigdatacourse.dao.NAS.NASMapping" ref="nas"/>
+        <property name="daoNAS" ref="nas" />
+        <property name="URL" value="http://0.0.0.0:8080/solr-web"/>
     </bean>
 
     <bean id="nas" class="com.mirantis.aminakov.bigdatacourse.dao.NAS.NASMapping">
