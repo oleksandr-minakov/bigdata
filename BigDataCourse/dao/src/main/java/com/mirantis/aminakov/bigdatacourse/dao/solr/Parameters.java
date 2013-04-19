@@ -4,14 +4,15 @@ import com.mirantis.aminakov.bigdatacourse.dao.NAS.NASMapping;
 
 public class Parameters {
 
-    final String URL;
+    protected String URL;
+    protected int bookId = 0;
+    protected NASMapping daoNAS;
 
-    public int bookId;
-    NASMapping daoNAS;
+    public void setURL(String URL) {
+        this.URL = URL;
+    }
 
-    public Parameters(String url, NASMapping daoNAS) {
-        this.URL = url;
+    public void setDaoNAS(NASMapping daoNAS) {
         this.daoNAS = daoNAS;
-        this.bookId = 0;
     }
 }
