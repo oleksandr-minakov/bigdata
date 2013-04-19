@@ -2,138 +2,73 @@ package com.mirantis.aminakov.bigdatacourse.dao.cassandratests;
 
 import static org.junit.Assert.*;
 
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra;
 
+import org.easymock.EasyMock;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
-import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
 
 public class GetBookByTests {
-	
-	public Book bstate;
-	public Book fstate;
 
-	 
-
-	public void setUp(){
-		
-		bstate = new Book();
-		fstate = new Book();
-		
-	}
 	@Test
 	public void getBookByTitleTest() throws DaoException{
 		
 		List<Book> after = new ArrayList<Book>();
-		setUp();
-		List<String> hosts = new ArrayList<String>();
-		hosts.add(CassandraIP.IP1);
 		
-		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
-		DaoCassandra dao = new DaoCassandra(cts);
-		
-		try {
-			for(int i = 0; i< 100; ++i){
-				
-				bstate.newBook("CassandraTest"+i, "Test", "Tester", new FileInputStream("src/main/resources/testbook"));
-				dao.addBook(bstate);
-			}
-			after = dao.getBookByTitle(1, 10, new String("CassandraTest4"));
-
-			for(Book book: after){
-				assertTrue(book.getTitle().equals(new String("CassandraTest4")));
-				System.out.println(book.getTitle().equals(new String("CassandraTest4")));
-			}
-		} catch (Exception e) {throw new DaoException(e);}
-		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
+		DaoCassandra dao = /*new DaoCassandra(cts);*/EasyMock.createMock(DaoCassandra.class);
+		EasyMock.replay();
+		EasyMock.expect(dao.getBookByTitle(1, 10, new String("CassandraTest4"))).andReturn(new ArrayList<Book>()).times(1);
+		after = dao.getBookByTitle(1, 10, new String("CassandraTest4"));
+		assertTrue(after == null);
+		System.out.println(after == null);
+		EasyMock.verify();
+			
 	}
 	
 	@Test
 	public void getBookByAuthorTest() throws DaoException{
 		
 		List<Book> after = new ArrayList<Book>();
-		setUp();
-		List<String> hosts = new ArrayList<String>();
-		hosts.add(CassandraIP.IP1);
+		DaoCassandra dao = /*new DaoCassandra(cts);*/EasyMock.createMock(DaoCassandra.class);
+		EasyMock.replay();
 		
-		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
-		DaoCassandra dao = new DaoCassandra(cts);
-		
-		try {
-			for(int i = 0; i< 100; ++i){
-				
-				bstate.newBook("CassandraTest", "Test"+i, "Tester", new FileInputStream("src/main/resources/testbook"));
-				dao.addBook(bstate);
-			}
-			after = dao.getBookByAuthor(1, 10, new String("Test4"));
-			
-			for(Book book: after){
-				assertTrue(book.getAuthor().equals(new String("Test4")));
-				System.out.println(book.getAuthor().equals(new String("Test4")));
-			}
-		} catch (Exception e) {throw new DaoException(e);}
-		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
+		EasyMock.expect(dao.getBookByAuthor(1, 10, new String("CassandraTest4"))).andReturn(new ArrayList<Book>()).times(1);
+		after = dao.getBookByAuthor(1, 10, new String("CassandraTest4"));
+		assertTrue(after == null);
+		System.out.println(after == null);
 	}
 	
 	@Test
 	public void getBookByGenreTest() throws DaoException{
 		
 		List<Book> after = new ArrayList<Book>();
-		setUp();
-		List<String> hosts = new ArrayList<String>();
-		hosts.add(CassandraIP.IP1);
-		
-		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
-		DaoCassandra dao = new DaoCassandra(cts);
-		 
-		try {
-			for(int i = 0; i< 100; ++i){
-				
-				bstate.newBook("CassandraTest", "Test", "Tester"+i, new FileInputStream("src/main/resources/testbook"));
-				dao.addBook(bstate);
-			}
-			after = dao.getBookByGenre(1, 10, new String("Tester4"));
-			
-			for(Book book: after){
-				assertTrue(book.getGenre().equals(new String("Tester4")));
-				System.out.println(book.getGenre().equals(new String("Tester4")));
-			}
-		} catch (Exception e) {throw new DaoException(e);}
-		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
+		DaoCassandra dao = /*new DaoCassandra(cts);*/EasyMock.createMock(DaoCassandra.class);
+		EasyMock.replay();
+
+		EasyMock.expect(dao.getBookByGenre(1, 10, new String("CassandraTest4"))).andReturn(new ArrayList<Book>()).times(1);
+		after = dao.getBookByGenre(1, 10, new String("CassandraTest4"));
+		assertTrue(after == null);
+		System.out.println(after == null);
 	}
 	
 	@Test
 	public void getAuthorByGenreTest() throws DaoException{
 		
 		TreeSet<String> after = new TreeSet<String>();
-		setUp();
-		List<String> hosts = new ArrayList<String>();
-		hosts.add(CassandraIP.IP1);
+		DaoCassandra dao = /*new DaoCassandra(cts);*/EasyMock.createMock(DaoCassandra.class);
+		EasyMock.replay();
 		
-		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
-		DaoCassandra dao = new DaoCassandra(cts);
+		EasyMock.expect(dao.getAuthorByGenre(1, 10, new String("CassandraTest4"))).andReturn(new TreeSet<String>()).times(1);
+		after = dao.getAuthorByGenre(1, 10, new String("CassandraTest4"));
+		assertTrue(after == null);
+		System.out.println(after == null);
 		
-		try {
-			for(int i = 0; i< 100; ++i){
-				
-				bstate.newBook("CassandraTest", "Test"+i, "Tester"+i, new FileInputStream("src/main/resources/testbook"));
-				dao.addBook(bstate);
-			}
-			after = dao.getAuthorByGenre(1, 10, new String("Tester5"));
-			
-			for(String book: after){
-				assertTrue(book.equals(new String("Test5")));
-				System.out.println(book.equals(new String("Test5")));
-			}
-		} catch (Exception e) {throw new DaoException(e);}
-		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 	}
 	
 }

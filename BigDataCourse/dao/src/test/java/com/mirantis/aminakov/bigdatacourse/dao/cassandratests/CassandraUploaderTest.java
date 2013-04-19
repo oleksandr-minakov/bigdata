@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.BookUploader;
@@ -13,7 +14,7 @@ import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra;
 
 public class CassandraUploaderTest {
-	
+	@Ignore
 	@Test
 	public void uploaderTest() throws DaoException, IOException{
 		
