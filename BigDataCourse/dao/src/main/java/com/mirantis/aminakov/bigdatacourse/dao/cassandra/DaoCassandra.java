@@ -61,7 +61,7 @@ public class DaoCassandra implements Dao{
 		}catch (Exception e) {
 			LOG.debug(e.getMessage());
             throw new DaoException(e);
-            }
+        }
 		constants.bookID++;
 		LOG.info("Book was added, id:" + String.valueOf(book.getId()));
 		return book.getId();

@@ -2,53 +2,42 @@ package com.mirantis.aminakov.bigdatacourse.dao.cassandratests;
 
 import static org.junit.Assert.*;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra;
+
+import org.easymock.EasyMock;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
-import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
 
 public class PaginateByTokenTest {
 
 	@Test
 	public void paginationTest() throws DaoException, FileNotFoundException{
 		
-		List<String> hosts = new ArrayList<String>();
-		hosts.add(CassandraIP.IP1);
-		
-		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
-		
-		DaoCassandra dao = new DaoCassandra(cts);
-		Book beggining_state = new Book();
-		
-		for(int i = 0; i< 500; ++i){
-			beggining_state.newBook("CassandraTest"+i%250, "Test" + i%2  , "Tester"+i%50, new FileInputStream("src/main/resources/testbook"));
-			dao.addBook(beggining_state);
-		}
+		List<Book> res = new ArrayList<Book>();
+		DaoCassandra dao = /*new DaoCassandra(cts);*/EasyMock.createMock(DaoCassandra.class);
+
+		EasyMock.expect(dao.getBooksByToken("Test0","book author")).andStubReturn(res);
+		EasyMock.expect(dao.getBooksByToken("Test1","book genre")).andStubReturn(res);
+		EasyMock.expect(dao.getBooksByToken("CassandraTest0","book title")).andStubReturn(res);
+		EasyMock.replay(dao);
+		EasyMock.verify(dao);
 		
 		List<Book> lst1 = dao.getBooksByToken("Test0","book author");
-		int querySize_lst1 = dao.getNumberOfRecords();
-		
-		List<Book> lst2 = dao.getBooksByToken("Test1","book author");
-		int querySize_lst2 = dao.getNumberOfRecords();
+
+		List<Book> lst2 = dao.getBooksByToken("Test1","book genre");
 		
 		List<Book> lst3 = dao.getBooksByToken("CassandraTest0","book title");
-		int querySize_lst3 = dao.getNumberOfRecords();
 		
-		List<Book> lst4 = dao.getBooksByToken("Tester1","book genre");
-		int querySize_lst4 = dao.getNumberOfRecords();
+		assertTrue(lst2 != null);
+		assertTrue(lst1 != null);
+		assertTrue(lst3 != null);
 		
-		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
-		
-		System.out.println((lst1.size() + lst2.size() + lst3.size() + lst4.size()) == (querySize_lst1 + querySize_lst2 + querySize_lst3 + querySize_lst4));
-		
-		assertEquals(lst1.size() + lst2.size() + lst3.size() + lst4.size(), querySize_lst1 + querySize_lst2 + querySize_lst3 + querySize_lst4);
 	}
 
 }

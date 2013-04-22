@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,16 +20,24 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.service.Service;
+import com.mirantis.aminakov.bigdatacourse.service.restful.RESTservice;
 
 @Controller
 public class AddBookController {
 	
 	private Service service;
+	private RESTservice restService;
+	
     public static final Logger LOG = Logger.getLogger(AddBookController.class);
 
 	@Autowired
 	public void setService(Service service) {
 		this.service = service;
+	}
+	
+	@Autowired
+	public void setService(RESTservice restService) {
+		this.restService = restService;
 	}
 	
 	@RequestMapping("/")
@@ -132,12 +141,12 @@ public class AddBookController {
 		text
 	}
 	
-	@RequestMapping(value = "/text", method=RequestMethod.GET)
-	public String getTextOfBook(String titleOfBook, Model model) {
+	@RequestMapping(value = "/text/{titleOfBook}", method=RequestMethod.GET)
+	public String getTextOfBook(@PathVariable String titleOfBook, Model model) {
         if (titleOfBook == null || titleOfBook.equalsIgnoreCase(""))
             return "text";
         List<Book> books = new ArrayList<Book>();
-        books = service.findByTitle(1, 1, titleOfBook);
+        books = restService.findByTitle(1, 1, titleOfBook);
         if (books.size() == 0)
             return "text";
         Book book = books.get(0);
@@ -173,11 +182,11 @@ public class AddBookController {
         return "text";
 	}
 
-    @RequestMapping(value = "/delete", method=RequestMethod.GET)
-    public String deleteBook(int deleteBookId, Model model) {
+    @RequestMapping(value = "/delete/{deleteBookId}", method=RequestMethod.GET)
+    public String deleteBook(@PathVariable int deleteBookId, Model model) {
         if (deleteBookId == 0)
             return "delete";
-        int result = service.delBook(deleteBookId);
+        int result = restService.delBook(deleteBookId);
         if (result == 0) {
             model.addAttribute("message", "Book with ID '" + deleteBookId + "' deleted successfully");
         } else {

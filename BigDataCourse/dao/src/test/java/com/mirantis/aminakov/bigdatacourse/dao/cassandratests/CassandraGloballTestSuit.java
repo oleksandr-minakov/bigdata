@@ -8,7 +8,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({ AddBookTest.class, BookConvTest.class, DeleteBookTest.class,
 	GetAllRowKeysTest.class, GetBookByTests.class, GetPageCountTest.class, 
 	GetPageTest.class, GetRangedSliceTest.class, PaginateByTokenTest.class, 
-	PaginationAndRemoving.class, FormNewIDTest.class})
+	FormNewIDTest.class})
 public class CassandraGloballTestSuit {
 	
 	//Global test suit of cassandra misc
