@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import org.apache.hadoop.fs.Path;
+import org.easymock.EasyMock;
 import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
