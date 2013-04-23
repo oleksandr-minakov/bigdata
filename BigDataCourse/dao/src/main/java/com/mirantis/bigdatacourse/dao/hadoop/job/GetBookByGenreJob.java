@@ -10,13 +10,13 @@ import com.mirantis.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
 public class GetBookByGenreJob {
 private HadoopConnector hadoop;
 	
-	public GetBookByGenreJob(HadoopConnector hadoop){
+	public GetBookByGenreJob(HadoopConnector hadoop) {
 		
 		this.hadoop = hadoop;
 	}
 	
 	
-	public List<Book> getBooksBy(int pageNum, int pageSize, String genre) throws DaoException{
+	public List<Book> getBooksBy(int pageNum, int pageSize, String genre) throws DaoException {
 		
 		List<Book> ret = new ArrayList<Book>();
 		
@@ -24,7 +24,9 @@ private HadoopConnector hadoop;
 			GetBookByTokenJob getBooksbyToken = new GetBookByTokenJob(this.hadoop);
 			ret = getBooksbyToken.getBookByToken(pageNum, pageSize, "genre", genre);
 			return ret;
-		} catch(Exception e){throw new DaoException(e);}
+		} catch(Exception e) {
+			throw new DaoException(e);
+			}
 		
 	}
 }

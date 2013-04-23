@@ -1,4 +1,4 @@
-package com.mirantis.aminakov.bigdatacourse.mapreducetests;
+package com.mirantis.bigdatacourse.mapreducetests;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,18 +9,18 @@ import org.junit.Test;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import com.mirantis.aminakov.bigdatacourse.mapreduce.MapReduceThread;
-import com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob;
-import com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob.Map;
-import com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob.Reduce;
 import com.mirantis.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
 import com.mirantis.bigdatacourse.dao.hadoop.configuration.Pair;
 import com.mirantis.bigdatacourse.dao.hadooptests.HdfsIP;
+import com.mirantis.bigdatacourse.mapreduce.MapReduceThread;
+import com.mirantis.bigdatacourse.mapreduce.WordCounterJob;
+import com.mirantis.bigdatacourse.mapreduce.WordCounterJob.Map;
+import com.mirantis.bigdatacourse.mapreduce.WordCounterJob.Reduce;
 
 public class MapRedObjInniter {
 
 	@Test
-	public void getObjsTest() throws Exception{
+	public void getObjsTest() throws Exception {
 		
 		List<Pair<String, Double>> pairs = new ArrayList<Pair<String, Double>>();
 		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP, "9000", new HdfsIP().HadoopUser, "/bookshelf/books/");

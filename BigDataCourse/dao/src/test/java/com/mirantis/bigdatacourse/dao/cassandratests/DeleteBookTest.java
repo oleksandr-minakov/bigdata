@@ -20,7 +20,7 @@ import com.mirantis.bigdatacourse.dao.cassandra.DaoCassandra;
 public class DeleteBookTest {
 
 	@Test
-	public void deleteBookTest() throws DaoException{
+	public void deleteBookTest() throws DaoException {
 		
 		List<String> hosts = new ArrayList<String>();
 		hosts.add(CassandraIP.IP1);

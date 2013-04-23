@@ -17,23 +17,23 @@ public class GetBookByTokenJob {
 	private HadoopConnector hadoop;
 	public int querySize = 0;
 	
-	public GetBookByTokenJob(HadoopConnector hadoop){
+	public GetBookByTokenJob(HadoopConnector hadoop) {
 		
 		this.hadoop = hadoop;
 	}
 	
-	public List<Book> getBookByToken(int pageNum, int pageSize, String tokenName, String tokenValue) throws DaoException{
+	public List<Book> getBookByToken(int pageNum, int pageSize, String tokenName, String tokenValue) throws DaoException {
 		
 		int pos = -1;
-		if(tokenName.equals("title")){
+		if(tokenName.equals("title")) {
 		
 			pos = 3;
 		}
-		if(tokenName.equals("author")){
+		if(tokenName.equals("author")) {
 			
 			pos = 1;
 		}
-		if(tokenName.equals("genre")){
+		if(tokenName.equals("genre")) {
 			
 			pos = 2;
 		}
@@ -45,7 +45,7 @@ public class GetBookByTokenJob {
 			statList = Arrays.asList(hadoop.getFS().listStatus(new Path(hadoop.workingDirectory)));
 			List<Path> pathList = new ArrayList<Path>();
 			
-			for(FileStatus fStat: statList){
+			for(FileStatus fStat: statList) {
 					
 				Path lvl0 = fStat.getPath(); // ID
 				hadoop.getFS().setWorkingDirectory(lvl0);
@@ -63,25 +63,27 @@ public class GetBookByTokenJob {
 				List<String> pathLevels = Arrays.asList(stringPath.split("/"));
 				List<String> book = pathLevels.subList(2, pathLevels.size());
 				String curToken = book.get(pos);
-				if(curToken.equals(tokenValue)){
+				if(curToken.equals(tokenValue)) {
 					pathList.add(lvl3);
 				}
 			}
 			
-			if(pathList.size() != 0 && pathList.size() >= pageNum*pageSize){
+			if(pathList.size() != 0 && pathList.size() >= pageNum*pageSize) {
 				
 				this.querySize = pathList.size();
 				ret = new GetBookByPath().getBooksByPathList(pathList.subList((pageNum-1)*pageSize, pageSize*pageNum), hadoop);
 				return ret;
 			}
-			if(pathList.size() >= 0 && pathList.size() < pageNum*pageSize){
+			if(pathList.size() >= 0 && pathList.size() < pageNum*pageSize) {
 				this.querySize = pathList.size();
 				ret = new GetBookByPath().getBooksByPathList(pathList.subList(0, pathList.size()), hadoop);
 				return ret;
 			}
 			else
 				return ret;
-		} catch (IOException e) {throw new DaoException(e);}
+		} catch (IOException e) {
+			throw new DaoException(e);
+			}
 		
 	}
 

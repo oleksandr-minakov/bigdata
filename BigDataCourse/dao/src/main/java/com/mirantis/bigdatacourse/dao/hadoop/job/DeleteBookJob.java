@@ -16,12 +16,12 @@ public class DeleteBookJob {
 
 	private HadoopConnector hadoopConf;
 	
-	public DeleteBookJob(HadoopConnector conf) throws DaoException{
+	public DeleteBookJob(HadoopConnector conf) throws DaoException {
 		
 		this.hadoopConf = conf;
 	}
 	
-	public int deleteBookJob(int id) throws DaoException{
+	public int deleteBookJob(int id) throws DaoException {
 		
 		FileSystem fs = this.hadoopConf.getFS();
 		LOG.debug("Getting FileSystem ...");
@@ -34,7 +34,9 @@ public class DeleteBookJob {
 			LOG.debug("Deleting path and included files recursively ...");
 			fs.delete(path, true);
 			
-		} catch (IOException e){throw new DaoException(e);}
+		} catch (IOException e) {
+			throw new DaoException(e);
+			}
 		
         return 0;
 	}

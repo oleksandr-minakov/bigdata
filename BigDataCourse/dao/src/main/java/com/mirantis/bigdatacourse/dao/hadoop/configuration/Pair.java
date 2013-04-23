@@ -5,19 +5,19 @@ public class Pair<K, V> {
 	private K word;
 	private V count;
 	
-	public K getWord(){
+	public K getWord() {
 		 return this.word;
 	}
 	
-	public V getCount(){
+	public V getCount() {
 		 return this.count;
 	}
 	
-	public void setWord(K word){
+	public void setWord(K word) {
 		 this.word = word;
 	}
 	
-	public void setCount(V count){
+	public void setCount(V count) {
 		 this.count = count;
 	}
 }

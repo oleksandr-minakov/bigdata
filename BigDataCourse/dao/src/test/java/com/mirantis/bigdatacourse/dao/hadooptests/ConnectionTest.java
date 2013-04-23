@@ -13,7 +13,7 @@ import com.mirantis.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
 
 public class ConnectionTest {
 	@Test
-	public void getConnetionTest() throws DaoException, IOException{
+	public void getConnetionTest() throws DaoException, IOException {
 		
 		BasicConfigurator.configure();
 		

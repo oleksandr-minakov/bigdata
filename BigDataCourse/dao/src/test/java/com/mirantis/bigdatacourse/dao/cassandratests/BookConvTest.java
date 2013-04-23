@@ -27,7 +27,7 @@ public class BookConvTest {
 	}
 	
 	@Test
-	public void book2rowTest() throws DaoException{
+	public void book2rowTest() throws DaoException {
 			
 		try {
 			setUp();
@@ -40,7 +40,7 @@ public class BookConvTest {
 	}
 	
 	@Test
-	public void row2bookTest() throws DaoException{
+	public void row2bookTest() throws DaoException {
 		
 		setUp();
 		try {

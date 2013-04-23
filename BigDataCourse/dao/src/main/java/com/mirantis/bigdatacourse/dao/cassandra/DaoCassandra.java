@@ -36,7 +36,7 @@ public class DaoCassandra implements Dao{
     private int querySize;
     public static final Logger LOG = Logger.getLogger(DaoCassandra.class);
 
-    public DaoCassandra(Constants constants) throws DaoException{
+    public DaoCassandra(Constants constants) throws DaoException {
 		this.constants = constants;
 		LOG.debug("Connection was established");
 		try {
@@ -248,7 +248,7 @@ public class DaoCassandra implements Dao{
 
 	}
 
-	public List<String> getAllRowKeys() throws DaoException{
+	public List<String> getAllRowKeys() throws DaoException {
 
 		List<String> pagedBooks = new ArrayList<String>();
 
@@ -283,7 +283,7 @@ public class DaoCassandra implements Dao{
 			return pages;
 	}
 
-	public List<Book> getBooks(List<String> rowKeys) throws DaoException{
+	public List<Book> getBooks(List<String> rowKeys) throws DaoException {
 
 		List<Book> booksByKeys = new ArrayList<Book>();
 
@@ -304,7 +304,7 @@ public class DaoCassandra implements Dao{
 		}catch (Exception e){throw new DaoException(e);}
 	}
 
-	public List<Book> getBooksByToken(String lookFor, String token) throws DaoException{
+	public List<Book> getBooksByToken(String lookFor, String token) throws DaoException {
 
 		List<String> keys = getAllRowKeys();
 		LOG.debug("Getting all row keys...");

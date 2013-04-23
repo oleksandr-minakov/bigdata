@@ -31,6 +31,7 @@
         <constructor-arg type = "java.lang.String" value="9000"/>
         <constructor-arg type = "java.lang.String" value="hadoop"/>
         <constructor-arg type = "java.lang.String" value="/bookshelf/books/"/>
+         <!-- working directory should ends with / --> 
     </bean>
 
    <!-- Beans that are configuration of MapReduce Job --> 

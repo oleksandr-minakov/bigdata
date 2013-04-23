@@ -11,13 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import com.mirantis.aminakov.bigdatacourse.mapreduce.GetParsedStatistics;
-import com.mirantis.aminakov.bigdatacourse.mapreduce.JobRunner;
-import com.mirantis.aminakov.bigdatacourse.mapreduce.MapReduceThread;
 import com.mirantis.bigdatacourse.dao.Dao;
 import com.mirantis.bigdatacourse.dao.DaoException;
 import com.mirantis.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
 import com.mirantis.bigdatacourse.dao.hadoop.configuration.Pair;
+import com.mirantis.bigdatacourse.mapreduce.GetParsedStatistics;
+import com.mirantis.bigdatacourse.mapreduce.JobRunner;
+import com.mirantis.bigdatacourse.mapreduce.MapReduceThread;
 
 public class StatService {
 	
@@ -80,7 +80,7 @@ public class StatService {
 		this.dao = dao;
 	}
 	
-	public void setUpService(){
+	public void setUpService() {
 		
 		mapRedThread = new MapReduceThread();
 			mapRedThread.setConfiguration(this.configuration);
@@ -99,10 +99,10 @@ public class StatService {
 		exec = pool;
 	}
 	@SuppressWarnings("rawtypes")
-	public List<Pair<String, Double>> viewStatistics() throws IOException, DaoException{
+	public List<Pair<String, Double>> viewStatistics() throws IOException, DaoException {
 		
 		List<Pair<String, Double>> pairs = new ArrayList<Pair<String, Double>>();
-		if(this.configuration.getFS().exists(new Path("/Statistics")) && this.configuration.getFS().listStatus(new Path("/Statistics")).length > 1){
+		if(this.configuration.getFS().exists(new Path("/Statistics")) && this.configuration.getFS().listStatus(new Path("/Statistics")).length > 1) {
 			
 			GetParsedStatistics  parser = new GetParsedStatistics(this.configuration);
 			JobRunner jobRunner = new JobRunner(this.configuration, job.getClass(), ((Mapper)mapper).getClass(), ((Reducer)reducer).getClass());
@@ -116,7 +116,7 @@ public class StatService {
 		
 	}
 	
-	public List<Pair<String, Double>> recalculateStatistics() throws IOException, DaoException{
+	public List<Pair<String, Double>> recalculateStatistics() throws IOException, DaoException {
 		
 		List<Pair<String, Double>> pairs = new ArrayList<Pair<String, Double>>();
 		

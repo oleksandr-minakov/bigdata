@@ -19,7 +19,7 @@ public class HadoopConnector {
 	public int bookID;
 	
 	
-	public HadoopConnector(String hadoopIP, String hadoopPort, String user, String workingDirectory){
+	public HadoopConnector(String hadoopIP, String hadoopPort, String user, String workingDirectory) {
 		
 		this.hadoopUser = user;
 		this.hadoopIP = hadoopIP;
@@ -29,19 +29,21 @@ public class HadoopConnector {
 		bookID = 0;
 	}
 	
-	private void  setConfiguration() throws DaoException{
+	private void  setConfiguration() throws DaoException {
 		
 		this.newConf = new Configuration();
 	}
 	
-	public FileSystem getFS() throws DaoException{
+	public FileSystem getFS() throws DaoException {
 		
-		if(this.newFS == null){
+		if(this.newFS == null) {
 			
 			setConfiguration();
 			try {
 				this.newFS = FileSystem.get(URI.create(hadoopURI),newConf, this.hadoopUser);
-			} catch (Exception e) {throw new DaoException(e);}
+			} catch (Exception e) {
+				throw new DaoException(e);
+				}
 			
 			return this.newFS;
 		}
@@ -49,19 +51,25 @@ public class HadoopConnector {
 			return this.newFS;
 	}
 	
-	public void closeConnection() throws DaoException{
-		try {newFS.close();} catch (IOException e) {throw new DaoException(e);}
+	public void closeConnection() throws DaoException {
+		
+		try {
+			newFS.close();
+		} 
+		catch (IOException e) {
+			throw new DaoException(e);
+			}
 	}
 	
-	public String getIP(){
+	public String getIP() {
 		return this.hadoopIP;
 	}
 	
-	public String getPort(){
+	public String getPort() {
 		return this.hadoopPort;
 	}
 	
-	public String getURI(){
+	public String getURI() {
 		return this.hadoopURI;
 	}
 }

@@ -14,7 +14,7 @@ import com.mirantis.bigdatacourse.dao.cassandra.DaoCassandra;
 public class FormNewIDTest {
 
 	@Test
-	public void testCase() throws DaoException{
+	public void testCase() throws DaoException {
 		
 		List<String> hosts = new ArrayList<String>();
 		hosts.add(CassandraIP.IP1);

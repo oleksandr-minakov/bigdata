@@ -16,7 +16,7 @@ import com.mirantis.bigdatacourse.dao.cassandra.DaoCassandra;
 public class CassandraUploaderTest {
 	@Ignore
 	@Test
-	public void uploaderTest() throws DaoException, IOException{
+	public void uploaderTest() throws DaoException, IOException {
 		
 
 		List<String> hosts = new ArrayList<String>();
