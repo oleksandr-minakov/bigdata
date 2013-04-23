@@ -1,22 +1,24 @@
 package com.mirantis.aminakov.bigdatacourse.dao.solr;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
+import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
+import com.mirantis.aminakov.bigdatacourse.dao.NAS.NASMapping;
 import org.apache.solr.common.SolrDocument;
 
-import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 
 public class BookUtils {
 
-    public static Book map(SolrDocument document) {
+    public static Book map(SolrDocument document, NASMapping daoNAS) throws IOException, DaoException {
         Book book = new Book();
         book.setId(Integer.parseInt(document.get("id").toString()));
         book.setTitle(document.get("title").toString());
         book.setAuthor(document.get("author").toString());
         book.setGenre(document.get("genre").toString());
-        book.setText(new ByteArrayInputStream((document.get("text")).toString().getBytes()));
+        book.setText(daoNAS.readFile(book.getId()));
         return book;
     }
 
