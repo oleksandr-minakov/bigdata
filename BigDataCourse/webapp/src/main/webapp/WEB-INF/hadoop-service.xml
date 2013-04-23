@@ -9,24 +9,24 @@
 	<context:annotation-config/>
 
     <context:component-scan
-            base-package="com.mirantis.aminakov.bigdatacourse.dao.hadoop" />
+            base-package="com.mirantis.bigdatacourse.dao.hadoop" />
     <context:component-scan
-            base-package="com.mirantis.aminakov.bigdatacourse.service" />
+            base-package="com.mirantis.bigdatacourse.service" />
     
-	<bean id="statService"	class="com.mirantis.aminakov.bigdatacourse.service.StatService" />
+	<bean id="statService"	class="com.mirantis.bigdatacourse.service.StatService" />
     
 	<bean id="service"
-		class="com.mirantis.aminakov.bigdatacourse.service.ServiceToDao" />
+		class="com.mirantis.bigdatacourse.service.ServiceToDao" />
 
-    <bean id="dao" class="com.mirantis.aminakov.bigdatacourse.dao.hadoop.DaoHDFS">
+    <bean id="dao" class="com.mirantis.bigdatacourse.dao.hadoop.DaoHDFS">
         <constructor-arg ref="configuration"/>
     </bean>
 
-    <bean id="hdfs" class="com.mirantis.aminakov.bigdatacourse.dao.hadoop.DaoHDFS">
+    <bean id="hdfs" class="com.mirantis.bigdatacourse.dao.hadoop.DaoHDFS">
         <constructor-arg ref="configuration"/>
     </bean>
 
-    <bean id="configuration" class="com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.HadoopConnector">
+    <bean id="configuration" class="com.mirantis.bigdatacourse.dao.hadoop.configuration.HadoopConnector">
         <constructor-arg type = "java.lang.String" value="0.0.0.0"/>
         <constructor-arg type = "java.lang.String" value="9000"/>
         <constructor-arg type = "java.lang.String" value="hadoop"/>
@@ -35,8 +35,8 @@
 
    <!-- Beans that are configuration of MapReduce Job --> 
 
-    <bean id="job" class="com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob"/>
-	<bean id="mapper" class="com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob.Map"/>
-    <bean id="reducer" class="com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob.Reduce"/>
+    <bean id="job" class="com.mirantis.bigdatacourse.mapreduce.WordCounterJob"/>
+	<bean id="mapper" class="com.mirantis.bigdatacourse.mapreduce.WordCounterJob.Map"/>
+    <bean id="reducer" class="com.mirantis.bigdatacourse.mapreduce.WordCounterJob.Reduce"/>
 
 </beans>

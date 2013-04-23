@@ -1,27 +1,25 @@
 package com.mirantis.aminakov.bigdatacourse.mapreducetests;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.hadoop.fs.Path;
 import org.junit.Assert;
 import org.junit.Test;
-import com.mirantis.aminakov.bigdatacourse.dao.Book;
-import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
-import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
-import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.Pair;
-import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.PathFormer;
-import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.AddBookJob;
-import com.mirantis.aminakov.bigdatacourse.dao.hadooptests.HdfsIP;
 import com.mirantis.aminakov.bigdatacourse.mapreduce.GetParsedStatistics;
 import com.mirantis.aminakov.bigdatacourse.mapreduce.JobRunner;
 import com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob;
 import com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob.Map;
 import com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob.Reduce;
+import com.mirantis.bigdatacourse.dao.DaoException;
+import com.mirantis.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
+import com.mirantis.bigdatacourse.dao.hadoop.configuration.Pair;
+import com.mirantis.bigdatacourse.dao.hadoop.job.AddBookJob;
+import com.mirantis.bigdatacourse.dao.hadooptests.HdfsIP;
 
 public class WordCountTest {
 	
+	@SuppressWarnings("unused")
 	@Test
 	public void testCase() throws DaoException, IOException{
 		
@@ -32,17 +30,6 @@ public class WordCountTest {
 		
 		AddBookJob job = new AddBookJob(newOne);
 		List<Path> pathList = new ArrayList<Path>();
-		/*Book beggining_state;
-		
-		for(int i = 0; i < testCase; ++i){
-			
-			beggining_state = new Book();
-			beggining_state.newBook("CassandraTest", "Test", "Tester", new FileInputStream("src/main/resources/testbook"));
-			job.addBookJob(beggining_state);
-			pathList.add(new Path(newOne.getURI() + new PathFormer().formAddPath(beggining_state, newOne.workingDirectory)));
-			
-		}
-		*/
 		JobRunner jobba = new JobRunner(newOne, WordCounterJob.class , Map.class, Reduce.class);
 		GetParsedStatistics  getP = new GetParsedStatistics(newOne);
 		Path path = jobba.getPathToEvaluatedStatistics();

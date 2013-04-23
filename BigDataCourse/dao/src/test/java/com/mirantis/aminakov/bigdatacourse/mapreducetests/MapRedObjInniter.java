@@ -9,13 +9,13 @@ import org.junit.Test;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
-import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.Pair;
-import com.mirantis.aminakov.bigdatacourse.dao.hadooptests.HdfsIP;
 import com.mirantis.aminakov.bigdatacourse.mapreduce.MapReduceThread;
 import com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob;
 import com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob.Map;
 import com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob.Reduce;
+import com.mirantis.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
+import com.mirantis.bigdatacourse.dao.hadoop.configuration.Pair;
+import com.mirantis.bigdatacourse.dao.hadooptests.HdfsIP;
 
 public class MapRedObjInniter {
 

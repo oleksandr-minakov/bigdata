@@ -9,9 +9,9 @@ import org.apache.hadoop.mapred.Mapper;
 import org.apache.hadoop.mapred.Reducer;
 import org.apache.log4j.Logger;
 
-import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
-import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
-import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.Pair;
+import com.mirantis.bigdatacourse.dao.DaoException;
+import com.mirantis.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
+import com.mirantis.bigdatacourse.dao.hadoop.configuration.Pair;
 
 @SuppressWarnings({"rawtypes"})
 

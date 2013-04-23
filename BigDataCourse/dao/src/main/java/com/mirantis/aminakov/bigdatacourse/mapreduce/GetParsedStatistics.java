@@ -11,9 +11,9 @@ import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.Path;
 import org.apache.log4j.Logger;
 
-import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
-import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
-import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.Pair;
+import com.mirantis.bigdatacourse.dao.DaoException;
+import com.mirantis.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
+import com.mirantis.bigdatacourse.dao.hadoop.configuration.Pair;
 
 public class GetParsedStatistics {
 	
