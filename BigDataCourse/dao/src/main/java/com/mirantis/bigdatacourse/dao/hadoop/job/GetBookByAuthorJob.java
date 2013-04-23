@@ -11,13 +11,13 @@ public class GetBookByAuthorJob {
 	
 	private HadoopConnector hadoop;
 	
-	public GetBookByAuthorJob(HadoopConnector hadoop){
+	public GetBookByAuthorJob(HadoopConnector hadoop) {
 		
 		this.hadoop = hadoop;
 	}
 	
 	
-	public List<Book> getBooksBy(int pageNum, int pageSize, String author) throws DaoException{
+	public List<Book> getBooksBy(int pageNum, int pageSize, String author) throws DaoException {
 		
 		List<Book> ret = new ArrayList<Book>();
 		
@@ -25,7 +25,9 @@ public class GetBookByAuthorJob {
 			GetBookByTokenJob getBooksbyToken = new GetBookByTokenJob(this.hadoop);
 			ret = getBooksbyToken.getBookByToken(pageNum, pageSize, "author", author);
 			return ret;
-		} catch(Exception e){throw new DaoException(e);}
+		} catch(Exception e) {
+			throw new DaoException(e);
+			}
 		
 	}
 

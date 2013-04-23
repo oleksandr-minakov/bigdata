@@ -28,7 +28,7 @@ public class Constants {
 	
 	public int bookID;
 	
-	private BasicKeyspaceDefinition getNewKeyspaceDef(){
+	private BasicKeyspaceDefinition getNewKeyspaceDef() {
 		
 			KsDef = new BasicKeyspaceDefinition();
 			KsDef.setName(KEYSPACE_NAME);
@@ -39,12 +39,12 @@ public class Constants {
 			return this.KsDef;
 	}
 	
-	public Keyspace getKeyspace(){
+	public Keyspace getKeyspace() {
 		
 			return HFactory.createKeyspace(KEYSPACE_NAME, clstr); 
 	}
 	
-	public BasicColumnFamilyDefinition getNewCfDef(String name){
+	public BasicColumnFamilyDefinition getNewCfDef(String name) {
 
 			this.CfDef = new BasicColumnFamilyDefinition();
 			this.CfDef.setKeyspaceName(KEYSPACE_NAME);
@@ -52,10 +52,10 @@ public class Constants {
 			return this.CfDef;
 	}
 	
-	public Cluster getCurrentClstr(){
+	public Cluster getCurrentClstr() {
 		
 		
-		if(this.clstr == null){
+		if(this.clstr == null) {
 			
 			this.KsDef  = this.getNewKeyspaceDef();
 			this.CfDef = getNewCfDef(this.CF_NAME);
@@ -70,25 +70,25 @@ public class Constants {
 			boolean flg = false;
 			boolean cf_flg = false;
 			
-			for(KeyspaceDefinition def: clstr.describeKeyspaces()){
-				if(def.getName().equals(KEYSPACE_NAME)){
+			for(KeyspaceDefinition def: clstr.describeKeyspaces()) {
+				if(def.getName().equals(KEYSPACE_NAME)) {
 					flg = true;
-					for(ColumnFamilyDefinition cf:def.getCfDefs()){
-						if(cf.getName().equals(CF_NAME)){
+					for(ColumnFamilyDefinition cf:def.getCfDefs()) {
+						if(cf.getName().equals(CF_NAME)) {
 							cf_flg = true;
 						}
 					}
 				}
 			}
 			
-			if(flg == false){
+			if(flg == false) {
 				this.clstr.addKeyspace(KsDef);
 			}
 			
-			for(KeyspaceDefinition def: clstr.describeKeyspaces()){
+			for(KeyspaceDefinition def: clstr.describeKeyspaces()) {
 				
-				if(def.getName().equals(KEYSPACE_NAME)){
-					if(cf_flg == false){
+				if(def.getName().equals(KEYSPACE_NAME)) {
+					if(cf_flg == false) {
 						this.CfDef = getNewCfDef(this.CF_NAME);
 						this.clstr.addColumnFamily(CfDef);
 					}
@@ -100,7 +100,7 @@ public class Constants {
 			return this.clstr;
 	}	
 
-	public Constants(String clName, String ksName, String cfName, List<String> hostDef){
+	public Constants(String clName, String ksName, String cfName, List<String> hostDef) {
 		
 		HOST_DEFS = hostDef;
 		CLUSTER_NAME = clName;

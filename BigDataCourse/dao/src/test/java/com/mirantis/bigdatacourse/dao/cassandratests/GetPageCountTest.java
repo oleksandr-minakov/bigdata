@@ -12,7 +12,7 @@ import com.mirantis.bigdatacourse.dao.cassandra.DaoCassandra;
 public class GetPageCountTest {
 
     @Test
-	public void getPagesCountTest() throws DaoException{
+	public void getPagesCountTest() throws DaoException {
 		
 		DaoCassandra dao = /*new DaoCassandra(cts);*/EasyMock.createMock(DaoCassandra.class);
 		EasyMock.expect(dao.getPageCount(0, 0)).andReturn(0).times(2);

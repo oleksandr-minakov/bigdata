@@ -20,7 +20,7 @@ import com.mirantis.bigdatacourse.dao.hadoop.job.GetLastIndexJob;
 
 public class GetAllBooksJobTest {
 	@Test
-	public void getAllBooksJobTest() throws IOException, DaoException{
+	public void getAllBooksJobTest() throws IOException, DaoException {
 		
 
 		BasicConfigurator.configure();

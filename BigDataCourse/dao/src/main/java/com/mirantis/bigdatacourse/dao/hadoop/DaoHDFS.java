@@ -26,7 +26,7 @@ public class DaoHDFS implements Dao{
 	private HadoopConnector hadoop;
 	private int querySize = 0;
 	
-	public DaoHDFS(HadoopConnector hadoop) throws DaoException{
+	public DaoHDFS(HadoopConnector hadoop) throws DaoException {
 		
 		this.hadoop = hadoop;
 		LOG.debug("Getting connection from Spring context...");

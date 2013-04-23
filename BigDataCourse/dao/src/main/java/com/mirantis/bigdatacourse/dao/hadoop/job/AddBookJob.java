@@ -20,12 +20,12 @@ public class AddBookJob {
 	
 	private HadoopConnector hadoopConf;
 	
-	public AddBookJob(HadoopConnector conf) throws DaoException{
+	public AddBookJob(HadoopConnector conf) throws DaoException {
 		
 		this.hadoopConf = conf;
 	}
 	
-	public int addBookJob(Book book) throws DaoException{
+	public int addBookJob(Book book) throws DaoException {
 		
 		book.setId(hadoopConf.bookID);
 		FileSystem fs = hadoopConf.getFS();

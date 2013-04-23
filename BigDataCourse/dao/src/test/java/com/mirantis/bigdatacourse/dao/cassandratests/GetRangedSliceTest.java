@@ -16,7 +16,7 @@ import com.mirantis.bigdatacourse.dao.cassandra.DaoCassandra;
 public class GetRangedSliceTest {
 
 	@Test
-	public void getRangedSlicesTest() throws DaoException{
+	public void getRangedSlicesTest() throws DaoException {
 		
 		List<Book> before = new ArrayList<Book>();
 		List<Book> after = new ArrayList<Book>();

@@ -18,12 +18,12 @@ public class BookConverter {
 		private static final BookConverter InstanceHolder = new BookConverter();
 	}
 	
-	public static BookConverter getInstance(){
+	public static BookConverter getInstance() {
 		
 		return BookConverterHolder.InstanceHolder;
 	}	
 
-	public List<HColumn<String, String>> book2row(Book newBook) throws IOException{
+	public List<HColumn<String, String>> book2row(Book newBook) throws IOException {
 		
 		List<HColumn<String, String>> cols = new ArrayList<HColumn<String, String>>();
 		cols.add(HFactory.createColumn("book id", String.valueOf(newBook.getId())));
@@ -36,28 +36,28 @@ public class BookConverter {
 		return cols;
 	}
 	
-	public Book row2book(List<HColumn<String, String>> book) throws IOException{
+	public Book row2book(List<HColumn<String, String>> book) throws IOException {
 		
 		Book newBook = new Book();
-		for(HColumn<String, String> col: book){
+		for(HColumn<String, String> col: book) {
 			
-			if(col.getName().equals("book id")){
+			if(col.getName().equals("book id")) {
 				
 				newBook.setId(Integer.valueOf(col.getValue()));										}
 			
-			if(col.getName().equals("book title")){
+			if(col.getName().equals("book title")) {
 				
 				newBook.setTitle(col.getValue());													}
 			
-			if(col.getName().equals("book author")){
+			if(col.getName().equals("book author")) {
 				
 				newBook.setAuthor(col.getValue());													}
 			
-			if(col.getName().equals("book genre")){
+			if(col.getName().equals("book genre")) {
 				
 				newBook.setGenre(col.getValue());													}
 			
-			if(col.getName().equals("book text")){
+			if(col.getName().equals("book text")) {
 				
 				InputStream is =new ByteArrayInputStream(col.getValue().getBytes("UTF8")); 
 				newBook.setText(is);																}

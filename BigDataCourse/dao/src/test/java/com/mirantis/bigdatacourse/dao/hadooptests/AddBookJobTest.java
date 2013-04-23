@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import org.apache.hadoop.fs.Path;
-import org.easymock.EasyMock;
 import org.junit.Test;
 
 import com.mirantis.bigdatacourse.dao.Book;
@@ -16,7 +15,7 @@ import com.mirantis.bigdatacourse.dao.hadoop.job.AddBookJob;
 
 public class AddBookJobTest {
 	@Test
-	public void addBookTest()throws DaoException, IOException{
+	public void addBookTest()throws DaoException, IOException {
 		
 		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP,"9000", new HdfsIP().HadoopUser, "/bookshelf/books/");
 		

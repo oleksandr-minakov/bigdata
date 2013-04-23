@@ -15,7 +15,7 @@ import com.mirantis.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
 
 public class GetBookByPath {
 	
-	public Book getBookByPath(Path path, HadoopConnector hadoop) throws DaoException{
+	public Book getBookByPath(Path path, HadoopConnector hadoop) throws DaoException {
 		
 		String stringPath = path.toString().substring(hadoop.getURI().length()+1);
 		List<String> pathLevels = Arrays.asList(stringPath.split("/"));
@@ -36,11 +36,13 @@ public class GetBookByPath {
 			in.close();
 			
 			return newBook;
-		} catch (IOException e) {throw new DaoException(e);}
+		} catch (IOException e) {
+			throw new DaoException(e);
+			}
 	}
 	
 	
-	public List<Book> getBooksByPathList(List<Path> pathList, HadoopConnector hadoop) throws DaoException{
+	public List<Book> getBooksByPathList(List<Path> pathList, HadoopConnector hadoop) throws DaoException {
 		
 		List<Book> books = new ArrayList<Book>();
 		for(Path path: pathList){
@@ -48,7 +50,9 @@ public class GetBookByPath {
 				
 				books.add(getBookByPath(path, hadoop));
 				
-			} catch (DaoException e) {throw new DaoException(e);}
+			} catch (DaoException e) {
+				throw new DaoException(e);
+				}
 		}
 		return books;
 	}

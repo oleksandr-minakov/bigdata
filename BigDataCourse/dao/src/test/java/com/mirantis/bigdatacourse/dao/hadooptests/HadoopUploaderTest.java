@@ -15,7 +15,7 @@ import com.mirantis.bigdatacourse.dao.hadoop.job.GetLastIndexJob;
 public class HadoopUploaderTest {
 	@Ignore
 	@Test
-	public void uploaderTest() throws DaoException, IOException{
+	public void uploaderTest() throws DaoException, IOException {
 		
 
 		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP, "9000", new HdfsIP().HadoopUser, "/bookshelf/books/");

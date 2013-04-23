@@ -17,7 +17,7 @@ import com.mirantis.bigdatacourse.dao.cassandra.DaoCassandra;
 public class PaginateByTokenTest {
 
 	@Test
-	public void paginationTest() throws DaoException, FileNotFoundException{
+	public void paginationTest() throws DaoException, FileNotFoundException {
 		
 		List<Book> res = new ArrayList<Book>();
 		DaoCassandra dao = /*new DaoCassandra(cts);*/EasyMock.createMock(DaoCassandra.class);

@@ -16,7 +16,7 @@ import com.mirantis.bigdatacourse.dao.cassandra.DaoCassandra;
 public class GetAllRowKeysTest {
 	
 	@Test
-	public void getIterList() throws DaoException{
+	public void getIterList() throws DaoException {
 		
 		DaoCassandra dao = /*new DaoCassandra(cts);*/EasyMock.createMock(DaoCassandra.class);
 		replay();

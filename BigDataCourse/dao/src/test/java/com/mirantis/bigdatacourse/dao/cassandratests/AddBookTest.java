@@ -17,7 +17,7 @@ import com.mirantis.bigdatacourse.dao.cassandra.DaoCassandra;
 public class AddBookTest {
 
 	@Test
-	public void addBookTest() throws DaoException{
+	public void addBookTest() throws DaoException {
 			
 		DaoCassandra dao = /*new DaoCassandra(cts);*/EasyMock.createMock(DaoCassandra.class);
 		replay();

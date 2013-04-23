@@ -27,7 +27,7 @@ public class NASMapping implements FSMapping{
 		super();
 		this.workingDirectory = workingDirectory;
 		this.nastity = nastity;
-		if(!new File(this.workingDirectory).exists()){
+		if(!new File(this.workingDirectory).exists()) {
 			
 			LOG.debug("Checking working directory for existance");
 			directory = new File(this.workingDirectory);
@@ -54,14 +54,14 @@ public class NASMapping implements FSMapping{
 		this.workingDirectory = workingDirectory;
 	}
 	@Override
-	public String getAbsolutePath(int id) throws DaoException{
+	public String getAbsolutePath(int id) throws DaoException {
 		
 		String hash = new String();
 		String absPath = this.workingDirectory;
 		LOG.debug("Culcucating MD5 hash ...");
 		hash = getHash(id);
 		
-		for(int i = 0; i < this.nastity; ++i){
+		for(int i = 0; i < this.nastity; ++i) {
 			String nastity = hash.substring(i*this.nastity, (i+1)*this.nastity) + "/";
 			absPath +=nastity;
 		}
@@ -70,7 +70,7 @@ public class NASMapping implements FSMapping{
 		return absPath;
 	}
 	@Override
-	public String getHash(int id) throws DaoException{
+	public String getHash(int id) throws DaoException {
 		
 		String hash = new String();
 		MessageDigest hashAlg;
@@ -90,7 +90,7 @@ public class NASMapping implements FSMapping{
 		return hash;
 	}
 	@Override
-	public int createDirectoryRecursively(int id) throws DaoException{
+	public int createDirectoryRecursively(int id) throws DaoException {
 		
 		LOG.debug("Creating directories recursively");
 		boolean flag = new File(getAbsolutePath(id)).mkdirs();
@@ -102,13 +102,13 @@ public class NASMapping implements FSMapping{
 		}
 	}
 	@Override
-	public int writeFile(int id, InputStream is) throws DaoException, IOException{
+	public int writeFile(int id, InputStream is) throws DaoException, IOException {
 		
 		LOG.debug("Mapping file to NAS...");
 		int res = createDirectoryRecursively(id);
 		File file = new File(getAbsolutePath(id)+ is.toString());
 		
-		if(res !=0){
+		if(res !=0) {
 			
 			byte[] toWrap = new byte[is.available()];
 			is.read(toWrap);
@@ -123,7 +123,7 @@ public class NASMapping implements FSMapping{
 			return 0;
 	}
 	@Override
-	public int removeFile(int id) throws DaoException{
+	public int removeFile(int id) throws DaoException {
 		
 		try {
 			Runtime.getRuntime().exec("rm -R " + this.workingDirectory + getHash(id).substring(0, this.nastity));
@@ -134,14 +134,14 @@ public class NASMapping implements FSMapping{
 		}
 	}
 	@Override
-	public InputStream readFile(int id) throws DaoException, IOException{
+	public InputStream readFile(int id) throws DaoException, IOException {
 		
 		LOG.debug("Reading file");
 		String path= getAbsolutePath(id);
 		File dir = new File(path);
 		InputStream is;
 		
-		if(dir.isDirectory() == true && dir.listFiles().length == 1){
+		if(dir.isDirectory() == true && dir.listFiles().length == 1) {
 			
 			FileInputStream input = new FileInputStream(dir.listFiles()[0]);
 			byte[] toWrap = new byte[input.available()];

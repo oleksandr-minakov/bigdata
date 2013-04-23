@@ -14,12 +14,12 @@ public class GetBooksCountJob {
 	
 	private HadoopConnector hadoop;
 	
-	public GetBooksCountJob(HadoopConnector hadoop){
+	public GetBooksCountJob(HadoopConnector hadoop) {
 		
 		this.hadoop = hadoop;
 	}
 	
-	public int getBooksCount() throws DaoException{
+	public int getBooksCount() throws DaoException {
 		
 		try {
 			
@@ -27,6 +27,8 @@ public class GetBooksCountJob {
 			
 			return statList.size();
 			
-		} catch (IOException e) {throw new DaoException(e);}
+		} catch (IOException e) {
+			throw new DaoException(e);
+			}
 	}
 }

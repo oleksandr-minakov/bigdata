@@ -15,19 +15,19 @@ public class DaoNASTests {
 	public NASMapping nas;
 	public String directory = "bookshelf/";
 	
-	public void setUp() throws DaoException{
+	public void setUp() throws DaoException {
 		
 		nas = new NASMapping(directory, 3);
 
 	}
 	
-	public void cleanUp() throws IOException{
+	public void cleanUp() throws IOException {
 		
 		Runtime.getRuntime().exec("rm -R " + directory);
 	}
 	
 	@Test
-	public void getHashByIDTest() throws DaoException, IOException{
+	public void getHashByIDTest() throws DaoException, IOException {
 		
 		setUp();
 		for(int i = 0; i <= 10; ++i){
@@ -38,7 +38,7 @@ public class DaoNASTests {
 	
 	@SuppressWarnings("unused")
 	@Test
-	public void CrDelTest() throws DaoException, IOException{
+	public void CrDelTest() throws DaoException, IOException {
 		
 		setUp();
 		
@@ -51,7 +51,7 @@ public class DaoNASTests {
 	}
 	
 	@Test
-	public void addFileTest() throws DaoException, IOException{
+	public void addFileTest() throws DaoException, IOException {
 			
 		setUp();
 		
@@ -62,8 +62,9 @@ public class DaoNASTests {
 		cleanUp();
 	}
 	
+	@SuppressWarnings("unused")
 	@Test
-	public void removeFileTest() throws DaoException, IOException{
+	public void removeFileTest() throws DaoException, IOException {
 		
 		setUp();
 		
@@ -85,7 +86,7 @@ public class DaoNASTests {
 	}
 	
 	@Test
-	public void readFileTest() throws DaoException, IOException{
+	public void readFileTest() throws DaoException, IOException {
 
 		setUp();
 		

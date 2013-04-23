@@ -20,7 +20,7 @@ import com.mirantis.bigdatacourse.dao.hadooptests.HdfsIP;
 public class MapRedObjInniter {
 
 	@Test
-	public void getObjsTest() throws Exception{
+	public void getObjsTest() throws Exception {
 		
 		List<Pair<String, Double>> pairs = new ArrayList<Pair<String, Double>>();
 		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP, "9000", new HdfsIP().HadoopUser, "/bookshelf/books/");

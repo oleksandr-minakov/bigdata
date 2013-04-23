@@ -16,7 +16,7 @@ import com.mirantis.bigdatacourse.dao.hadoop.job.DeleteBookJob;
 public class DeleteBookJobTest {
 	@SuppressWarnings("unused")
 	@Test
-	public void deleteBookJobTest()throws DaoException, IOException{
+	public void deleteBookJobTest()throws DaoException, IOException {
 		
 		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP, "9000", new HdfsIP().HadoopUser, "/bookshelf/books/");	
 		newOne.bookID = 100;

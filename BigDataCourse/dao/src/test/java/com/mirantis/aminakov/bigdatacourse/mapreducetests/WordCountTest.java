@@ -21,7 +21,7 @@ public class WordCountTest {
 	
 	@SuppressWarnings("unused")
 	@Test
-	public void testCase() throws DaoException, IOException{
+	public void testCase() throws DaoException, IOException {
 		
 		int testCase = 10;
 		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP,"54310", new HdfsIP().HadoopUser, "/bookshelf/books/");

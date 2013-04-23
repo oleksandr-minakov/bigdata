@@ -17,7 +17,7 @@ import com.mirantis.bigdatacourse.dao.cassandra.DaoCassandra;
 public class GetBookByTests {
 
 	@Test
-	public void getBookByTitleTest() throws DaoException{
+	public void getBookByTitleTest() throws DaoException {
 		
 		List<Book> after = new ArrayList<Book>();
 		
@@ -32,7 +32,7 @@ public class GetBookByTests {
 	}
 	
 	@Test
-	public void getBookByAuthorTest() throws DaoException{
+	public void getBookByAuthorTest() throws DaoException {
 		
 		List<Book> after = new ArrayList<Book>();
 		DaoCassandra dao = /*new DaoCassandra(cts);*/EasyMock.createMock(DaoCassandra.class);
@@ -45,7 +45,7 @@ public class GetBookByTests {
 	}
 	
 	@Test
-	public void getBookByGenreTest() throws DaoException{
+	public void getBookByGenreTest() throws DaoException {
 		
 		List<Book> after = new ArrayList<Book>();
 		DaoCassandra dao = /*new DaoCassandra(cts);*/EasyMock.createMock(DaoCassandra.class);
@@ -58,7 +58,7 @@ public class GetBookByTests {
 	}
 	
 	@Test
-	public void getAuthorByGenreTest() throws DaoException{
+	public void getAuthorByGenreTest() throws DaoException {
 		
 		TreeSet<String> after = new TreeSet<String>();
 		DaoCassandra dao = /*new DaoCassandra(cts);*/EasyMock.createMock(DaoCassandra.class);

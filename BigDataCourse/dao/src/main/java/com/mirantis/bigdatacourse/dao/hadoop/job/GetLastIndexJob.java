@@ -15,13 +15,13 @@ public class GetLastIndexJob {
 	
 	private HadoopConnector hadoop;
 	
-	public GetLastIndexJob(HadoopConnector hadoop) throws DaoException{
+	public GetLastIndexJob(HadoopConnector hadoop) throws DaoException {
 		
 		this.hadoop = hadoop;
 		
 	}
 	
-	public int getLastIndex() throws DaoException{
+	public int getLastIndex() throws DaoException {
 		
 		int last = 0;
 		
@@ -60,11 +60,13 @@ public class GetLastIndexJob {
 			
 			return last;
 			
-		} catch (IOException e) {throw new DaoException(e);}
+		} catch (IOException e) {
+			throw new DaoException(e);
+			}
 		
 	}
 	
-	public int getIncrementedNewID() throws DaoException{
+	public int getIncrementedNewID() throws DaoException {
 		
 		return getLastIndex()+1;
 	}
