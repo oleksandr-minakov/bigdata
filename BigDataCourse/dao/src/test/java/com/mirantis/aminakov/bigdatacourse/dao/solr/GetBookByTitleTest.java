@@ -18,9 +18,11 @@ public class GetBookByTitleTest {
     public void getBookByTitleTest() throws IOException, DaoException, SolrServerException {
         List<Book> books;
         NASMapping daoNAS = new NASMapping("/tmp/solr_nas/", 3);
-        Parameters parameters = new Parameters("http://0.0.0.0:8080/solr-web", daoNAS);
+        Parameters parameters = new Parameters();
+        parameters.URL = "http://0.0.0.0:8080/solr-web";
+        parameters.daoNAS = daoNAS;
         DaoSolr daoSolr = new DaoSolr(parameters);
-        daoSolr.server.deleteByQuery("*:*");
+        daoSolr.getServer().deleteByQuery("*:*");
         Book book = new Book();
         book.newBook("title", "author", "genre", new FileInputStream("testbook"));
         int id = daoSolr.addBook(book);

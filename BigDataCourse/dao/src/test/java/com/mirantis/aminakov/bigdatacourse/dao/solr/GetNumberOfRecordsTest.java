@@ -19,9 +19,11 @@ public class GetNumberOfRecordsTest {
     @Test
     public void getNumberOfRecordsTest() throws DaoException, IOException, SolrServerException {
         NASMapping daoNAS = new NASMapping("/tmp/solr_nas/", 3);
-        Parameters parameters = new Parameters("http://0.0.0.0:8080/solr-web", daoNAS);
+        Parameters parameters = new Parameters();
+        parameters.URL = "http://0.0.0.0:8080/solr-web";
+        parameters.daoNAS = daoNAS;
         DaoSolr daoSolr = new DaoSolr(parameters);
-        daoSolr.server.deleteByQuery("*:*");
+        daoSolr.getServer().deleteByQuery("*:*");
         Book book = new Book();
         for (int i = 1; i < 55; i++) {
             book.newBook("title" + i, "author" + i, "genre" + i, new FileInputStream("testbook"));
@@ -31,7 +33,7 @@ public class GetNumberOfRecordsTest {
             SolrQuery query = new SolrQuery();
             query.setQuery("*:*");
             query.addSortField("id", SolrQuery.ORDER.desc);
-            QueryResponse response = daoSolr.server.query(query);
+            QueryResponse response = daoSolr.getServer().query(query);
             SolrDocumentList results = response.getResults();
             daoSolr.getAllBooks(1,1);
             assertTrue(daoSolr.getNumberOfRecords() == 54);
