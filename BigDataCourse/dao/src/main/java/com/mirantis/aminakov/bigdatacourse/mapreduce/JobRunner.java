@@ -17,12 +17,12 @@ import org.apache.hadoop.mapred.TextInputFormat;
 import org.apache.hadoop.mapred.TextOutputFormat;
 import org.apache.log4j.Logger;
 
-import com.mirantis.aminakov.bigdatacourse.dao.Book;
-import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
-import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
-import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.PathFormer;
-import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.GetAllBooksJob;
-import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.GetBooksCountJob;
+import com.mirantis.bigdatacourse.dao.Book;
+import com.mirantis.bigdatacourse.dao.DaoException;
+import com.mirantis.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
+import com.mirantis.bigdatacourse.dao.hadoop.configuration.PathFormer;
+import com.mirantis.bigdatacourse.dao.hadoop.job.GetAllBooksJob;
+import com.mirantis.bigdatacourse.dao.hadoop.job.GetBooksCountJob;
 @SuppressWarnings({"rawtypes", "unused"})
 public class JobRunner {
 	

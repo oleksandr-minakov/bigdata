@@ -9,19 +9,19 @@
 	<context:annotation-config/>
 
     <context:component-scan
-            base-package="com.mirantis.aminakov.bigdatacourse.dao.mysql" />
+            base-package="com.mirantis.bigdatacourse.dao.mysql" />
     
     <context:component-scan
-    	base-package="com.mirantis.aminakov.bigdatacourse.service"/>
+    	base-package="com.mirantis.bigdatacourse.service"/>
 	
 	<bean id="service"
-		class="com.mirantis.aminakov.bigdatacourse.service.ServiceToDao" />
+		class="com.mirantis.bigdatacourse.service.ServiceToDao" />
 
-	<bean id="dao" class="com.mirantis.aminakov.bigdatacourse.dao.mysql.DaoJdbc">
+	<bean id="dao" class="com.mirantis.bigdatacourse.dao.mysql.DaoJdbc">
         <property name="dataSource" ref="dataSource" />
     </bean>
 	
-    <bean id="daoJdbc" class="com.mirantis.aminakov.bigdatacourse.dao.mysql.DaoJdbc">
+    <bean id="daoJdbc" class="com.mirantis.bigdatacourse.dao.mysql.DaoJdbc">
         <property name="dataSource" ref="dataSource" />
     </bean>
 
