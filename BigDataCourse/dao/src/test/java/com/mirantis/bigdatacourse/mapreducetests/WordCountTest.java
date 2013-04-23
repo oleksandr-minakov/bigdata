@@ -1,4 +1,4 @@
-package com.mirantis.aminakov.bigdatacourse.mapreducetests;
+package com.mirantis.bigdatacourse.mapreducetests;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -6,16 +6,16 @@ import java.util.List;
 import org.apache.hadoop.fs.Path;
 import org.junit.Assert;
 import org.junit.Test;
-import com.mirantis.aminakov.bigdatacourse.mapreduce.GetParsedStatistics;
-import com.mirantis.aminakov.bigdatacourse.mapreduce.JobRunner;
-import com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob;
-import com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob.Map;
-import com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob.Reduce;
 import com.mirantis.bigdatacourse.dao.DaoException;
 import com.mirantis.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
 import com.mirantis.bigdatacourse.dao.hadoop.configuration.Pair;
 import com.mirantis.bigdatacourse.dao.hadoop.job.AddBookJob;
 import com.mirantis.bigdatacourse.dao.hadooptests.HdfsIP;
+import com.mirantis.bigdatacourse.mapreduce.GetParsedStatistics;
+import com.mirantis.bigdatacourse.mapreduce.JobRunner;
+import com.mirantis.bigdatacourse.mapreduce.WordCounterJob;
+import com.mirantis.bigdatacourse.mapreduce.WordCounterJob.Map;
+import com.mirantis.bigdatacourse.mapreduce.WordCounterJob.Reduce;
 
 public class WordCountTest {
 	

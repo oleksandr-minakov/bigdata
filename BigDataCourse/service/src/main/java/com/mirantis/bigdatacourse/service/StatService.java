@@ -11,13 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import com.mirantis.aminakov.bigdatacourse.mapreduce.GetParsedStatistics;
-import com.mirantis.aminakov.bigdatacourse.mapreduce.JobRunner;
-import com.mirantis.aminakov.bigdatacourse.mapreduce.MapReduceThread;
 import com.mirantis.bigdatacourse.dao.Dao;
 import com.mirantis.bigdatacourse.dao.DaoException;
 import com.mirantis.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
 import com.mirantis.bigdatacourse.dao.hadoop.configuration.Pair;
+import com.mirantis.bigdatacourse.mapreduce.GetParsedStatistics;
+import com.mirantis.bigdatacourse.mapreduce.JobRunner;
+import com.mirantis.bigdatacourse.mapreduce.MapReduceThread;
 
 public class StatService {
 	

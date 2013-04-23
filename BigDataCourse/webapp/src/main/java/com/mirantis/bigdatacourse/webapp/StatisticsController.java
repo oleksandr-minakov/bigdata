@@ -13,15 +13,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.mirantis.aminakov.bigdatacourse.mapreduce.GetParsedStatistics;
-import com.mirantis.aminakov.bigdatacourse.mapreduce.JobRunner;
-import com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob;
-import com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob.Map;
-import com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob.Reduce;
 import com.mirantis.bigdatacourse.dao.DaoException;
 import com.mirantis.bigdatacourse.dao.hadoop.DaoHDFS;
 import com.mirantis.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
 import com.mirantis.bigdatacourse.dao.hadoop.configuration.Pair;
+import com.mirantis.bigdatacourse.mapreduce.GetParsedStatistics;
+import com.mirantis.bigdatacourse.mapreduce.JobRunner;
+import com.mirantis.bigdatacourse.mapreduce.WordCounterJob;
+import com.mirantis.bigdatacourse.mapreduce.WordCounterJob.Map;
+import com.mirantis.bigdatacourse.mapreduce.WordCounterJob.Reduce;
 import com.mirantis.bigdatacourse.service.Service;
 import com.mirantis.bigdatacourse.service.StatService;
 @SuppressWarnings({"unused"})

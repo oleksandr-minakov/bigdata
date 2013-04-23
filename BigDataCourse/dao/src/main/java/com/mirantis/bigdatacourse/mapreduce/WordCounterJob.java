@@ -1,4 +1,4 @@
-package com.mirantis.aminakov.bigdatacourse.mapreduce;
+package com.mirantis.bigdatacourse.mapreduce;
 
 import java.io.IOException;
 import java.util.Iterator;
