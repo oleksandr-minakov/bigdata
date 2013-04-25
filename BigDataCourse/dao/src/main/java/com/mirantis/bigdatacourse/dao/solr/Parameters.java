@@ -5,7 +5,7 @@ import com.mirantis.bigdatacourse.dao.NAS.NASMapping;
 public class Parameters {
 
     protected String URL;
-    protected int bookId = 0;
+    protected String bookId = "0";
     protected NASMapping daoNAS;
 
     public void setURL(String URL) {
