@@ -353,7 +353,7 @@ public class NewDaoCassandra implements Dao {
 		LOG.debug("Executing RangeSlicesQuery<String, String, String>");
 		Rows<String, String, String> orderedRows = result.get();
 		
-		return orderedRows.getCount();
+		return orderedRows.getByKey(whatToSeekFor).getColumnSlice().getColumns().size();
 	}
 	
 	public String getHash(String id) throws DaoException {
