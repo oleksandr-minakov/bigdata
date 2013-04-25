@@ -36,8 +36,10 @@ public class PaginationTest {
 			dao.addBook(beggining_state);
 		}
 		
-		books = dao.getBooksByToken(1, 20, "titles", "CassandraTest");
-		Assert.assertTrue(books.size() == 1);
+		books = dao.getBooksByToken(1, 100, "titles", "CassandraTest");
+		int count = dao.getNumberOfRecords("titles", "CassandraTest");
+		
+		Assert.assertTrue(books.size() == count );
 		cts.getCurrentClstr().dropKeyspace("KS");
 	}
 

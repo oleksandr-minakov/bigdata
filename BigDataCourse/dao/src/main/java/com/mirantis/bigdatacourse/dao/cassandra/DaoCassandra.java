@@ -343,7 +343,7 @@ public class DaoCassandra implements Dao{
 	}
 
 	@Override
-	public int getNumberOfRecords() {
+	public int getNumberOfRecords(String whereToSeek, String whatToSeekFor) {
 
 		try {
 			return getAllRowKeys().size();
