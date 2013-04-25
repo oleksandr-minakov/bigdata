@@ -149,10 +149,101 @@ public class NewDaoCassandra implements Dao {
 	@Override
 	public List<Book> getAllBooks(int pageNum, int pageSize)
 			throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<String> keyStorage = getAllRowKeys();
+		List<Book> ret = new ArrayList<Book>();
+		List<String> neededKeys = new ArrayList<String>();
+
+		if(pageNum <0 || pageNum > getPageCount(keyStorage.size(), pageSize)){
+			return ret;
+		}
+		else{
+
+			if(pageNum*pageSize > keyStorage.size()){
+				for(Book book:getBooks(keyStorage)){
+					if(!book.equals(null) && book.getId().length() != 0){
+						ret.add(book);
+					}
+				}
+				LOG.info("Getting all books with pagination");
+				LOG.debug("Getting all books with pagination");
+				return ret;
+			}
+			else{
+				neededKeys = keyStorage.subList((pageNum-1)*pageSize, pageNum*pageSize);
+				for(Book book:getBooks(neededKeys)){
+					
+					if(!book.equals(null) && book.getId().length() != 0){
+						ret.add(book);
+					}
+				}
+				LOG.info("Getting all books with pagination");
+				LOG.debug("Getting all books with pagination");
+				return ret;
+			}
+		}
 	}
 
+	public List<Book> getBooks(List<String> rowKeys) throws DaoException {
+
+		List<Book> booksByKeys = new ArrayList<Book>();
+
+		MultigetSliceQuery<String, String, String> books =HFactory.createMultigetSliceQuery(constants.getKeyspace(), StringSerializer.get(), StringSerializer.get(), StringSerializer.get());
+		books.setColumnFamily(constants.CF_NAME);
+		books.setKeys(rowKeys);
+		books.setRange("", "", false, Integer.MAX_VALUE-1);
+		LOG.debug("Forming new MultigetSliceQuery<String, String, String>");
+		try {
+				QueryResult<Rows<String, String, String>> result = books.execute();
+				LOG.debug("Executing RangeSlicesQuery<String, String, String>");
+				Rows<String, String, String> orderedRows = result.get();
+				for(Row<String, String, String> row:orderedRows)
+					booksByKeys.add(BookConverter.getInstance().row2book(row.getColumnSlice().getColumns()));
+				
+				LOG.debug("Collection books...");
+				return booksByKeys;
+				
+		}catch (Exception e) {
+			throw new DaoException(e);
+			}
+	}
+	
+	public List<String> getAllRowKeys() throws DaoException {
+
+		List<String> pagedBooks = new ArrayList<String>();
+
+		RangeSlicesQuery<String, String, String> books = HFactory.createRangeSlicesQuery(constants.getKeyspace(), StringSerializer.get(), StringSerializer.get(), StringSerializer.get());
+		books.setColumnFamily(constants.CF_NAME);
+		books.setKeys("", "");
+		books.setReturnKeysOnly();
+		books.setRowCount(Integer.MAX_VALUE);
+		LOG.debug("Forming new RangeSlicesQuery<String, String, String>");
+		try{
+			QueryResult<OrderedRows<String, String, String>> result = books.execute();
+			LOG.debug("Executing RangeSlicesQuery<String, String, String>");
+			OrderedRows<String, String, String> orderedRows = result.get();
+        	List<Row<String, String, String>> keys = orderedRows.getList();
+        	for(Row<String, String, String> row: keys){
+        		pagedBooks.add(row.getKey());
+        	}
+        	LOG.debug("Collection row keys...");
+		} catch (Exception e){
+			throw new DaoException(e);
+			}
+		
+        LOG.info("Getting all row keys");
+		return pagedBooks;
+	}
+	
+	public int getPageCount(int amountOfRecords, int pageSize){
+
+		int pages = amountOfRecords/pageSize;
+		if(amountOfRecords%pageSize != 0)
+			return pages+1;
+		else
+			return pages;
+	}
+	
 	@Override
 	public List<Book> getBookByTitle(int pageNum, int pageSize, String title)
 			throws DaoException {
@@ -288,7 +379,7 @@ public class NewDaoCassandra implements Dao {
 			byte[] byteHash = hashAlg.digest();
 			for (int i=0; i < byteHash.length; i++) {
 				hash += Integer.toString( ( byteHash[i] & 0xff ) + 0x100, 16).substring( 1 );
-		       }
+		    }
 		} catch (NoSuchAlgorithmException e) {
 			throw new DaoException(e);
 		}

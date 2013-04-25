@@ -115,8 +115,16 @@ public class ServiceToDao implements com.mirantis.bigdatacourse.service.Service 
 
 	@Override
 	public int getNumberOfRecords() {
+		
 		int numberOfRecords;
-		numberOfRecords = dao.getNumberOfRecords();
-		return numberOfRecords;
+		try {
+			numberOfRecords = dao.getNumberOfRecords();
+			return numberOfRecords;
+		} catch (DaoException e) {
+			
+			LOG.info("Trying to get amount of existed records, but error occured: " + e.getMessage());
+		}
+		
+		return 0;
 	}
 }

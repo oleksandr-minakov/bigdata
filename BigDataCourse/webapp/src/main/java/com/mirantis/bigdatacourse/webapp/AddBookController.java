@@ -64,7 +64,7 @@ public class AddBookController {
 
 		int id;
 		id = service.addBook(book);
-		if (id != 0) {
+		if (id == 0) {
 			model.addAttribute("message", "File '" + file.getOriginalFilename() + "' uploaded successfully");
 		} else {
 			model.addAttribute("message", "File '" + file.getOriginalFilename() + "' upload failed");
@@ -76,6 +76,7 @@ public class AddBookController {
 	}	
 	
 	private void validateFile(MultipartFile file) throws ContentTypeError {
+		
 		if (!file.getContentType().equals("text/plain")) {
 			throw new ContentTypeError("ERROR. Only *.txt accepted.");
 		}
@@ -91,7 +92,8 @@ public class AddBookController {
 			//NOP
 		}
 		List<Book> books = new ArrayList<Book>();
-		if (findString == null || findString.equalsIgnoreCase("")) {			//dangerous expression in condition
+		if (findString == null || findString.equalsIgnoreCase("")) {
+			//dangerous expression in condition
 			books = service.getAllBooks(pageNum, pageSize);
 			numberOfRecords = service.getNumberOfRecords();
 			model.addAttribute("books", books);

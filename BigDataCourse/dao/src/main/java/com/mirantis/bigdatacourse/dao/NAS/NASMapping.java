@@ -54,7 +54,7 @@ public class NASMapping implements FSMapping{
 		this.workingDirectory = workingDirectory;
 	}
 	@Override
-	public String getAbsolutePath(int id) throws DaoException {
+	public String getAbsolutePath(String id) throws DaoException {
 		
 		String hash = new String();
 		String absPath = this.workingDirectory;
@@ -70,7 +70,7 @@ public class NASMapping implements FSMapping{
 		return absPath;
 	}
 	@Override
-	public String getHash(int id) throws DaoException {
+	public String getHash(String id) throws DaoException {
 		
 		String hash = new String();
 		MessageDigest hashAlg;
@@ -78,7 +78,7 @@ public class NASMapping implements FSMapping{
 		try {
 			hashAlg = MessageDigest.getInstance(hashType);
 			hashAlg.reset();
-			hashAlg.update(String.valueOf(id).getBytes());
+			hashAlg.update(id.getBytes());
 			byte[] byteHash = hashAlg.digest();
 			for (int i=0; i < byteHash.length; i++) {
 				hash += Integer.toString( ( byteHash[i] & 0xff ) + 0x100, 16).substring( 1 );
@@ -90,19 +90,19 @@ public class NASMapping implements FSMapping{
 		return hash;
 	}
 	@Override
-	public int createDirectoryRecursively(int id) throws DaoException {
+	public int createDirectoryRecursively(String id) throws DaoException {
 		
 		LOG.debug("Creating directories recursively");
 		boolean flag = new File(getAbsolutePath(id)).mkdirs();
 		
 		if(flag == true)
-			return id;
+			return Integer.valueOf(id);
 		else{
 			return 0;
 		}
 	}
 	@Override
-	public int writeFile(int id, InputStream is) throws DaoException, IOException {
+	public int writeFile(String id, InputStream is) throws DaoException, IOException {
 		
 		LOG.debug("Mapping file to NAS...");
 		int res = createDirectoryRecursively(id);
@@ -123,18 +123,18 @@ public class NASMapping implements FSMapping{
 			return 0;
 	}
 	@Override
-	public int removeFile(int id) throws DaoException {
+	public int removeFile(String id) throws DaoException {
 		
 		try {
 			Runtime.getRuntime().exec("rm -R " + this.workingDirectory + getHash(id).substring(0, this.nastity));
 			LOG.debug("Removing file ...");
-			return id;
+			return Integer.valueOf(id);
 		} catch (IOException e) {
 			throw new DaoException(e);
 		}
 	}
 	@Override
-	public InputStream readFile(int id) throws DaoException, IOException {
+	public InputStream readFile(String id) throws DaoException, IOException {
 		
 		LOG.debug("Reading file");
 		String path= getAbsolutePath(id);
