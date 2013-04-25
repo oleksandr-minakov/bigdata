@@ -1,0 +1,13 @@
+### === Cassandra Configuration === ###
+custer = Cassandra Cluster
+keyspace = Bookshelf
+cfamily = Books
+node1 = 0.0.0.0
+node2 = 0.0.0.0
+node3 = 0.0.0.0
+### === Hadoop Configuration === ###
+ip = 0.0.0.0
+port = 9000
+user = hadoop
+wdirectory = /bookshelf/books/
+### === Hadoop Configuration === ###

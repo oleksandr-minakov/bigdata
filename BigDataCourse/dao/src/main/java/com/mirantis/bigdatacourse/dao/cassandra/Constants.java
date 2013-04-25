@@ -2,6 +2,8 @@ package com.mirantis.bigdatacourse.dao.cassandra;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import me.prettyprint.cassandra.model.BasicColumnFamilyDefinition;
 import me.prettyprint.cassandra.model.BasicKeyspaceDefinition;
 import me.prettyprint.cassandra.service.CassandraHost;
@@ -14,14 +16,27 @@ import me.prettyprint.hector.api.factory.HFactory;
 @SuppressWarnings("unused")
 public class Constants {
 	
-	public String CLUSTER_NAME;//= "Test Cluster";
-	public String KEYSPACE_NAME;//= "Bookshelf";
-	public String CF_NAME;//= "Books";
-	public List<String> HOST_DEFS;//= "localhost";
+	@Value("${cluster}")
+	public String CLUSTER_NAME;
+	
+	@Value("${keyspace}")
+	public String KEYSPACE_NAME;
+	
+	@Value("${cfamily}")
+	public String CF_NAME;
+	
+	public List<String> HOST_DEFS;
+	
+	@Value("${node1}")
+	public String HOST1;
+	
+	@Value("${node2}")
+	public String HOST2;
+	
+	@Value("${node3}")
+	public String HOST3;
 
 	private Cluster clstr;
-
-
 	private Keyspace ksOper;
 	private BasicColumnFamilyDefinition CfDef;
 	private BasicKeyspaceDefinition KsDef;
@@ -64,6 +79,7 @@ public class Constants {
 			this.KsDef  = this.getNewKeyspaceDef();
 			
 			CassandraHostConfigurator cassandraHostConfigurator = new CassandraHostConfigurator();
+			cassandraHostConfigurator.setAutoDiscoverHosts(true);
 			cassandraHostConfigurator.setAutoDiscoverHosts(true);
 			cassandraHostConfigurator.setHosts(this.HOST_DEFS.get(0));
 			cassandraHostConfigurator.setPort(9160);
@@ -145,9 +161,13 @@ public class Constants {
 		CF_NAME = cfName;
 		
 		this.clstr = getCurrentClstr();
+		HOST_DEFS.add(HOST1);
+		HOST_DEFS.add(HOST2);
+		HOST_DEFS.add(HOST3);
 		
 		for(String host: HOST_DEFS)	
 			this.clstr.addHost(new CassandraHost(host), false);
+		
 		
 	}
 

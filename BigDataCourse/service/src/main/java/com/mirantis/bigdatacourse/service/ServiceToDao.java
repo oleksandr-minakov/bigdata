@@ -113,18 +113,52 @@ public class ServiceToDao implements com.mirantis.bigdatacourse.service.Service 
 		return authors;
 	}
 
+
 	@Override
-	public int getNumberOfRecords() {
+	public int getNumberOfRecordsByAuthor(String whatToSeekFor) {
 		
-		int numberOfRecords;
 		try {
-			numberOfRecords = dao.getNumberOfRecords();
-			return numberOfRecords;
+			return dao.getNumberOfRecordsByAuthor(whatToSeekFor);
 		} catch (DaoException e) {
-			
-			LOG.info("Trying to get amount of existed records, but error occured: " + e.getMessage());
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		return 0;
+	}
+
+	@Override
+	public int getNumberOfRecordsByTitle(String whatToSeekFor) {
 		
+		try {
+			return dao.getNumberOfRecordsByTitle(whatToSeekFor);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	@Override
+	public int getNumberOfRecordsByGenre(String whatToSeekFor) {
+		
+		try {
+			return dao.getNumberOfRecordsByGenre(whatToSeekFor);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	@Override
+	public int getNumberOfRecordsByText(String whatToSeekFor) {
+		
+		try {
+			return dao.getNumberOfRecordsByText(whatToSeekFor);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return 0;
 	}
 }

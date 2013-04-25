@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URI;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.mirantis.bigdatacourse.dao.DaoException;
 
@@ -11,11 +12,21 @@ public class HadoopConnector {
 
 	private Configuration newConf;
 	public FileSystem newFS;
+	
+	@Value("${ip}")
 	private String hadoopIP;
+	
+	@Value("${port}")
 	private String hadoopPort;
+	
+	@Value("${user}")
 	private String hadoopUser;
+	
 	private String hadoopURI;
+	
+	@Value("${wdirectory}")
 	public String workingDirectory;
+	
 	public int bookID;
 	
 	
@@ -24,9 +35,9 @@ public class HadoopConnector {
 		this.hadoopUser = user;
 		this.hadoopIP = hadoopIP;
 		this.hadoopPort = hadoopPort;
-		hadoopURI = ("hdfs://" + hadoopIP + ":" + hadoopPort);
+		this.hadoopURI = ("hdfs://" + hadoopIP + ":" + hadoopPort);
 		this.workingDirectory = workingDirectory;
-		bookID = 0;
+		this.bookID = 0;
 	}
 	
 	private void  setConfiguration() throws DaoException {
