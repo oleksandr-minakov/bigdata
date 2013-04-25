@@ -22,7 +22,7 @@ public class GetBookByPath {
 		
 		List<String> book = pathLevels.subList(2, pathLevels.size());
 		Book newBook = new Book();
-		newBook.setId(Integer.valueOf(book.get(0)));
+		newBook.setId(book.get(0));
 		newBook.setAuthor(book.get(1));
 		newBook.setGenre(book.get(2));
 		newBook.setTitle(book.get(3));

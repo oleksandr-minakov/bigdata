@@ -12,9 +12,9 @@ public class PathFormer {
 		return new String(root + "/" +book.getId() + "/" + book.getAuthor() + "/" + book.getGenre() + "/" + book.getTitle());
 	}
 	
-	public String formDeletePath(String root, int id) {
+	public String formDeletePath(String root, String id) {
 		
-		return new String(root + String.valueOf(id) + "/");
+		return new String(root + id + "/");
 	}
 
 }

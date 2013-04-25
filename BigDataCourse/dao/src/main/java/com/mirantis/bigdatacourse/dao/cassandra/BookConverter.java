@@ -43,7 +43,7 @@ public class BookConverter {
 			
 			if(col.getName().equals("book id")) {
 				
-				newBook.setId(Integer.valueOf(col.getValue()));										}
+				newBook.setId(col.getValue());										}
 			
 			if(col.getName().equals("book title")) {
 				

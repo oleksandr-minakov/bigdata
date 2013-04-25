@@ -45,7 +45,7 @@ public class DaoHDFS implements Dao{
 	}
 
 	@Override
-	public int delBook(int id) throws DaoException {
+	public int delBook(String id) throws DaoException {
 		
 		int res = new DeleteBookJob(this.hadoop).deleteBookJob(id);
 		LOG.info("Deleting book with id: " + id);

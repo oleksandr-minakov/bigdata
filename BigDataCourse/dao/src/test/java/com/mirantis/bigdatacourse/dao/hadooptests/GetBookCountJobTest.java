@@ -28,7 +28,7 @@ public class GetBookCountJobTest {
 		for(int i=0; i< 100; ++i){
 			 
 			Book beggining_state = new Book();
-			beggining_state.newBook("CassandraTest" + i%100, "Test", "Tester"+i%100, new FileInputStream("testbook"));
+			beggining_state.newBook("CassandraTest" + i%100, "Test", "Tester"+i%100, new FileInputStream("src/main/resource/testbook"));
 			add.addBookJob(beggining_state);
 		}
 		

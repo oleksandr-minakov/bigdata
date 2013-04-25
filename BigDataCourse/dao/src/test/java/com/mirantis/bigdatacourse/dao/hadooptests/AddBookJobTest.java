@@ -22,14 +22,14 @@ public class AddBookJobTest {
 		newOne.bookID = 100;
 		
 		Book beggining_state = new Book();
-		beggining_state.newBook("CassandraTest", "Test", "Tester", new FileInputStream("testbook"));
+		beggining_state.newBook("CassandraTest", "Test", "Tester", new FileInputStream("src/main/resources/testbook"));
 		
 		int res = new AddBookJob(newOne).addBookJob(beggining_state);
 		res= new AddBookJob(newOne).addBookJob(beggining_state);
 		
-		System.out.println("AddBookJobTest " + (res == beggining_state.getId()) );
+		System.out.println("AddBookJobTest " + (beggining_state.getId().length() != 0));
 		
-		assertEquals(res, beggining_state.getId());
+		assertEquals(String.valueOf(res), beggining_state.getId());
 		newOne.getFS().delete(new Path("/bookshelf/books/"+100+"/"), true);
 		newOne.getFS().delete(new Path("/bookshelf/books/"+101+"/"), true);
 	}

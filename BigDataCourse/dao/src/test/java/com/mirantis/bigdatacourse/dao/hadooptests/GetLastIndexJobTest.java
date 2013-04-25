@@ -29,12 +29,12 @@ public class GetLastIndexJobTest {
 		for(int i= 0; i< testCond; ++i){
 			
 			Book beggining_state = new Book();
-			beggining_state.newBook("CassandraTest" + i, "Test", "Tester"+i, new FileInputStream("testbook"));
+			beggining_state.newBook("CassandraTest" + i, "Test", "Tester"+i, new FileInputStream("src/main/resource/testbook"));
 			add.addBookJob(beggining_state);
 		}
 		
 		for(int i = 99; i > 90; i--)
-			new DeleteBookJob(newOne).deleteBookJob(i);
+			new DeleteBookJob(newOne).deleteBookJob(String.valueOf(i));
 		
 		Book book = new Book();
 		book.newBook("CassandraTest", "Test", "Tester", new FileInputStream("testbook"));

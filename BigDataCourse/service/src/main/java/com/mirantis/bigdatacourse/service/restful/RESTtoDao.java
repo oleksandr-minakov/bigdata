@@ -66,7 +66,7 @@ public class RESTtoDao implements RESTservice {
 	}
 
     @Override
-    public int delBook(int id) {
+    public int delBook(String id) {
         int result = -1;
         try {
             result = dao.delBook(id);

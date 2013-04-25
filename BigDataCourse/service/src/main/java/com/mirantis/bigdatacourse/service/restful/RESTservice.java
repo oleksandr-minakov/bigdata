@@ -10,6 +10,6 @@ public interface RESTservice {
 	public List<Book> findByTitle(int pageNum, int pageSize, String title);
 	public List<Book> findByText(int pageNum, int pageSize, String text);
 	public List<Book> findByGenre(int pageNum, int pageSize, String genre);
-    public int delBook(int id);
+    public int delBook(String id);
 	
 }

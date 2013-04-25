@@ -33,7 +33,7 @@ public class BookUploader {
 			for(int i = 0; i < files.length; ++i){
 				
 				Book book = new Book();
-				book.setId(this.id);
+				book.setId(String.valueOf(this.id));
 				book.newBook("title"+i, "author"+i, "genre"+i, new FileInputStream(files[i]));
 				service.addBook(book);
 				this.id++;

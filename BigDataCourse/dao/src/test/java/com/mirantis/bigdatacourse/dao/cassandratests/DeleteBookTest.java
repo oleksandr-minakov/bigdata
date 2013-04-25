@@ -33,15 +33,15 @@ public class DeleteBookTest {
 		
 		try {
 			
-			beggining_state.setId(100);
+			beggining_state.setId(String.valueOf(100));
 			beggining_state.newBook("CassandraTest", "Test", "Tester", new FileInputStream("src/main/resources/testbook"));
 			
 			expect(dao.addBook(beggining_state)).andReturn(100).times(1);
-			expect(dao.delBook(100)).andReturn(100).times(2);
+			expect(dao.delBook(String.valueOf(100))).andReturn(100).times(2);
 			dao.delBook(beggining_state.getId());
 			verify();
 			
-			assertTrue(beggining_state.getId() != 0);
+			assertTrue(beggining_state.getId().length() != 0);
 		} catch (Exception e) {throw new DaoException(e);}
 	}
 	
