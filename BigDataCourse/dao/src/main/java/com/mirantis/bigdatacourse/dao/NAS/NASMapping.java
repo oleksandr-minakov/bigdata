@@ -1,18 +1,12 @@
 package com.mirantis.bigdatacourse.dao.NAS;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-import org.apache.log4j.Logger;
-
 import com.mirantis.bigdatacourse.dao.DaoException;
 import com.mirantis.bigdatacourse.dao.FSMapping;
+import org.apache.log4j.Logger;
+
+import java.io.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class NASMapping implements FSMapping{
 	
@@ -128,7 +122,7 @@ public class NASMapping implements FSMapping{
 		try {
 			Runtime.getRuntime().exec("rm -R " + this.workingDirectory + getHash(id).substring(0, this.nastity));
 			LOG.debug("Removing file ...");
-			return Integer.valueOf(id);
+			return 0;
 		} catch (IOException e) {
 			throw new DaoException(e);
 		}

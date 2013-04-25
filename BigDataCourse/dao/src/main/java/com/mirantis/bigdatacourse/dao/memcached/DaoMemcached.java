@@ -57,7 +57,7 @@ public class DaoMemcached implements Dao {
             return books;
         } else {
             books = daoJdbc.getAllBooks(pageNum, pageSize);
-            int records = daoJdbc.getNumberOfRecords();
+            int records = daoJdbc.getNumberOfRecords("", "");
             if (!books.isEmpty()) {
                 client.set(Integer.toString(keystring.hashCode()), 6, books);
                 books = (List<Book>) client.get(Integer.toString(keystring.hashCode()));
@@ -83,7 +83,7 @@ public class DaoMemcached implements Dao {
             return books;
         } else {
             books = daoJdbc.getBookByTitle(pageNum, pageSize, title);
-            int records = daoJdbc.getNumberOfRecords();
+            int records = daoJdbc.getNumberOfRecords("", "");
             if (!books.isEmpty()) {
                 client.set(Integer.toString(keystring.hashCode()), 6, books);
                 books = (List<Book>) client.get(Integer.toString(keystring.hashCode()));
@@ -109,7 +109,7 @@ public class DaoMemcached implements Dao {
             return books;
         } else {
             books = daoJdbc.getBookByText(pageNum, pageSize, text);
-            int records = daoJdbc.getNumberOfRecords();
+            int records = daoJdbc.getNumberOfRecords("", "");
             if (!books.isEmpty()) {
                 client.set(Integer.toString(keystring.hashCode()), 6, books);
                 books = (List<Book>) client.get(Integer.toString(keystring.hashCode()));
@@ -135,7 +135,7 @@ public class DaoMemcached implements Dao {
             return books;
         } else {
             books = daoJdbc.getBookByAuthor(pageNum, pageSize, author);
-            int records = daoJdbc.getNumberOfRecords();
+            int records = daoJdbc.getNumberOfRecords("", "");
             if (!books.isEmpty()) {
                 client.set(Integer.toString(keystring.hashCode()), 6, books);
                 books = (List<Book>) client.get(Integer.toString(keystring.hashCode()));
@@ -161,7 +161,7 @@ public class DaoMemcached implements Dao {
             return books;
         } else {
             books = daoJdbc.getBookByGenre(pageNum, pageSize, genre);
-            int records = daoJdbc.getNumberOfRecords();
+            int records = daoJdbc.getNumberOfRecords("", "");
             if (!books.isEmpty()) {
                 client.set(Integer.toString(keystring.hashCode()), 6, books);
                 books = (List<Book>) client.get(Integer.toString(keystring.hashCode()));
@@ -186,7 +186,7 @@ public class DaoMemcached implements Dao {
             return client.pagination(pageNum, pageSize, authors);
         } else {
             authors = daoJdbc.getAuthorByGenre(pageNum, pageSize, genre);
-            int records = daoJdbc.getNumberOfRecords();
+            int records = daoJdbc.getNumberOfRecords("", "");
             if (!authors.isEmpty()) {
                 client.set(Integer.toString(keystring.hashCode()), 6, authors);
                 authors = (TreeSet<String>) client.get(Integer.toString(keystring.hashCode()));
@@ -206,7 +206,7 @@ public class DaoMemcached implements Dao {
     }
 
     @Override
-    public int getNumberOfRecords() {
+    public int getNumberOfRecords(String whereToSeek, String whatToSeekFor) {
         return this.numberOfRecords;
     }
 

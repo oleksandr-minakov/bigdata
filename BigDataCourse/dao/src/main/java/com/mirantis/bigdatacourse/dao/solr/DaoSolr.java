@@ -67,7 +67,7 @@ public class DaoSolr implements Dao {
             doc.addField("title", book.getTitle());
             doc.addField("author", book.getAuthor());
             doc.addField("genre", book.getGenre());
-            if (daoNAS.writeFile(book.getId(), book.getText()) != book.getId()) {
+            if ( !book.getId().equals(daoNAS.writeFile(book.getId(), book.getText()))) {
                 LOG.debug("I/O error in daoNAS");
                 throw new DaoException("I/O error in daoNAS");
             }
@@ -92,8 +92,8 @@ public class DaoSolr implements Dao {
     public int delBook(String id) throws DaoException {
         try {
             getServer().deleteByQuery("id:" + id);
-            String rm_id = daoNAS.removeFile(id);
-            if (!rm_id.equals(id)) {
+            int rm_id = daoNAS.removeFile(id);
+            if (rm_id != 0) {
                 getServer().rollback();
                 throw new DaoException("I/O error in daoNAS " + " rm_id = " + rm_id + " id = " + id);
             }
@@ -287,7 +287,8 @@ public class DaoSolr implements Dao {
     }
 
     @Override
-    public int getNumberOfRecords() {
+    public int getNumberOfRecords(String whereToSeek, String whatToSeekFor) {
+
         LOG.debug("Get number of records " + numberOfRecords);
         LOG.info("Get number of records " + numberOfRecords);
         return numberOfRecords;
