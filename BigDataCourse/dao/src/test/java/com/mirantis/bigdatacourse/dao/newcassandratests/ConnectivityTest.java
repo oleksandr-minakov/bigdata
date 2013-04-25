@@ -6,9 +6,8 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.mirantis.bigdatacourse.dao.cassandra.NewConstants;
-import com.mirantis.bigdatacourse.dao.cassandra.NewDaoCassandra;
-import com.mirantis.bigdatacourse.dao.cassandratests.CassandraIP;
+import com.mirantis.bigdatacourse.dao.cassandra.Constants;
+import com.mirantis.bigdatacourse.dao.cassandra.DaoCassandra;
 
 public class ConnectivityTest {
 
@@ -20,9 +19,9 @@ public class ConnectivityTest {
 		hosts.add(CassandraIP.IP2);
 		hosts.add(CassandraIP.IP3);
 		
-		NewConstants cts = new NewConstants("Cassandra Cluster", "KS", "Test", hosts);
+		Constants cts = new Constants("Cassandra Cluster", "KS", "Test", hosts);
 		
-		NewDaoCassandra dao = new NewDaoCassandra(cts);
+		DaoCassandra dao = new DaoCassandra(cts);
 		
 		cts.getCurrentClstr().dropKeyspace("KS");
 		Assert.assertNotNull(cts);

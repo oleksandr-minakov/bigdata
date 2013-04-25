@@ -2,6 +2,8 @@ package com.mirantis.bigdatacourse.dao.cassandra;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import me.prettyprint.cassandra.model.BasicColumnFamilyDefinition;
 import me.prettyprint.cassandra.model.BasicKeyspaceDefinition;
 import me.prettyprint.cassandra.service.CassandraHost;
@@ -12,21 +14,32 @@ import me.prettyprint.hector.api.ddl.ColumnFamilyDefinition;
 import me.prettyprint.hector.api.ddl.KeyspaceDefinition;
 import me.prettyprint.hector.api.factory.HFactory;
 @SuppressWarnings("unused")
-
 public class Constants {
-
-	public String CLUSTER_NAME;//= "Test Cluster";
-	public String KEYSPACE_NAME;//= "Bookshelf";
-	public String CF_NAME;//= "Books";
-	public List<String> HOST_DEFS;//= "localhost";
+	
+	@Value("${cluster}")
+	public String CLUSTER_NAME;
+	
+	@Value("${keyspace}")
+	public String KEYSPACE_NAME;
+	
+	@Value("${cfamily}")
+	public String CF_NAME;
+	
+	public List<String> HOST_DEFS;
+	
+	@Value("${node1}")
+	public String HOST1;
+	
+	@Value("${node2}")
+	public String HOST2;
+	
+	@Value("${node3}")
+	public String HOST3;
 
 	private Cluster clstr;
-
 	private Keyspace ksOper;
 	private BasicColumnFamilyDefinition CfDef;
 	private BasicKeyspaceDefinition KsDef;
-	
-	public int bookID;
 	
 	private BasicKeyspaceDefinition getNewKeyspaceDef() {
 		
@@ -48,49 +61,89 @@ public class Constants {
 
 			this.CfDef = new BasicColumnFamilyDefinition();
 			this.CfDef.setKeyspaceName(KEYSPACE_NAME);
-			this.CfDef.setName(CF_NAME);
+			this.CfDef.setName(name);
 			return this.CfDef;
 	}
 	
 	public Cluster getCurrentClstr() {
 		
+		boolean kspace_flg = false;
+		boolean cfbooks_flg = false;
+		boolean cftitles_flg = false;
+		boolean cfauthors_flg = false;
+		boolean cfgenres_flg = false;
+		boolean cftexts_flg = false;
 		
 		if(this.clstr == null) {
 			
 			this.KsDef  = this.getNewKeyspaceDef();
-			this.CfDef = getNewCfDef(this.CF_NAME);
 			
 			CassandraHostConfigurator cassandraHostConfigurator = new CassandraHostConfigurator();
+			cassandraHostConfigurator.setAutoDiscoverHosts(true);
 			cassandraHostConfigurator.setAutoDiscoverHosts(true);
 			cassandraHostConfigurator.setHosts(this.HOST_DEFS.get(0));
 			cassandraHostConfigurator.setPort(9160);
 			cassandraHostConfigurator.setMaxActive(1);
+			
 			this.clstr = HFactory.getOrCreateCluster(this.CLUSTER_NAME, cassandraHostConfigurator);
-//			this.clstr = HFactory.getOrCreateCluster(this.CLUSTER_NAME, this.HOST_DEFS.get(0)+":9160");
-			boolean flg = false;
-			boolean cf_flg = false;
+			
+
 			
 			for(KeyspaceDefinition def: clstr.describeKeyspaces()) {
 				if(def.getName().equals(KEYSPACE_NAME)) {
-					flg = true;
+					kspace_flg = true;
 					for(ColumnFamilyDefinition cf:def.getCfDefs()) {
-						if(cf.getName().equals(CF_NAME)) {
-							cf_flg = true;
-						}
+						
+						if(cf.getName().equals(CF_NAME)) 
+							cfbooks_flg = true;
+					
+						if(cf.getName().equals("titles")) 
+							cftitles_flg = true;
+						
+						if(cf.getName().equals("authors")) 
+							cfauthors_flg = true;
+						
+						if(cf.getName().equals("genres")) 
+							cfgenres_flg = true;
+						
+						if(cf.getName().equals("texts")) 
+							cftexts_flg = true;
+						
 					}
 				}
 			}
 			
-			if(flg == false) {
+			if(kspace_flg == false) {
 				this.clstr.addKeyspace(KsDef);
 			}
 			
 			for(KeyspaceDefinition def: clstr.describeKeyspaces()) {
 				
 				if(def.getName().equals(KEYSPACE_NAME)) {
-					if(cf_flg == false) {
+					
+					if(cfbooks_flg == false) {
 						this.CfDef = getNewCfDef(this.CF_NAME);
 						this.clstr.addColumnFamily(CfDef);
+					}
+					
+					if(cftitles_flg == false) {
+						BasicColumnFamilyDefinition newCF = getNewCfDef("titles");
+						this.clstr.addColumnFamily(newCF);
+					}
+					
+					if(cfauthors_flg == false) {
+						BasicColumnFamilyDefinition newCF = getNewCfDef("authors");
+						this.clstr.addColumnFamily(newCF);
+					}
+					
+					if(cfgenres_flg == false) {
+						BasicColumnFamilyDefinition newCF = getNewCfDef("genres");
+						this.clstr.addColumnFamily(newCF);
+					}
+					
+					if(cftexts_flg == false) {
+						BasicColumnFamilyDefinition newCF = getNewCfDef("texts");
+						this.clstr.addColumnFamily(newCF);
 					}
 				}
 			}
@@ -108,11 +161,14 @@ public class Constants {
 		CF_NAME = cfName;
 		
 		this.clstr = getCurrentClstr();
+		HOST_DEFS.add(HOST1);
+		HOST_DEFS.add(HOST2);
+		HOST_DEFS.add(HOST3);
 		
-		for(String host: HOST_DEFS)
+		for(String host: HOST_DEFS)	
 			this.clstr.addHost(new CassandraHost(host), false);
 		
-		this.bookID = 0;
+		
 	}
 
 }

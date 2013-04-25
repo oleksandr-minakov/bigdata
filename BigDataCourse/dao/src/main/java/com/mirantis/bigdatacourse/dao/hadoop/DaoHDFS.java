@@ -154,7 +154,6 @@ public class DaoHDFS implements Dao{
 		
 	}
 
-	@Override
 	public int getNumberOfRecords(String whereToSeek, String whatToSeekFor) {
 		
 		return this.querySize;
@@ -176,6 +175,38 @@ public class DaoHDFS implements Dao{
 		this.hadoop.getFS().close();
 		this.hadoop = null;
 		
+	}
+
+
+	@Override
+	public int getNumberOfRecordsByAuthor(String whatToSeekFor)
+			throws DaoException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public int getNumberOfRecordsByTitle(String whatToSeekFor)
+			throws DaoException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public int getNumberOfRecordsByGenre(String whatToSeekFor)
+			throws DaoException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public int getNumberOfRecordsByText(String whatToSeekFor)
+			throws DaoException {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

@@ -8,13 +8,12 @@ public class BookUploader {
 	
 	private String stringBaseDir;
 	private Dao service;
-	private int id = 1;
 	
-	public BookUploader(Dao service, String stringBaseDir, int id) {
+	public BookUploader(Dao service, String stringBaseDir) {
+		
 		super();
 		this.service = service;
 		this.stringBaseDir = stringBaseDir;
-		this.id = id;
 	}
 
 	public int bookUploder() throws IOException, DaoException{
@@ -33,10 +32,8 @@ public class BookUploader {
 			for(int i = 0; i < files.length; ++i){
 				
 				Book book = new Book();
-				book.setId(String.valueOf(this.id));
 				book.newBook("title"+i, "author"+i, "genre"+i, new FileInputStream(files[i]));
 				service.addBook(book);
-				this.id++;
 			}
 			
 			return files.length;
