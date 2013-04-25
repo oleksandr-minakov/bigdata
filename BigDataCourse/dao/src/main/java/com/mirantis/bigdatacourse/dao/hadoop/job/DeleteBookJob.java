@@ -21,7 +21,7 @@ public class DeleteBookJob {
 		this.hadoopConf = conf;
 	}
 	
-	public int deleteBookJob(int id) throws DaoException {
+	public int deleteBookJob(String id) throws DaoException {
 		
 		FileSystem fs = this.hadoopConf.getFS();
 		LOG.debug("Getting FileSystem ...");

@@ -5,17 +5,17 @@ import java.io.*;
 @SuppressWarnings("serial")
 public class Book implements Serializable {
 	
-	private int id;
+	private String id;
 	private String title;
 	private String author;
 	private String genre;
-    private byte[] text;
+	private byte[] text;
 
-    public int getId() {
+    public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -59,6 +59,7 @@ public class Book implements Serializable {
 	}
 	
 	public String getReadableText() throws IOException {
+		
         BufferedInputStream bis = new BufferedInputStream(this.getText());
         InputStreamReader isr = new InputStreamReader(bis, "UTF-8");
         BufferedReader bufferedReader = new BufferedReader(isr);
@@ -73,7 +74,8 @@ public class Book implements Serializable {
 		return inputStringBuilder.toString();
 	}
 	
-	public void newBook(String title, String author, String genre, InputStream text){
+	public void newBook(String title, String author, String genre, InputStream text) {
+		
 		this.title = title;
 		this.author = author;
         this.genre = genre;
@@ -91,7 +93,8 @@ public class Book implements Serializable {
     }
 
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        id = in.readInt();
+        
+    	id = in.readUTF();
         title = in.readUTF();
         author = in.readUTF();
         genre = in.readUTF();
@@ -100,7 +103,7 @@ public class Book implements Serializable {
     }
 
     private void writeObject(ObjectOutputStream out) throws IOException {
-        out.writeInt(id);
+        out.writeUTF(id);
         out.writeUTF(title);
         out.writeUTF(author);
         out.writeUTF(genre);

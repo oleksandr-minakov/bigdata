@@ -8,7 +8,7 @@ import com.mirantis.bigdatacourse.dao.Book;
 public interface Service {
 	
 	public int addBook(Book book);
-    public int delBook(int id);
+    public int delBook(String id);
 	public List<Book> getAllBooks(int pageNum, int pageSize);
 	public List<Book> findByAuthor(int pageNum, int pageSize, String author);
 	public List<Book> findByTitle(int pageNum, int pageSize, String title);

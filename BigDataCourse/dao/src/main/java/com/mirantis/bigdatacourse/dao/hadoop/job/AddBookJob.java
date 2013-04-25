@@ -27,7 +27,7 @@ public class AddBookJob {
 	
 	public int addBookJob(Book book) throws DaoException {
 		
-		book.setId(hadoopConf.bookID);
+		book.setId(String.valueOf(hadoopConf.bookID));
 		FileSystem fs = hadoopConf.getFS();
 		LOG.debug("Getting FileSistem ...");
 		String dest = new PathFormer().formAddPath(book, hadoopConf.workingDirectory);
@@ -44,7 +44,7 @@ public class AddBookJob {
 	        hadoopConf.bookID++;
 	        fs.setPermission(path, new FsPermission("777"));
 	        LOG.debug("Setting permissions ...");
-	        return book.getId();
+	        return Integer.parseInt(book.getId());
 	        
 		} catch (IOException e) {throw new DaoException(e);}
 	}

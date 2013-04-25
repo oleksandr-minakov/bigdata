@@ -22,10 +22,10 @@ public class DeleteBookJobTest {
 		newOne.bookID = 100;
 		
 		Book beggining_state = new Book();
-		beggining_state.newBook("CassandraTest", "Test", "Tester", new FileInputStream("testbook"));
+		beggining_state.newBook("CassandraTest", "Test", "Tester", new FileInputStream("src/main/resource/testbook"));
 		
 		int resAdd = new AddBookJob(newOne).addBookJob(beggining_state);	
-		int resDel = new DeleteBookJob(newOne).deleteBookJob(100);
+		int resDel = new DeleteBookJob(newOne).deleteBookJob(String.valueOf(100));
 		
 		System.out.println("DeleteBookJobTest " + ( resDel == 0));
 		assertEquals(resDel, 0);

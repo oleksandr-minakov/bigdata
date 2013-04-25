@@ -10,7 +10,7 @@ public interface Dao extends InitializingBean, DisposableBean{
 
 	public int addBook(Book book) throws DaoException;
 	
-	public int delBook(int id) throws DaoException;
+	public int delBook(String id) throws DaoException;
 
 	public List<Book> getAllBooks(int pageNum, int pageSize)
 			throws DaoException;
@@ -32,6 +32,6 @@ public interface Dao extends InitializingBean, DisposableBean{
 	
 	public void closeConnection() throws DaoException;
 	
-	public int getNumberOfRecords();
+	public int getNumberOfRecords() throws DaoException;
 
 }

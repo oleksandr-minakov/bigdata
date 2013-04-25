@@ -183,8 +183,8 @@ public class AddBookController {
 	}
 
     @RequestMapping(value = "/delete/{deleteBookId}", method=RequestMethod.GET)
-    public String deleteBook(@PathVariable int deleteBookId, Model model) {
-        if (deleteBookId == 0)
+    public String deleteBook(@PathVariable String deleteBookId, Model model) {
+        if (deleteBookId.length() == 0)
             return "delete";
         int result = restService.delBook(deleteBookId);
         if (result == 0) {

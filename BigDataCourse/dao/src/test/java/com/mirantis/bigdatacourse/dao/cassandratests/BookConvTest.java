@@ -44,7 +44,7 @@ public class BookConvTest {
 		
 		setUp();
 		try {
-			bstate.setId(100);
+			bstate.setId(String.valueOf(100));
 			bstate.newBook("CassandraTest", "Test", "Tester", new FileInputStream("src/main/resources/testbook"));
 			cols = BookConverter.getInstance().book2row(bstate);
 			fstate = BookConverter.getInstance().row2book(cols);

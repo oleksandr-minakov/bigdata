@@ -51,7 +51,7 @@ public class DaoCassandra implements Dao{
 	@Override
 	public int addBook(Book book) throws DaoException {
 
-		book.setId(constants.bookID);
+		book.setId(String.valueOf(constants.bookID));
 		try{
 			Mutator<String> mutator = HFactory.createMutator(constants.getKeyspace(), StringSerializer.get());
 			LOG.debug("Creating new mutator");
@@ -64,11 +64,11 @@ public class DaoCassandra implements Dao{
         }
 		constants.bookID++;
 		LOG.info("Book was added, id:" + String.valueOf(book.getId()));
-		return book.getId();
+		return 0;
 	}
 
 	@Override
-	public int delBook(int id) throws DaoException {
+	public int delBook(String id) throws DaoException {
 		
 		Mutator<String> mutator = HFactory.createMutator(constants.getKeyspace(), StringSerializer.get());
 		LOG.debug("Creating new mutator");
@@ -96,7 +96,7 @@ public class DaoCassandra implements Dao{
 
 			if(pageNum*pageSize > keyStorage.size()){
 				for(Book book:getBooks(keyStorage)){
-					if(!book.equals(null) && book.getId() != 0){
+					if(!book.equals(null) && book.getId().length() != 0){
 						ret.add(book);
 					}
 				}
@@ -109,7 +109,7 @@ public class DaoCassandra implements Dao{
 				neededKeys = keyStorage.subList((pageNum-1)*pageSize, pageNum*pageSize);
 				for(Book book:getBooks(neededKeys)){
 					
-					if(!book.equals(null) && book.getId() != 0){
+					if(!book.equals(null) && book.getId().length() != 0){
 						ret.add(book);
 					}
 				}
@@ -267,7 +267,9 @@ public class DaoCassandra implements Dao{
         		pagedBooks.add(row.getKey());
         	}
         	LOG.debug("Collection row keys...");
-		} catch (Exception e){throw new DaoException(e);}
+		} catch (Exception e){
+			throw new DaoException(e);
+			}
 		
         this.querySize = pagedBooks.size();
         LOG.info("Getting all row keys");
@@ -290,18 +292,21 @@ public class DaoCassandra implements Dao{
 		MultigetSliceQuery<String, String, String> books =HFactory.createMultigetSliceQuery(constants.getKeyspace(), StringSerializer.get(), StringSerializer.get(), StringSerializer.get());
 		books.setColumnFamily(constants.CF_NAME);
 		books.setKeys(rowKeys);
-		books.setRange("", "", false, 5);
-		LOG.debug("Forming new RangeSlicesQuery<String, String, String>");
-		try{
-		QueryResult<Rows<String, String, String>> result = books.execute();
-		LOG.debug("Executing RangeSlicesQuery<String, String, String>");
-        Rows<String, String, String> orderedRows = result.get();
-        for(Row<String, String, String> row:orderedRows){
-   			booksByKeys.add(BookConverter.getInstance().row2book(row.getColumnSlice().getColumns()));
-        }
-        LOG.debug("Collection books...");
-		return booksByKeys;
-		}catch (Exception e){throw new DaoException(e);}
+		books.setRange("", "", false, Integer.MAX_VALUE-1);
+		LOG.debug("Forming new MultigetSliceQuery<String, String, String>");
+		try {
+				QueryResult<Rows<String, String, String>> result = books.execute();
+				LOG.debug("Executing RangeSlicesQuery<String, String, String>");
+				Rows<String, String, String> orderedRows = result.get();
+				for(Row<String, String, String> row:orderedRows)
+					booksByKeys.add(BookConverter.getInstance().row2book(row.getColumnSlice().getColumns()));
+				
+				LOG.debug("Collection books...");
+				return booksByKeys;
+				
+		}catch (Exception e) {
+			throw new DaoException(e);
+			}
 	}
 
 	public List<Book> getBooksByToken(String lookFor, String token) throws DaoException {
