@@ -4,10 +4,6 @@ import com.mirantis.bigdatacourse.dao.Book;
 import com.mirantis.bigdatacourse.dao.BookAlreadyExists;
 import com.mirantis.bigdatacourse.dao.DaoException;
 import com.mirantis.bigdatacourse.dao.DeleteException;
-import com.mirantis.bigdatacourse.dao.mysql.DaoJdbc;
-import com.mirantis.bigdatacourse.dao.mysql.ManagementBooks;
-import com.mirantis.bigdatacourse.dao.mysql.ManagementTables;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -18,7 +14,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -121,7 +116,7 @@ public class DaoJdbcTest {
 
 	@Test
 	public void testGetAuthorByGenre() throws DaoException {
-		HashSet<String> expectedAuthors = new HashSet<String>(); 
+		TreeSet<String> expectedAuthors = new TreeSet<String>();
 		String genre = gen.genres.get(3);
 		for (Book book : gen.books) {
 			if(book.getGenre().equals(genre))
@@ -137,14 +132,14 @@ public class DaoJdbcTest {
         Book book = new Book();
         book.newBook("title", "author", "genre", new FileInputStream("testbook"));
         List<Book> books = new ArrayList<Book>();
-        int id = dao.addBook(book);
+        dao.addBook(book);
         try {
             books = dao.getBookByText(1, 1, "hisdu");
             String str1 = books.get(0).getReadableText();
             String str2 = book.getReadableText();
             assertTrue(str1.equals(str2));
         } finally {
-            dao.delBook(id);
+            dao.delBook(book.getId());
         }
 	}
 
@@ -152,14 +147,14 @@ public class DaoJdbcTest {
 	public void testDelBook() throws DaoException, FileNotFoundException {
         Book book = new Book();
         book.newBook("del", "del", "del", new FileInputStream("testbook"));
-        int id = dao.addBook(book);
-        int result = dao.delBook(id);
+        dao.addBook(book);
+        int result = dao.delBook(book.getId());
 		assertEquals(0, result);
 	}
 
 	@Test(expected = DeleteException.class)
 	public void testDelBookException() throws DaoException {
-		dao.delBook(10);
-		dao.delBook(10);
+		dao.delBook("10");
+		dao.delBook("10");
 	}
 }
