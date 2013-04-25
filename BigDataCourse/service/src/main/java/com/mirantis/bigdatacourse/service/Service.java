@@ -15,6 +15,10 @@ public interface Service {
 	public List<Book> findByText(int pageNum, int pageSize, String text);
 	public List<Book> findByGenre(int pageNum, int pageSize, String genre);
 	public TreeSet<String> findAuthorByGenre(int pageNum, int pageSize, String genre);
-	public int getNumberOfRecords();
+	
+	public int getNumberOfRecordsByAuthor(String whatToSeekFor);
+	public int getNumberOfRecordsByTitle(String whatToSeekFor);
+	public int getNumberOfRecordsByGenre(String whatToSeekFor);
+	public int getNumberOfRecordsByText(String whatToSeekFor);
 	
 }

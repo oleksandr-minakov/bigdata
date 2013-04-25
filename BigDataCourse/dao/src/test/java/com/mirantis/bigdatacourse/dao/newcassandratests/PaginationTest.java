@@ -10,9 +10,8 @@ import org.junit.Test;
 
 import com.mirantis.bigdatacourse.dao.Book;
 import com.mirantis.bigdatacourse.dao.DaoException;
-import com.mirantis.bigdatacourse.dao.cassandra.NewConstants;
-import com.mirantis.bigdatacourse.dao.cassandra.NewDaoCassandra;
-import com.mirantis.bigdatacourse.dao.cassandratests.CassandraIP;
+import com.mirantis.bigdatacourse.dao.cassandra.Constants;
+import com.mirantis.bigdatacourse.dao.cassandra.DaoCassandra;
 
 public class PaginationTest {
 	
@@ -21,13 +20,14 @@ public class PaginationTest {
 		
 		List<String> hosts = new ArrayList<String>();
 		List<Book> books = new ArrayList<Book>();
+		List<Book> getAllBooks = new ArrayList<Book>();
 		hosts.add(CassandraIP.IP1);
 		hosts.add(CassandraIP.IP2);
 		hosts.add(CassandraIP.IP3);
 		
-		NewConstants cts = new NewConstants("Cassandra Cluster", "KS", "Test", hosts);
+		Constants cts = new Constants("Cassandra Cluster", "KS", "Test", hosts);
 		
-		NewDaoCassandra dao = new NewDaoCassandra(cts);
+		DaoCassandra dao = new DaoCassandra(cts);
 		
 		for(int i = 0; i < 100; ++i) {
 			
@@ -37,9 +37,11 @@ public class PaginationTest {
 		}
 		
 		books = dao.getBooksByToken(1, 100, "titles", "CassandraTest");
-		int count = dao.getNumberOfRecords("titles", "CassandraTest");
+		getAllBooks = dao.getAllBooks(1, 100);
+		int count = dao.getNumberOfRecordsBy("titles", "CassandraTest");
 		
 		Assert.assertTrue(books.size() == count );
+		Assert.assertTrue(getAllBooks.size() == count );
 		cts.getCurrentClstr().dropKeyspace("KS");
 	}
 

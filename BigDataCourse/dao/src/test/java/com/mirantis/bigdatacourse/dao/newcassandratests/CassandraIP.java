@@ -1,4 +1,4 @@
-package com.mirantis.bigdatacourse.dao.cassandratests;
+package com.mirantis.bigdatacourse.dao.newcassandratests;
 
 public class CassandraIP {
 

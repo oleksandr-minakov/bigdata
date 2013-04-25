@@ -1,4 +1,4 @@
-package com.mirantis.bigdatacourse.dao.cassandratests;
+package com.mirantis.bigdatacourse.dao.newcassandratests;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,9 +25,7 @@ public class CassandraUploaderTest {
 		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
 		DaoCassandra dao = new DaoCassandra(cts);
 		
-		cts.bookID = dao.getMaxIndex()+1;
-		
-		BookUploader uploader = new BookUploader(dao, "booksToBeUploaded/", cts.bookID);
+		BookUploader uploader = new BookUploader(dao, "booksToBeUploaded/");
 		int a = uploader.bookUploder();
 		Assert.assertTrue (a != 0);
 	}

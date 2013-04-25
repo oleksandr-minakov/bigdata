@@ -10,9 +10,8 @@ import org.junit.Test;
 
 import com.mirantis.bigdatacourse.dao.Book;
 import com.mirantis.bigdatacourse.dao.DaoException;
-import com.mirantis.bigdatacourse.dao.cassandra.NewConstants;
-import com.mirantis.bigdatacourse.dao.cassandra.NewDaoCassandra;
-import com.mirantis.bigdatacourse.dao.cassandratests.CassandraIP;
+import com.mirantis.bigdatacourse.dao.cassandra.Constants;
+import com.mirantis.bigdatacourse.dao.cassandra.DaoCassandra;
 
 public class AddBookTest {
 	
@@ -24,9 +23,9 @@ public class AddBookTest {
 		hosts.add(CassandraIP.IP2);
 		hosts.add(CassandraIP.IP3);
 		
-		NewConstants cts = new NewConstants("Cassandra Cluster", "KS", "Test", hosts);
+		Constants cts = new Constants("Cassandra Cluster", "KS", "Test", hosts);
 		
-		NewDaoCassandra dao = new NewDaoCassandra(cts);
+		DaoCassandra dao = new DaoCassandra(cts);
 		for(int i = 0; i < 100; ++i) {
 			
 			Book beggining_state = new Book();
