@@ -340,30 +340,20 @@ public class NewDaoCassandra implements Dao {
 	}
 
 	@Override
-	public int getNumberOfRecords() throws DaoException{
-		List<String> pagedBooks = new ArrayList<String>();
-
-		RangeSlicesQuery<String, String, String> books = HFactory.createRangeSlicesQuery(constants.getKeyspace(), StringSerializer.get(), StringSerializer.get(), StringSerializer.get());
-		books.setColumnFamily(constants.CF_NAME);
-		books.setKeys("", "");
-		books.setReturnKeysOnly();
-		books.setRowCount(Integer.MAX_VALUE);
-		LOG.debug("Forming new RangeSlicesQuery<String, String, String>");
-		try{
-			QueryResult<OrderedRows<String, String, String>> result = books.execute();
-			LOG.debug("Executing RangeSlicesQuery<String, String, String>");
-			OrderedRows<String, String, String> orderedRows = result.get();
-        	List<Row<String, String, String>> keys = orderedRows.getList();
-        	for(Row<String, String, String> row: keys){
-        		pagedBooks.add(row.getKey());
-        	}
-        	LOG.debug("Collection row keys...");
-		} catch (Exception e){
-			throw new DaoException(e);
-			}
+	public int getNumberOfRecords(String whereToSeek, String whatToSeekFor) throws DaoException {
 		
-        LOG.info("Getting all row keys");
-		return pagedBooks.size();
+		MultigetSliceQuery<String, String, String> book =
+				HFactory.createMultigetSliceQuery(constants.getKeyspace(), StringSerializer.get(), StringSerializer.get(), StringSerializer.get());
+		
+		book.setColumnFamily(whereToSeek);
+		book.setKeys(whatToSeekFor);
+		book.setRange("", "", false, Integer.MAX_VALUE-1);
+		LOG.debug("Forming new MultigetSliceQuery<String, String, String>");
+		QueryResult<Rows<String, String, String>> result = book.execute();
+		LOG.debug("Executing RangeSlicesQuery<String, String, String>");
+		Rows<String, String, String> orderedRows = result.get();
+		
+		return orderedRows.getCount();
 	}
 	
 	public String getHash(String id) throws DaoException {

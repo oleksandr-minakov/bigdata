@@ -155,7 +155,7 @@ public class DaoHDFS implements Dao{
 	}
 
 	@Override
-	public int getNumberOfRecords() {
+	public int getNumberOfRecords(String whereToSeek, String whatToSeekFor) {
 		
 		return this.querySize;
 	}

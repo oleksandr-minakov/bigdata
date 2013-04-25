@@ -32,6 +32,6 @@ public interface Dao extends InitializingBean, DisposableBean{
 	
 	public void closeConnection() throws DaoException;
 	
-	public int getNumberOfRecords() throws DaoException;
+	public int getNumberOfRecords(String whereToSeek, String whatToSeekFor) throws DaoException;
 
 }
