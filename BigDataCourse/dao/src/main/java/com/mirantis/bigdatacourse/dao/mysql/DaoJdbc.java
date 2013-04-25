@@ -1,7 +1,6 @@
 package com.mirantis.bigdatacourse.dao.mysql;
 
 import com.mirantis.bigdatacourse.dao.*;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -30,7 +29,6 @@ public class DaoJdbc implements Dao {
 
     @Override
 	public int addBook(Book book) throws DaoException {
-		int id = 0;
         ManagementTables mt = new ManagementTables(dataSource);
         mt.createTables();
         mt.closeConnection();
@@ -82,12 +80,11 @@ public class DaoJdbc implements Dao {
 				}
 				pst.setInt(4, genre_id);
 			}
-			id = book_id;
 			pst.executeUpdate();
 			pst.clearParameters();
 			con.commit();
 			con.setAutoCommit(true);
-            LOG.info("Add book. Id = " + id);
+            LOG.info("Add book.");
         } catch (SQLException e) {
 			try {
 				con.rollback();
@@ -118,11 +115,11 @@ public class DaoJdbc implements Dao {
 				}
 			}
         }
-		return id;
+		return 0;
 	}
 
 	@Override
-	public int delBook(int id) throws DaoException {
+	public int delBook(String id) throws DaoException {
 		try {
             con = dataSource.getConnection();
 			st = con.createStatement();

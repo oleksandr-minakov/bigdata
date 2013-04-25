@@ -3,7 +3,6 @@ package com.mirantis.bigdatacourse.dao.memcached;
 import com.mirantis.bigdatacourse.dao.Book;
 import com.mirantis.bigdatacourse.dao.Dao;
 import com.mirantis.bigdatacourse.dao.DaoException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ public class DaoMemcached implements Dao {
     }
 
     @Override
-    public int delBook(int id) throws DaoException {
+    public int delBook(String id) throws DaoException {
         String str = "allBooks";
         int i = str.hashCode();
         client.delete(Integer.toString(i));

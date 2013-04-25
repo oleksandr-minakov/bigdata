@@ -5,9 +5,7 @@ import com.mirantis.bigdatacourse.dao.BookAlreadyExists;
 import com.mirantis.bigdatacourse.dao.Dao;
 import com.mirantis.bigdatacourse.dao.DaoException;
 import com.mirantis.bigdatacourse.dao.NAS.NASMapping;
-
 import org.apache.log4j.Logger;
-import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
@@ -20,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -44,8 +43,6 @@ public class DaoSolr implements Dao {
             LOG.debug("Set server");
             this.daoNAS = parameters.daoNAS;
             LOG.debug("Set daoNAS");
-            parameters.bookId = getMaxId() + 1;
-            LOG.debug("Set bookID");
         }
         LOG.info("Get server");
         return server;
@@ -53,7 +50,7 @@ public class DaoSolr implements Dao {
 
     @Override
     public int addBook(Book book) throws DaoException {
-        book.setId(parameters.bookId);
+        book.setId(idGenerator());
         try {
             List<Book> books = new ArrayList<Book>();
             ModifiableSolrParams params = new ModifiableSolrParams();
@@ -86,18 +83,17 @@ public class DaoSolr implements Dao {
                 throw new DaoException("Add exception " + e.getMessage());
             }
         }
-        parameters.bookId++;
         LOG.info("Add book. Id = " + book.getId());
         LOG.debug("Add book. Id = " + book.getId());
-        return book.getId();
+        return 0;
     }
 
     @Override
-    public int delBook(int id) throws DaoException {
+    public int delBook(String id) throws DaoException {
         try {
             getServer().deleteByQuery("id:" + id);
-            int rm_id = daoNAS.removeFile(id);
-            if (rm_id != id) {
+            String rm_id = daoNAS.removeFile(id);
+            if (!rm_id.equals(id)) {
                 getServer().rollback();
                 throw new DaoException("I/O error in daoNAS " + " rm_id = " + rm_id + " id = " + id);
             }
@@ -297,24 +293,8 @@ public class DaoSolr implements Dao {
         return numberOfRecords;
     }
 
-    public int getMaxId() throws DaoException {
-        int max = 0;
-        QueryResponse response;
-        try {
-            SolrQuery query = new SolrQuery();
-            query.setQuery("*:*");
-            query.addSortField("id", SolrQuery.ORDER.desc);
-            response = getServer().query(query);
-            SolrDocumentList results = response.getResults();
-            if (results.size() != 0) {
-                max = (int) results.get(0).getFieldValue("id");
-            }
-        } catch (SolrServerException e) {
-            throw new DaoException(e);
-        }
-        LOG.debug("Get max id = " + max);
-        LOG.info("Get max id = " + max);
-        return max;
+    public String idGenerator() {
+        return String.valueOf(new Date().getTime());
     }
 
     @Override
