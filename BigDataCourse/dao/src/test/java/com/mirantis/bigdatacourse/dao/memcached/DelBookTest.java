@@ -2,10 +2,7 @@ package com.mirantis.bigdatacourse.dao.memcached;
 
 import com.mirantis.bigdatacourse.dao.Book;
 import com.mirantis.bigdatacourse.dao.DaoException;
-import com.mirantis.bigdatacourse.dao.memcached.DaoMemcached;
-import com.mirantis.bigdatacourse.dao.memcached.MemClient;
 import com.mirantis.bigdatacourse.dao.mysql.DaoJdbc;
-
 import net.spy.memcached.MemcachedClient;
 import org.junit.Test;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -31,8 +28,8 @@ public class DelBookTest {
         MemcachedClient client = new MemcachedClient(new InetSocketAddress("localhost", 11211));
         Book book = new Book();
         book.newBook("title", "author", "genre", new FileInputStream("testbook"));
-        int id = daoMemcached.addBook(book);
-        assertTrue(daoMemcached.delBook(id) == 0);
+        daoMemcached.addBook(book);
+        assertTrue(daoMemcached.delBook(book.getId()) == 0);
         dao.closeConnection();
     }
 }

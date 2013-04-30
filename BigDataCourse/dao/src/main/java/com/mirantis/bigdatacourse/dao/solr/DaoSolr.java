@@ -67,7 +67,7 @@ public class DaoSolr implements Dao {
             doc.addField("title", book.getTitle());
             doc.addField("author", book.getAuthor());
             doc.addField("genre", book.getGenre());
-            if ( !book.getId().equals(daoNAS.writeFile(book.getId(), book.getText()))) {
+            if ( daoNAS.writeFile(book.getId(), book.getText()) != 0) {
                 LOG.debug("I/O error in daoNAS");
                 throw new DaoException("I/O error in daoNAS");
             }

@@ -2,10 +2,7 @@ package com.mirantis.bigdatacourse.dao.memcached;
 
 import com.mirantis.bigdatacourse.dao.Book;
 import com.mirantis.bigdatacourse.dao.DaoException;
-import com.mirantis.bigdatacourse.dao.memcached.DaoMemcached;
-import com.mirantis.bigdatacourse.dao.memcached.MemClient;
 import com.mirantis.bigdatacourse.dao.mysql.DaoJdbc;
-
 import net.spy.memcached.MemcachedClient;
 import org.junit.Test;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -35,7 +32,7 @@ public class GetAllBooksTest {
         book.newBook("title", "author", "genre", new FileInputStream("testbook"));
         List<Book> books = new ArrayList<Book>();
         List<Book> resultList = new ArrayList<Book>();
-        int id = daoMemcached.addBook(book);
+        daoMemcached.addBook(book);
         try {
             books = daoMemcached.getAllBooks(1,1);
             String str = 1 + "allBooks" + 1;
@@ -43,7 +40,7 @@ public class GetAllBooksTest {
             resultList = (List<Book>) client.get(Integer.toString(i));
             assertTrue(books.size() == resultList.size());
         } finally {
-            daoMemcached.delBook(id);
+            daoMemcached.delBook(book.getId());
             dao.closeConnection();
         }
     }
