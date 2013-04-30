@@ -3,9 +3,6 @@ package com.mirantis.bigdatacourse.dao.solr;
 import com.mirantis.bigdatacourse.dao.Book;
 import com.mirantis.bigdatacourse.dao.DaoException;
 import com.mirantis.bigdatacourse.dao.NAS.NASMapping;
-import com.mirantis.bigdatacourse.dao.solr.DaoSolr;
-import com.mirantis.bigdatacourse.dao.solr.Parameters;
-
 import org.apache.solr.client.solrj.SolrServerException;
 import org.junit.Test;
 
@@ -28,12 +25,12 @@ public class GetBookByAuthorTest {
         daoSolr.getServer().deleteByQuery("*:*");
         Book book = new Book();
         book.newBook("title", "author", "genre", new FileInputStream("testbook"));
-        int id = daoSolr.addBook(book);
+        daoSolr.addBook(book);
         try {
             books = daoSolr.getBookByAuthor(1, 1, "author");
             assertTrue(books.get(0).getAuthor().equals(book.getAuthor()));
         } finally {
-            daoSolr.delBook(id);
+            daoSolr.delBook(book.getId());
         }
     }
 }

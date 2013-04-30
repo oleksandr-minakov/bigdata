@@ -24,7 +24,7 @@ public class BookUtils {
 
     public static TreeSet<String> pagination(int pageNum, int pageSize, TreeSet<String> set) {
         List<String> list = new ArrayList<>(set);
-        List<String> resultList = new ArrayList<String>();
+        List<String> resultList = new ArrayList<>();
         if (list.size() > pageSize * pageNum) {
             resultList = list.subList((pageNum - 1) * pageSize, pageNum * pageSize);
         } else if (list.size() > pageSize * (pageNum - 1) && pageNum * pageSize >= list.size()) {
@@ -34,6 +34,6 @@ public class BookUtils {
         } else if (list.size() == 0) {
             resultList = list;
         }
-        return new TreeSet<String>(resultList);
+        return new TreeSet<>(resultList);
     }
 }

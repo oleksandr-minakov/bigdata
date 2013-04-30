@@ -3,9 +3,6 @@ package com.mirantis.bigdatacourse.dao.solr;
 import com.mirantis.bigdatacourse.dao.Book;
 import com.mirantis.bigdatacourse.dao.DaoException;
 import com.mirantis.bigdatacourse.dao.NAS.NASMapping;
-import com.mirantis.bigdatacourse.dao.solr.DaoSolr;
-import com.mirantis.bigdatacourse.dao.solr.Parameters;
-
 import org.apache.solr.client.solrj.SolrServerException;
 import org.junit.Test;
 
@@ -33,7 +30,7 @@ public class GetBookByGenreTest {
             books = daoSolr.getBookByGenre(1, 1, "genre");
             assertTrue(books.get(0).getGenre().equals(book.getGenre()));
         } finally {
-            daoSolr.delBook(id);
+            daoSolr.delBook(book.getId());
         }
     }
 }

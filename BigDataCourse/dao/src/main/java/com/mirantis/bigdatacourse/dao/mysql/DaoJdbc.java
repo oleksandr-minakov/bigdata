@@ -36,7 +36,6 @@ public class DaoJdbc implements Dao {
             con = dataSource.getConnection();
 			con.setAutoCommit(false);
 			st = con.createStatement();
-			int book_id = 0;
 			rs = st.executeQuery("SELECT * FROM Books WHERE title = '" + book.getTitle() + "';");
 			if (rs.first()) {
 				con.rollback();
@@ -49,13 +48,13 @@ public class DaoJdbc implements Dao {
 			pst.executeUpdate();
 			rs = st.executeQuery("SELECT LAST_INSERT_ID();");
 			while (rs.next()) {
-				book_id = rs.getInt("LAST_INSERT_ID()");
+				book.setId(rs.getString("LAST_INSERT_ID()"));
 			}
 			pst.clearParameters();
 			pst = null;
 			pst = con.prepareStatement("INSERT INTO Books (title, book_id, author_id, genre_id) VALUES (?, ?, ?, ?);");
 			pst.setString(1, book.getTitle());
-			pst.setInt(2, book_id);
+			pst.setInt(2, Integer.parseInt(book.getId()));
 			rs = st.executeQuery("SELECT * FROM Authors WHERE author = '" + book.getAuthor() + "';");
 			if (rs.first()) {
 				pst.setString(3, rs.getString("id"));
@@ -84,7 +83,7 @@ public class DaoJdbc implements Dao {
 			pst.clearParameters();
 			con.commit();
 			con.setAutoCommit(true);
-            LOG.info("Add book.");
+            LOG.info("Add book." + book.getId());
         } catch (SQLException e) {
 			try {
 				con.rollback();
@@ -383,7 +382,7 @@ public class DaoJdbc implements Dao {
     }
 
 	@Override
-	public int getNumberOfRecords() {
+	public int getNumberOfRecords(String whereToSeek, String whatToSeekFor) {
         LOG.debug("Get number of records");
         return numberOfRecords;
 	}
