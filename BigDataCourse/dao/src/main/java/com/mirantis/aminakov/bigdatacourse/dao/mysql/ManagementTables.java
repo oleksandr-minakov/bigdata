@@ -1,21 +1,16 @@
 package com.mirantis.aminakov.bigdatacourse.dao.mysql;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import org.apache.log4j.Logger;
 
 import javax.sql.DataSource;
+import java.sql.*;
 
 public class ManagementTables {
 	public static final Logger LOG = Logger.getLogger(ManagementTables.class);
 
 	String driverName = "com.mysql.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/bigdata?user=aminakov&password=bigdata";
+	String url = "jdbc:mysql://0.0.0.0:3306/bigdata?user=aminakov&password=bigdata";
 	String jdbcutf8 = "&useUnicode=true&characterEncoding=UTF-8";
 	protected Connection con = null;
 	Statement st = null;

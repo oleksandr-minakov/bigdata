@@ -7,6 +7,7 @@ import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocumentList;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.FileInputStream;
@@ -16,6 +17,7 @@ import static org.junit.Assert.assertTrue;
 
 public class GetMaxIdTest {
 
+    @Ignore
     @Test
     public void getMaxIdTest() throws DaoException, IOException, SolrServerException {
         NASMapping daoNAS = new NASMapping("/tmp/solr_nas/", 3);

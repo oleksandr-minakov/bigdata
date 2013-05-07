@@ -1,33 +1,29 @@
 package com.mirantis.aminakov.bigdatacourse.dao.cassandratests;
 
-import static org.junit.Assert.*;
+import com.mirantis.aminakov.bigdatacourse.dao.Book;
+import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
+import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
+import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra;
+import org.junit.Test;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 
-import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra;
-
-import org.junit.Test;
-
-import com.mirantis.aminakov.bigdatacourse.dao.Book;
-import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
-import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
+import static org.junit.Assert.assertTrue;
 
 public class GetBookByTests {
 	
 	public Book bstate;
 	public Book fstate;
 
-	 
-
 	public void setUp(){
-		
 		bstate = new Book();
 		fstate = new Book();
-		
 	}
+
 	@Test
 	public void getBookByTitleTest() throws DaoException{
 		
@@ -35,24 +31,24 @@ public class GetBookByTests {
 		setUp();
 		List<String> hosts = new ArrayList<String>();
 		hosts.add(CassandraIP.IP1);
-		
 		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
 		DaoCassandra dao = new DaoCassandra(cts);
-		
 		try {
-			for(int i = 0; i< 100; ++i){
-				
-				bstate.newBook("CassandraTest"+i, "Test", "Tester", new FileInputStream("src/main/resources/testbook"));
+			for(int i = 0; i < 100; ++i){
+				bstate.newBook("CassandraTest" + i, "Test", "Tester", new FileInputStream("testbook"));
 				dao.addBook(bstate);
 			}
-			after = dao.getBookByTitle(1, 10, new String("CassandraTest4"));
-
+			after = dao.getBookByTitle(1, 10, "CassandraTest4");
 			for(Book book: after){
-				assertTrue(book.getTitle().equals(new String("CassandraTest4")));
-				System.out.println(book.getTitle().equals(new String("CassandraTest4")));
+				assertTrue(book.getTitle().equals("CassandraTest4"));
+				System.out.println(book.getTitle().equals("CassandraTest4"));
 			}
-		} catch (Exception e) {throw new DaoException(e);}
-		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
+		} catch (IOException e) {
+            throw new DaoException(e);
+        } finally {
+            cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
+            System.out.println("!!!");
+        }
 	}
 	
 	@Test
@@ -62,24 +58,24 @@ public class GetBookByTests {
 		setUp();
 		List<String> hosts = new ArrayList<String>();
 		hosts.add(CassandraIP.IP1);
-		
 		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
 		DaoCassandra dao = new DaoCassandra(cts);
-		
 		try {
-			for(int i = 0; i< 100; ++i){
-				
-				bstate.newBook("CassandraTest", "Test"+i, "Tester", new FileInputStream("src/main/resources/testbook"));
+			for(int i = 0; i < 100; ++i){
+				bstate.newBook("CassandraTest", "Test" + i, "Tester", new FileInputStream("testbook"));
 				dao.addBook(bstate);
 			}
-			after = dao.getBookByAuthor(1, 10, new String("Test4"));
-			
+			after = dao.getBookByAuthor(1, 10, "Test4");
 			for(Book book: after){
-				assertTrue(book.getAuthor().equals(new String("Test4")));
-				System.out.println(book.getAuthor().equals(new String("Test4")));
+				assertTrue(book.getAuthor().equals("Test4"));
+				System.out.println(book.getAuthor().equals("Test4"));
 			}
-		} catch (Exception e) {throw new DaoException(e);}
-		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
+		} catch (IOException e) {
+            throw new DaoException(e);
+        } finally {
+            cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
+            System.out.println("!!!");
+        }
 	}
 	
 	@Test
@@ -89,24 +85,24 @@ public class GetBookByTests {
 		setUp();
 		List<String> hosts = new ArrayList<String>();
 		hosts.add(CassandraIP.IP1);
-		
 		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
 		DaoCassandra dao = new DaoCassandra(cts);
-		 
 		try {
-			for(int i = 0; i< 100; ++i){
-				
-				bstate.newBook("CassandraTest", "Test", "Tester"+i, new FileInputStream("src/main/resources/testbook"));
+			for(int i = 0; i < 100; ++i){
+				bstate.newBook("CassandraTest", "Test", "Tester" + i, new FileInputStream("testbook"));
 				dao.addBook(bstate);
 			}
-			after = dao.getBookByGenre(1, 10, new String("Tester4"));
-			
+			after = dao.getBookByGenre(1, 10, "Tester4");
 			for(Book book: after){
-				assertTrue(book.getGenre().equals(new String("Tester4")));
-				System.out.println(book.getGenre().equals(new String("Tester4")));
+				assertTrue(book.getGenre().equals("Tester4"));
+				System.out.println(book.getGenre().equals("Tester4"));
 			}
-		} catch (Exception e) {throw new DaoException(e);}
-		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
+		} catch (IOException e) {
+            throw new DaoException(e);
+        } finally {
+            cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
+            System.out.println("!!!");
+        }
 	}
 	
 	@Test
@@ -116,24 +112,23 @@ public class GetBookByTests {
 		setUp();
 		List<String> hosts = new ArrayList<String>();
 		hosts.add(CassandraIP.IP1);
-		
 		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
 		DaoCassandra dao = new DaoCassandra(cts);
-		
 		try {
-			for(int i = 0; i< 100; ++i){
-				
-				bstate.newBook("CassandraTest", "Test"+i, "Tester"+i, new FileInputStream("src/main/resources/testbook"));
+			for(int i = 0; i < 100; ++i){
+				bstate.newBook("CassandraTest", "Test" + i, "Tester" + i, new FileInputStream("testbook"));
 				dao.addBook(bstate);
 			}
-			after = dao.getAuthorByGenre(1, 10, new String("Tester5"));
-			
+			after = dao.getAuthorByGenre(1, 10, "Tester5");
 			for(String book: after){
-				assertTrue(book.equals(new String("Test5")));
-				System.out.println(book.equals(new String("Test5")));
+				assertTrue(book.equals("Test5"));
+				System.out.println(book.equals("Test5"));
 			}
-		} catch (Exception e) {throw new DaoException(e);}
-		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
+		} catch (IOException e) {
+            throw new DaoException(e);
+        } finally {
+            cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
+            System.out.println("!!!");
+        }
 	}
-	
 }

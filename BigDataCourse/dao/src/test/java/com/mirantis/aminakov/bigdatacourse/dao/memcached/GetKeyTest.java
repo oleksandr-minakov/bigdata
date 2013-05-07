@@ -14,7 +14,7 @@ public class GetKeyTest {
 
     @Test
     public void getKeyTest() throws IOException {
-        MemcachedClient client = new MemcachedClient(new InetSocketAddress("localhost" , 11211));
+        MemcachedClient client = new MemcachedClient(new InetSocketAddress("0.0.0.0" , 11211));
         Book book = new Book();
         Book book1 = new Book();
         book.newBook("title", "author", "genre", new FileInputStream("testbook"));

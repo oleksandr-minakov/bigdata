@@ -1,32 +1,25 @@
 package com.mirantis.aminakov.bigdatacourse.dao.cassandra;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.TreeSet;
-
-import org.apache.log4j.Logger;
-
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.Dao;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
-
 import me.prettyprint.cassandra.connection.HClientPool;
 import me.prettyprint.cassandra.serializers.StringSerializer;
 import me.prettyprint.cassandra.service.CassandraHost;
 import me.prettyprint.hector.api.beans.HColumn;
 import me.prettyprint.hector.api.beans.OrderedRows;
-import me.prettyprint.hector.api.beans.Rows;
 import me.prettyprint.hector.api.beans.Row;
+import me.prettyprint.hector.api.beans.Rows;
 import me.prettyprint.hector.api.factory.HFactory;
 import me.prettyprint.hector.api.mutation.Mutator;
 import me.prettyprint.hector.api.query.ColumnQuery;
 import me.prettyprint.hector.api.query.MultigetSliceQuery;
 import me.prettyprint.hector.api.query.QueryResult;
 import me.prettyprint.hector.api.query.RangeSlicesQuery;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.*;
 
 public class DaoCassandra implements Dao{
 
@@ -36,11 +29,11 @@ public class DaoCassandra implements Dao{
     private int querySize;
     public static final Logger LOG = Logger.getLogger(DaoCassandra.class);
 
-    public DaoCassandra(Constants constants) throws DaoException{
+    public DaoCassandra(Constants constants) throws DaoException {
 		this.constants = constants;
 		LOG.debug("Connection was established");
 		try {
-			constants.bookID= getMaxIndex()+1;
+			constants.bookID = getMaxIndex() + 1;
 			LOG.debug("Getting new ID");
 		} catch (DaoException e) {
 			LOG.debug(e.getMessage());
@@ -52,16 +45,16 @@ public class DaoCassandra implements Dao{
 	public int addBook(Book book) throws DaoException {
 
 		book.setId(constants.bookID);
-		try{
+		try {
 			Mutator<String> mutator = HFactory.createMutator(constants.getKeyspace(), StringSerializer.get());
 			LOG.debug("Creating new mutator");
 			for(HColumn<String, String> col: BookConverter.getInstance().book2row(book))
 				mutator.insert("book "+ String.valueOf(book.getId()), constants.CF_NAME, col);
 			LOG.debug("Perfoming insertion...");
-		}catch (Exception e) {
+		} catch (Exception e) {
 			LOG.debug(e.getMessage());
             throw new DaoException(e);
-            }
+        }
 		constants.bookID++;
 		LOG.info("Book was added, id:" + String.valueOf(book.getId()));
 		return book.getId();
@@ -72,12 +65,13 @@ public class DaoCassandra implements Dao{
 		
 		Mutator<String> mutator = HFactory.createMutator(constants.getKeyspace(), StringSerializer.get());
 		LOG.debug("Creating new mutator");
-		try{
+		try {
 			mutator.delete("book "+ String.valueOf(id), constants.CF_NAME, null, StringSerializer.get());
 			LOG.debug("Book was deleted, id:" + String.valueOf(id));
-		}catch(Exception e){throw new DaoException(e);}
+		} catch(Exception e) {
+            throw new DaoException(e);
+        }
 		LOG.info("Book was deleted, id:" + String.valueOf(id));
-		
 		return 0;
 	}
 
@@ -89,14 +83,12 @@ public class DaoCassandra implements Dao{
 		List<Book> ret = new ArrayList<Book>();
 		List<String> neededKeys = new ArrayList<String>();
 
-		if(pageNum <0 || pageNum > getPageCount(keyStorage.size(), pageSize)){
+		if(pageNum < 0 || pageNum > getPageCount(keyStorage.size(), pageSize)) {
 			return ret;
-		}
-		else{
-
-			if(pageNum*pageSize > keyStorage.size()){
-				for(Book book:getBooks(keyStorage)){
-					if(!book.equals(null) && book.getId() != 0){
+		} else {
+			if(pageNum*pageSize > keyStorage.size()) {
+				for(Book book:getBooks(keyStorage)) {
+					if(!book.equals(null) && book.getId() != 0) {
 						ret.add(book);
 					}
 				}
@@ -104,12 +96,10 @@ public class DaoCassandra implements Dao{
 				LOG.debug("Getting all books with pagination");
 				this.querySize = ret.size();	
 				return ret;
-			}
-			else{
-				neededKeys = keyStorage.subList((pageNum-1)*pageSize, pageNum*pageSize);
+			} else {
+				neededKeys = keyStorage.subList((pageNum - 1) * pageSize, pageNum * pageSize);
 				for(Book book:getBooks(neededKeys)){
-					
-					if(!book.equals(null) && book.getId() != 0){
+					if(!book.equals(null) && book.getId() != 0) {
 						ret.add(book);
 					}
 				}

@@ -12,7 +12,7 @@ public class GetConnectionTest {
 
     @Test
     public void getConnectionTest() throws IOException {
-        MemcachedClient client = new MemcachedClient(new InetSocketAddress("localhost" , 11211));
+        MemcachedClient client = new MemcachedClient(new InetSocketAddress("0.0.0.0" , 11211));
         assertNotNull(client);
     }
 }

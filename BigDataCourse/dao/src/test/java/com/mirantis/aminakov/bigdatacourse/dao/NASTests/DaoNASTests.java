@@ -1,14 +1,13 @@
 package com.mirantis.aminakov.bigdatacourse.dao.NASTests;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
+import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
+import com.mirantis.aminakov.bigdatacourse.dao.NAS.NASMapping;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
-import com.mirantis.aminakov.bigdatacourse.dao.NAS.NASMapping;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class DaoNASTests {
 	
@@ -55,7 +54,7 @@ public class DaoNASTests {
 			
 		setUp();
 		
-		InputStream is = new FileInputStream("src/test/java/testbook");
+		InputStream is = new FileInputStream("testbook");
 		int id = 100;
 		nas.writeFile(id, is);
 		
@@ -71,7 +70,7 @@ public class DaoNASTests {
 		
 		int res1, res2;
 		for(int i = 1; i <= 1000; ++i){
-			is = new FileInputStream("src/test/java/testbook");
+			is = new FileInputStream("testbook");
 			res1 = nas.writeFile(i, is);
 			is.close();
 		}
@@ -89,7 +88,7 @@ public class DaoNASTests {
 
 		setUp();
 		
-		InputStream in = new FileInputStream("src/test/java/testbook");
+		InputStream in = new FileInputStream("testbook");
 		int id = 100;
 		nas.writeFile(id, in);
 		InputStream out = nas.readFile(id);
