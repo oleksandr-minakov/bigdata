@@ -242,7 +242,7 @@ public class DaoSolr implements Dao {
             response = server.query(query);
             SolrDocumentList results = response.getResults();
             if (results.size() != 0) {
-                max = (int) results.get(0).getFieldValue("id");
+                max = Integer.parseInt(String.valueOf(results.get(0).getFieldValue("id")));
             }
         } catch (SolrServerException e) {
             throw new DaoException(e);

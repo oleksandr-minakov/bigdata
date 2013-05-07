@@ -1,3 +1,4 @@
+<!--
 <beans 	xmlns="http://www.springframework.org/schema/beans"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xmlns:context="http://www.springframework.org/schema/context"
@@ -87,7 +88,7 @@
         <constructor-arg type = "java.lang.String" value="/bookshelf/books/"/>
     </bean>
 
-   <!-- Beans that are configuration of MapReduce Job --> 
+   &lt;!&ndash; Beans that are configuration of MapReduce Job &ndash;&gt;
 
 	
     <bean id="job" class="com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob"/>
@@ -95,3 +96,4 @@
     <bean id="reducer" class="com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob.Reduce"/>
 
 </beans>
+-->
