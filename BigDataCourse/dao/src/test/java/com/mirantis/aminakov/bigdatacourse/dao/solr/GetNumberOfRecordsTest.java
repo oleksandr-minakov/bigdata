@@ -3,6 +3,8 @@ package com.mirantis.aminakov.bigdatacourse.dao.solr;
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.NAS.NASMapping;
+import com.mirantis.aminakov.bigdatacourse.dao.cassandratests.BookPath;
+
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
@@ -16,7 +18,8 @@ import static org.junit.Assert.assertTrue;
 
 public class GetNumberOfRecordsTest {
 
-    @Test
+    @SuppressWarnings("unused")
+	@Test
     public void getNumberOfRecordsTest() throws DaoException, IOException, SolrServerException {
         NASMapping daoNAS = new NASMapping("/tmp/solr_nas/", 3);
         Parameters parameters = new Parameters("http://0.0.0.0:8080/solr-web", daoNAS);
@@ -24,7 +27,7 @@ public class GetNumberOfRecordsTest {
         daoSolr.server.deleteByQuery("*:*");
         Book book = new Book();
         for (int i = 1; i < 55; i++) {
-            book.newBook("title" + i, "author" + i, "genre" + i, new FileInputStream("testbook"));
+            book.newBook("title" + i, "author" + i, "genre" + i, new FileInputStream(BookPath.path));
             daoSolr.addBook(book);
         }
         try {

@@ -3,6 +3,8 @@ package com.mirantis.aminakov.bigdatacourse.dao.solr;
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.NAS.NASMapping;
+import com.mirantis.aminakov.bigdatacourse.dao.cassandratests.BookPath;
+
 import org.apache.solr.client.solrj.SolrServerException;
 import org.junit.Test;
 
@@ -22,7 +24,7 @@ public class GetBookByAuthorTest {
         DaoSolr daoSolr = new DaoSolr(parameters);
         daoSolr.server.deleteByQuery("*:*");
         Book book = new Book();
-        book.newBook("title", "author", "genre", new FileInputStream("testbook"));
+        book.newBook("title", "author", "genre", new FileInputStream(BookPath.path));
         int id = daoSolr.addBook(book);
         try {
             books = daoSolr.getBookByAuthor(1, 1, "author");

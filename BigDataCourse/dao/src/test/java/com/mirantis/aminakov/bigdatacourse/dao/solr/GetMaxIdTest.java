@@ -3,6 +3,8 @@ package com.mirantis.aminakov.bigdatacourse.dao.solr;
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.NAS.NASMapping;
+import com.mirantis.aminakov.bigdatacourse.dao.cassandratests.BookPath;
+
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
@@ -26,7 +28,7 @@ public class GetMaxIdTest {
         daoSolr.server.deleteByQuery("*:*");
         Book book = new Book();
         for (int i = 1; i < 100; i++) {
-            book.newBook("title" + i, "author" + i, "genre" + i, new FileInputStream("testbook"));
+            book.newBook("title" + i, "author" + i, "genre" + i, new FileInputStream(BookPath.path));
             daoSolr.addBook(book);
         }
         try {
