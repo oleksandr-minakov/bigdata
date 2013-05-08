@@ -2,6 +2,7 @@ package com.mirantis.aminakov.bigdatacourse.dao.memcached;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
+import com.mirantis.aminakov.bigdatacourse.dao.cassandratests.BookPath;
 import com.mirantis.aminakov.bigdatacourse.dao.mysql.DaoJdbc;
 import net.spy.memcached.MemcachedClient;
 import org.junit.Test;
@@ -17,7 +18,8 @@ import static org.junit.Assert.assertTrue;
 
 public class GetAuthorByGenreTest {
 
-    @Test
+    @SuppressWarnings({ "deprecation", "unused" })
+	@Test
     public void getAuthorByGenreTest() throws DaoException, IOException {
         DaoMemcached daoMemcached = new DaoMemcached();
         daoMemcached.setClient(new MemClient(new InetSocketAddress("0.0.0.0" , 11211)));
@@ -28,8 +30,8 @@ public class GetAuthorByGenreTest {
         MemcachedClient client = new MemcachedClient(new InetSocketAddress("0.0.0.0", 11211));
         Book book = new Book();
         Book book2 = new Book();
-        book.newBook("title", "author", "genre", new FileInputStream("testbook"));
-        book2.newBook("title2", "author2", "genre", new FileInputStream("testbook"));
+        book.newBook("title", "author", "genre", new FileInputStream(BookPath.path));
+        book2.newBook("title2", "author2", "genre", new FileInputStream(BookPath.path));
         TreeSet<String> authors = new TreeSet<String>();
         int id = daoMemcached.addBook(book);
         int id2 = daoMemcached.addBook(book2);

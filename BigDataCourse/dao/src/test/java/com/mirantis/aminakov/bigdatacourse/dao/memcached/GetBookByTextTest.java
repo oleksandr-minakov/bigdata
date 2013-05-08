@@ -2,6 +2,7 @@ package com.mirantis.aminakov.bigdatacourse.dao.memcached;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
+import com.mirantis.aminakov.bigdatacourse.dao.cassandratests.BookPath;
 import com.mirantis.aminakov.bigdatacourse.dao.mysql.DaoJdbc;
 import net.spy.memcached.MemcachedClient;
 import org.junit.Test;
@@ -30,7 +31,7 @@ public class GetBookByTextTest {
         MemcachedClient client = new MemcachedClient(new InetSocketAddress("0.0.0.0", 11211));
         Book book = new Book();
         List<Book> books = new ArrayList<Book>();
-        book.newBook("title", "author", "genre", new FileInputStream("testbook"));
+        book.newBook("title", "author", "genre", new FileInputStream(BookPath.path));
         int id = daoMemcached.addBook(book);
         try {
             books = daoMemcached.getBookByText(1, 1, "teststring");

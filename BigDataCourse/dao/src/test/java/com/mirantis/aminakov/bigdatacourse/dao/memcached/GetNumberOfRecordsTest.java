@@ -2,6 +2,7 @@ package com.mirantis.aminakov.bigdatacourse.dao.memcached;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
+import com.mirantis.aminakov.bigdatacourse.dao.cassandratests.BookPath;
 import com.mirantis.aminakov.bigdatacourse.dao.mysql.DaoJdbc;
 import net.spy.memcached.MemcachedClient;
 import org.junit.Test;
@@ -19,7 +20,7 @@ import static org.junit.Assert.assertTrue;
 
 public class GetNumberOfRecordsTest {
 
-    @SuppressWarnings({ "deprecation", "unused" })
+    @SuppressWarnings({"deprecation"})
 	@Test
     public void getNumberOfRecordsTest() throws IOException, DaoException {
         DaoMemcached daoMemcached = new DaoMemcached();
@@ -30,7 +31,7 @@ public class GetNumberOfRecordsTest {
         daoMemcached.setDaoJdbc(dao);
         MemcachedClient client = new MemcachedClient(new InetSocketAddress("0.0.0.0", 11211));
         Book book = new Book();
-        book.newBook("title", "author", "genre", new FileInputStream("testbook"));
+        book.newBook("title", "author", "genre", new FileInputStream(BookPath.path));
         List<Book> books = new ArrayList<Book>();
         String str = 1 + 1 + "teststr";
         int i = str.hashCode();
