@@ -4,6 +4,8 @@ import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.BookAlreadyExists;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.DeleteException;
+import com.mirantis.aminakov.bigdatacourse.dao.cassandratests.BookPath;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -132,7 +134,7 @@ public class DaoJdbcTest {
 	@Test
 	public void testGetBookByText() throws DaoException, IOException {
         Book book = new Book();
-        book.newBook("title", "author", "genre", new FileInputStream("testbook"));
+        book.newBook("title", "author", "genre", new FileInputStream(BookPath.path));
         List<Book> books = new ArrayList<Book>();
         int id = dao.addBook(book);
         try {
@@ -148,7 +150,7 @@ public class DaoJdbcTest {
 	@Test
 	public void testDelBook() throws DaoException, FileNotFoundException {
         Book book = new Book();
-        book.newBook("del", "del", "del", new FileInputStream("testbook"));
+        book.newBook("del", "del", "del", new FileInputStream(BookPath.path));
         int id = dao.addBook(book);
         int result = dao.delBook(id);
 		assertEquals(0, result);
