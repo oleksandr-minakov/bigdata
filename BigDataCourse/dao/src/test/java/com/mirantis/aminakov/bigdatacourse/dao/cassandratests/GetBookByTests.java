@@ -25,7 +25,7 @@ public class GetBookByTests {
 		fstate = new Book();
 	}
 	@Test
-	public void getBookByTitleTest() throws DaoException{
+	public void getBookByTitleTest() throws DaoException, InterruptedException{
 		
 		List<Book> after = new ArrayList<Book>();
 		setUp();
@@ -46,17 +46,16 @@ public class GetBookByTests {
 		} catch (IOException e) {
             throw new DaoException(e);
         } finally {
-            cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
             System.out.println("!!!");
         }
 	}
 	@Test
-	public void getBookByAuthorTest() throws DaoException{
+	public void getBookByAuthorTest() throws DaoException, InterruptedException{
 		
 		List<Book> after = new ArrayList<Book>();
 		setUp();
 		List<String> hosts = new ArrayList<String>();
-		hosts.add(CassandraIP.IP1);
+		hosts.add(CassandraIP.IP2);
 		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
 		DaoCassandra dao = new DaoCassandra(cts);
 		try {
@@ -72,17 +71,16 @@ public class GetBookByTests {
 		} catch (IOException e) {
             throw new DaoException(e);
         } finally {
-            cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
             System.out.println("!!!");
         }
 	}
 	@Test
-	public void getBookByGenreTest() throws DaoException{
+	public void getBookByGenreTest() throws DaoException, InterruptedException{
 		
 		List<Book> after = new ArrayList<Book>();
 		setUp();
 		List<String> hosts = new ArrayList<String>();
-		hosts.add(CassandraIP.IP1);
+		hosts.add(CassandraIP.IP2);
 		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
 		DaoCassandra dao = new DaoCassandra(cts);
 		try {
@@ -98,18 +96,17 @@ public class GetBookByTests {
 		} catch (IOException e) {
             throw new DaoException(e);
         } finally {
-            cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
             System.out.println("!!!");
+            cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
         }
 	}
-	
 	@Test
-	public void getAuthorByGenreTest() throws DaoException{
+	public void getAuthorByGenreTest() throws DaoException, InterruptedException{
 		
 		TreeSet<String> after = new TreeSet<String>();
 		setUp();
 		List<String> hosts = new ArrayList<String>();
-		hosts.add(CassandraIP.IP1);
+		hosts.add(CassandraIP.IP2);
 		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
 		DaoCassandra dao = new DaoCassandra(cts);
 		try {
@@ -118,14 +115,11 @@ public class GetBookByTests {
 				dao.addBook(bstate);
 			}
 			after = dao.getAuthorByGenre(1, 10, "Tester5");
-			for(String book: after){
-				assertTrue(book.equals("Test5"));
-				System.out.println(book.equals("Test5"));
-			}
+			assertTrue(after.first().equals("Test5"));
+			System.out.println(after.first().equals("Test5"));
 		} catch (IOException e) {
             throw new DaoException(e);
         } finally {
-            cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
             System.out.println("!!!");
         }
 	}

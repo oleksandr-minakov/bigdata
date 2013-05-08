@@ -17,7 +17,7 @@ public class PaginateByTokenTest {
 
 	@SuppressWarnings("unused")
 	@Test
-	public void paginationTest() throws DaoException {
+	public void paginationTest() throws DaoException, InterruptedException {
 		
 		List<String> hosts = new ArrayList<String>();
 		hosts.add(CassandraIP.IP1);

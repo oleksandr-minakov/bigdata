@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 public class FormNewIDTest {
 
 	@Test
-	public void testCase() throws DaoException{
+	public void testCase() throws DaoException, InterruptedException{
 		
 		List<String> hosts = new ArrayList<String>();
 		hosts.add(CassandraIP.IP1);

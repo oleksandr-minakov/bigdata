@@ -16,10 +16,10 @@ import static org.junit.Assert.assertEquals;
 public class GetPageTest {
 
 	@Test
-	public void getPagesTest() throws DaoException {
+	public void getPagesTest() throws DaoException, InterruptedException {
 
 		List<String> hosts = new ArrayList<String>();
-		hosts.add(CassandraIP.IP1);
+		hosts.add(CassandraIP.IP2);
 		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
 		DaoCassandra dao = new DaoCassandra(cts);
 		Book initial_state = new Book();

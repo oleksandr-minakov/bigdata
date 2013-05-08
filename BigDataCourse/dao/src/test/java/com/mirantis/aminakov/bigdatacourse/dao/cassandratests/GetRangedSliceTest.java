@@ -16,13 +16,13 @@ import static org.junit.Assert.assertTrue;
 public class GetRangedSliceTest {
 
 	@Test
-	public void getRangedSlicesTest() throws DaoException{
+	public void getRangedSlicesTest() throws DaoException, InterruptedException{
 
 		List<Book> after = new ArrayList<Book>();
 		List<Book> after1 = new ArrayList<Book>();
 		
 		List<String> hosts = new ArrayList<String>();
-		hosts.add(CassandraIP.IP1);
+		hosts.add(CassandraIP.IP2);
 		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
 		DaoCassandra dao = new DaoCassandra(cts);
 		Book initial_state = new Book();

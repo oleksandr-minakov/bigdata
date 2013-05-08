@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 public class GetPageCountTest {
 
     @Test
-	public void getPageCountTest() throws DaoException{
+	public void getPageCountTest() throws DaoException, InterruptedException{
 		
 		List<String> hosts = new ArrayList<String>();
 		hosts.add(CassandraIP.IP1);

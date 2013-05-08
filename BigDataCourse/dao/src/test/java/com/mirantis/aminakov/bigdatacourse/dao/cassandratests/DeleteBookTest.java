@@ -16,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 public class DeleteBookTest {
 
 	@Test
-	public void deleteBookTest() throws DaoException{
+	public void deleteBookTest() throws DaoException, InterruptedException{
 		
 		List<String> hosts = new ArrayList<String>();
 		hosts.add(CassandraIP.IP2);

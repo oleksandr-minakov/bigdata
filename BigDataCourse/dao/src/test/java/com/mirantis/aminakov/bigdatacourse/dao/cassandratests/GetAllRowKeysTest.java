@@ -4,6 +4,7 @@ import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra;
+
 import org.junit.Test;
 
 import java.io.FileInputStream;
@@ -13,9 +14,8 @@ import java.util.List;
 import static org.junit.Assert.assertTrue;
 
 public class GetAllRowKeysTest {
-
 	@Test
-	public void getIterList() throws DaoException{
+	public void getIterList() throws DaoException, InterruptedException{
 		
 		List<String> hosts = new ArrayList<String>();
 		hosts.add(CassandraIP.IP1);
@@ -36,7 +36,7 @@ public class GetAllRowKeysTest {
 		} catch (Exception e) {
             throw new DaoException(e);
         } finally {
-		    cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
+        	cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
         }
 	}
 }

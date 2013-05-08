@@ -17,7 +17,7 @@ public class PaginationAndRemoving {
 	
 	@SuppressWarnings("unused")
 	@Test
-	public void testCase() throws DaoException{
+	public void testCase() throws DaoException, InterruptedException{
 		
 		List<String> hosts = new ArrayList<String>();
 		hosts.add(CassandraIP.IP1);
@@ -47,7 +47,7 @@ public class PaginationAndRemoving {
 		} catch (IOException e) {
             throw new DaoException(e);
         } finally {
-            cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
+//            cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
         }
 	}
 }

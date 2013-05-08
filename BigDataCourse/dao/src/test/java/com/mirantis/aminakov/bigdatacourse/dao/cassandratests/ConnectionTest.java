@@ -12,7 +12,7 @@ import java.util.List;
 public class ConnectionTest {
 	
 	@Test
-	public void testConnection() throws DaoException {
+	public void testConnection() throws DaoException, InterruptedException {
 
 		List<String> hosts = new ArrayList<String>();
 		hosts.add(CassandraIP.IP1);
