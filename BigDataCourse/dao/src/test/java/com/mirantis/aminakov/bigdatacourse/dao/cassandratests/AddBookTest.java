@@ -24,7 +24,7 @@ public class AddBookTest {
 		DaoCassandra dao = new DaoCassandra(cts);
 		Book initial_state = new Book();
 		try {
-			initial_state.newBook("CassandraTest", "Test", "Tester", new FileInputStream("testbook"));
+			initial_state.newBook("CassandraTest", "Test", "Tester", new FileInputStream(BookPath.path));
 			dao.addBook(initial_state);
 			System.out.println(initial_state.getId() == cts.bookID - 1);
 			assertEquals(initial_state.getId(), cts.bookID - 1);

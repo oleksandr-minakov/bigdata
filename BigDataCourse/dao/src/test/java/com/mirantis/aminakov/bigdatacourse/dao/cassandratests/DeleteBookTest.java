@@ -19,12 +19,12 @@ public class DeleteBookTest {
 	public void deleteBookTest() throws DaoException{
 		
 		List<String> hosts = new ArrayList<String>();
-		hosts.add(CassandraIP.IP1);
+		hosts.add(CassandraIP.IP2);
 		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
 		DaoCassandra dao = new DaoCassandra(cts);
 		Book initial_state = new Book();
 		try {
-			initial_state.newBook("CassandraTest", "Test", "Tester", new FileInputStream("testbook"));
+			initial_state.newBook("CassandraTest", "Test", "Tester", new FileInputStream(BookPath.path));
 			dao.addBook(initial_state);
 			int res = dao.delBook(initial_state.getId());
 			System.out.println( res == 0 );

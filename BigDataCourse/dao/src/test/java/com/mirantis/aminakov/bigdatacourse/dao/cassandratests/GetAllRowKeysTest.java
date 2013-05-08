@@ -28,7 +28,7 @@ public class GetAllRowKeysTest {
 				initial_state.newBook("CassandraTest" + String.valueOf(i),
                                         "Test" + String.valueOf(i),
                                         "Tester" + String.valueOf(i),
-                                        new FileInputStream("testbook"));
+                                        new FileInputStream(BookPath.path));
 				dao.addBook(initial_state);
 			}
             List<String> keys = dao.getAllRowKeys();

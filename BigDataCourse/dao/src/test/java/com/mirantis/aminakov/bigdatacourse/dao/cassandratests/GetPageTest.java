@@ -18,7 +18,6 @@ public class GetPageTest {
 	@Test
 	public void getPagesTest() throws DaoException {
 
-		List<Book> pagedBookList = new ArrayList<Book>();
 		List<String> hosts = new ArrayList<String>();
 		hosts.add(CassandraIP.IP1);
 		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
@@ -29,7 +28,7 @@ public class GetPageTest {
 				initial_state.newBook("CassandraTest" + String.valueOf(i),
                                         "Test" + String.valueOf(i),
                                         "Tester" + String.valueOf(i),
-                                        new FileInputStream("testbook"));
+                                        new FileInputStream(BookPath.path));
 				dao.addBook(initial_state);
 			}
 			assertEquals(dao.getAllBooks(1, 100).size(), 100);

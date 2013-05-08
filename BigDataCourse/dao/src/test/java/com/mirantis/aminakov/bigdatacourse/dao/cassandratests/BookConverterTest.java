@@ -29,7 +29,7 @@ public class BookConverterTest {
 	public void book2rowTest() throws DaoException{
 		try {
 			setUp();
-			bstate.newBook("CassandraTest", "Test", "Tester", new FileInputStream("testbook"));
+			bstate.newBook("CassandraTest", "Test", "Tester", new FileInputStream(BookPath.path));
 			cols = BookConverter.getInstance().book2row(bstate);
 			assertNotNull(cols);
 		} catch (IOException e) {
@@ -41,7 +41,7 @@ public class BookConverterTest {
 		setUp();
 		try {
 			bstate.setId(100);
-			bstate.newBook("CassandraTest", "Test", "Tester", new FileInputStream("testbook"));
+			bstate.newBook("CassandraTest", "Test", "Tester", new FileInputStream(BookPath.path));
 			cols = BookConverter.getInstance().book2row(bstate);
 			fstate = BookConverter.getInstance().row2book(cols);
 			assertNotNull(cols);

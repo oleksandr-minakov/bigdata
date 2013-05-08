@@ -95,8 +95,6 @@ public class Constants {
 		KEYSPACE_NAME = ksName;
 		CF_NAME = cfName;
 		this.clstr = getCurrentClstr();
-		for(String host: HOST_DEFS)
-			this.clstr.addHost(new CassandraHost(host), false);
 		this.bookID = 0;
 	}
 }

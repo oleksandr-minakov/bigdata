@@ -19,5 +19,6 @@ public class ConnectionTest {
 		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
 		DaoCassandra dao = new DaoCassandra(cts);
 		Assert.assertNotEquals(dao, null);
+		cts.getCurrentClstr().dropKeyspace(cts.KEYSPACE_NAME);
 	}
 }

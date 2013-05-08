@@ -30,7 +30,7 @@ public class GetPageCountTest {
 				initial_state.newBook("CassandraTest" + String.valueOf(i),
                                         "Test" + String.valueOf(i),
                                         "Tester" + String.valueOf(i),
-                                        new FileInputStream("testbook"));
+                                        new FileInputStream(BookPath.path));
 				books.add(initial_state.getGenre());
 				dao.addBook(initial_state);
 			}

@@ -4,6 +4,7 @@ import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants;
 import com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra;
+
 import org.junit.Test;
 
 import java.io.FileInputStream;
@@ -23,19 +24,18 @@ public class GetBookByTests {
 		bstate = new Book();
 		fstate = new Book();
 	}
-
 	@Test
 	public void getBookByTitleTest() throws DaoException{
 		
 		List<Book> after = new ArrayList<Book>();
 		setUp();
 		List<String> hosts = new ArrayList<String>();
-		hosts.add(CassandraIP.IP1);
+		hosts.add(CassandraIP.IP2);
 		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", hosts);
 		DaoCassandra dao = new DaoCassandra(cts);
 		try {
 			for(int i = 0; i < 100; ++i){
-				bstate.newBook("CassandraTest" + i, "Test", "Tester", new FileInputStream("testbook"));
+				bstate.newBook("CassandraTest" + i, "Test", "Tester", new FileInputStream(BookPath.path));
 				dao.addBook(bstate);
 			}
 			after = dao.getBookByTitle(1, 10, "CassandraTest4");
@@ -50,7 +50,6 @@ public class GetBookByTests {
             System.out.println("!!!");
         }
 	}
-	
 	@Test
 	public void getBookByAuthorTest() throws DaoException{
 		
@@ -62,7 +61,7 @@ public class GetBookByTests {
 		DaoCassandra dao = new DaoCassandra(cts);
 		try {
 			for(int i = 0; i < 100; ++i){
-				bstate.newBook("CassandraTest", "Test" + i, "Tester", new FileInputStream("testbook"));
+				bstate.newBook("CassandraTest", "Test" + i, "Tester", new FileInputStream("src/test/java/testbook"));
 				dao.addBook(bstate);
 			}
 			after = dao.getBookByAuthor(1, 10, "Test4");
@@ -77,7 +76,6 @@ public class GetBookByTests {
             System.out.println("!!!");
         }
 	}
-	
 	@Test
 	public void getBookByGenreTest() throws DaoException{
 		
@@ -89,7 +87,7 @@ public class GetBookByTests {
 		DaoCassandra dao = new DaoCassandra(cts);
 		try {
 			for(int i = 0; i < 100; ++i){
-				bstate.newBook("CassandraTest", "Test", "Tester" + i, new FileInputStream("testbook"));
+				bstate.newBook("CassandraTest", "Test", "Tester" + i, new FileInputStream("src/test/java/testbook"));
 				dao.addBook(bstate);
 			}
 			after = dao.getBookByGenre(1, 10, "Tester4");
@@ -116,7 +114,7 @@ public class GetBookByTests {
 		DaoCassandra dao = new DaoCassandra(cts);
 		try {
 			for(int i = 0; i < 100; ++i){
-				bstate.newBook("CassandraTest", "Test" + i, "Tester" + i, new FileInputStream("testbook"));
+				bstate.newBook("CassandraTest", "Test" + i, "Tester" + i, new FileInputStream("src/test/java/testbook"));
 				dao.addBook(bstate);
 			}
 			after = dao.getAuthorByGenre(1, 10, "Tester5");

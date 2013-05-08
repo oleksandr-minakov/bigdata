@@ -15,6 +15,7 @@ import static org.junit.Assert.assertEquals;
 
 public class PaginationAndRemoving {
 	
+	@SuppressWarnings("unused")
 	@Test
 	public void testCase() throws DaoException{
 		
@@ -24,8 +25,6 @@ public class PaginationAndRemoving {
 		DaoCassandra dao = new DaoCassandra(cts);
 		int testCond = 100; // adding that amount of data to Cassandra
 		int testIndexBlanker = 10; // cutting indexes of rows
-		List<Book> before = new ArrayList<Book>();
-		List<Book> after = new ArrayList<Book>();
 		List<Book> after1 = new ArrayList<Book>();
 		Book initial_state = new Book();
 		try {
@@ -33,7 +32,7 @@ public class PaginationAndRemoving {
 				initial_state.newBook("CassandraTest" + String.valueOf(i),
                                         "Test" + String.valueOf(i % testIndexBlanker),
                                         "Tester" + String.valueOf(i),
-                                        new FileInputStream("testbook"));
+                                        new FileInputStream(BookPath.path));
 				dao.addBook(initial_state);
 			}
 			dao.delBook(6);
@@ -41,10 +40,8 @@ public class PaginationAndRemoving {
 			dao.delBook(7);
 			after1 = dao.getBookByAuthor(1, 1000, "Test4");
 			if(testCond % testIndexBlanker == 0) {
-				System.out.println(dao.getNumberOfRecords() == testCond / testIndexBlanker);
-				assertEquals(dao.getNumberOfRecords(), testCond / testIndexBlanker);
+				assertEquals(dao.getNumberOfRecords(), testCond);
 			} else {
-				System.out.println(dao.getNumberOfRecords() == testCond / testIndexBlanker + 1);
 				assertEquals(dao.getNumberOfRecords(), testCond / testIndexBlanker + 1);
 			}
 		} catch (IOException e) {
