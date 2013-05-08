@@ -2,6 +2,8 @@ package com.mirantis.aminakov.bigdatacourse.dao.NASTests;
 
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
 import com.mirantis.aminakov.bigdatacourse.dao.NAS.NASMapping;
+import com.mirantis.aminakov.bigdatacourse.dao.cassandratests.BookPath;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -54,13 +56,14 @@ public class DaoNASTests {
 			
 		setUp();
 		
-		InputStream is = new FileInputStream("testbook");
+		InputStream is = new FileInputStream(BookPath.path);
 		int id = 100;
 		nas.writeFile(id, is);
 		
 		cleanUp();
 	}
 	
+	@SuppressWarnings("unused")
 	@Test
 	public void removeFileTest() throws DaoException, IOException{
 		
@@ -70,7 +73,7 @@ public class DaoNASTests {
 		
 		int res1, res2;
 		for(int i = 1; i <= 1000; ++i){
-			is = new FileInputStream("testbook");
+			is = new FileInputStream(BookPath.path);
 			res1 = nas.writeFile(i, is);
 			is.close();
 		}
@@ -88,7 +91,7 @@ public class DaoNASTests {
 
 		setUp();
 		
-		InputStream in = new FileInputStream("testbook");
+		InputStream in = new FileInputStream(BookPath.path);
 		int id = 100;
 		nas.writeFile(id, in);
 		InputStream out = nas.readFile(id);
