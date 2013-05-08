@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.hadoop.fs.Path;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -18,7 +19,7 @@ import com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob.Map;
 import com.mirantis.aminakov.bigdatacourse.mapreduce.WordCounterJob.Reduce;
 
 public class MapRedObjInniter {
-
+	@Ignore
 	@Test
 	public void getObjsTest() throws Exception{
 		

@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
+import com.mirantis.aminakov.bigdatacourse.dao.cassandratests.BookPath;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.AddBookJob;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.GetBooksCountJob;
@@ -28,7 +29,7 @@ public class GetBookCountJobTest {
 		for(int i=0; i< 100; ++i){
 			 
 			Book beggining_state = new Book();
-			beggining_state.newBook("CassandraTest" + i%100, "Test", "Tester"+i%100, new FileInputStream("testbook"));
+			beggining_state.newBook("CassandraTest" + i%100, "Test", "Tester"+i%100, new FileInputStream(BookPath.path));
 			add.addBookJob(beggining_state);
 		}
 		

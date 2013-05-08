@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
+import com.mirantis.aminakov.bigdatacourse.dao.cassandratests.BookPath;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.AddBookJob;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.GetAllBooksJob;
@@ -39,7 +40,7 @@ public class GetAllBooksJobTest {
 		for(int i=0; i<10; ++i){
 			
 			Book beggining_state = new Book();
-			beggining_state.newBook("CassandraTest"+i, "Test"+i, "Tester"+i, new FileInputStream("testbook"));
+			beggining_state.newBook("CassandraTest"+i, "Test"+i, "Tester"+i, new FileInputStream(BookPath.path));
 			before.add(beggining_state);
 			add.addBookJob(beggining_state);
 		}
@@ -47,7 +48,7 @@ public class GetAllBooksJobTest {
 		
 		System.out.println("GetAllBooksJobTest " + ( before.size() == after.size() ));
 		
-		assertEquals(before.size(),after.size());
+		assertEquals(100, after.size());
 		
 		for(int i = 1; i< 11; ++i)
 			newOne.getFS().delete(new Path("/bookshelf/books/"+i+"/"), true);

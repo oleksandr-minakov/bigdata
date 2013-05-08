@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import com.mirantis.aminakov.bigdatacourse.dao.Book;
 import com.mirantis.aminakov.bigdatacourse.dao.DaoException;
+import com.mirantis.aminakov.bigdatacourse.dao.cassandratests.BookPath;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
 import com.mirantis.aminakov.bigdatacourse.dao.hadoop.job.AddBookJob;
 
@@ -22,7 +23,7 @@ public class AddBookJobTest {
 		newOne.bookID = 100;
 		
 		Book beggining_state = new Book();
-		beggining_state.newBook("CassandraTest", "Test", "Tester", new FileInputStream("testbook"));
+		beggining_state.newBook("CassandraTest", "Test", "Tester", new FileInputStream(BookPath.path));
 		
 		int res = new AddBookJob(newOne).addBookJob(beggining_state);
 		res= new AddBookJob(newOne).addBookJob(beggining_state);
