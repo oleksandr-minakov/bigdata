@@ -1,8 +1,9 @@
 package com.mirantis.bigdatacourse.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class PaginationModel {
+public class PaginationModel implements Serializable {
 
     private List<Book> books;
     private int firstBook;
