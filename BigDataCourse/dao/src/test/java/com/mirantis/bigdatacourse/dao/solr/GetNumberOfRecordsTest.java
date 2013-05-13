@@ -40,7 +40,7 @@ public class GetNumberOfRecordsTest {
             QueryResponse response = daoSolr.getServer().query(query);
             SolrDocumentList results = response.getResults();
             daoSolr.getAllBooks(1,1);
-            assertTrue(daoSolr.getNumberOfRecords("", "") == 54);
+            assertTrue(daoSolr.getAllBooks(1, 100).getNumberOfRecords() == 54);
         } finally {
             for (Book bookForDelete: books) {
                 daoSolr.delBook(bookForDelete.getId());
