@@ -1,15 +1,11 @@
 package com.mirantis.bigdatacourse.dao.memcached;
 
 import com.mirantis.bigdatacourse.dao.DaoException;
-
 import net.spy.memcached.MemcachedClient;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TreeSet;
 
 public class MemClient {
 
@@ -43,23 +39,6 @@ public class MemClient {
     public Object delete(String key) {
         LOG.info("Delete " + key + " from cache");
         return client.delete(key);
-    }
-
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-	public TreeSet<String> pagination(int pageNum, int pageSize, TreeSet<String> set) {
-        List list = new ArrayList<>(set);
-        List resultList = new ArrayList<>();
-        if (list.size() > pageSize * pageNum) {
-            resultList = list.subList((pageNum - 1) * pageSize, pageNum * pageSize);
-        } else if (list.size() > pageSize * (pageNum - 1) && pageNum * pageSize >= list.size()) {
-            resultList = list.subList((pageNum - 1) * pageSize, list.size());
-        } else if (list.size() < pageSize && list.size() <= pageNum * pageSize) {
-            resultList = list.subList(0, list.size());
-        } else if (list.size() == 0) {
-            resultList = list;
-        }
-        TreeSet resultSet = new TreeSet(resultList);
-        return resultSet;
     }
 
     public void close() {
