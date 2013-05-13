@@ -2,6 +2,7 @@ package com.mirantis.bigdatacourse.dao.memcached;
 
 import com.mirantis.bigdatacourse.dao.Book;
 import com.mirantis.bigdatacourse.dao.DaoException;
+import com.mirantis.bigdatacourse.dao.PaginationModel;
 import com.mirantis.bigdatacourse.dao.mysql.DaoJdbc;
 import net.spy.memcached.MemcachedClient;
 import org.junit.Test;
@@ -11,8 +12,6 @@ import javax.sql.DataSource;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
@@ -30,11 +29,11 @@ public class GetBookByAuthorTest {
         MemcachedClient client = new MemcachedClient(new InetSocketAddress("localhost", 11211));
         Book book = new Book();
         book.newBook("title", "author", "genre", new FileInputStream("testbook"));
-        List<Book> books = new ArrayList<Book>();
+        PaginationModel model;
         daoMemcached.addBook(book);
         try {
-            books = daoMemcached.getBookByAuthor(1, 1, "author");
-            assertTrue(books.get(0).getAuthor().equals(book.getAuthor()));
+            model = daoMemcached.getBookByAuthor(1, 1, "author");
+            assertTrue(model.getBooks().get(0).getAuthor().equals(book.getAuthor()));
         } finally {
             daoMemcached.delBook(book.getId());
             dao.closeConnection();
