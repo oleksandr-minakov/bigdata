@@ -1,9 +1,6 @@
 package com.mirantis.bigdatacourse.dao.mysql;
 
-import com.mirantis.bigdatacourse.dao.Book;
-import com.mirantis.bigdatacourse.dao.BookAlreadyExists;
-import com.mirantis.bigdatacourse.dao.DaoException;
-import com.mirantis.bigdatacourse.dao.DeleteException;
+import com.mirantis.bigdatacourse.dao.*;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -15,7 +12,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeSet;
 
 import static org.junit.Assert.*;
 @SuppressWarnings("deprecation")
@@ -25,6 +21,7 @@ public class DaoJdbcTest {
 	static ManagementBooks gen = null;
 	static DaoJdbc dao = null;
     static DataSource dataSource = null;
+    static PaginationModel model = null;
 
 	@BeforeClass
 	public static void testSetup() throws DaoException {
@@ -61,7 +58,8 @@ public class DaoJdbcTest {
 			dao.addBook(book);
 		}
 		List<Book> actual = new ArrayList<Book>();
-		actual = dao.getBookByTitle(1, 10, books.get(i).getTitle());
+		model = dao.getBookByTitle(1, 10, books.get(i).getTitle());
+        actual = model.getBooks();
 		assertEquals(books.get(i).getTitle(), actual.get(0).getTitle());
 		assertEquals(books.get(i).getAuthor(), actual.get(0).getAuthor());
 		assertEquals(books.get(i).getGenre(), actual.get(0).getGenre());
@@ -76,7 +74,8 @@ public class DaoJdbcTest {
 	@Test
 	public void testGetAllBooks() throws DaoException {
 		List<Book> getBooks = new ArrayList<Book>();
-		getBooks = dao.getAllBooks(1, 50);
+		model = dao.getAllBooks(1, 50);
+        getBooks = model.getBooks();
 		assertEquals(books.size(), getBooks.size());
 	}
 
@@ -93,7 +92,8 @@ public class DaoJdbcTest {
             }
 		}
 		List<Book> books = new ArrayList<Book>();
-		books = dao.getBookByAuthor(1, 50, author);
+		model = dao.getBookByAuthor(1, 50, author);
+        books = model.getBooks();
         for (Book book : books) {
             System.out.println(book);
         }
@@ -110,21 +110,9 @@ public class DaoJdbcTest {
 				expectedGenreCounter++;
 		}
 		List<Book> books = new ArrayList<Book>();
-		books = dao.getBookByGenre(1, 50, genre);
-		assertEquals(expectedGenreCounter, books.size());
-	}
-
-	@Test
-	public void testGetAuthorByGenre() throws DaoException {
-		TreeSet<String> expectedAuthors = new TreeSet<String>();
-		String genre = gen.genres.get(3);
-		for (Book book : gen.books) {
-			if(book.getGenre().equals(genre))
-				expectedAuthors.add(book.getAuthor());
-		}
-		TreeSet<String> authors = new TreeSet<String>();
-		authors = dao.getAuthorByGenre(1, 50, genre);
-		assertEquals(expectedAuthors.size(), authors.size());
+		model = dao.getBookByGenre(1, 50, genre);
+		books = model.getBooks();
+        assertEquals(expectedGenreCounter, books.size());
 	}
 
 	@Test
@@ -134,7 +122,8 @@ public class DaoJdbcTest {
         List<Book> books = new ArrayList<Book>();
         dao.addBook(book);
         try {
-            books = dao.getBookByText(1, 1, "hisdu");
+            model = dao.getBookByText(1, 1, "hisdu");
+            books = model.getBooks();
             String str1 = books.get(0).getReadableText();
             String str2 = book.getReadableText();
             assertTrue(str1.equals(str2));
