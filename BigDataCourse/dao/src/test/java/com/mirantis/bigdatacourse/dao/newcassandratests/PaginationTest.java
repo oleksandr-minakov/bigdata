@@ -1,20 +1,20 @@
 package com.mirantis.bigdatacourse.dao.newcassandratests;
 
+import com.mirantis.bigdatacourse.dao.Book;
+import com.mirantis.bigdatacourse.dao.DaoException;
+import com.mirantis.bigdatacourse.dao.PaginationModel;
+import com.mirantis.bigdatacourse.dao.cassandra.Constants;
+import com.mirantis.bigdatacourse.dao.cassandra.DaoCassandra;
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.Test;
-
-import com.mirantis.bigdatacourse.dao.Book;
-import com.mirantis.bigdatacourse.dao.DaoException;
-import com.mirantis.bigdatacourse.dao.cassandra.Constants;
-import com.mirantis.bigdatacourse.dao.cassandra.DaoCassandra;
-
 public class PaginationTest {
-	
+
 	@Test
 	public void paginateIt() throws DaoException, IOException{
 		
@@ -31,18 +31,18 @@ public class PaginationTest {
 		
 		for(int i = 0; i < 100; ++i) {
 			
-			Book beggining_state = new Book();
-			beggining_state.newBook("CassandraTest", "Test"+i, "Tester"+i, new FileInputStream("src/main/resources/testbook"));
-			dao.addBook(beggining_state);
+			Book initial_state = new Book();
+			initial_state.newBook("CassandraTest", "Test" + i, "Tester" + i, new FileInputStream("src/main/resources/testbook"));
+			dao.addBook(initial_state);
 		}
 		
 		books = dao.getBooksByToken(1, 100, "titles", "CassandraTest");
-		getAllBooks = dao.getAllBooks(1, 100);
+        PaginationModel model = new PaginationModel();
+
+		model = dao.getAllBooks(1, 100);
 		int count = dao.getNumberOfRecordsBy("titles", "CassandraTest");
-		
 		Assert.assertTrue(books.size() == count );
-		Assert.assertTrue(getAllBooks.size() == count );
+		Assert.assertTrue(model.getBooks().size() == count );
 		cts.getCurrentClstr().dropKeyspace("KS");
 	}
-
 }
