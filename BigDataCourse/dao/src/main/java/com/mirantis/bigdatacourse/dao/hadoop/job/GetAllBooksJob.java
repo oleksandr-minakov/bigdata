@@ -1,19 +1,17 @@
 package com.mirantis.bigdatacourse.dao.hadoop.job;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import com.mirantis.bigdatacourse.dao.Book;
+import com.mirantis.bigdatacourse.dao.DaoException;
+import com.mirantis.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.log4j.Logger;
 
-
-import com.mirantis.bigdatacourse.dao.Book;
-import com.mirantis.bigdatacourse.dao.DaoException;
-import com.mirantis.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class GetAllBooksJob {
 	
@@ -29,19 +27,15 @@ public class GetAllBooksJob {
 		
 		Path wDir = new Path(hadoopConf.workingDirectory);
 		FileSystem fs = this.hadoopConf.getFS();
-		
 		List<Book> ret = new ArrayList<Book>();
 		List<FileStatus> statList;
-		try {
-			
+
+        try {
 			statList = Arrays.asList(fs.listStatus(wDir));
-			
 			if(statList.size() == 0) {
 				return ret;
 			}
-			
 			List<Path> pathList = new ArrayList<Path>();
-			
 			for(FileStatus fStat: statList) {
 					
 				Path lvl0 = fStat.getPath(); // ID
@@ -59,7 +53,6 @@ public class GetAllBooksJob {
 				Path lvl4 = Arrays.asList(fs.listStatus(fs.getWorkingDirectory())).get(0).getPath(); // File
 				
 				pathList.add(lvl4);
-				
 			}
 			
 			querySize = pathList.size();
@@ -79,8 +72,9 @@ public class GetAllBooksJob {
 				return ret; 
 			}
 			
-		} catch (IOException e) {throw new DaoException(e);}
-		
+		} catch (IOException e) {
+            throw new DaoException(e);
+        }
 		return ret;
 	}
 }
