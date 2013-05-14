@@ -1,15 +1,10 @@
 package com.mirantis.bigdatacourse.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TreeSet;
-
 import com.mirantis.bigdatacourse.dao.Book;
 import com.mirantis.bigdatacourse.dao.Dao;
 import com.mirantis.bigdatacourse.dao.DaoException;
-
+import com.mirantis.bigdatacourse.dao.PaginationModel;
 import org.apache.log4j.Logger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,117 +43,57 @@ public class ServiceToDao implements com.mirantis.bigdatacourse.service.Service 
     }
 
     @Override
-	public List<Book> getAllBooks(int pageNum, int pageSize) {
-		List<Book> books = new ArrayList<Book>();
-		try {
-			books = dao.getAllBooks(pageNum, pageSize);
-		} catch (DaoException e) {
-			LOG.debug("Can't get all books:" + e.getMessage());
-		}
-		return books;
-	}
+	public PaginationModel getAllBooks(int pageNum, int pageSize) {
+        PaginationModel model = new PaginationModel();
+        try {
+            model = dao.getAllBooks(pageNum, pageSize);
+        } catch (DaoException e) {
+            LOG.debug("Can't get all books:" + e.getMessage());
+        }
+        return model;
+    }
 
 	@Override
-	public List<Book> findByAuthor(int pageNum, int pageSize, String author) {
-		List<Book> books = new ArrayList<Book>();
+	public PaginationModel findByAuthor(int pageNum, int pageSize, String author) {
+        PaginationModel model = new PaginationModel();
 		try {
-			books = dao.getBookByAuthor(pageNum, pageSize, author);
+			model = dao.getBookByAuthor(pageNum, pageSize, author);
 		} catch (DaoException e) {
 			LOG.debug("Can't find by author:" + e.getMessage());
 		}
-		return books;
+		return model;
 	}
 
 	@Override
-	public List<Book> findByTitle(int pageNum, int pageSize, String title) {
-		List<Book> books = new ArrayList<Book>();
+	public PaginationModel findByTitle(int pageNum, int pageSize, String title) {
+        PaginationModel model = new PaginationModel();
 		try {
-			books = dao.getBookByTitle(pageNum, pageSize, title);
+			model = dao.getBookByTitle(pageNum, pageSize, title);
 		} catch (DaoException e) {
 			LOG.debug("Can't find by title:" + e.getMessage());
 		}
-		return books;
+		return model;
 	}
 
 	@Override
-	public List<Book> findByText(int pageNum, int pageSize, String text) {
-		List<Book> books = new ArrayList<Book>();
+	public PaginationModel findByText(int pageNum, int pageSize, String text) {
+        PaginationModel model = new PaginationModel();
 		try {
-			books = dao.getBookByText(pageNum, pageSize, text);
+			model = dao.getBookByText(pageNum, pageSize, text);
 		} catch (DaoException e) {
 			LOG.debug("Can't find by text:" + e.getMessage());
 		}
-		return books;
+		return model;
 	}
 
 	@Override
-	public List<Book> findByGenre(int pageNum, int pageSize, String genre) {
-		List<Book> books = new ArrayList<Book>();
+	public PaginationModel findByGenre(int pageNum, int pageSize, String genre) {
+        PaginationModel model = new PaginationModel();
 		try {
-			books = dao.getBookByGenre(pageNum, pageSize, genre);
+			model = dao.getBookByGenre(pageNum, pageSize, genre);
 		} catch (DaoException e) {
 			LOG.debug("Can't find by genre:" + e.getMessage());
 		}
-		return books;
-	}
-
-	@Override
-	public TreeSet<String> findAuthorByGenre(int pageNum, int pageSize, String genre) {
-		TreeSet<String> authors = new TreeSet<>();
-		try {
-			authors = dao.getAuthorByGenre(pageNum, pageSize, genre);
-		} catch (DaoException e) {
-			LOG.debug("Can't find genre by author:" + e.getMessage());
-		}
-		return authors;
-	}
-
-
-	@Override
-	public int getNumberOfRecordsByAuthor(String whatToSeekFor) {
-		
-		try {
-			return dao.getNumberOfRecordsByAuthor(whatToSeekFor);
-		} catch (DaoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return 0;
-	}
-
-	@Override
-	public int getNumberOfRecordsByTitle(String whatToSeekFor) {
-		
-		try {
-			return dao.getNumberOfRecordsByTitle(whatToSeekFor);
-		} catch (DaoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return 0;
-	}
-
-	@Override
-	public int getNumberOfRecordsByGenre(String whatToSeekFor) {
-		
-		try {
-			return dao.getNumberOfRecordsByGenre(whatToSeekFor);
-		} catch (DaoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return 0;
-	}
-
-	@Override
-	public int getNumberOfRecordsByText(String whatToSeekFor) {
-		
-		try {
-			return dao.getNumberOfRecordsByText(whatToSeekFor);
-		} catch (DaoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return 0;
+		return model;
 	}
 }
