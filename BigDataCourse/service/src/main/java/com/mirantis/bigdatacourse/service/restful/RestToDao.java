@@ -1,5 +1,6 @@
 package com.mirantis.bigdatacourse.service.restful;
 
+import com.mirantis.bigdatacourse.dao.Book;
 import com.mirantis.bigdatacourse.dao.Dao;
 import com.mirantis.bigdatacourse.dao.DaoException;
 import com.mirantis.bigdatacourse.dao.PaginationModel;
@@ -60,6 +61,17 @@ public class RestToDao implements RestService {
 		}
 		return model;
 	}
+
+    @Override
+    public int addBook(Book book) {
+        int ret = 0;
+        try {
+            ret = dao.addBook(book);
+        } catch (DaoException e) {
+            LOG.debug("Add error:" + e.getMessage());
+        }
+        return ret;
+    }
 
     @Override
     public int delBook(String id) {
