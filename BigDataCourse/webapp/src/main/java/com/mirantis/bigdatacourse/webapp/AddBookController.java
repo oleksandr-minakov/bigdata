@@ -1,33 +1,27 @@
 package com.mirantis.bigdatacourse.webapp;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.mirantis.bigdatacourse.dao.Book;
+import com.mirantis.bigdatacourse.dao.PaginationModel;
+import com.mirantis.bigdatacourse.service.Service;
+import com.mirantis.bigdatacourse.service.restful.RestService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.mirantis.bigdatacourse.dao.Book;
-import com.mirantis.bigdatacourse.service.Service;
-import com.mirantis.bigdatacourse.service.restful.RESTservice;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 @Controller
 public class AddBookController {
 	
 	private Service service;
-	private RESTservice restService;
-	
+	private RestService restService;
     public static final Logger LOG = Logger.getLogger(AddBookController.class);
 
 	@Autowired
@@ -36,7 +30,7 @@ public class AddBookController {
 	}
 	
 	@Autowired
-	public void setService(RESTservice restService) {
+	public void setService(RestService restService) {
 		this.restService = restService;
 	}
 	
@@ -61,9 +55,7 @@ public class AddBookController {
 			model.addAttribute("message", e.getMessage());
 			return "upload";
 		}
-
-		int id;
-		id = service.addBook(book);
+		int id = service.addBook(book);
 		if (id == 0) {
 			model.addAttribute("message", "File '" + file.getOriginalFilename() + "' uploaded successfully");
 		} else {
@@ -76,7 +68,6 @@ public class AddBookController {
 	}	
 	
 	private void validateFile(MultipartFile file) throws ContentTypeError {
-		
 		if (!file.getContentType().equals("text/plain")) {
 			throw new ContentTypeError("ERROR. Only *.txt accepted.");
 		}
@@ -91,11 +82,13 @@ public class AddBookController {
 		} else {
 			//NOP
 		}
-		List<Book> books = new ArrayList<Book>();
+		List<Book> books;
+        PaginationModel booksModel;
 		if (findString == null || findString.equalsIgnoreCase("")) {
 			//dangerous expression in condition
-			books = service.getAllBooks(pageNum, pageSize);
-			numberOfRecords = service.getNumberOfRecords();
+			booksModel = service.getAllBooks(pageNum, pageSize);
+            books = booksModel.getBooks();
+			numberOfRecords = booksModel.getNumberOfRecords();
 			model.addAttribute("books", books);
 //			model.addAttribute("numberOfPages", books.size());
 			model.addAttribute("currentPage", pageNum);
@@ -104,28 +97,33 @@ public class AddBookController {
 			model.addAttribute("findString",findString);
 			model.addAttribute("findBy", findBy);
 			by searchBy = by.valueOf(findBy);
+            PaginationModel searchBooksModel;
 			switch (searchBy) {
 			case title:
-				model.addAttribute("books", service.findByTitle(pageNum, pageSize, findString));
-				model.addAttribute("numberOfRecords", service.getNumberOfRecords());
+                searchBooksModel = service.findByTitle(pageNum, pageSize, findString);
+                model.addAttribute("books", searchBooksModel.getBooks());
+				model.addAttribute("numberOfRecords", searchBooksModel.getNumberOfRecords());
                 model.addAttribute("currentPage", pageNum);
 				break;
 				
 			case author:
-				model.addAttribute("books", service.findByAuthor(pageNum, pageSize, findString));
-				model.addAttribute("numberOfRecords", service.getNumberOfRecords());
+                searchBooksModel = service.findByAuthor(pageNum, pageSize, findString);
+                model.addAttribute("books", searchBooksModel.getBooks());
+				model.addAttribute("numberOfRecords", searchBooksModel.getNumberOfRecords());
                 model.addAttribute("currentPage", pageNum);
 				break;
 				
 			case genre:
-				model.addAttribute("books", service.findByGenre(pageNum, pageSize, findString));
-				model.addAttribute("numberOfRecords", service.getNumberOfRecords());
+                searchBooksModel = service.findByGenre(pageNum, pageSize, findString);
+                model.addAttribute("books", searchBooksModel.getBooks());
+				model.addAttribute("numberOfRecords", searchBooksModel.getNumberOfRecords());
                 model.addAttribute("currentPage", pageNum);
 				break;
 				
 			case text:
-				model.addAttribute("books", service.findByText(pageNum, pageSize, findString));
-				model.addAttribute("numberOfRecords", service.getNumberOfRecords());
+                searchBooksModel = service.findByText(pageNum, pageSize, findString);
+                model.addAttribute("books", searchBooksModel.getBooks());
+				model.addAttribute("numberOfRecords", searchBooksModel.getNumberOfRecords());
                 model.addAttribute("currentPage", pageNum);
 				break;
 
@@ -147,13 +145,15 @@ public class AddBookController {
 	public String getTextOfBook(@PathVariable String titleOfBook, Model model) {
         if (titleOfBook == null || titleOfBook.equalsIgnoreCase(""))
             return "text";
-        List<Book> books = new ArrayList<Book>();
-        books = restService.findByTitle(1, 1, titleOfBook);
+        List<Book> books;
+        PaginationModel booksModel;
+        booksModel = restService.findByTitle(1, 1, titleOfBook);
+        books = booksModel.getBooks();
         if (books.size() == 0)
             return "text";
         Book book = books.get(0);
         StringBuilder inputStringBuilder = new StringBuilder();
-        BufferedReader bufferedReader = null;
+        BufferedReader bufferedReader;
         try {
             bufferedReader = new BufferedReader(new InputStreamReader(book.getText(), "UTF-8"));
         } catch (UnsupportedEncodingException e) {
