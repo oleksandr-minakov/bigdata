@@ -64,7 +64,7 @@ public class Book implements Serializable {
         InputStreamReader isr = new InputStreamReader(bis, "UTF-8");
         BufferedReader bufferedReader = new BufferedReader(isr);
         StringBuilder inputStringBuilder = new StringBuilder();
-        String line = null;
+        String line;
         line = bufferedReader.readLine();
         while(line != null) {
             inputStringBuilder.append(line);
@@ -75,12 +75,13 @@ public class Book implements Serializable {
 	}
 	
 	public void newBook(String title, String author, String genre, InputStream text) {
-		
-		this.title = title;
-		this.author = author;
+
+        this.id = "0";
+        this.title = title;
+        this.author = author;
         this.genre = genre;
         setText(text);
-	}
+    }
 
     @Override
     public String toString() {
