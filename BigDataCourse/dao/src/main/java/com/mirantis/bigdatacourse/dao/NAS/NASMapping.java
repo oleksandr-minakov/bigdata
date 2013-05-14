@@ -4,6 +4,7 @@ import com.mirantis.bigdatacourse.dao.DaoException;
 import com.mirantis.bigdatacourse.dao.FSMapping;
 import com.mirantis.bigdatacourse.dao.NasException;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.*;
 import java.security.MessageDigest;
@@ -12,14 +13,21 @@ import java.security.NoSuchAlgorithmException;
 public class NASMapping implements FSMapping{
 	
 	public static final Logger LOG = Logger.getLogger(NASMapping.class);
-	private String workingDirectory;
-	private int nastity;
     private File directory;
-	
-	public NASMapping(String workingDirectory, int nastity) throws NasException {
+
+    @Value("${working_directory}")
+    public String workingDirectory;
+
+    @Value("${nesting}")
+	private int nesting;
+
+    public NASMapping() {
+    }
+
+    public NASMapping(String workingDirectory, int nesting) throws NasException {
 		super();
 		this.workingDirectory = workingDirectory;
-		this.nastity = nastity;
+		this.nesting = nesting;
 		if(!(new File(this.workingDirectory).exists())) {
 			LOG.debug("Checking working directory for exists.");
 			directory = new File(this.workingDirectory);
@@ -55,8 +63,8 @@ public class NASMapping implements FSMapping{
 		String absPath = this.workingDirectory;
 		LOG.debug("Calculating MD5 hash ...");
 		hash = getHash(id);
-		for(int i = 0; i < this.nastity; ++i) {
-			String nastity = hash.substring(i * this.nastity, (i + 1) * this.nastity) + "/";
+		for(int i = 0; i < this.nesting; ++i) {
+			String nastity = hash.substring(i * this.nesting, (i + 1) * this.nesting) + "/";
 			absPath +=nastity;
 		}
 		LOG.debug("Forming new path");
@@ -117,7 +125,7 @@ public class NASMapping implements FSMapping{
 	@Override
 	public int removeFile(String id) throws DaoException {
 		try {
-			Runtime.getRuntime().exec("rm -R " + this.workingDirectory + getHash(id).substring(0, this.nastity));
+			Runtime.getRuntime().exec("rm -R " + this.workingDirectory + getHash(id).substring(0, this.nesting));
 			LOG.debug("Removing file ...");
 			return 0;
 		} catch (IOException e) {

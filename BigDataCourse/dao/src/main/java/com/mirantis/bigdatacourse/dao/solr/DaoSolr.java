@@ -22,7 +22,6 @@ public class DaoSolr implements Dao {
 
     private SolrServer server = null;
     private NASMapping daoNAS = null;
-    private int numberOfRecords = -1;
     public static final Logger LOG = Logger.getLogger(DaoSolr.class);
 
     @Autowired
@@ -48,7 +47,6 @@ public class DaoSolr implements Dao {
     public int addBook(Book book) throws DaoException {
         book.setId(idGenerator());
         try {
-            List<Book> books = new ArrayList<Book>();
             ModifiableSolrParams params = new ModifiableSolrParams();
             params.set("q", "title:" + book.getTitle());
             params.set("rows", 1);
