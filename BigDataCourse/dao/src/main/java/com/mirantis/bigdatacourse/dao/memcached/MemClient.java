@@ -28,6 +28,14 @@ public class MemClient {
         }
     }
 
+    public MemClient(InetSocketAddress memcachedAddress) throws DaoException {
+        try {
+            client = new MemcachedClient(memcachedAddress);
+        } catch (IOException e) {
+            throw new DaoException(e);
+        }
+    }
+
     public void set(String key, int ttl, Object o) {
         client.set(key, ttl, o);
         LOG.info("Add " + key + " to cache");
