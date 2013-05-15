@@ -62,14 +62,13 @@ public class GetBookByTokenJob {
 					pathList.add(lvl3);
 				}
 			}
+			querySize = pathList.size();
 			
 			if(pathList.size() != 0 && pathList.size() >= pageNum*pageSize) {
-				this.querySize = pathList.size();
 				ret = new GetBookByPath().getBooksByPathList(pathList.subList((pageNum-1)*pageSize, pageSize*pageNum), hadoop);
 				return ret;
 			}
 			if(pathList.size() >= 0 && pathList.size() < pageNum*pageSize) {
-				this.querySize = pathList.size();
 				ret = new GetBookByPath().getBooksByPathList(pathList.subList(0, pathList.size()), hadoop);
 				return ret;
 			}

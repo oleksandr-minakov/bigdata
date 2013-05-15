@@ -10,7 +10,7 @@ import java.util.List;
 public class GetBookByAuthorJob {
 	
 	private HadoopConnector hadoop;
-	
+	public int querySize = 0;
 	public GetBookByAuthorJob(HadoopConnector hadoop) {
 		this.hadoop = hadoop;
 	}
@@ -21,6 +21,7 @@ public class GetBookByAuthorJob {
 
 		try{
 			GetBookByTokenJob getBooksbyToken = new GetBookByTokenJob(this.hadoop);
+			querySize = getBooksbyToken.querySize;
 			ret = getBooksbyToken.getBookByToken(pageNum, pageSize, "author", author);
 			return ret;
 		} catch(Exception e) {

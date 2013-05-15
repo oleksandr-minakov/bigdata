@@ -54,7 +54,7 @@ public class DaoHDFS implements Dao {
         PaginationModel model = new PaginationModel();
         GetBookByTitleJob get = new GetBookByTitleJob(this.hadoop);
 		LOG.debug("Getting paginated books by title: " + title);
-        model.setBooks(new GetBookByTitleJob(this.hadoop).getBooksBy(pageNum, pageSize, title));
+        model.setBooks(get.getBooksBy(pageNum, pageSize, title));
         LOG.debug("Updating query size ...");
         model.setNumberOfRecords(get.querySize);                     //TODO add getNumberOfRecords for query
         LOG.info("Getting paginated books by title: " + title);
@@ -66,9 +66,9 @@ public class DaoHDFS implements Dao {
         PaginationModel model = new PaginationModel();
         GetBookByTextJob get = new GetBookByTextJob(this.hadoop);
         LOG.debug("Getting paginated books by text: " + text);
-        model.setBooks(new GetBookByTextJob(this.hadoop).getBooksBy(pageNum, pageSize, text));
+        model.setBooks(get.getBooksBy(pageNum, pageSize, text));
         LOG.debug("Updating query size ...");
-		model.setNumberOfRecords(0);                                 //TODO add getNumberOfRecords for query
+		model.setNumberOfRecords(get.querySize);                                 //TODO add getNumberOfRecords for query
 		LOG.info("Returning paginated books by text: " + text);
 		return model;
 	}
@@ -76,10 +76,11 @@ public class DaoHDFS implements Dao {
 	@Override
 	public PaginationModel getBookByAuthor(int pageNum, int pageSize, String author) throws DaoException {
         PaginationModel model = new PaginationModel();
+        GetBookByAuthorJob get = new GetBookByAuthorJob(this.hadoop);
 		LOG.debug("Getting paginated books by author: " + author);
-        model.setBooks(new GetBookByAuthorJob(this.hadoop).getBooksBy(pageNum, pageSize, author));
+        model.setBooks(get.getBooksBy(pageNum, pageSize, author));
         LOG.debug("Updating query size ...");
-		model.setNumberOfRecords(0);                                 //TODO add getNumberOfRecords for query
+		model.setNumberOfRecords(get.querySize);                                 //TODO add getNumberOfRecords for query
 		LOG.info("Returning paginated books by author: " + author);
 		return model;
 	}
@@ -87,10 +88,11 @@ public class DaoHDFS implements Dao {
 	@Override
 	public PaginationModel getBookByGenre(int pageNum, int pageSize, String genre) throws DaoException {
         PaginationModel model = new PaginationModel();
+        GetBookByGenreJob get = new GetBookByGenreJob(this.hadoop);
 		LOG.debug("Getting paginated books by genre: " + genre);
-        model.setBooks(new GetBookByGenreJob(this.hadoop).getBooksBy(pageNum, pageSize, genre));
+        model.setBooks(get.getBooksBy(pageNum, pageSize, genre));
         LOG.debug("Updating query size ...");
-		model.setNumberOfRecords(0);                                 //TODO add getNumberOfRecords for query
+		model.setNumberOfRecords(get.querySize);                                 //TODO add getNumberOfRecords for query
 		LOG.info("Returning paginated books by genre: " + genre);
 		return model;
 	}

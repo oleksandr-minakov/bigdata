@@ -8,8 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GetBookByGenreJob {
-private HadoopConnector hadoop;
 	
+	private HadoopConnector hadoop;
+	public int querySize = 0;
 	public GetBookByGenreJob(HadoopConnector hadoop) {
 		this.hadoop = hadoop;
 	}
@@ -20,6 +21,7 @@ private HadoopConnector hadoop;
 		
 		try{
 			GetBookByTokenJob getBooksByToken = new GetBookByTokenJob(this.hadoop);
+			querySize = getBooksByToken.querySize;
 			ret = getBooksByToken.getBookByToken(pageNum, pageSize, "genre", genre);
 			return ret;
 		} catch(Exception e) {
