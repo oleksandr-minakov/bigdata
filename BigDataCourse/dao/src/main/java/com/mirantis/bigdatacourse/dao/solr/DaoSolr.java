@@ -12,6 +12,7 @@ import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.common.params.ModifiableSolrParams;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ import java.util.List;
 
 public class DaoSolr implements Dao {
 
+    @Value("${worker}")
+    private int worker;
     private SolrServer server = null;
     private NASMapping daoNAS = null;
     public static final Logger LOG = Logger.getLogger(DaoSolr.class);
@@ -45,7 +48,19 @@ public class DaoSolr implements Dao {
 
     @Override
     public int addBook(Book book) throws DaoException {
-        book.setId(idGenerator());
+
+        List<String> mods = new ArrayList<String>();
+        KeyGenerator idGen = new KeyGenerator();
+
+        mods.add(String.valueOf(Thread.activeCount()));
+        mods.add(Thread.currentThread().getName());
+        mods.add(Thread.currentThread().toString());
+        mods.add(Thread.currentThread().getState().toString());
+        mods.add(Integer.toString(worker));
+        mods.add(String.valueOf(new Date().getTime()));
+
+        String newID = idGen.getNewID(mods);
+        book.setId(newID);
         try {
             ModifiableSolrParams params = new ModifiableSolrParams();
             params.set("q", "title:" + book.getTitle());
@@ -250,11 +265,6 @@ public class DaoSolr implements Dao {
         LOG.info("Get book by text -> " + text);
         model.setBooks(books);
         return model;
-    }
-
-    //TODO Write new IdGenerator
-    public String idGenerator() {
-        return String.valueOf(new Date().getTime());
     }
 
     @Override
