@@ -14,6 +14,7 @@ public class KeyGenerator {
 	public String getNewID(List<String> modifiers) throws DaoException {
 		
 		Assert.notEmpty(modifiers);
+		modifiers.add(KeyGenerator.class.toString());
 		String ID = "";
 		
 		for(String mod:modifiers)
