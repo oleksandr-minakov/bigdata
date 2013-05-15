@@ -44,7 +44,7 @@ public class DaoHDFS implements Dao {
 		LOG.debug("Collecting paginated books...");
         model.setBooks(get.getAllBooksJob(pageNum, pageSize));
         LOG.debug("Updating query size ...");
-		model.setNumberOfRecords(get.querySize);                     //TODO add getNumberOfRecords for query
+		model.setNumberOfRecords(get.querySize);
 		LOG.info("Returning paginated books");
 		return model;
 	}
@@ -56,7 +56,7 @@ public class DaoHDFS implements Dao {
 		LOG.debug("Getting paginated books by title: " + title);
         model.setBooks(get.getBooksBy(pageNum, pageSize, title));
         LOG.debug("Updating query size ...");
-        model.setNumberOfRecords(get.querySize);                     //TODO add getNumberOfRecords for query
+        model.setNumberOfRecords(get.querySize);
         LOG.info("Getting paginated books by title: " + title);
 		return model;
 	}
@@ -68,7 +68,7 @@ public class DaoHDFS implements Dao {
         LOG.debug("Getting paginated books by text: " + text);
         model.setBooks(get.getBooksBy(pageNum, pageSize, text));
         LOG.debug("Updating query size ...");
-		model.setNumberOfRecords(get.querySize);                                 //TODO add getNumberOfRecords for query
+		model.setNumberOfRecords(get.querySize);
 		LOG.info("Returning paginated books by text: " + text);
 		return model;
 	}
@@ -80,7 +80,7 @@ public class DaoHDFS implements Dao {
 		LOG.debug("Getting paginated books by author: " + author);
         model.setBooks(get.getBooksBy(pageNum, pageSize, author));
         LOG.debug("Updating query size ...");
-		model.setNumberOfRecords(get.querySize);                                 //TODO add getNumberOfRecords for query
+		model.setNumberOfRecords(get.querySize);
 		LOG.info("Returning paginated books by author: " + author);
 		return model;
 	}
@@ -92,7 +92,7 @@ public class DaoHDFS implements Dao {
 		LOG.debug("Getting paginated books by genre: " + genre);
         model.setBooks(get.getBooksBy(pageNum, pageSize, genre));
         LOG.debug("Updating query size ...");
-		model.setNumberOfRecords(get.querySize);                                 //TODO add getNumberOfRecords for query
+		model.setNumberOfRecords(get.querySize);
 		LOG.info("Returning paginated books by genre: " + genre);
 		return model;
 	}

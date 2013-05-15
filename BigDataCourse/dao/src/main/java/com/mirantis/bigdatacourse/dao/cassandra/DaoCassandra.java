@@ -1,10 +1,6 @@
 package com.mirantis.bigdatacourse.dao.cassandra;
 
-import com.mirantis.bigdatacourse.dao.Book;
-import com.mirantis.bigdatacourse.dao.Dao;
-import com.mirantis.bigdatacourse.dao.DaoException;
-import com.mirantis.bigdatacourse.dao.KeyGenerator;
-import com.mirantis.bigdatacourse.dao.PaginationModel;
+import com.mirantis.bigdatacourse.dao.*;
 import me.prettyprint.cassandra.connection.HClientPool;
 import me.prettyprint.cassandra.serializers.StringSerializer;
 import me.prettyprint.cassandra.service.CassandraHost;
@@ -37,7 +33,7 @@ public class DaoCassandra implements Dao {
 		this.constants = constants;
 	}
 
-	@Override
+    @Override
 	public void afterPropertiesSet() throws DaoException {
 		LOG.debug("Checking DaoCassandra bean");
 		if(this.constants == null)

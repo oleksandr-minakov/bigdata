@@ -1,12 +1,12 @@
 package com.mirantis.bigdatacourse.dao.hadoop.configuration;
 
-import java.io.IOException;
-import java.net.URI;
+import com.mirantis.bigdatacourse.dao.DaoException;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.springframework.beans.factory.annotation.Value;
 
-import com.mirantis.bigdatacourse.dao.DaoException;
+import java.io.IOException;
+import java.net.URI;
 
 public class HadoopConnector {
 
@@ -39,37 +39,34 @@ public class HadoopConnector {
 		this.workingDirectory = workingDirectory;
 		this.bookID = 0;
 	}
-	
-	private void  setConfiguration() throws DaoException {
-		
+
+    public HadoopConnector() {
+    }
+
+    private void  setConfiguration() throws DaoException {
 		this.newConf = new Configuration();
 	}
 	
 	public FileSystem getFS() throws DaoException {
-		
 		if(this.newFS == null) {
-			
 			setConfiguration();
 			try {
 				this.newFS = FileSystem.get(URI.create(hadoopURI),newConf, this.hadoopUser);
 			} catch (Exception e) {
 				throw new DaoException(e);
-				}
-			
+			}
 			return this.newFS;
-		}
-		else
-			return this.newFS;
+		} else {
+            return this.newFS;
+        }
 	}
 	
 	public void closeConnection() throws DaoException {
-		
 		try {
 			newFS.close();
-		} 
-		catch (IOException e) {
+		} catch (IOException e) {
 			throw new DaoException(e);
-			}
+		}
 	}
 	
 	public String getIP() {

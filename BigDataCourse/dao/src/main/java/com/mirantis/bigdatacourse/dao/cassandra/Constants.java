@@ -1,9 +1,5 @@
 package com.mirantis.bigdatacourse.dao.cassandra;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Value;
-
 import me.prettyprint.cassandra.model.BasicColumnFamilyDefinition;
 import me.prettyprint.cassandra.model.BasicKeyspaceDefinition;
 import me.prettyprint.cassandra.service.CassandraHost;
@@ -13,6 +9,9 @@ import me.prettyprint.hector.api.Keyspace;
 import me.prettyprint.hector.api.ddl.ColumnFamilyDefinition;
 import me.prettyprint.hector.api.ddl.KeyspaceDefinition;
 import me.prettyprint.hector.api.factory.HFactory;
+import org.springframework.beans.factory.annotation.Value;
+
+import java.util.List;
 @SuppressWarnings("unused")
 public class Constants {
 	
@@ -167,8 +166,8 @@ public class Constants {
 		
 		for(String host: HOST_DEFS)	
 			this.clstr.addHost(new CassandraHost(host), false);
-		
-		
 	}
 
+    public Constants() {
+    }
 }

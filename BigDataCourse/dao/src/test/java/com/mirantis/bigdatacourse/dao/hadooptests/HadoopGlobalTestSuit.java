@@ -7,5 +7,5 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({ ConnectionTest.class, AddBookJobTest.class,
 		DeleteBookJobTest.class, GetAllBooksJobTest.class,
 		GetBookByTokenJobTest.class, GetBookCountJobTest.class, GetLastIndexJobTest.class})
-public class HadoodGlobalTestSuit {
+public class HadoopGlobalTestSuit {
 }
