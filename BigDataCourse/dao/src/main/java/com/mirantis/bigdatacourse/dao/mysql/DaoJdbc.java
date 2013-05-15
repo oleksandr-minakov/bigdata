@@ -1,8 +1,9 @@
 package com.mirantis.bigdatacourse.dao.mysql;
 
 import com.mirantis.bigdatacourse.dao.*;
+import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -11,14 +12,34 @@ import java.util.List;
 
 public class DaoJdbc implements Dao {
 
-    @Autowired
+    @Value("${mysql_driver}")
+    private String driverClassName;
+
+    @Value("${mysql_url}")
+    private String url;
+
+    @Value("${mysql_username}")
+    private String username;
+
+    @Value("${mysql_password}")
+    private String password;
+
     private DataSource dataSource;
 
-    protected Connection con;
+    Connection con;
     Statement st;
     ResultSet rs;
     PreparedStatement pst;
     public static final Logger LOG = Logger.getLogger(DaoJdbc.class);
+
+    public DaoJdbc() {
+        BasicDataSource ds = new BasicDataSource();
+        ds.setDriverClassName(driverClassName);
+        ds.setUrl(url);
+        ds.setUsername(username);
+        ds.setPassword(password);
+        setDataSource(ds);
+    }
 
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;

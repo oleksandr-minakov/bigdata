@@ -3,16 +3,24 @@ package com.mirantis.bigdatacourse.dao.memcached;
 import com.mirantis.bigdatacourse.dao.DaoException;
 import net.spy.memcached.MemcachedClient;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
 public class MemClient {
 
+    @Value("${memcached_address}")
+    private String address;
+
+    @Value("${memcached_port}")
+    private int port;
+
     private MemcachedClient client;
     public static final Logger LOG = Logger.getLogger(MemClient.class);
 
-    public MemClient(InetSocketAddress memcachedAddress) throws DaoException {
+    public MemClient() throws DaoException {
+        InetSocketAddress memcachedAddress = new InetSocketAddress(address, port);
         try {
             client = new MemcachedClient(memcachedAddress);
         } catch (IOException e) {
