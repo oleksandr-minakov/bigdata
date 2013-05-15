@@ -3,6 +3,7 @@ package com.mirantis.bigdatacourse.dao.cassandra;
 import com.mirantis.bigdatacourse.dao.Book;
 import com.mirantis.bigdatacourse.dao.Dao;
 import com.mirantis.bigdatacourse.dao.DaoException;
+import com.mirantis.bigdatacourse.dao.KeyGenerator;
 import com.mirantis.bigdatacourse.dao.PaginationModel;
 import me.prettyprint.cassandra.connection.HClientPool;
 import me.prettyprint.cassandra.serializers.StringSerializer;
@@ -69,18 +70,28 @@ public class DaoCassandra implements Dao {
 	@Override
 	public int addBook(Book book) throws DaoException {
 		
-		book.setId(String.valueOf(new Date().getTime()));
-		String hashedID = getHash(book.getId());
+		List<String> mods = new ArrayList<String>();
+		KeyGenerator idGen = new KeyGenerator();
+		
+		mods.add(String.valueOf(Thread.activeCount()));
+		mods.add(Thread.currentThread().getName());
+		mods.add(Thread.currentThread().toString());
+		mods.add(Thread.currentThread().getState().toString());
+		mods.add(String.valueOf(new Date().getTime()));
+		
+		String newID = idGen.getNewID(mods);
+		
+		book.setId(newID);
 		
 		try {
 			Mutator<String> mutator = HFactory.createMutator(constants.getKeyspace(), StringSerializer.get());
 			LOG.debug("Creating new mutator");
 			
 			for(HColumn<String, String> col: BookConverter.getInstance().book2row(book))
-				mutator.insert(hashedID, constants.CF_NAME, col);
+				mutator.insert(newID, constants.CF_NAME, col);
 			
 			LOG.debug("Performing book insertion...");
-			HColumn<String,String> updater = HFactory.createColumn(hashedID, hashedID);
+			HColumn<String,String> updater = HFactory.createColumn(newID, newID);
 				mutator.insert(book.getTitle(), "titles", updater);
 				mutator.insert(book.getAuthor(), "authors", updater);
 				mutator.insert(book.getGenre(), "genres", updater);
@@ -98,7 +109,7 @@ public class DaoCassandra implements Dao {
 	public int delBook(String id) throws DaoException {
 		
 		Mutator<String> mutator = HFactory.createMutator(constants.getKeyspace(), StringSerializer.get());
-		String hashedID = getHash(id);
+		String newID = getHash(id);
 		LOG.debug("Creating new mutator");
 		
 		try {
@@ -106,7 +117,7 @@ public class DaoCassandra implements Dao {
 						HFactory.createMultigetSliceQuery(constants.getKeyspace(), StringSerializer.get(), StringSerializer.get(), StringSerializer.get());
 				
 				book.setColumnFamily(constants.CF_NAME);
-				book.setKeys(hashedID);
+				book.setKeys(newID);
 				book.setRange("", "", false, Integer.MAX_VALUE - 1);
 				book.setRange("", "", false, Integer.MAX_VALUE - 1);
 
@@ -118,12 +129,12 @@ public class DaoCassandra implements Dao {
 				
 				Rows<String, String, String> orderedRows = result.get();
 				
-				Book tempel = BookConverter.getInstance().row2book(orderedRows.getByKey(hashedID).getColumnSlice().getColumns());
+				Book tempel = BookConverter.getInstance().row2book(orderedRows.getByKey(newID).getColumnSlice().getColumns());
 				
-				mutator.delete(tempel.getTitle(), "titles", hashedID, StringSerializer.get());
-				mutator.delete(tempel.getAuthor(), "authors", hashedID, StringSerializer.get());
-				mutator.delete(tempel.getGenre(), "genres", hashedID, StringSerializer.get());
-				mutator.delete(tempel.getReadableText(), "texts", hashedID, StringSerializer.get());
+				mutator.delete(tempel.getTitle(), "titles", newID, StringSerializer.get());
+				mutator.delete(tempel.getAuthor(), "authors", newID, StringSerializer.get());
+				mutator.delete(tempel.getGenre(), "genres", newID, StringSerializer.get());
+				mutator.delete(tempel.getReadableText(), "texts", newID, StringSerializer.get());
 								
 				mutator.delete(getHash(id), constants.CF_NAME, null, StringSerializer.get());
 				LOG.debug("Book was deleted, id:" + getHash(id));
