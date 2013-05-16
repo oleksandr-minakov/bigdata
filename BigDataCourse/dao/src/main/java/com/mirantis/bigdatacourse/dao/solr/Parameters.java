@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 public class Parameters {
 
-    @Value("${solr_url}")
+    @Value("#{properties.solr_url}")
     public String URL;
 
     public NASMapping daoNAS;
