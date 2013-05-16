@@ -50,8 +50,7 @@ public class DaoCassandra implements Dao {
             aPList.shutdown();
         }
 		
-		for(String host: this.constants.HOST_DEFS)
-			this.constants.getCurrentClstr().getConnectionManager().removeCassandraHost(new CassandraHost(host));
+		this.constants.getCurrentClstr().getConnectionManager().removeCassandraHost(new CassandraHost(this.constants.HOST));
 		LOG.debug("Removing all hosts from current session...");
 		
 		this.constants.getCurrentClstr().getConnectionManager().shutdown();
@@ -291,8 +290,7 @@ public class DaoCassandra implements Dao {
             aPList.shutdown();
         }
 		
-		for(String host: this.constants.HOST_DEFS)
-			this.constants.getCurrentClstr().getConnectionManager().removeCassandraHost(new CassandraHost(host));
+		this.constants.getCurrentClstr().getConnectionManager().removeCassandraHost(new CassandraHost(this.constants.HOST));
 		LOG.debug("Removing all hosts from current session...");
 		
 		this.constants.getCurrentClstr().getConnectionManager().shutdown();
