@@ -19,7 +19,7 @@ public class ConnectivityTest {
 		hosts.add(CassandraIP.IP2);
 		hosts.add(CassandraIP.IP3);
 		
-		Constants cts = new Constants("Cassandra Cluster", "KS", "Test", hosts);
+		Constants cts = new Constants("Cassandra Cluster", "KS", "Test", CassandraIP.IP2);
 		
 		DaoCassandra dao = new DaoCassandra(cts);
 		

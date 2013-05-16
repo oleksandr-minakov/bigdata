@@ -23,7 +23,7 @@ public class AddBookTest {
 		hosts.add(CassandraIP.IP2);
 		hosts.add(CassandraIP.IP3);
 		
-		Constants cts = new Constants("Cassandra Cluster", "KS", "Test", hosts);
+		Constants cts = new Constants("Cassandra Cluster", "KS", "Test", CassandraIP.IP1);
 		
 		DaoCassandra dao = new DaoCassandra(cts);
 		for(int i = 0; i < 100; ++i) {

@@ -24,17 +24,9 @@ public class Constants {
 	@Value("${cfamily}")
 	public String CF_NAME;
 	
-	public List<String> HOST_DEFS;
-	
 	@Value("${node1}")
-	public String HOST1;
+	public String HOST;
 	
-	@Value("${node2}")
-	public String HOST2;
-	
-	@Value("${node3}")
-	public String HOST3;
-
 	private Cluster clstr;
 	private Keyspace ksOper;
 	private BasicColumnFamilyDefinition CfDef;
@@ -78,9 +70,8 @@ public class Constants {
 			this.KsDef  = this.getNewKeyspaceDef();
 			
 			CassandraHostConfigurator cassandraHostConfigurator = new CassandraHostConfigurator();
+			cassandraHostConfigurator.setHosts(HOST);
 			cassandraHostConfigurator.setAutoDiscoverHosts(true);
-			cassandraHostConfigurator.setAutoDiscoverHosts(true);
-			cassandraHostConfigurator.setHosts(this.HOST_DEFS.get(0));
 			cassandraHostConfigurator.setPort(9160);
 			cassandraHostConfigurator.setMaxActive(1);
 			
@@ -152,22 +143,17 @@ public class Constants {
 			return this.clstr;
 	}	
 
-	public Constants(String clName, String ksName, String cfName, List<String> hostDef) {
+	public Constants(String clName, String ksName, String cfName, String host) {
 		
-		HOST_DEFS = hostDef;
+		HOST = host;
 		CLUSTER_NAME = clName;
 		KEYSPACE_NAME = ksName;
 		CF_NAME = cfName;
-		
 		this.clstr = getCurrentClstr();
-		HOST_DEFS.add(HOST1);
-		HOST_DEFS.add(HOST2);
-		HOST_DEFS.add(HOST3);
 		
-		for(String host: HOST_DEFS)	
-			this.clstr.addHost(new CassandraHost(host), false);
 	}
 
+	
     public Constants() {
     }
 }
