@@ -21,7 +21,7 @@ import java.util.List;
 
 public class DaoSolr implements Dao {
 
-    @Value("${worker}")
+    @Value("${properties.worker}")
     private int worker;
     private SolrServer server = null;
     private NASMapping daoNAS = null;

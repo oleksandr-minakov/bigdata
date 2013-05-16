@@ -1,8 +1,5 @@
 package com.mirantis.bigdatacourse.dao.newcassandratests;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,11 +10,6 @@ public class ConnectivityTest {
 
 	@Test
 	public void getConnectionAndConfiguration(){
-		
-		List<String> hosts = new ArrayList<String>();
-		hosts.add(CassandraIP.IP1);
-		hosts.add(CassandraIP.IP2);
-		hosts.add(CassandraIP.IP3);
 		
 		Constants cts = new Constants("Cassandra Cluster", "KS", "Test", CassandraIP.IP2);
 		

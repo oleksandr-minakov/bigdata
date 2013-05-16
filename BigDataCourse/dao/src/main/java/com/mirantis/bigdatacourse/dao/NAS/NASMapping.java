@@ -15,10 +15,10 @@ public class NASMapping implements FSMapping{
 	public static final Logger LOG = Logger.getLogger(NASMapping.class);
     private File directory;
 
-    @Value("${working_directory}")
+    @Value("#{properties.working_directory}")
     public String workingDirectory;
 
-    @Value("${nesting}")
+    @Value("#{properties.nesting}")
 	private int nesting;
 
     public NASMapping() {

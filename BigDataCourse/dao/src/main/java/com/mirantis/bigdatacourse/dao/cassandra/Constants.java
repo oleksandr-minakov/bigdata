@@ -2,7 +2,6 @@ package com.mirantis.bigdatacourse.dao.cassandra;
 
 import me.prettyprint.cassandra.model.BasicColumnFamilyDefinition;
 import me.prettyprint.cassandra.model.BasicKeyspaceDefinition;
-import me.prettyprint.cassandra.service.CassandraHost;
 import me.prettyprint.cassandra.service.CassandraHostConfigurator;
 import me.prettyprint.hector.api.Cluster;
 import me.prettyprint.hector.api.Keyspace;
@@ -11,20 +10,18 @@ import me.prettyprint.hector.api.ddl.KeyspaceDefinition;
 import me.prettyprint.hector.api.factory.HFactory;
 import org.springframework.beans.factory.annotation.Value;
 
-import java.util.List;
-@SuppressWarnings("unused")
 public class Constants {
 	
-	@Value("${cluster}")
+	@Value("#{properties.cluster}")
 	public String CLUSTER_NAME;
 	
-	@Value("${keyspace}")
+	@Value("#{properties.keyspace}")
 	public String KEYSPACE_NAME;
 	
-	@Value("${cfamily}")
+	@Value("#{properties.cfamily}")
 	public String CF_NAME;
 	
-	@Value("${node1}")
+	@Value("#{properties.node1}")
 	public String HOST;
 	
 	private Cluster clstr;
@@ -152,8 +149,7 @@ public class Constants {
 		this.clstr = getCurrentClstr();
 		
 	}
-
 	
-    public Constants() {
-    }
+    public Constants() {}
+    
 }

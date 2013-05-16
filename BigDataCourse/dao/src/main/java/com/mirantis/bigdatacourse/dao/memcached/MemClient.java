@@ -10,10 +10,10 @@ import java.net.InetSocketAddress;
 
 public class MemClient {
 
-    @Value("${memcached_address}")
+    @Value("#{properties.memcached_address}")
     private String address;
 
-    @Value("${memcached_port}")
+    @Value("#{properties.memcached_port}")
     private int port;
 
     private MemcachedClient client;

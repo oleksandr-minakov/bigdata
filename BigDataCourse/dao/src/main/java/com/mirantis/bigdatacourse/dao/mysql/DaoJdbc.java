@@ -12,16 +12,16 @@ import java.util.List;
 
 public class DaoJdbc implements Dao {
 
-    @Value("${mysql_driver}")
+    @Value("#{properties.mysql_driver}")
     private String driverClassName;
 
-    @Value("${mysql_url}")
+    @Value("#{properties.mysql_url}")
     private String url;
 
-    @Value("${mysql_username}")
+    @Value("#{properties.mysql_username}")
     private String username;
 
-    @Value("${mysql_password}")
+    @Value("#{properties.mysql_password}")
     private String password;
 
     private DataSource dataSource;

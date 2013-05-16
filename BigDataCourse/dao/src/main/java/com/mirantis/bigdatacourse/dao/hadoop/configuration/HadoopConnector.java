@@ -13,18 +13,18 @@ public class HadoopConnector {
 	private Configuration newConf;
 	public FileSystem newFS;
 	
-	@Value("${ip}")
+	@Value("#{properties.ip}")
 	private String hadoopIP;
 	
-	@Value("${port}")
+	@Value("#{properties.port}")
 	private String hadoopPort;
 	
-	@Value("${user}")
+	@Value("#{properties.user}")
 	private String hadoopUser;
 	
 	private String hadoopURI;
 	
-	@Value("${wdirectory}")
+	@Value("#{properties.wdirectory}")
 	public String workingDirectory;
 	
 	public int bookID;
