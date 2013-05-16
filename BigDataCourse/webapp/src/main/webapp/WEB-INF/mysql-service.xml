@@ -23,6 +23,8 @@
 	<bean id="service"
 		class="com.mirantis.bigdatacourse.service.ServiceToDao" />
 
+    <bean id="restService" class="com.mirantis.bigdatacourse.service.restful.RestToDao" />
+
 	<bean id="dao" class="com.mirantis.bigdatacourse.dao.mysql.DaoJdbc">
     </bean>
 	

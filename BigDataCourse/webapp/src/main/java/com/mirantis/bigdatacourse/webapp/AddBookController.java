@@ -62,7 +62,7 @@ public class AddBookController {
 			model.addAttribute("message", "File '" + file.getOriginalFilename() + "' upload failed");
 		}
 		model.addAttribute("book", book);
-		model.addAttribute("id", id);
+		model.addAttribute("id", book.getId());
 		model.addAttribute("text", book.getText());
 		return "upload";
 	}	
