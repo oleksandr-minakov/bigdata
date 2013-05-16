@@ -1,4 +1,4 @@
-package com.mirantis.bigdatacourse.dao.newcassandratests;
+package com.mirantis.bigdatacourse.dao.cassandratests;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.mirantis.bigdatacourse.dao.newcassandratests;
+package com.mirantis.bigdatacourse.dao.cassandratests;
 
 import com.mirantis.bigdatacourse.dao.Book;
 import com.mirantis.bigdatacourse.dao.DaoException;

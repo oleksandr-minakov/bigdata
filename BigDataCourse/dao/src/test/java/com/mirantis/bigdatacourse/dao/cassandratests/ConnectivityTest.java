@@ -1,4 +1,4 @@
-package com.mirantis.bigdatacourse.dao.newcassandratests;
+package com.mirantis.bigdatacourse.dao.cassandratests;
 
 import org.junit.Assert;
 import org.junit.Test;
