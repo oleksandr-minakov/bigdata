@@ -72,7 +72,7 @@
         <configuration>
           <server>tomcat7</server>
           <url>http://0.0.0.0:8081/manager/text</url>
-          <path>/bigdata_mysql_dev</path>
+          <path>/bigdata_solr_dev</path>
         </configuration>
       </plugin>
   	</plugins>

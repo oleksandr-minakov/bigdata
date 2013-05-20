@@ -65,7 +65,7 @@ public class NASMapping implements FSMapping{
 		hash = getHash(id);
 		for(int i = 0; i < this.nesting; ++i) {
 			String nastity = hash.substring(i * this.nesting, (i + 1) * this.nesting) + "/";
-			absPath +=nastity;
+			absPath += nastity;
 		}
 		LOG.debug("Forming new path");
 		LOG.info("Forming new absolute path");
@@ -108,7 +108,7 @@ public class NASMapping implements FSMapping{
 		LOG.debug("Mapping file to NAS...");
 		int res = createDirectoryRecursively(id);
 		File file = new File(getAbsolutePath(id) + is.toString());
-        if (res != 0) {
+        if (res == 0) {
             byte[] toWrap = new byte[is.available()];
             is.read(toWrap);
             FileOutputStream fileWriter = new FileOutputStream(file.getAbsoluteFile());
@@ -118,9 +118,9 @@ public class NASMapping implements FSMapping{
             LOG.debug("Closing streams");
             return res;
         } else {
-            return 0;
+            throw new DaoException("Can't write file.");
         }
-	}
+    }
 
 	@Override
 	public int removeFile(String id) throws DaoException {
@@ -136,7 +136,7 @@ public class NASMapping implements FSMapping{
 	@Override
 	public InputStream readFile(String id) throws DaoException, IOException {
 		LOG.debug("Reading file");
-		String path= getAbsolutePath(id);
+		String path = getAbsolutePath(id);
 		File dir = new File(path);
 		InputStream is;
 		if(dir.isDirectory() == true && dir.listFiles().length == 1) {
@@ -147,9 +147,8 @@ public class NASMapping implements FSMapping{
 			input.close();
 			return is;
 		} else {
-			is = new ByteArrayInputStream("Exception occured. Please contact administrator".getBytes("UTF-8"));
-			LOG.debug("Exception occured. on file reading");
-			return is;
+            LOG.debug("Exception occurred, on file reading");
+			throw new DaoException("Can't read file.");
 		}
 	}
 
