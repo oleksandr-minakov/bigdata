@@ -24,7 +24,7 @@ public class DaoJdbc implements Dao {
     @Value("#{properties.mysql_password}")
     private String password;
 
-    private DataSource dataSource;
+    DataSource dataSource;
 
     Connection con;
     Statement st;
@@ -39,11 +39,13 @@ public class DaoJdbc implements Dao {
 
     public DataSource getDataSource() {
         BasicDataSource ds = new BasicDataSource();
-        ds.setDriverClassName(driverClassName);
-        ds.setUrl(url);
-        ds.setUsername(username);
-        ds.setPassword(password);
-        this.setDataSource(ds);
+        if (dataSource == null) {
+            ds.setDriverClassName(driverClassName);
+            ds.setUrl(url);
+            ds.setUsername(username);
+            ds.setPassword(password);
+            setDataSource(ds);
+        }
         return dataSource;
     }
 
