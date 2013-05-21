@@ -151,7 +151,7 @@ public class DaoSolr implements Dao {
         List<Book> books = new ArrayList<Book>();
         PaginationModel model = new PaginationModel();
         ModifiableSolrParams params = new ModifiableSolrParams();
-        params.set("q", "title:" + title);
+        params.set("q", "title:" + "*" + title + "*");
         params.set("rows", pageSize);
         params.set("start", (pageNum - 1) * pageSize);
         QueryResponse response;
@@ -181,7 +181,7 @@ public class DaoSolr implements Dao {
         List<Book> books = new ArrayList<Book>();
         PaginationModel model = new PaginationModel();
         ModifiableSolrParams params = new ModifiableSolrParams();
-        params.set("q", "author:" + author);
+        params.set("q", "author:" + "*" + author + "*");
         params.set("rows", pageSize);
         params.set("start", (pageNum - 1) * pageSize);
         QueryResponse response;
@@ -211,7 +211,7 @@ public class DaoSolr implements Dao {
         List<Book> books = new ArrayList<Book>();
         PaginationModel model = new PaginationModel();
         ModifiableSolrParams params = new ModifiableSolrParams();
-        params.set("q", "genre:" + genre);
+        params.set("q", "genre:" + "*" + genre + "*");
         params.set("rows", pageSize);
         params.set("start", (pageNum - 1) * pageSize);
         QueryResponse response;
@@ -242,7 +242,7 @@ public class DaoSolr implements Dao {
         List<Book> books = new ArrayList<Book>();
         PaginationModel model = new PaginationModel();
         ModifiableSolrParams params = new ModifiableSolrParams();
-        params.set("q", "text:*" + text + "*");
+        params.set("q", "text:" + "*" + text + "*");
         params.set("rows", pageSize);
         params.set("start", (pageNum - 1) * pageSize);
         QueryResponse response;
