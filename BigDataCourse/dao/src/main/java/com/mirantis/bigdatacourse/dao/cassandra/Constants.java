@@ -24,132 +24,113 @@ public class Constants {
 	@Value("#{properties.node1}")
 	public String HOST;
 	
-	private Cluster clstr;
-	private Keyspace ksOper;
-	private BasicColumnFamilyDefinition CfDef;
-	private BasicKeyspaceDefinition KsDef;
-	
+	private Cluster cluster;
+	private BasicColumnFamilyDefinition columnFamilyDefinition;
+	private BasicKeyspaceDefinition keyspaceDefinition;
+
 	private BasicKeyspaceDefinition getNewKeyspaceDef() {
-		
-			KsDef = new BasicKeyspaceDefinition();
-			KsDef.setName(KEYSPACE_NAME);
-			KsDef.setDurableWrites(true);
-			KsDef.setReplicationFactor(1);
-			KsDef.setStrategyClass("org.apache.cassandra.locator.SimpleStrategy");
-			
-			return this.KsDef;
+			keyspaceDefinition = new BasicKeyspaceDefinition();
+			keyspaceDefinition.setName(KEYSPACE_NAME);
+			keyspaceDefinition.setDurableWrites(true);
+			keyspaceDefinition.setReplicationFactor(1);
+			keyspaceDefinition.setStrategyClass("org.apache.cassandra.locator.SimpleStrategy");
+			return this.keyspaceDefinition;
 	}
 	
 	public Keyspace getKeyspace() {
-		
-			return HFactory.createKeyspace(KEYSPACE_NAME, clstr); 
+			return HFactory.createKeyspace(KEYSPACE_NAME, cluster);
 	}
 	
 	public BasicColumnFamilyDefinition getNewCfDef(String name) {
-
-			this.CfDef = new BasicColumnFamilyDefinition();
-			this.CfDef.setKeyspaceName(KEYSPACE_NAME);
-			this.CfDef.setName(name);
-			return this.CfDef;
+			this.columnFamilyDefinition = new BasicColumnFamilyDefinition();
+			this.columnFamilyDefinition.setKeyspaceName(KEYSPACE_NAME);
+			this.columnFamilyDefinition.setName(name);
+			return this.columnFamilyDefinition;
 	}
 	
 	public Cluster getCurrentClstr() {
 		
-		boolean kspace_flg = false;
-		boolean cfbooks_flg = false;
-		boolean cftitles_flg = false;
-		boolean cfauthors_flg = false;
-		boolean cfgenres_flg = false;
-		boolean cftexts_flg = false;
-		
-		if(this.clstr == null) {
-			
-			this.KsDef  = this.getNewKeyspaceDef();
-			
-			CassandraHostConfigurator cassandraHostConfigurator = new CassandraHostConfigurator();
-			cassandraHostConfigurator.setHosts(HOST);
-			cassandraHostConfigurator.setAutoDiscoverHosts(true);
-			cassandraHostConfigurator.setPort(9160);
-			cassandraHostConfigurator.setMaxActive(1);
-			
-			this.clstr = HFactory.getOrCreateCluster(this.CLUSTER_NAME, cassandraHostConfigurator);
-			
+		boolean keyspaceFlag = false;
+		boolean columnFamilyBooksFlag = false;
+		boolean columnFamilyTitlesFlag = false;
+		boolean columnFamilyAuthorsFlag = false;
+		boolean columnFamilyGenresFlag = false;
+		boolean columnFamilyTextsFlag = false;
 
-			
-			for(KeyspaceDefinition def: clstr.describeKeyspaces()) {
-				if(def.getName().equals(KEYSPACE_NAME)) {
-					kspace_flg = true;
-					for(ColumnFamilyDefinition cf:def.getCfDefs()) {
-						
-						if(cf.getName().equals(CF_NAME)) 
-							cfbooks_flg = true;
-					
-						if(cf.getName().equals("titles")) 
-							cftitles_flg = true;
-						
-						if(cf.getName().equals("authors")) 
-							cfauthors_flg = true;
-						
-						if(cf.getName().equals("genres")) 
-							cfgenres_flg = true;
-						
-						if(cf.getName().equals("texts")) 
-							cftexts_flg = true;
-						
-					}
-				}
-			}
-			
-			if(kspace_flg == false) {
-				this.clstr.addKeyspace(KsDef);
-			}
-			
-			for(KeyspaceDefinition def: clstr.describeKeyspaces()) {
-				
-				if(def.getName().equals(KEYSPACE_NAME)) {
-					
-					if(cfbooks_flg == false) {
-						this.CfDef = getNewCfDef(this.CF_NAME);
-						this.clstr.addColumnFamily(CfDef);
-					}
-					
-					if(cftitles_flg == false) {
-						BasicColumnFamilyDefinition newCF = getNewCfDef("titles");
-						this.clstr.addColumnFamily(newCF);
-					}
-					
-					if(cfauthors_flg == false) {
-						BasicColumnFamilyDefinition newCF = getNewCfDef("authors");
-						this.clstr.addColumnFamily(newCF);
-					}
-					
-					if(cfgenres_flg == false) {
-						BasicColumnFamilyDefinition newCF = getNewCfDef("genres");
-						this.clstr.addColumnFamily(newCF);
-					}
-					
-					if(cftexts_flg == false) {
-						BasicColumnFamilyDefinition newCF = getNewCfDef("texts");
-						this.clstr.addColumnFamily(newCF);
-					}
-				}
-			}
-			return this.clstr;
-		}
-		else
-			return this.clstr;
-	}	
+        if (this.cluster == null) {
+            this.keyspaceDefinition = this.getNewKeyspaceDef();
+
+            CassandraHostConfigurator cassandraHostConfigurator = new CassandraHostConfigurator();
+            cassandraHostConfigurator.setHosts(HOST);
+            cassandraHostConfigurator.setAutoDiscoverHosts(true);
+            cassandraHostConfigurator.setPort(9160);
+            cassandraHostConfigurator.setMaxActive(1);
+            cassandraHostConfigurator.setCassandraThriftSocketTimeout(60 * 100);
+
+            this.cluster = HFactory.getOrCreateCluster(this.CLUSTER_NAME, cassandraHostConfigurator);
+
+            for (KeyspaceDefinition def : cluster.describeKeyspaces()) {
+                if (def.getName().equals(KEYSPACE_NAME)) {
+                    keyspaceFlag = true;
+                    for (ColumnFamilyDefinition cf : def.getCfDefs()) {
+
+                        if (cf.getName().equals(CF_NAME))
+                            columnFamilyBooksFlag = true;
+
+                        if (cf.getName().equals("titles"))
+                            columnFamilyTitlesFlag = true;
+
+                        if (cf.getName().equals("authors"))
+                            columnFamilyAuthorsFlag = true;
+
+                        if (cf.getName().equals("genres"))
+                            columnFamilyGenresFlag = true;
+
+                        if (cf.getName().equals("texts"))
+                            columnFamilyTextsFlag = true;
+                    }
+                }
+            }
+
+            if (!keyspaceFlag) {
+                this.cluster.addKeyspace(keyspaceDefinition);
+            }
+
+            for (KeyspaceDefinition def : cluster.describeKeyspaces()) {
+                if (def.getName().equals(KEYSPACE_NAME)) {
+                    if (!columnFamilyBooksFlag) {
+                        this.columnFamilyDefinition = getNewCfDef(this.CF_NAME);
+                        this.cluster.addColumnFamily(columnFamilyDefinition);
+                    }
+                    if (!columnFamilyTitlesFlag) {
+                        BasicColumnFamilyDefinition newCF = getNewCfDef("titles");
+                        this.cluster.addColumnFamily(newCF);
+                    }
+                    if (!columnFamilyAuthorsFlag) {
+                        BasicColumnFamilyDefinition newCF = getNewCfDef("authors");
+                        this.cluster.addColumnFamily(newCF);
+                    }
+                    if (!columnFamilyGenresFlag) {
+                        BasicColumnFamilyDefinition newCF = getNewCfDef("genres");
+                        this.cluster.addColumnFamily(newCF);
+                    }
+                    if (!columnFamilyTextsFlag) {
+                        BasicColumnFamilyDefinition newCF = getNewCfDef("texts");
+                        this.cluster.addColumnFamily(newCF);
+                    }
+                }
+            }
+            return this.cluster;
+        } else {
+            return this.cluster;
+        }
+	}
 
 	public Constants(String clName, String ksName, String cfName, String host) {
-		
 		HOST = host;
 		CLUSTER_NAME = clName;
 		KEYSPACE_NAME = ksName;
 		CF_NAME = cfName;
-		this.clstr = getCurrentClstr();
-		
+		this.cluster = getCurrentClstr();
 	}
-	
-    public Constants() {}
-    
 }
