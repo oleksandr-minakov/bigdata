@@ -17,15 +17,12 @@ public class CassandraUploaderTest {
 	@Test
 	public void uploaderTest() throws DaoException, IOException {
 		
-
 		List<String> hosts = new ArrayList<String>();
 		hosts.add(CassandraIP.IP1);
-		
-		Constants cts = new Constants("Cassandra Cluster", "Bookshelf", "Books", CassandraIP.IP1);
+		Constants cts = new Constants("Cassandra Cluster", "KS", "Test", hosts.get(0));
 		DaoCassandra dao = new DaoCassandra(cts);
-		
 		BookUploader uploader = new BookUploader(dao, "booksToBeUploaded/");
-		int a = uploader.bookUploder();
+		int a = uploader.bookUploader();
 		Assert.assertTrue (a != 0);
 	}
 }

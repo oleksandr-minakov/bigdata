@@ -12,9 +12,7 @@ public class ConnectivityTest {
 	public void getConnectionAndConfiguration(){
 		
 		Constants cts = new Constants("Cassandra Cluster", "KS", "Test", CassandraIP.IP2);
-		
 		DaoCassandra dao = new DaoCassandra(cts);
-		
 		cts.getCurrentClstr().dropKeyspace("KS");
 		Assert.assertNotNull(cts);
 		Assert.assertNotNull(dao);

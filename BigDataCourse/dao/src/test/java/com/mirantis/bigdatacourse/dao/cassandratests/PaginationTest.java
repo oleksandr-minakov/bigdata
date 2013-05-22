@@ -19,25 +19,21 @@ public class PaginationTest {
 	public void paginateIt() throws DaoException, IOException{
 		
 		List<String> hosts = new ArrayList<String>();
-		List<Book> books = new ArrayList<Book>();
-		List<Book> getAllBooks = new ArrayList<Book>();
+		List<Book> books;
 		hosts.add(CassandraIP.IP1);
 		hosts.add(CassandraIP.IP2);
 		hosts.add(CassandraIP.IP3);
 		
-		Constants cts = new Constants("Cassandra Cluster", "KS", "Test", CassandraIP.IP1);
-		
+		Constants cts = new Constants("Cassandra Cluster", "KS", "Test", hosts.get(0));
 		DaoCassandra dao = new DaoCassandra(cts);
 		
 		for(int i = 0; i < 100; ++i) {
-			
-			Book initial_state = new Book();
-			initial_state.newBook("CassandraTest", "Test" + i, "Tester" + i, new FileInputStream("testbook"));
-			dao.addBook(initial_state);
+			Book book = new Book();
+			book.newBook("CassandraTest", "Test" + i, "Tester" + i, new FileInputStream("testbook"));
+			dao.addBook(book);
 		}
-		
 		books = dao.getBooksByToken(1, 100, "titles", "CassandraTest");
-        PaginationModel model = new PaginationModel();
+        PaginationModel model;
 
 		model = dao.getAllBooks(1, 100);
 		int count = dao.getNumberOfRecordsBy("titles", "CassandraTest");
