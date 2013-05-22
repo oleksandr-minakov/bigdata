@@ -17,14 +17,13 @@ public class DeleteBookJobTest {
 	@Test
 	public void deleteBookJobTest()throws DaoException, IOException {
 		
-		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP, "9000", new HdfsIP().HadoopUser, "/bookshelf/books/");	
-		newOne.bookID = 100;
+		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP, "9000", new HdfsIP().HadoopUser, "/bookshelf/books_dev/", 1);
+
+		Book book = new Book();
+		book.newBook("HadoopTest", "Test", "Tester", new FileInputStream("testbook"));
 		
-		Book initial_state = new Book();
-		initial_state.newBook("CassandraTest", "Test", "Tester", new FileInputStream("testbook"));
-		
-		int resAdd = new AddBookJob(newOne).addBookJob(initial_state);
-		int resDel = new DeleteBookJob(newOne).deleteBookJob(String.valueOf(100));
+		int resAdd = new AddBookJob(newOne).addBookJob(book);
+		int resDel = new DeleteBookJob(newOne).deleteBookJob(book.getId());
 		
 		System.out.println("DeleteBookJobTest " + ( resDel == 0));
 		assertEquals(resDel, 0);

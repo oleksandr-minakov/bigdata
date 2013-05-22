@@ -15,7 +15,7 @@ public class ConnectionTest {
 	public void getConnetionTest() throws DaoException, IOException {
 		
 		BasicConfigurator.configure();
-		HadoopConnector newOne = new HadoopConnector( new HdfsIP().HadoopIP, "9000", new HdfsIP().HadoopUser, "/bookshelf/books/");
+		HadoopConnector newOne = new HadoopConnector( new HdfsIP().HadoopIP, "9000", new HdfsIP().HadoopUser, "/bookshelf/books_dev/", 1);
 		FileSystem fs = newOne.getFS();
 		System.out.println("ConnectionTest " + ( fs != null ));
 		assertNotNull(fs);
