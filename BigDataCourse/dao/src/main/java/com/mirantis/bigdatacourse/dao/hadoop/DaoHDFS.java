@@ -18,8 +18,6 @@ public class DaoHDFS implements Dao {
 	public DaoHDFS(HadoopConnector hadoop) throws DaoException {
 		this.hadoop = hadoop;
 		LOG.debug("Getting connection from Spring context...");
-		this.hadoop.bookID = new GetLastIndexJob(this.hadoop).getIncrementedNewID();
-		LOG.debug("Calculating new id...");
 		LOG.info("Hello, Hadoop. Connection established");
 	}
 	
