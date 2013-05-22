@@ -57,7 +57,7 @@ public class DaoJdbcTest {
 		for (Book book: books) {
 			dao.addBook(book);
 		}
-		List<Book> actual = new ArrayList<Book>();
+		List<Book> actual;
 		model = dao.getBookByTitle(1, 10, books.get(i).getTitle());
         actual = model.getBooks();
 		assertEquals(books.get(i).getTitle(), actual.get(0).getTitle());
@@ -73,7 +73,7 @@ public class DaoJdbcTest {
 
 	@Test
 	public void testGetAllBooks() throws DaoException {
-		List<Book> getBooks = new ArrayList<Book>();
+		List<Book> getBooks;
 		model = dao.getAllBooks(1, 50);
         getBooks = model.getBooks();
 		assertEquals(books.size(), getBooks.size());
@@ -83,15 +83,12 @@ public class DaoJdbcTest {
 	public void testGetBookByAuthor() throws DaoException {
 		int expectedAuthorCounter = 0;
 		String author = gen.authors.get(5);
-        System.out.println(author);
 		for (Book book : gen.books) {
 			if(book.getAuthor().equals(author)) {
-                System.out.println(expectedAuthorCounter);
                 expectedAuthorCounter++;
-                System.out.println(expectedAuthorCounter);
             }
 		}
-		List<Book> books = new ArrayList<Book>();
+		List<Book> books;
 		model = dao.getBookByAuthor(1, 50, author);
         books = model.getBooks();
         for (Book book : books) {
@@ -119,7 +116,7 @@ public class DaoJdbcTest {
 	public void testGetBookByText() throws DaoException, IOException {
         Book book = new Book();
         book.newBook("title", "author", "genre", new FileInputStream("testbook"));
-        List<Book> books = new ArrayList<Book>();
+        List<Book> books;
         dao.addBook(book);
         try {
             model = dao.getBookByText(1, 1, "hisdu");
