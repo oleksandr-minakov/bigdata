@@ -1,16 +1,15 @@
 package com.mirantis.bigdatacourse.dao.hadoop.job;
 
+import com.mirantis.bigdatacourse.dao.Book;
+import com.mirantis.bigdatacourse.dao.DaoException;
+import com.mirantis.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
+import org.apache.hadoop.fs.FileStatus;
+import org.apache.hadoop.fs.Path;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import org.apache.hadoop.fs.FileStatus;
-import org.apache.hadoop.fs.Path;
-
-import com.mirantis.bigdatacourse.dao.Book;
-import com.mirantis.bigdatacourse.dao.DaoException;
-import com.mirantis.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
 
 public class GetBookByTokenJob {
 	
@@ -18,7 +17,6 @@ public class GetBookByTokenJob {
 	public int querySize = 0;
 	
 	public GetBookByTokenJob(HadoopConnector hadoop) {
-		
 		this.hadoop = hadoop;
 	}
 	
@@ -26,15 +24,12 @@ public class GetBookByTokenJob {
 		
 		int pos = -1;
 		if(tokenName.equals("title")) {
-		
 			pos = 3;
 		}
 		if(tokenName.equals("author")) {
-			
 			pos = 1;
 		}
 		if(tokenName.equals("genre")) {
-			
 			pos = 2;
 		}
 		
@@ -67,15 +62,13 @@ public class GetBookByTokenJob {
 					pathList.add(lvl3);
 				}
 			}
+			querySize = pathList.size();
 			
 			if(pathList.size() != 0 && pathList.size() >= pageNum*pageSize) {
-				
-				this.querySize = pathList.size();
 				ret = new GetBookByPath().getBooksByPathList(pathList.subList((pageNum-1)*pageSize, pageSize*pageNum), hadoop);
 				return ret;
 			}
 			if(pathList.size() >= 0 && pathList.size() < pageNum*pageSize) {
-				this.querySize = pathList.size();
 				ret = new GetBookByPath().getBooksByPathList(pathList.subList(0, pathList.size()), hadoop);
 				return ret;
 			}
@@ -83,8 +76,6 @@ public class GetBookByTokenJob {
 				return ret;
 		} catch (IOException e) {
 			throw new DaoException(e);
-			}
-		
+		}
 	}
-
 }

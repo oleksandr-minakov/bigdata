@@ -2,42 +2,49 @@ package com.mirantis.bigdatacourse.dao;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class BookUploader {
 	
-	private String stringBaseDir;
-	private Dao service;
+	private String baseDirectory;
+	private Dao dao;
 	
-	public BookUploader(Dao service, String stringBaseDir) {
-		
+	public BookUploader(Dao dao, String baseDirectory) {
 		super();
-		this.service = service;
-		this.stringBaseDir = stringBaseDir;
+		this.dao = dao;
+		this.baseDirectory = baseDirectory;
 	}
 
-	public int bookUploder() throws IOException, DaoException{
+	public int bookUploader() throws DaoException {
 		
-		File baseDir = new File(this.stringBaseDir);
+		File directory = new File(this.baseDirectory);
+        File[] files;
+        InputStream text;
+        int listLength = 0;
 		
-		if(!baseDir.exists()){
-			baseDir.mkdirs();
-			return 0;
-		}
-		else{
-			
-			File[] files = baseDir.listFiles();
-			if(files.length == 0)
-				return 0;
-			for(int i = 0; i < files.length; ++i){
-				
+		if(!directory.exists()) {
+            throw new DaoException("Directory '" + baseDirectory + "'  with books for upload not exists.");
+		} else {
+			files = directory.listFiles();
+            if (files != null) {
+                listLength = files.length;
+            }
+
+			if(files != null && listLength == 0)
+				throw new DaoException("No books in the directory '" + baseDirectory + "'.");
+
+            for(int i = 0; i < listLength; ++i) {
 				Book book = new Book();
-				book.newBook("title"+i, "author"+i, "genre"+i, new FileInputStream(files[i]));
-				service.addBook(book);
+                try {
+                    text = new FileInputStream(files[i]);
+                } catch (FileNotFoundException e) {
+                    throw new DaoException("Read error: " + e.getMessage());
+                }
+                book.newBook("title" + i, "author" + i, "genre" + i, text);
+				dao.addBook(book);
 			}
-			
-			return files.length;
+			return listLength;
 		}
 	}
-
 }

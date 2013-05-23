@@ -1,25 +1,35 @@
 package com.mirantis.bigdatacourse.dao.mysql;
 
 import com.mirantis.bigdatacourse.dao.*;
+import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeSet;
 
 public class DaoJdbc implements Dao {
 
-    @Autowired
-    private DataSource dataSource;
+    @Value("#{properties.mysql_driver}")
+    private String driverClassName;
 
-    protected Connection con;
+    @Value("#{properties.mysql_url}")
+    private String url;
+
+    @Value("#{properties.mysql_username}")
+    private String username;
+
+    @Value("#{properties.mysql_password}")
+    private String password;
+
+    DataSource dataSource;
+
+    Connection con;
     Statement st;
     ResultSet rs;
     PreparedStatement pst;
-    private int numberOfRecords = -1;
     public static final Logger LOG = Logger.getLogger(DaoJdbc.class);
 
     public void setDataSource(DataSource dataSource) {
@@ -27,8 +37,21 @@ public class DaoJdbc implements Dao {
         LOG.debug("Set dataSource");
     }
 
+    public DataSource getDataSource() {
+        BasicDataSource ds = new BasicDataSource();
+        if (dataSource == null) {
+            ds.setDriverClassName(driverClassName);
+            ds.setUrl(url);
+            ds.setUsername(username);
+            ds.setPassword(password);
+            setDataSource(ds);
+        }
+        return dataSource;
+    }
+
     @Override
 	public int addBook(Book book) throws DaoException {
+        getDataSource();
         ManagementTables mt = new ManagementTables(dataSource);
         mt.createTables();
         mt.closeConnection();
@@ -119,6 +142,7 @@ public class DaoJdbc implements Dao {
 
 	@Override
 	public int delBook(String id) throws DaoException {
+        getDataSource();
 		try {
             con = dataSource.getConnection();
 			st = con.createStatement();
@@ -135,23 +159,29 @@ public class DaoJdbc implements Dao {
 	}
 
 	@Override
-	public List<Book> getAllBooks(int pageNum, int pageSize) throws DaoException {
-		List<Book> books = new ArrayList<Book>();
+	public PaginationModel getAllBooks(int pageNum, int pageSize) throws DaoException {
+        getDataSource();
+        List<Book> books = new ArrayList<Book>();
+        PaginationModel model = new PaginationModel();
+        int numberOfRecords = 0;
 		try {
             con = dataSource.getConnection();
 			st = con.createStatement();
-			rs = st.executeQuery("SELECT SQL_CALC_FOUND_ROWS * FROM Books JOIN Authors ON Books.author_id=Authors.id " +
+			rs = st.executeQuery("SELECT * FROM Books JOIN Authors ON Books.author_id=Authors.id " +
 					"JOIN Genres ON Books.genre_id=Genres.id " +
-					"JOIN Texts ON Books.book_id=Texts.id LIMIT " + (pageNum-1) * pageSize  + "," + pageSize);
+					"JOIN Texts ON Books.book_id=Texts.id LIMIT " + (pageNum - 1) * pageSize  + "," + pageSize);
 			BookMapper map = new BookMapper();
 			while (rs.next()) {
-				books.add((Book)map.mapRow(rs, 0));	
+				books.add((Book) map.mapRow(rs, 0));
 			}
             LOG.info("Get all books");
-            rs = st.executeQuery("SELECT FOUND_ROWS();");
+            rs = st.executeQuery("SELECT COUNT(*) FROM Books JOIN Authors ON Books.author_id=Authors.id " +
+                    "JOIN Genres ON Books.genre_id=Genres.id " +
+                    "JOIN Texts ON Books.book_id=Texts.id;");
             while (rs.next()) {
                 numberOfRecords = rs.getInt(1);
             }
+            LOG.info("Get number of records (getAllBooks) -> " + numberOfRecords);
         } catch (SQLException e) {
 			throw new DaoException(e);
 		} finally {
@@ -170,204 +200,198 @@ public class DaoJdbc implements Dao {
 				}
             }
         }
-		return books;
+        model.setBooks(books);
+        model.setNumberOfRecords(numberOfRecords);
+		return model;
 	}
 
 	@Override
-	public List<Book> getBookByTitle(int pageNum, int pageSize, String title) throws DaoException {
-		List<Book> books = new ArrayList<Book>();
-		try {
+	public PaginationModel getBookByTitle(int pageNum, int pageSize, String title) throws DaoException {
+        getDataSource();
+        List<Book> books = new ArrayList<Book>();
+        PaginationModel model = new PaginationModel();
+        int numberOfRecords = 0;
+        try {
             con = dataSource.getConnection();
-			st = con.createStatement();
-			rs = st.executeQuery("SELECT SQL_CALC_FOUND_ROWS * FROM Books JOIN Authors ON Books.author_id=Authors.id " + 
-					"JOIN Genres ON Books.genre_id=Genres.id JOIN Texts ON Books.book_id=Texts.id " + 
-					"WHERE title LIKE '%" + title + "%' LIMIT " + (pageNum-1) * pageSize  + "," + pageSize);
-			BookMapper map = new BookMapper();
-			while (rs.next()) {
-				books.add((Book)map.mapRow(rs, 0));			
-			}
+            st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM Books JOIN Authors ON Books.author_id=Authors.id " +
+                    "JOIN Genres ON Books.genre_id=Genres.id JOIN Texts ON Books.book_id=Texts.id " +
+                    "WHERE title LIKE '%" + title + "%' LIMIT " + (pageNum - 1) * pageSize + "," + pageSize);
+            BookMapper map = new BookMapper();
+            while (rs.next()) {
+                books.add((Book) map.mapRow(rs, 0));
+            }
             LOG.info("Get book by title -> " + title);
-            rs = st.executeQuery("SELECT FOUND_ROWS();");
+            rs = st.executeQuery("SELECT COUNT(*) FROM Books JOIN Authors ON Books.author_id=Authors.id " +
+                    "JOIN Genres ON Books.genre_id=Genres.id JOIN Texts ON Books.book_id=Texts.id " +
+                    "WHERE title LIKE '%" + title + "%';");
             while (rs.next()) {
                 numberOfRecords = rs.getInt(1);
             }
+            LOG.info("Get number of records (getBookByTitle) -> " + numberOfRecords);
         } catch (SQLException e) {
-			throw new DaoException(e);
-		} finally {
+            throw new DaoException(e);
+        } finally {
             if (rs != null) {
                 try {
-					rs.close();
-				} catch (SQLException e) {
-					throw new DaoException(e);
-				}
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new DaoException(e);
+                }
             }
             if (st != null) {
                 try {
-					st.close();
-				} catch (SQLException e) {
-					throw new DaoException(e);
-				}
+                    st.close();
+                } catch (SQLException e) {
+                    throw new DaoException(e);
+                }
             }
         }
-		return books;
-	}
+        model.setBooks(books);
+        model.setNumberOfRecords(numberOfRecords);
+        return model;
+    }
 
 	@Override
-	public List<Book> getBookByAuthor(int pageNum, int pageSize, String author) throws DaoException {
-		List<Book> books = new ArrayList<Book>();
-		try {
+	public PaginationModel getBookByAuthor(int pageNum, int pageSize, String author) throws DaoException {
+        getDataSource();
+        List<Book> books = new ArrayList<Book>();
+        PaginationModel model = new PaginationModel();
+        int numberOfRecords = 0;
+        try {
             con = dataSource.getConnection();
-			st = con.createStatement();
-			rs = st.executeQuery("SELECT SQL_CALC_FOUND_ROWS * FROM Books JOIN Authors ON Books.author_id=Authors.id " +
-					"JOIN Genres ON Books.genre_id=Genres.id JOIN Texts ON Books.book_id=Texts.id " + 
-					"WHERE author LIKE '%" + author + "%' LIMIT " + (pageNum-1) * pageSize  + "," + pageSize);
-			BookMapper map = new BookMapper();
-			while (rs.next()) {
-				books.add((Book)map.mapRow(rs, 0));			
-			}
+            st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM Books JOIN Authors ON Books.author_id=Authors.id " +
+                    "JOIN Genres ON Books.genre_id=Genres.id JOIN Texts ON Books.book_id=Texts.id " +
+                    "WHERE author LIKE '%" + author + "%' LIMIT " + (pageNum - 1) * pageSize + "," + pageSize);
+            BookMapper map = new BookMapper();
+            while (rs.next()) {
+                books.add((Book) map.mapRow(rs, 0));
+            }
             LOG.info("Get book by author -> " + author);
-            rs = st.executeQuery("SELECT FOUND_ROWS();");
+            rs = st.executeQuery("SELECT COUNT(*) FROM Books JOIN Authors ON Books.author_id=Authors.id " +
+                    "JOIN Genres ON Books.genre_id=Genres.id JOIN Texts ON Books.book_id=Texts.id " +
+                    "WHERE author LIKE '%" + author + "%';");
             while (rs.next()) {
                 numberOfRecords = rs.getInt(1);
             }
-		} catch (SQLException e) {
-			throw new DaoException(e);
-		} finally {
+            LOG.info("Get number of records (getBookByAuthor) -> " + numberOfRecords);
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
             if (rs != null) {
                 try {
-					rs.close();
-				} catch (SQLException e) {
-					throw new DaoException(e);
-				}
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new DaoException(e);
+                }
             }
             if (st != null) {
                 try {
-					st.close();
-				} catch (SQLException e) {
-					throw new DaoException(e);
-				}
+                    st.close();
+                } catch (SQLException e) {
+                    throw new DaoException(e);
+                }
             }
         }
-		return books;
-	}
+        model.setBooks(books);
+        model.setNumberOfRecords(numberOfRecords);
+        return model;
+    }
 
 	@Override
-	public List<Book> getBookByGenre(int pageNum, int pageSize, String genre) throws DaoException {
-		List<Book> books = new ArrayList<Book>();
-		try {
+	public PaginationModel getBookByGenre(int pageNum, int pageSize, String genre) throws DaoException {
+        getDataSource();
+        List<Book> books = new ArrayList<Book>();
+        PaginationModel model = new PaginationModel();
+        int numberOfRecords = 0;
+        try {
             con = dataSource.getConnection();
-			st = con.createStatement();
-			rs = st.executeQuery("SELECT SQL_CALC_FOUND_ROWS * FROM Books JOIN Authors ON Books.author_id=Authors.id " + 
-					"JOIN Genres ON Books.genre_id=Genres.id JOIN Texts ON Books.book_id=Texts.id " + 
-					"WHERE genre LIKE '%" + genre + "%' LIMIT " + (pageNum-1) * pageSize  + "," + pageSize);
-			BookMapper map = new BookMapper();
-			while (rs.next()) {
-				books.add((Book)map.mapRow(rs, 0));			
-			}
+            st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM Books JOIN Authors ON Books.author_id=Authors.id " +
+                    "JOIN Genres ON Books.genre_id=Genres.id JOIN Texts ON Books.book_id=Texts.id " +
+                    "WHERE genre LIKE '%" + genre + "%' LIMIT " + (pageNum - 1) * pageSize + "," + pageSize);
+            BookMapper map = new BookMapper();
+            while (rs.next()) {
+                books.add((Book) map.mapRow(rs, 0));
+            }
             LOG.info("Get book by genre -> " + genre);
-			rs = st.executeQuery("SELECT FOUND_ROWS();");
+            rs = st.executeQuery("SELECT  COUNT(*) FROM Books JOIN Authors ON Books.author_id=Authors.id " +
+                    "JOIN Genres ON Books.genre_id=Genres.id JOIN Texts ON Books.book_id=Texts.id " +
+                    "WHERE genre LIKE '%" + genre + "%';");
             while (rs.next()) {
                 numberOfRecords = rs.getInt(1);
             }
-		} catch (SQLException e) {
-			throw new DaoException(e);
-		} finally {
+            LOG.info("Get number of records (getBookByGenre) -> " + numberOfRecords);
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
             if (rs != null) {
                 try {
-					rs.close();
-				} catch (SQLException e) {
-					throw new DaoException(e);
-				}
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new DaoException(e);
+                }
             }
             if (st != null) {
                 try {
-					st.close();
-				} catch (SQLException e) {
-					throw new DaoException(e);
-				}
+                    st.close();
+                } catch (SQLException e) {
+                    throw new DaoException(e);
+                }
             }
         }
-		return books;
-	}	
+        model.setBooks(books);
+        model.setNumberOfRecords(numberOfRecords);
+        return model;
+    }
 
 	@Override
-	public TreeSet<String> getAuthorByGenre(int pageNum, int pageSize, String genre) throws DaoException {
-		TreeSet<String> authors = new TreeSet<String>();
-		try {
+	public PaginationModel getBookByText(int pageNum, int pageSize, String text) throws DaoException {
+        getDataSource();
+        List<Book> books = new ArrayList<Book>();
+        PaginationModel model = new PaginationModel();
+        int numberOfRecords = 0;
+        try {
             con = dataSource.getConnection();
-			st = con.createStatement();
-			rs = st.executeQuery("SELECT SQL_CALC_FOUND_ROWS author FROM Books JOIN Authors ON Books.author_id=Authors.id " + 
-					"JOIN Genres ON Books.genre_id=Genres.id " + 
-					"WHERE genre LIKE '%" + genre + "%' LIMIT " + (pageNum-1) * pageSize  + "," + pageSize);
-			while (rs.next()) {
-				String name = new String();
-				name = rs.getString("author");
-				authors.add(name);
-			}
-            LOG.info("Get author by genre -> " + genre);
-			rs = st.executeQuery("SELECT FOUND_ROWS();");
+            st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM Books JOIN Authors ON Books.author_id=Authors.id " +
+                    "JOIN Genres ON Books.genre_id=Genres.id JOIN Texts ON Books.book_id=Texts.id " +
+                    "WHERE text LIKE '%" + text + "%' LIMIT " + (pageNum - 1) * pageSize + "," + pageSize);
+            BookMapper map = new BookMapper();
             while (rs.next()) {
-                numberOfRecords = rs.getInt(1);
+                books.add((Book) map.mapRow(rs, 0));
             }
-		} catch (SQLException e) {
-			throw new DaoException(e);
-		} finally {
-            if (rs != null) {
-                try {
-					rs.close();
-				} catch (SQLException e) {
-					throw new DaoException(e);
-				}
-            }
-            if (st != null) {
-                try {
-					st.close();
-				} catch (SQLException e) {
-					throw new DaoException(e);
-				}
-            }
-        }
-		return authors;
-	}
-
-	@Override
-	public List<Book> getBookByText(int pageNum, int pageSize, String text) throws DaoException {
-		List<Book> books = new ArrayList<Book>();
-		try {
-            con = dataSource.getConnection();
-			st = con.createStatement();
-			rs = st.executeQuery("SELECT SQL_CALC_FOUND_ROWS * FROM Books JOIN Authors ON Books.author_id=Authors.id " + 
-					"JOIN Genres ON Books.genre_id=Genres.id JOIN Texts ON Books.book_id=Texts.id " + 
-					"WHERE text LIKE '%" + text + "%' LIMIT " + (pageNum-1) * pageSize  + "," + pageSize);
-			BookMapper map = new BookMapper();
-			while (rs.next()) {
-				books.add((Book)map.mapRow(rs, 0));			
-			}
             LOG.info("Get book by text -> " + text);
-			rs = st.executeQuery("SELECT FOUND_ROWS();");
+            rs = st.executeQuery("SELECT * FROM Books JOIN Authors ON Books.author_id=Authors.id " +
+                    "JOIN Genres ON Books.genre_id=Genres.id JOIN Texts ON Books.book_id=Texts.id " +
+                    "WHERE text LIKE '%" + text + "%';");
             while (rs.next()) {
                 numberOfRecords = rs.getInt(1);
             }
-		} catch (SQLException e) {
-			throw new DaoException(e);
-		} finally {
+            LOG.info("Get number of records (getBookByText) -> " + numberOfRecords);
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
             if (rs != null) {
                 try {
-					rs.close();
-				} catch (SQLException e) {
-					throw new DaoException(e);
-				}
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new DaoException(e);
+                }
             }
             if (st != null) {
                 try {
-					st.close();
-				} catch (SQLException e) {
-					throw new DaoException(e);
-				}
+                    st.close();
+                } catch (SQLException e) {
+                    throw new DaoException(e);
+                }
             }
         }
-		return books;
-	}
+        model.setBooks(books);
+        model.setNumberOfRecords(numberOfRecords);
+        return model;
+    }
 
 	@Override
 	public void closeConnection() throws DaoException {
@@ -382,18 +406,11 @@ public class DaoJdbc implements Dao {
     }
 
 	@Override
-	public int getNumberOfRecords(String whereToSeek, String whatToSeekFor) {
-        LOG.debug("Get number of records");
-        return numberOfRecords;
-	}
-
-	@Override
 	public void afterPropertiesSet() throws Exception {
         LOG.debug("IN SECTION afterPropertiesSet");
-        if(this.dataSource == null) {
+       /* if(this.dataSource == null) {
             throw new DaoException("Error with MySQL bean initialization");
-        }
-		
+        }*/
 	}
 
 	@Override

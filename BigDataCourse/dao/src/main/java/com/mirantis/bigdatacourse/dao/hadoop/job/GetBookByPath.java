@@ -1,17 +1,16 @@
 package com.mirantis.bigdatacourse.dao.hadoop.job;
 
+import com.mirantis.bigdatacourse.dao.Book;
+import com.mirantis.bigdatacourse.dao.DaoException;
+import com.mirantis.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
+import org.apache.hadoop.fs.FSDataInputStream;
+import org.apache.hadoop.fs.Path;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import org.apache.hadoop.fs.FSDataInputStream;
-import org.apache.hadoop.fs.Path;
-
-import com.mirantis.bigdatacourse.dao.Book;
-import com.mirantis.bigdatacourse.dao.DaoException;
-import com.mirantis.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
 
 public class GetBookByPath {
 	
@@ -19,8 +18,8 @@ public class GetBookByPath {
 		
 		String stringPath = path.toString().substring(hadoop.getURI().length()+1);
 		List<String> pathLevels = Arrays.asList(stringPath.split("/"));
-		
 		List<String> book = pathLevels.subList(2, pathLevels.size());
+
 		Book newBook = new Book();
 		newBook.setId(book.get(0));
 		newBook.setAuthor(book.get(1));
@@ -34,27 +33,22 @@ public class GetBookByPath {
 			in.read(toWrite);
 			newBook.setText(new ByteArrayInputStream(toWrite));
 			in.close();
-			
 			return newBook;
 		} catch (IOException e) {
 			throw new DaoException(e);
-			}
+		}
 	}
-	
-	
+
 	public List<Book> getBooksByPathList(List<Path> pathList, HadoopConnector hadoop) throws DaoException {
 		
 		List<Book> books = new ArrayList<Book>();
 		for(Path path: pathList){
 			try {
-				
 				books.add(getBookByPath(path, hadoop));
-				
 			} catch (DaoException e) {
 				throw new DaoException(e);
-				}
+			}
 		}
 		return books;
 	}
-
 }

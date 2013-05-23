@@ -4,6 +4,7 @@ import com.mirantis.bigdatacourse.dao.DaoException;
 import com.mirantis.bigdatacourse.dao.FSMapping;
 import com.mirantis.bigdatacourse.dao.NasException;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.*;
 import java.security.MessageDigest;
@@ -12,14 +13,21 @@ import java.security.NoSuchAlgorithmException;
 public class NASMapping implements FSMapping{
 	
 	public static final Logger LOG = Logger.getLogger(NASMapping.class);
-	private String workingDirectory;
-	private int nastity;
     private File directory;
-	
-	public NASMapping(String workingDirectory, int nastity) throws NasException {
+
+    @Value("#{properties.working_directory}")
+    public String workingDirectory;
+
+    @Value("#{properties.nesting}")
+	private int nesting;
+
+    public NASMapping() {
+    }
+
+    public NASMapping(String workingDirectory, int nesting) throws NasException {
 		super();
 		this.workingDirectory = workingDirectory;
-		this.nastity = nastity;
+		this.nesting = nesting;
 		if(!(new File(this.workingDirectory).exists())) {
 			LOG.debug("Checking working directory for exists.");
 			directory = new File(this.workingDirectory);
@@ -55,9 +63,9 @@ public class NASMapping implements FSMapping{
 		String absPath = this.workingDirectory;
 		LOG.debug("Calculating MD5 hash ...");
 		hash = getHash(id);
-		for(int i = 0; i < this.nastity; ++i) {
-			String nastity = hash.substring(i * this.nastity, (i + 1) * this.nastity) + "/";
-			absPath +=nastity;
+		for(int i = 0; i < this.nesting; ++i) {
+			String nastity = hash.substring(i * this.nesting, (i + 1) * this.nesting) + "/";
+			absPath += nastity;
 		}
 		LOG.debug("Forming new path");
 		LOG.info("Forming new absolute path");
@@ -100,7 +108,7 @@ public class NASMapping implements FSMapping{
 		LOG.debug("Mapping file to NAS...");
 		int res = createDirectoryRecursively(id);
 		File file = new File(getAbsolutePath(id) + is.toString());
-        if (res != 0) {
+        if (res == 0) {
             byte[] toWrap = new byte[is.available()];
             is.read(toWrap);
             FileOutputStream fileWriter = new FileOutputStream(file.getAbsoluteFile());
@@ -110,14 +118,14 @@ public class NASMapping implements FSMapping{
             LOG.debug("Closing streams");
             return res;
         } else {
-            return 0;
+            throw new DaoException("Can't write file.");
         }
-	}
+    }
 
 	@Override
 	public int removeFile(String id) throws DaoException {
 		try {
-			Runtime.getRuntime().exec("rm -R " + this.workingDirectory + getHash(id).substring(0, this.nastity));
+			Runtime.getRuntime().exec("rm -R " + this.workingDirectory + getHash(id).substring(0, this.nesting));
 			LOG.debug("Removing file ...");
 			return 0;
 		} catch (IOException e) {
@@ -128,7 +136,7 @@ public class NASMapping implements FSMapping{
 	@Override
 	public InputStream readFile(String id) throws DaoException, IOException {
 		LOG.debug("Reading file");
-		String path= getAbsolutePath(id);
+		String path = getAbsolutePath(id);
 		File dir = new File(path);
 		InputStream is;
 		if(dir.isDirectory() == true && dir.listFiles().length == 1) {
@@ -139,9 +147,8 @@ public class NASMapping implements FSMapping{
 			input.close();
 			return is;
 		} else {
-			is = new ByteArrayInputStream("Exception occured. Please contact administrator".getBytes("UTF-8"));
-			LOG.debug("Exception occured. on file reading");
-			return is;
+            LOG.debug("Exception occurred, on file reading");
+			throw new DaoException("Can't read file.");
 		}
 	}
 

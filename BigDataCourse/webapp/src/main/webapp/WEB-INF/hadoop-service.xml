@@ -4,7 +4,10 @@
 		xsi:schemaLocation="http://www.springframework.org/schema/context 
 							http://www.springframework.org/schema/context/spring-context-3.0.xsd
 							http://www.springframework.org/schema/beans
-							http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+							http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                            http://www.springframework.org/schema/util
+                            http://www.springframework.org/schema/util/spring-util-3.1.xsd"
+        xmlns:util="http://www.springframework.org/schema/util">
 	
 	<context:annotation-config/>
 
@@ -12,6 +15,9 @@
             base-package="com.mirantis.bigdatacourse.dao.hadoop" />
     <context:component-scan
             base-package="com.mirantis.bigdatacourse.service" />
+
+    <util:properties
+            id = "properties" location="file:/etc/bigdata/bigdata.properties"/>
     
 	<bean id="statService"	class="com.mirantis.bigdatacourse.service.StatService" />
     
@@ -22,16 +28,7 @@
         <constructor-arg ref="configuration"/>
     </bean>
 
-    <bean id="hdfs" class="com.mirantis.bigdatacourse.dao.hadoop.DaoHDFS">
-        <constructor-arg ref="configuration"/>
-    </bean>
-
     <bean id="configuration" class="com.mirantis.bigdatacourse.dao.hadoop.configuration.HadoopConnector">
-        <constructor-arg type = "java.lang.String" value="0.0.0.0"/>
-        <constructor-arg type = "java.lang.String" value="9000"/>
-        <constructor-arg type = "java.lang.String" value="hadoop"/>
-        <constructor-arg type = "java.lang.String" value="/bookshelf/books/"/>
-         <!-- working directory should ends with / --> 
     </bean>
 
    <!-- Beans that are configuration of MapReduce Job --> 

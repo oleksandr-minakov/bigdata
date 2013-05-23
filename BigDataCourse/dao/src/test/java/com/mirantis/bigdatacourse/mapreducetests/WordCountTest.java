@@ -1,11 +1,5 @@
 package com.mirantis.bigdatacourse.mapreducetests;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import org.apache.hadoop.fs.Path;
-import org.junit.Assert;
-import org.junit.Test;
 import com.mirantis.bigdatacourse.dao.DaoException;
 import com.mirantis.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
 import com.mirantis.bigdatacourse.dao.hadoop.configuration.Pair;
@@ -16,6 +10,13 @@ import com.mirantis.bigdatacourse.mapreduce.JobRunner;
 import com.mirantis.bigdatacourse.mapreduce.WordCounterJob;
 import com.mirantis.bigdatacourse.mapreduce.WordCounterJob.Map;
 import com.mirantis.bigdatacourse.mapreduce.WordCounterJob.Reduce;
+import org.apache.hadoop.fs.Path;
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WordCountTest {
 	
@@ -24,9 +25,7 @@ public class WordCountTest {
 	public void testCase() throws DaoException, IOException {
 		
 		int testCase = 10;
-		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP,"54310", new HdfsIP().HadoopUser, "/bookshelf/books/");
-		
-		newOne.bookID = 1;
+		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP, "9000", new HdfsIP().HadoopUser, "/bookshelf/books_dev/", 1);
 		
 		AddBookJob job = new AddBookJob(newOne);
 		List<Path> pathList = new ArrayList<Path>();
@@ -39,7 +38,5 @@ public class WordCountTest {
 			Assert.assertEquals(pairs.size(), 0);
 		if(pairs.size() != 0)
 			Assert.assertNotEquals(pairs.size(), 0);
-		
 	}
-
 }

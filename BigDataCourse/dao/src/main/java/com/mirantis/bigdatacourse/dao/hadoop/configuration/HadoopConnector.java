@@ -1,75 +1,72 @@
 package com.mirantis.bigdatacourse.dao.hadoop.configuration;
 
-import java.io.IOException;
-import java.net.URI;
+import com.mirantis.bigdatacourse.dao.DaoException;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.springframework.beans.factory.annotation.Value;
 
-import com.mirantis.bigdatacourse.dao.DaoException;
+import java.io.IOException;
+import java.net.URI;
 
 public class HadoopConnector {
 
 	private Configuration newConf;
 	public FileSystem newFS;
 	
-	@Value("${ip}")
+	@Value("#{properties.ip}")
 	private String hadoopIP;
 	
-	@Value("${port}")
+	@Value("#{properties.port}")
 	private String hadoopPort;
 	
-	@Value("${user}")
+	@Value("#{properties.user}")
 	private String hadoopUser;
 	
 	private String hadoopURI;
 	
-	@Value("${wdirectory}")
+	@Value("#{properties.wdirectory}")
 	public String workingDirectory;
+
+    @Value("#{properties.worker}")
+    public int worker;
 	
-	public int bookID;
-	
-	
-	public HadoopConnector(String hadoopIP, String hadoopPort, String user, String workingDirectory) {
+	public HadoopConnector(String hadoopIP, String hadoopPort, String user, String workingDirectory, int worker) {
 		
 		this.hadoopUser = user;
 		this.hadoopIP = hadoopIP;
 		this.hadoopPort = hadoopPort;
 		this.hadoopURI = ("hdfs://" + hadoopIP + ":" + hadoopPort);
 		this.workingDirectory = workingDirectory;
-		this.bookID = 0;
+        this.worker = worker;
 	}
-	
-	private void  setConfiguration() throws DaoException {
-		
+
+    public HadoopConnector() {
+    }
+
+    private void  setConfiguration() throws DaoException {
 		this.newConf = new Configuration();
 	}
 	
 	public FileSystem getFS() throws DaoException {
-		
 		if(this.newFS == null) {
-			
 			setConfiguration();
 			try {
 				this.newFS = FileSystem.get(URI.create(hadoopURI),newConf, this.hadoopUser);
 			} catch (Exception e) {
 				throw new DaoException(e);
-				}
-			
+			}
 			return this.newFS;
-		}
-		else
-			return this.newFS;
+		} else {
+            return this.newFS;
+        }
 	}
 	
 	public void closeConnection() throws DaoException {
-		
 		try {
 			newFS.close();
-		} 
-		catch (IOException e) {
+		} catch (IOException e) {
 			throw new DaoException(e);
-			}
+		}
 	}
 	
 	public String getIP() {

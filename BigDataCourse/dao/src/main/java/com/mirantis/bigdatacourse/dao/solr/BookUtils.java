@@ -6,9 +6,6 @@ import com.mirantis.bigdatacourse.dao.NAS.NASMapping;
 import org.apache.solr.common.SolrDocument;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TreeSet;
 
 public class BookUtils {
 
@@ -20,20 +17,5 @@ public class BookUtils {
         book.setGenre(document.get("genre").toString());
         book.setText(daoNAS.readFile(book.getId()));
         return book;
-    }
-
-    public static TreeSet<String> pagination(int pageNum, int pageSize, TreeSet<String> set) {
-        List<String> list = new ArrayList<>(set);
-        List<String> resultList = new ArrayList<>();
-        if (list.size() > pageSize * pageNum) {
-            resultList = list.subList((pageNum - 1) * pageSize, pageNum * pageSize);
-        } else if (list.size() > pageSize * (pageNum - 1) && pageNum * pageSize >= list.size()) {
-            resultList = list.subList((pageNum - 1) * pageSize, list.size());
-        } else if (list.size() < pageSize && list.size() <= pageNum * pageSize) {
-            resultList = list.subList(0, list.size());
-        } else if (list.size() == 0) {
-            resultList = list;
-        }
-        return new TreeSet<>(resultList);
     }
 }

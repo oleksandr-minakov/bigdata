@@ -2,6 +2,7 @@ package com.mirantis.bigdatacourse.dao.memcached;
 
 import com.mirantis.bigdatacourse.dao.Book;
 import com.mirantis.bigdatacourse.dao.DaoException;
+import com.mirantis.bigdatacourse.dao.PaginationModel;
 import com.mirantis.bigdatacourse.dao.mysql.DaoJdbc;
 import net.spy.memcached.MemcachedClient;
 import org.junit.Test;
@@ -11,8 +12,6 @@ import javax.sql.DataSource;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
@@ -30,15 +29,15 @@ public class GetAllBooksTest {
         MemcachedClient client = new MemcachedClient(new InetSocketAddress("localhost", 11211));
         Book book = new Book();
         book.newBook("title", "author", "genre", new FileInputStream("testbook"));
-        List<Book> books = new ArrayList<Book>();
-        List<Book> resultList = new ArrayList<Book>();
+        PaginationModel model;
+        PaginationModel resultModel;
         daoMemcached.addBook(book);
         try {
-            books = daoMemcached.getAllBooks(1,1);
+            model = daoMemcached.getAllBooks(1,1);
             String str = 1 + "allBooks" + 1;
             int i = str.hashCode();
-            resultList = (List<Book>) client.get(Integer.toString(i));
-            assertTrue(books.size() == resultList.size());
+            resultModel = (PaginationModel) client.get(Integer.toString(i));
+            assertTrue(model.getBooks().size() == resultModel.getBooks().size());
         } finally {
             daoMemcached.delBook(book.getId());
             dao.closeConnection();
