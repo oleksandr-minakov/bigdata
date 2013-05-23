@@ -18,17 +18,9 @@
     	base-package="com.mirantis.bigdatacourse.service"/>
 
     <util:properties
-            id = "properties" location="file:/etc/bigdata/bigdata.properties"/>
-	
-	<bean id="service"
-		class="com.mirantis.bigdatacourse.service.ServiceToDao" />
-
-    <bean id="restService" class="com.mirantis.bigdatacourse.service.restful.RestToDao" />
+            id = "properties" location="file:/etc/bigdata/bigdata-dev.properties"/>
 
 	<bean id="dao" class="com.mirantis.bigdatacourse.dao.mysql.DaoJdbc">
-    </bean>
-	
-    <bean id="daoJdbc" class="com.mirantis.bigdatacourse.dao.mysql.DaoJdbc">
     </bean>
 
 </beans>

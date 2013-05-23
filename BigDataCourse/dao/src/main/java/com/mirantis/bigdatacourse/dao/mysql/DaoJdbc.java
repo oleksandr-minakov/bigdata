@@ -4,12 +4,14 @@ import com.mirantis.bigdatacourse.dao.*;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class DaoJdbc implements Dao {
 
     @Value("#{properties.mysql_driver}")
