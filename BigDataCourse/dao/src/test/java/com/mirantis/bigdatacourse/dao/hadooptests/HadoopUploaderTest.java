@@ -14,7 +14,7 @@ public class HadoopUploaderTest {
 
 		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP, "9000", new HdfsIP().HadoopUser, "/bookshelf/books_dev/", 1);
 		DaoHDFS dao = new DaoHDFS(newOne);
-		BookUploader uploader = new BookUploader(dao, "booksToBeUploaded/");
+		BookUploader uploader = new BookUploader(dao, "books/");
 		int res = uploader.bookUploader();
 		Assert.notNull(res);
 	}

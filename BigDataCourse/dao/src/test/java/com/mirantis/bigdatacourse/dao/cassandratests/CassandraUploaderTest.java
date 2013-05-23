@@ -19,7 +19,7 @@ public class CassandraUploaderTest {
 		hosts.add(CassandraIP.IP1);
 		Constants cts = new Constants("Cassandra Cluster", "KS", "Test", hosts.get(0));
 		DaoCassandra dao = new DaoCassandra(cts);
-		BookUploader uploader = new BookUploader(dao, "booksToBeUploaded/");
+		BookUploader uploader = new BookUploader(dao, "books/");
 		int a = uploader.bookUploader();
 		Assert.assertTrue (a != 0);
 	}
