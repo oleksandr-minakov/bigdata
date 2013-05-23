@@ -5,8 +5,11 @@ import com.mirantis.bigdatacourse.dao.Dao;
 import com.mirantis.bigdatacourse.dao.DaoException;
 import com.mirantis.bigdatacourse.dao.PaginationModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DaoMemcached implements Dao {
+
     @Autowired
     private MemClient client;
 
@@ -48,7 +51,7 @@ public class DaoMemcached implements Dao {
         } else {
             model = daoJdbc.getAllBooks(pageNum, pageSize);
             if (!model.getBooks().isEmpty()) {
-                client.set(Integer.toString(keystring.hashCode()), 6, model);
+                client.set(Integer.toString(keystring.hashCode()), 60, model);
                 model = (PaginationModel) client.get(Integer.toString(keystring.hashCode()));
             }
         }
@@ -66,7 +69,7 @@ public class DaoMemcached implements Dao {
         } else {
             model = daoJdbc.getBookByTitle(pageNum, pageSize, title);
             if (!model.getBooks().isEmpty()) {
-                client.set(Integer.toString(keystring.hashCode()), 6, model);
+                client.set(Integer.toString(keystring.hashCode()), 60, model);
                 model = (PaginationModel) client.get(Integer.toString(keystring.hashCode()));
             }
         }
@@ -84,7 +87,7 @@ public class DaoMemcached implements Dao {
         } else {
             model = daoJdbc.getBookByText(pageNum, pageSize, text);
             if (!model.getBooks().isEmpty()) {
-                client.set(Integer.toString(keystring.hashCode()), 6, model);
+                client.set(Integer.toString(keystring.hashCode()), 60, model);
                 model = (PaginationModel) client.get(Integer.toString(keystring.hashCode()));
             }
         }
@@ -102,7 +105,7 @@ public class DaoMemcached implements Dao {
         } else {
             model = daoJdbc.getBookByAuthor(pageNum, pageSize, author);
             if (!model.getBooks().isEmpty()) {
-                client.set(Integer.toString(keystring.hashCode()), 6, model);
+                client.set(Integer.toString(keystring.hashCode()), 60, model);
                 model = (PaginationModel) client.get(Integer.toString(keystring.hashCode()));
             }
         }
