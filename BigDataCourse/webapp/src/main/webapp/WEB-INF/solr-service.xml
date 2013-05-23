@@ -23,17 +23,7 @@
     <bean id="service"
         class="com.mirantis.bigdatacourse.service.ServiceToDao" />
 
-    <bean id="restService" class="com.mirantis.bigdatacourse.service.restful.RestToDao" />
-	
     <bean id="dao" class="com.mirantis.bigdatacourse.dao.solr.DaoSolr">
-        <constructor-arg ref="parameters"/>
-    </bean>
-
-    <bean id="parameters" class="com.mirantis.bigdatacourse.dao.solr.Parameters">
-        <property name="daoNAS" ref="nas" />
-    </bean>
-
-    <bean id="nas" class="com.mirantis.bigdatacourse.dao.NAS.NASMapping">
     </bean>
 
 </beans>
