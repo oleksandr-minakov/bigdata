@@ -17,7 +17,7 @@ public class AddBookTest {
 	@Test
 	public void addBookTest() throws IOException, DaoException{
 		
-		List<String> hosts = new ArrayList<String>();
+		List<String> hosts = new ArrayList<>();
 		hosts.add(CassandraIP.IP1);
 		hosts.add(CassandraIP.IP2);
 		hosts.add(CassandraIP.IP3);

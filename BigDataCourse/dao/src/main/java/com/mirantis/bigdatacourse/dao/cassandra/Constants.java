@@ -65,7 +65,7 @@ public class Constants {
             cassandraHostConfigurator.setAutoDiscoverHosts(true);
             cassandraHostConfigurator.setPort(9160);
             cassandraHostConfigurator.setMaxActive(1);
-            cassandraHostConfigurator.setCassandraThriftSocketTimeout(60 * 100);
+            cassandraHostConfigurator.setCassandraThriftSocketTimeout(60 * 1000);
 
             this.cluster = HFactory.getOrCreateCluster(this.CLUSTER_NAME, cassandraHostConfigurator);
 

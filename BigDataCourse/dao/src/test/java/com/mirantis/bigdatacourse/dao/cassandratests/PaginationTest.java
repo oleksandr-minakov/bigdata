@@ -18,7 +18,7 @@ public class PaginationTest {
 	@Test
 	public void paginateIt() throws DaoException, IOException{
 		
-		List<String> hosts = new ArrayList<String>();
+		List<String> hosts = new ArrayList<>();
 		List<Book> books;
 		hosts.add(CassandraIP.IP1);
 		hosts.add(CassandraIP.IP2);
