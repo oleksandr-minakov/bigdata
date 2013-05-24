@@ -151,7 +151,7 @@ public class DaoCassandra implements Dao {
 		} else {
 			if(pageNum * pageSize > keyStorage.size()) {
 				for(Book book:getBooks(keyStorage)) {
-					if(!book.equals(null) && book.getId().length() != 0) {
+					if(!book.equals(null) && book.getId().length() != 0) {          //FIX WTF?
 						ret.add(book);
 					}
 				}
@@ -230,7 +230,9 @@ public class DaoCassandra implements Dao {
 		else
 			return pages;
 	}
-	
+
+
+    //FIX
 	@Override
 	public PaginationModel getBookByTitle(int pageNum, int pageSize, String title) throws DaoException {
 		List<Book> booksBy= new ArrayList<Book>();
