@@ -18,11 +18,9 @@ public class AddBookTest {
 
     @Test
     public void addBookTest() throws DaoException, IOException, SolrServerException {
-        NASMapping daoNAS = new NASMapping("/tmp/solr_nas/", 3);
-        Parameters parameters = new Parameters();
-        parameters.URL = "http://0.0.0.0:8080/solr-web";
-        parameters.daoNAS = daoNAS;
-        DaoSolr daoSolr = new DaoSolr(parameters);
+        String url = "http://0.0.0.0:8080/solr-web";
+        DaoSolr daoSolr = new DaoSolr(url);
+        daoSolr.setNASMapping(new NASMapping("/tmp/solr_nas/", 3));
         daoSolr.getServer().deleteByQuery("*:*");
         Book book = new Book();
         book.newBook("title", "author", "genre", new FileInputStream("testbook"));

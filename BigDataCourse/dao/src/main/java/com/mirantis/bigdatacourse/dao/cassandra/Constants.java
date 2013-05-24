@@ -28,7 +28,10 @@ public class Constants {
 	private BasicColumnFamilyDefinition columnFamilyDefinition;
 	private BasicKeyspaceDefinition keyspaceDefinition;
 
-	private BasicKeyspaceDefinition getNewKeyspaceDef() {
+    public Constants() {
+    }
+
+    private BasicKeyspaceDefinition getNewKeyspaceDef() {
 			keyspaceDefinition = new BasicKeyspaceDefinition();
 			keyspaceDefinition.setName(KEYSPACE_NAME);
 			keyspaceDefinition.setDurableWrites(true);
@@ -38,7 +41,8 @@ public class Constants {
 	}
 	
 	public Keyspace getKeyspace() {
-			return HFactory.createKeyspace(KEYSPACE_NAME, cluster);
+        getCurrentClstr();
+	    return HFactory.createKeyspace(KEYSPACE_NAME, cluster);
 	}
 	
 	public BasicColumnFamilyDefinition getNewCfDef(String name) {

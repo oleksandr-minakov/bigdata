@@ -4,28 +4,25 @@ import com.mirantis.bigdatacourse.dao.DaoException;
 import com.mirantis.bigdatacourse.dao.FSMapping;
 import com.mirantis.bigdatacourse.dao.NasException;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class NASMapping implements FSMapping{
+@Component
+public class NASMapping implements FSMapping {
 	
 	public static final Logger LOG = Logger.getLogger(NASMapping.class);
     private File directory;
+    String workingDirectory;
+	int nesting;
 
-    @Value("#{properties.working_directory}")
-    public String workingDirectory;
-
-    @Value("#{properties.nesting}")
-	private int nesting;
-
-    public NASMapping() {
-    }
-
-    public NASMapping(String workingDirectory, int nesting) throws NasException {
-		super();
+    @Autowired
+    public NASMapping(@Value("#{properties.working_directory}") String workingDirectory,
+                      @Value("#{properties.nesting}") int nesting) throws NasException {
 		this.workingDirectory = workingDirectory;
 		this.nesting = nesting;
 		if(!(new File(this.workingDirectory).exists())) {

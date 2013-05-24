@@ -27,7 +27,7 @@ public class GetAllBooksJob {
 		
 		Path wDir = new Path(hadoopConf.workingDirectory);
 		FileSystem fs = this.hadoopConf.getFS();
-		List<Book> ret = new ArrayList<Book>();
+		List<Book> ret = new ArrayList<>();
 		List<FileStatus> statList;
 
         try {
@@ -35,7 +35,7 @@ public class GetAllBooksJob {
 			if(statList.size() == 0) {
 				return ret;
 			}
-			List<Path> pathList = new ArrayList<Path>();
+			List<Path> pathList = new ArrayList<>();
 			for(FileStatus fStat: statList) {
 					
 				Path lvl0 = fStat.getPath(); // ID
@@ -54,24 +54,19 @@ public class GetAllBooksJob {
 				
 				pathList.add(lvl4);
 			}
-			
 			querySize = pathList.size();
-			
 			if(pathList.size() > pageNum*pageSize) {
 				ret = new GetBookByPath().getBooksByPathList(pathList.subList((pageNum-1)*pageSize, pageSize*pageNum), hadoopConf);
 				return ret; 
 			}
-			
 			if(pathList.size() > pageSize*(pageNum-1) && pageNum*pageSize >= pathList.size()) {
 				ret = new GetBookByPath().getBooksByPathList(pathList.subList(pageSize*(pageNum-1), pathList.size()), hadoopConf);
 				return ret; 
 			}
-			
 			if(pathList.size() < pageSize && pathList.size() <= pageNum*pageSize) {
 				ret = new GetBookByPath().getBooksByPathList(pathList.subList(0, pathList.size()), hadoopConf);
 				return ret; 
 			}
-			
 		} catch (IOException e) {
             throw new DaoException(e);
         }

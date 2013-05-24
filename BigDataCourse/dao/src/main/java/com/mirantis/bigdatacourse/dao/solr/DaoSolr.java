@@ -1,7 +1,6 @@
 package com.mirantis.bigdatacourse.dao.solr;
 
 import com.mirantis.bigdatacourse.dao.*;
-import com.mirantis.bigdatacourse.dao.NAS.NASMapping;
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -13,43 +12,47 @@ import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.common.params.ModifiableSolrParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Component
 public class DaoSolr implements Dao {
 
     @Value("#{properties.worker}")
     private int worker;
-    private SolrServer server = null;
-    private NASMapping daoNAS = null;
+
     public static final Logger LOG = Logger.getLogger(DaoSolr.class);
+    private SolrServer server = null;
 
     @Autowired
-    Parameters parameters;
+    private FSMapping NASMapping;
 
-    public DaoSolr(Parameters parameters) throws DaoException {
-        LOG.debug("In constructor");
-        this.parameters = parameters;
+    public SolrServer getServer() {
+        return server;
     }
 
-    public SolrServer getServer() throws DaoException {
+    public void setNASMapping(FSMapping NASMapping) {
+        this.NASMapping = NASMapping;
+    }
+
+    public DaoSolr() {
+    }
+
+    @Autowired
+    public DaoSolr(@Value("#{properties.solr_url}") String url) throws DaoException {
         if (server == null) {
-            server = new HttpSolrServer(parameters.URL);
-            LOG.debug("Set server");
-            this.daoNAS = parameters.daoNAS;
-            LOG.debug("Set daoNAS");
+            server = new HttpSolrServer(url);
         }
-        LOG.info("Get server");
-        return server;
     }
 
     @Override
     public int addBook(Book book) throws DaoException {
 
-        List<String> mods = new ArrayList<String>();
+        List<String> mods = new ArrayList<>();
         KeyGenerator idGen = new KeyGenerator();
 
         mods.add(String.valueOf(Thread.activeCount()));
@@ -67,7 +70,7 @@ public class DaoSolr implements Dao {
             params.set("rows", 1);
             params.set("start", 0);
             QueryResponse response;
-            response = getServer().query(params);
+            response = server.query(params);
             SolrDocumentList results = response.getResults();
             if (results.size() != 0)
                 throw new BookAlreadyExists("Book already exists.");
@@ -76,18 +79,18 @@ public class DaoSolr implements Dao {
             doc.addField("title", book.getTitle());
             doc.addField("author", book.getAuthor());
             doc.addField("genre", book.getGenre());
-            if ( daoNAS.writeFile(book.getId(), book.getText()) != 0) {
-                LOG.debug("I/O error in daoNAS");
-                throw new DaoException("I/O error in daoNAS");
+            if ( NASMapping.writeFile(book.getId(), book.getText()) != 0) {
+                LOG.debug("I/O error in NASMapping");
+                throw new DaoException("I/O error in NASMapping");
             }
             LOG.debug("Write book in NAS. Id = " + book.getId());
-            doc.addField("file", daoNAS.getAbsolutePath(book.getId()));
+            doc.addField("file", NASMapping.getAbsolutePath(book.getId()));
             doc.addField("text", book.getReadableText());
-            getServer().add(doc);
-            getServer().commit();
+            server.add(doc);
+            server.commit();
         } catch (Exception e) {
             try {
-                getServer().rollback();
+                server.rollback();
             } catch (SolrServerException | IOException e1) {
                 throw new DaoException("Add exception " + e.getMessage());
             }
@@ -100,13 +103,13 @@ public class DaoSolr implements Dao {
     @Override
     public int delBook(String id) throws DaoException {
         try {
-            getServer().deleteByQuery("id:" + id);
-            int rm_id = daoNAS.removeFile(id);
+            server.deleteByQuery("id:" + id);
+            int rm_id = NASMapping.removeFile(id);
             if (rm_id != 0) {
-                getServer().rollback();
-                throw new DaoException("I/O error in daoNAS " + " rm_id = " + rm_id + " id = " + id);
+                server.rollback();
+                throw new DaoException("I/O error in NASMapping " + " rm_id = " + rm_id + " id = " + id);
             }
-            getServer().commit();
+            server.commit();
             LOG.debug("Delete book from NAS. Id = " + id);
         } catch (SolrServerException | IOException e) {
             throw new DaoException("Delete exception " + e.getMessage());
@@ -118,7 +121,7 @@ public class DaoSolr implements Dao {
 
     @Override
     public PaginationModel getAllBooks(int pageNum, int pageSize) throws DaoException {
-        List<Book> books = new ArrayList<Book>();
+        List<Book> books = new ArrayList<>();
         PaginationModel model = new PaginationModel();
         ModifiableSolrParams params = new ModifiableSolrParams();
         params.set("q", "*:*");
@@ -126,15 +129,15 @@ public class DaoSolr implements Dao {
         params.set("start", (pageNum - 1) * pageSize);
         QueryResponse response;
         try {
-            response = getServer().query(params);
+            response = server.query(params);
             SolrDocumentList results = response.getResults();
             model.setNumberOfRecords((int) results.getNumFound());
             for (SolrDocument result : results) {
                 try {
-                    books.add(BookUtils.map(result, daoNAS));
+                    books.add(BookUtils.map(result, NASMapping));
                 } catch (IOException e) {
-                    LOG.debug("I/O error in daoNAS");
-                    throw new DaoException("I/O error in daoNAS " + e.getMessage());
+                    LOG.debug("I/O error in NASMapping");
+                    throw new DaoException("I/O error in NASMapping " + e.getMessage());
                 }
             }
         } catch (SolrServerException e) {
@@ -148,7 +151,7 @@ public class DaoSolr implements Dao {
 
     @Override
     public PaginationModel getBookByTitle(int pageNum, int pageSize, String title) throws DaoException {
-        List<Book> books = new ArrayList<Book>();
+        List<Book> books = new ArrayList<>();
         PaginationModel model = new PaginationModel();
         ModifiableSolrParams params = new ModifiableSolrParams();
         params.set("q", "title:" + "*" + title + "*");
@@ -156,15 +159,15 @@ public class DaoSolr implements Dao {
         params.set("start", (pageNum - 1) * pageSize);
         QueryResponse response;
         try {
-            response = getServer().query(params);
+            response = server.query(params);
             SolrDocumentList results = response.getResults();
             model.setNumberOfRecords((int) results.getNumFound());
             for (SolrDocument result : results) {
                 try {
-                    books.add(BookUtils.map(result, daoNAS));
+                    books.add(BookUtils.map(result, NASMapping));
                 } catch (IOException e) {
-                    LOG.debug("I/O error in daoNAS");
-                    throw new DaoException("I/O error in daoNAS " + e.getMessage());
+                    LOG.debug("I/O error in NASMapping");
+                    throw new DaoException("I/O error in NASMapping " + e.getMessage());
                 }
             }
         } catch (SolrServerException e) {
@@ -178,7 +181,7 @@ public class DaoSolr implements Dao {
 
     @Override
     public PaginationModel getBookByAuthor(int pageNum, int pageSize, String author) throws DaoException {
-        List<Book> books = new ArrayList<Book>();
+        List<Book> books = new ArrayList<>();
         PaginationModel model = new PaginationModel();
         ModifiableSolrParams params = new ModifiableSolrParams();
         params.set("q", "author:" + "*" + author + "*");
@@ -186,15 +189,15 @@ public class DaoSolr implements Dao {
         params.set("start", (pageNum - 1) * pageSize);
         QueryResponse response;
         try {
-            response = getServer().query(params);
+            response = server.query(params);
             SolrDocumentList results = response.getResults();
             model.setNumberOfRecords((int) results.getNumFound());
             for (SolrDocument result : results) {
                 try {
-                    books.add(BookUtils.map(result, daoNAS));
+                    books.add(BookUtils.map(result, NASMapping));
                 } catch (IOException e) {
-                    LOG.debug("I/O error in daoNAS");
-                    throw new DaoException("I/O error in daoNAS " + e.getMessage());
+                    LOG.debug("I/O error in NASMapping");
+                    throw new DaoException("I/O error in NASMapping " + e.getMessage());
                 }
             }
         } catch (SolrServerException e) {
@@ -208,7 +211,7 @@ public class DaoSolr implements Dao {
 
     @Override
     public PaginationModel getBookByGenre(int pageNum, int pageSize, String genre) throws DaoException {
-        List<Book> books = new ArrayList<Book>();
+        List<Book> books = new ArrayList<>();
         PaginationModel model = new PaginationModel();
         ModifiableSolrParams params = new ModifiableSolrParams();
         params.set("q", "genre:" + "*" + genre + "*");
@@ -216,15 +219,15 @@ public class DaoSolr implements Dao {
         params.set("start", (pageNum - 1) * pageSize);
         QueryResponse response;
         try {
-            response = getServer().query(params);
+            response = server.query(params);
             SolrDocumentList results = response.getResults();
             model.setNumberOfRecords((int) results.getNumFound());
             for (SolrDocument result : results) {
                 try {
-                    books.add(BookUtils.map(result, daoNAS));
+                    books.add(BookUtils.map(result, NASMapping));
                 } catch (IOException e) {
-                    LOG.debug("I/O error in daoNAS");
-                    throw new DaoException("I/O error in daoNAS " + e.getMessage());
+                    LOG.debug("I/O error in NASMapping");
+                    throw new DaoException("I/O error in NASMapping " + e.getMessage());
                 }
             }
         } catch (SolrServerException e) {
@@ -239,7 +242,7 @@ public class DaoSolr implements Dao {
     //TODO add search index
     @Override
     public PaginationModel getBookByText(int pageNum, int pageSize, String text) throws DaoException {
-        List<Book> books = new ArrayList<Book>();
+        List<Book> books = new ArrayList<>();
         PaginationModel model = new PaginationModel();
         ModifiableSolrParams params = new ModifiableSolrParams();
         params.set("q", "text:" + "*" + text + "*");
@@ -247,15 +250,15 @@ public class DaoSolr implements Dao {
         params.set("start", (pageNum - 1) * pageSize);
         QueryResponse response;
         try {
-            response = getServer().query(params);
+            response = server.query(params);
             SolrDocumentList results = response.getResults();
             model.setNumberOfRecords((int) results.getNumFound());
             for (SolrDocument result : results) {
                 try {
-                    books.add(BookUtils.map(result, daoNAS));
+                    books.add(BookUtils.map(result, NASMapping));
                 } catch (IOException e) {
-                    LOG.debug("I/O error in daoNAS");
-                    throw new DaoException("I/O error in daoNAS " + e.getMessage());
+                    LOG.debug("I/O error in NASMapping");
+                    throw new DaoException("I/O error in NASMapping " + e.getMessage());
                 }
             }
         } catch (SolrServerException e) {
@@ -269,7 +272,7 @@ public class DaoSolr implements Dao {
 
     @Override
     public void closeConnection() throws DaoException {
-        daoNAS = null;
+        NASMapping = null;
         server = null;
         LOG.debug("Close connection");
     }
@@ -283,7 +286,7 @@ public class DaoSolr implements Dao {
     @Override
     public void afterPropertiesSet() throws Exception {
         LOG.debug("IN SECTION afterPropertiesSet");
-        if(this.parameters == null) {
+        if(this.server == null) {
             throw new DaoException("Error with Solr bean initialization");
         }
     }
