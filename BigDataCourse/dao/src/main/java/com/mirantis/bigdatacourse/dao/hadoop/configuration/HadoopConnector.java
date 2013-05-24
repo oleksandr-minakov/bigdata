@@ -45,6 +45,7 @@ public class HadoopConnector {
 
     private void  setConfiguration() throws DaoException {
 		this.newConf = new Configuration();
+        this.hadoopURI = ("hdfs://" + hadoopIP + ":" + hadoopPort);
 	}
 	
 	public FileSystem getFS() throws DaoException {

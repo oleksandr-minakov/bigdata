@@ -26,7 +26,7 @@ public class AddBookJob {
 	}
 	
 	public int addBookJob(Book book) throws DaoException {
-        List<String> mods = new ArrayList<String>();
+        List<String> mods = new ArrayList<>();
         KeyGenerator idGen = new KeyGenerator();
 
         mods.add(String.valueOf(Thread.activeCount()));

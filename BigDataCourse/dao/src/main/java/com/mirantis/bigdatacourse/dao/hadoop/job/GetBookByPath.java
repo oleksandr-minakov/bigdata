@@ -16,7 +16,7 @@ public class GetBookByPath {
 	
 	public Book getBookByPath(Path path, HadoopConnector hadoop) throws DaoException {
 		
-		String stringPath = path.toString().substring(hadoop.getURI().length()+1);
+		String stringPath = path.toString().substring(hadoop.getURI().length() + 1);
 		List<String> pathLevels = Arrays.asList(stringPath.split("/"));
 		List<String> book = pathLevels.subList(2, pathLevels.size());
 
@@ -40,8 +40,7 @@ public class GetBookByPath {
 	}
 
 	public List<Book> getBooksByPathList(List<Path> pathList, HadoopConnector hadoop) throws DaoException {
-		
-		List<Book> books = new ArrayList<Book>();
+		List<Book> books = new ArrayList<>();
 		for(Path path: pathList){
 			try {
 				books.add(getBookByPath(path, hadoop));

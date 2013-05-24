@@ -4,7 +4,6 @@ import com.mirantis.bigdatacourse.dao.Book;
 import com.mirantis.bigdatacourse.dao.DaoException;
 import com.mirantis.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GetBookByGenreJob {
@@ -16,10 +15,8 @@ public class GetBookByGenreJob {
 	}
 
 	public List<Book> getBooksBy(int pageNum, int pageSize, String genre) throws DaoException {
-		
-		List<Book> ret = new ArrayList<Book>();
-		
-		try{
+		List<Book> ret;
+		try {
 			GetBookByTokenJob getBooksByToken = new GetBookByTokenJob(this.hadoop);
 			querySize = getBooksByToken.querySize;
 			ret = getBooksByToken.getBookByToken(pageNum, pageSize, "genre", genre);
