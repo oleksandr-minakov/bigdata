@@ -48,8 +48,8 @@ public class AddBookController {
 			model.addAttribute("message", e.getMessage());
 			return "upload";
 		}
-		int id = service.addBook(book);
-		if (id == 0) {
+		int result = service.addBook(book);
+		if (result == 0) {
 			model.addAttribute("message", "File '" + file.getOriginalFilename() + "' uploaded successfully");
 		} else {
 			model.addAttribute("message", "File '" + file.getOriginalFilename() + "' upload failed");
