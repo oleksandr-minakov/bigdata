@@ -26,13 +26,13 @@ public class DaoJdbcTest {
 	@BeforeClass
 	public static void testSetup() throws DaoException {
         ManagementTables mt;
-        dataSource = new DriverManagerDataSource("com.mysql.jdbc.Driver", "jdbc:mysql://localhost:3306/bigdata", "aminakov", "bigdata");
+        dataSource = new DriverManagerDataSource("com.mysql.jdbc.Driver", "jdbc:mysql://localhost:3306/bigdata_dev", "aminakov", "bigdata");
 		dao = new DaoJdbc();
         dao.setDataSource(dataSource);
 		mt = new ManagementTables(dataSource);
 		mt.createTables();
 		mt.closeConnection();
-		books = new ArrayList<Book>();
+		books = new ArrayList<>();
     	gen = new ManagementBooks();
     	books = gen.generateBooks();
 	}
@@ -106,7 +106,7 @@ public class DaoJdbcTest {
 			if(book.getGenre().equals(genre))
 				expectedGenreCounter++;
 		}
-		List<Book> books = new ArrayList<Book>();
+		List<Book> books;
 		model = dao.getBookByGenre(1, 50, genre);
 		books = model.getBooks();
         assertEquals(expectedGenreCounter, books.size());
