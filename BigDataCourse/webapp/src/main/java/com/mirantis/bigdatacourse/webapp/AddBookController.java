@@ -70,26 +70,21 @@ public class AddBookController {
 	public String getBooks(Integer pageNum, String findString, String findBy, Model model) {
 		int numberOfRecords;
         int pageSize = 10;
-		if (pageNum == null) {
+		if (pageNum == null)
 			pageNum = 1;
-		} else {
-			//NOP
-		}
 		List<Book> books;
         PaginationModel booksModel;
 		if (findString == null || findString.equalsIgnoreCase("")) {
-			//dangerous expression in condition
 			booksModel = service.getAllBooks(pageNum, pageSize);
             books = booksModel.getBooks();
 			numberOfRecords = booksModel.getNumberOfRecords();
 			model.addAttribute("books", books);
-//			model.addAttribute("numberOfPages", books.size());
 			model.addAttribute("currentPage", pageNum);
 			model.addAttribute("numberOfRecords", numberOfRecords);
 		} else {
 			model.addAttribute("findString",findString);
 			model.addAttribute("findBy", findBy);
-			by searchBy = by.valueOf(findBy);
+			SearchBy searchBy = SearchBy.valueOf(findBy);
             PaginationModel searchBooksModel;
 			switch (searchBy) {
 			case title:
@@ -127,7 +122,7 @@ public class AddBookController {
 		return "search";
 	}
 	
-	public enum by {
+	public enum SearchBy {
 		title,
 		author,
 		genre,
@@ -153,18 +148,16 @@ public class AddBookController {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             return "text";
         }
-        String line = null;
+        String line;
         try {
-            if (bufferedReader != null) {
-                line = bufferedReader.readLine();
-            }
+            line = bufferedReader.readLine();
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             return "text";
         }
         while(line != null){
             inputStringBuilder.append(line);
-            inputStringBuilder.append('\n');
+            inputStringBuilder.append("\n");
             try {
                 line = bufferedReader.readLine();
             } catch (IOException e) {
@@ -172,8 +165,8 @@ public class AddBookController {
                 return "text";
             }
         }
-//        LOG.info(inputStringBuilder.toString());
-        model.addAttribute("text", inputStringBuilder.toString());
+        String text = inputStringBuilder.toString();
+        model.addAttribute("text", text);
         return "text";
 	}
 
