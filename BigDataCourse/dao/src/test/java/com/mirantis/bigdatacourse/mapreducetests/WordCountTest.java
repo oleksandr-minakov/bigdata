@@ -25,9 +25,6 @@ public class WordCountTest {
 		
 		int testCase = 10;
 		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP,"9000", new HdfsIP().HadoopUser, "/bookshelf/books/");
-		
-		newOne.bookID = 1;
-		
 		AddBookJob job = new AddBookJob(newOne);
 		List<Path> pathList = new ArrayList<Path>();
 		JobRunner jobba = new JobRunner(newOne, WordCounterJob.class , Map.class, Reduce.class);
