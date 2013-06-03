@@ -20,12 +20,10 @@ public class GetNumberOfRecordsTest {
 
     @Test
     public void getNumberOfRecordsTest() throws DaoException, IOException, SolrServerException {
-        List<Book> books = new ArrayList<Book>();
-        NASMapping daoNAS = new NASMapping("/tmp/solr_nas/", 3);
-        Parameters parameters = new Parameters();
-        parameters.URL = "http://0.0.0.0:8080/solr-web";
-        parameters.daoNAS = daoNAS;
-        DaoSolr daoSolr = new DaoSolr(parameters);
+        List<Book> books = new ArrayList<>();
+        String url = "http://0.0.0.0:8080/solr-web";
+        DaoSolr daoSolr = new DaoSolr(url);
+        daoSolr.setNASMapping(new NASMapping("/tmp/solr_nas/", 3));
         daoSolr.getServer().deleteByQuery("*:*");
         Book book = new Book();
         for (int i = 1; i < 55; i++) {

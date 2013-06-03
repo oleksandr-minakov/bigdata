@@ -47,11 +47,11 @@ Find: <label>
 	</tr>
 	<c:forEach items="${books}" var="book">
 		<tr>
-			<td><a href="<c:url value="/text/${book.title}"/>">${book.title} </a></td>
+			<td><a href="<c:url value="/text?titleOfBook=${book.title}"/>">${book.title} </a></td>
 			<td>${book.author}</td>
 			<td>${book.genre}</td>
 			<td>${book.text}</td>
-            <td><a href="<c:url value="/delete/${book.id}"/>">${book.id}</td>
+            <td><a href="<c:url value="/delete?deleteBookId=${book.id}"/>">${book.id}</td>
 		</tr>
 	</c:forEach>
 </table>

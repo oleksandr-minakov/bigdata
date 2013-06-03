@@ -22,7 +22,7 @@ public class ServiceToDao implements com.mirantis.bigdatacourse.service.Service 
 
 	@Override
 	public int addBook(Book book) {
-		int ret = 0;
+		int ret = -1;
 		try {
 			ret = dao.addBook(book);
 		} catch (DaoException e) {

@@ -3,7 +3,6 @@ package com.mirantis.bigdatacourse.webapp;
 import com.mirantis.bigdatacourse.dao.Book;
 import com.mirantis.bigdatacourse.dao.PaginationModel;
 import com.mirantis.bigdatacourse.service.Service;
-import com.mirantis.bigdatacourse.service.restful.RestService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,19 +18,13 @@ import java.util.List;
 
 @Controller
 public class AddBookController {
-	
+
 	private Service service;
-	private RestService restService;
     public static final Logger LOG = Logger.getLogger(AddBookController.class);
 
 	@Autowired
 	public void setService(Service service) {
 		this.service = service;
-	}
-	
-	@Autowired
-	public void setService(RestService restService) {
-		this.restService = restService;
 	}
 	
 	@RequestMapping("/")
@@ -55,14 +48,14 @@ public class AddBookController {
 			model.addAttribute("message", e.getMessage());
 			return "upload";
 		}
-		int id = service.addBook(book);
-		if (id == 0) {
+		int result = service.addBook(book);
+		if (result == 0) {
 			model.addAttribute("message", "File '" + file.getOriginalFilename() + "' uploaded successfully");
 		} else {
 			model.addAttribute("message", "File '" + file.getOriginalFilename() + "' upload failed");
 		}
 		model.addAttribute("book", book);
-		model.addAttribute("id", id);
+		model.addAttribute("id", book.getId());
 		model.addAttribute("text", book.getText());
 		return "upload";
 	}	
@@ -141,13 +134,13 @@ public class AddBookController {
 		text
 	}
 	
-	@RequestMapping(value = "/text/{titleOfBook}", method=RequestMethod.GET)
-	public String getTextOfBook(@PathVariable String titleOfBook, Model model) {
+	@RequestMapping(value = "/text", method=RequestMethod.GET)
+	public String getTextOfBook(String titleOfBook, Model model) {
         if (titleOfBook == null || titleOfBook.equalsIgnoreCase(""))
             return "text";
         List<Book> books;
         PaginationModel booksModel;
-        booksModel = restService.findByTitle(1, 1, titleOfBook);
+        booksModel = service.findByTitle(1, 1, titleOfBook);
         books = booksModel.getBooks();
         if (books.size() == 0)
             return "text";
@@ -184,11 +177,11 @@ public class AddBookController {
         return "text";
 	}
 
-    @RequestMapping(value = "/delete/{deleteBookId}", method=RequestMethod.GET)
-    public String deleteBook(@PathVariable String deleteBookId, Model model) {
+    @RequestMapping(value = "/delete", method=RequestMethod.GET)
+    public String deleteBook(String deleteBookId, Model model) {
         if (deleteBookId.length() == 0)
             return "delete";
-        int result = restService.delBook(deleteBookId);
+        int result = service.delBook(deleteBookId);
         if (result == 0) {
             model.addAttribute("message", "Book with ID '" + deleteBookId + "' deleted successfully");
         } else {

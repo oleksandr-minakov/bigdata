@@ -21,7 +21,7 @@ public class GetBookByGenreTest {
 	@Test
     public void getBookByGenreTest() throws DaoException, IOException {
         DaoMemcached daoMemcached = new DaoMemcached();
-        daoMemcached.setClient(new MemClient(new InetSocketAddress("localhost" , 11211)));
+        daoMemcached.setMemClient(new MemClient(new InetSocketAddress("localhost" , 11211)));
         DaoJdbc dao = new DaoJdbc();
         DataSource dataSource = new DriverManagerDataSource("com.mysql.jdbc.Driver", "jdbc:mysql://localhost:3306/bigdata", "aminakov", "bigdata");
         dao.setDataSource(dataSource);

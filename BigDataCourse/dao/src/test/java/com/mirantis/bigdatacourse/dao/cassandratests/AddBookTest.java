@@ -17,24 +17,21 @@ public class AddBookTest {
 	@Test
 	public void addBookTest() throws IOException, DaoException{
 		
-		List<String> hosts = new ArrayList<String>();
+		List<String> hosts = new ArrayList<>();
 		hosts.add(CassandraIP.IP1);
 		hosts.add(CassandraIP.IP2);
 		hosts.add(CassandraIP.IP3);
 		
-		Constants cts = new Constants("Cassandra Cluster", "KS", "Test", CassandraIP.IP1);
+		Constants cts = new Constants("Cassandra Cluster", "KS", "Test", hosts.get(0));
 		
 		DaoCassandra dao = new DaoCassandra(cts);
 		for(int i = 0; i < 100; ++i) {
-			
-			Book beggining_state = new Book();
-			beggining_state.newBook("CassandraTest", "Test"+i, "Tester"+i, new FileInputStream("testbook"));
-			dao.addBook(beggining_state);
+			Book book = new Book();
+			book.newBook("CassandraTest", "Test" + i, "Tester" + i, new FileInputStream("testbook"));
+			dao.addBook(book);
 		}
-
 		Assert.assertNotNull(cts);
 		Assert.assertNotNull(dao);
 		cts.getCurrentClstr().dropKeyspace("KS");
 	}
-
 }

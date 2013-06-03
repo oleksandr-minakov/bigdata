@@ -42,17 +42,16 @@ public class DaoCassandra implements Dao {
 
 	@Override
 	public void destroy() throws Exception {
-		
 		LOG.debug("Cleaning thread pool of Hector connections");
 		Collection<HClientPool> pList =
 				this.constants.getCurrentClstr().getConnectionManager().getActivePools();
         for (HClientPool aPList : pList) {
             aPList.shutdown();
         }
-		
+
 		this.constants.getCurrentClstr().getConnectionManager().removeCassandraHost(new CassandraHost(this.constants.HOST));
 		LOG.debug("Removing all hosts from current session...");
-		
+
 		this.constants.getCurrentClstr().getConnectionManager().shutdown();
 		HFactory.shutdownCluster(this.constants.getCurrentClstr());
 		
@@ -65,7 +64,7 @@ public class DaoCassandra implements Dao {
 	@Override
 	public int addBook(Book book) throws DaoException {
 		
-		List<String> mods = new ArrayList<String>();
+		List<String> mods = new ArrayList<>();
 		KeyGenerator idGen = new KeyGenerator();
 		
 		mods.add(String.valueOf(Thread.activeCount()));
@@ -73,9 +72,7 @@ public class DaoCassandra implements Dao {
 		mods.add(Thread.currentThread().toString());
 		mods.add(Thread.currentThread().getState().toString());
 		mods.add(String.valueOf(new Date().getTime()));
-		
 		String newID = idGen.getNewID(mods);
-		
 		book.setId(newID);
 		
 		try {
@@ -96,7 +93,7 @@ public class DaoCassandra implements Dao {
 			LOG.debug(e.getMessage());
             throw new DaoException(e);
         }
-		LOG.info("Book was added, id:" + String.valueOf(book.getId()));
+		LOG.info("Book was added, id:" + book.getId());
 		return 0;
 	}
 
@@ -104,7 +101,7 @@ public class DaoCassandra implements Dao {
 	public int delBook(String id) throws DaoException {
 		
 		Mutator<String> mutator = HFactory.createMutator(constants.getKeyspace(), StringSerializer.get());
-		String newID = getHash(id);
+//		String newID = getHash(id);
 		LOG.debug("Creating new mutator");
 		
 		try {
@@ -112,7 +109,7 @@ public class DaoCassandra implements Dao {
 						HFactory.createMultigetSliceQuery(constants.getKeyspace(), StringSerializer.get(), StringSerializer.get(), StringSerializer.get());
 				
 				book.setColumnFamily(constants.CF_NAME);
-				book.setKeys(newID);
+				book.setKeys(id);
 				book.setRange("", "", false, Integer.MAX_VALUE - 1);
 				book.setRange("", "", false, Integer.MAX_VALUE - 1);
 
@@ -124,19 +121,19 @@ public class DaoCassandra implements Dao {
 				
 				Rows<String, String, String> orderedRows = result.get();
 				
-				Book tempel = BookConverter.getInstance().row2book(orderedRows.getByKey(newID).getColumnSlice().getColumns());
+				Book bookForDelete = BookConverter.getInstance().row2book(orderedRows.getByKey(id).getColumnSlice().getColumns());
 				
-				mutator.delete(tempel.getTitle(), "titles", newID, StringSerializer.get());
-				mutator.delete(tempel.getAuthor(), "authors", newID, StringSerializer.get());
-				mutator.delete(tempel.getGenre(), "genres", newID, StringSerializer.get());
-				mutator.delete(tempel.getReadableText(), "texts", newID, StringSerializer.get());
-								
+				mutator.delete(bookForDelete.getTitle(), "titles", id, StringSerializer.get());
+				mutator.delete(bookForDelete.getAuthor(), "authors", id, StringSerializer.get());
+				mutator.delete(bookForDelete.getGenre(), "genres", id, StringSerializer.get());
+				mutator.delete(bookForDelete.getReadableText(), "texts", id, StringSerializer.get());
 				mutator.delete(getHash(id), constants.CF_NAME, null, StringSerializer.get());
-				LOG.debug("Book was deleted, id:" + getHash(id));
+				LOG.debug("Book was deleted, id:" + id);
 		} catch(Exception e){
+            LOG.info("Error happened", e);
 			throw new DaoException(e);
 		}
-		LOG.info("Book was deleted, id:" + String.valueOf(id));
+		LOG.info("Book was deleted, id:" + id);
 		return 0;
 	}
 
@@ -154,7 +151,7 @@ public class DaoCassandra implements Dao {
 		} else {
 			if(pageNum * pageSize > keyStorage.size()) {
 				for(Book book:getBooks(keyStorage)) {
-					if(!book.equals(null) && book.getId().length() != 0) {
+					if(!book.equals(null) && book.getId().length() != 0) {          //FIX WTF?
 						ret.add(book);
 					}
 				}
@@ -233,7 +230,9 @@ public class DaoCassandra implements Dao {
 		else
 			return pages;
 	}
-	
+
+
+    //FIX
 	@Override
 	public PaginationModel getBookByTitle(int pageNum, int pageSize, String title) throws DaoException {
 		List<Book> booksBy= new ArrayList<Book>();

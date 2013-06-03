@@ -26,18 +26,18 @@ public class HadoopConnector {
 	
 	@Value("#{properties.wdirectory}")
 	public String workingDirectory;
+
+    @Value("#{properties.worker}")
+    public int worker;
 	
-	public int bookID;
-	
-	
-	public HadoopConnector(String hadoopIP, String hadoopPort, String user, String workingDirectory) {
+	public HadoopConnector(String hadoopIP, String hadoopPort, String user, String workingDirectory, int worker) {
 		
 		this.hadoopUser = user;
 		this.hadoopIP = hadoopIP;
 		this.hadoopPort = hadoopPort;
 		this.hadoopURI = ("hdfs://" + hadoopIP + ":" + hadoopPort);
 		this.workingDirectory = workingDirectory;
-		this.bookID = 0;
+        this.worker = worker;
 	}
 
     public HadoopConnector() {
@@ -45,6 +45,7 @@ public class HadoopConnector {
 
     private void  setConfiguration() throws DaoException {
 		this.newConf = new Configuration();
+        this.hadoopURI = ("hdfs://" + hadoopIP + ":" + hadoopPort);
 	}
 	
 	public FileSystem getFS() throws DaoException {

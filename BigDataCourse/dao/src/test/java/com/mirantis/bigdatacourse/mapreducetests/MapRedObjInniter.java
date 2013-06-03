@@ -1,14 +1,5 @@
 package com.mirantis.bigdatacourse.mapreducetests;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.hadoop.fs.Path;
-import org.junit.Assert;
-import org.junit.Test;
-import org.springframework.core.task.TaskExecutor;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-
 import com.mirantis.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
 import com.mirantis.bigdatacourse.dao.hadoop.configuration.Pair;
 import com.mirantis.bigdatacourse.dao.hadooptests.HdfsIP;
@@ -16,6 +7,13 @@ import com.mirantis.bigdatacourse.mapreduce.MapReduceThread;
 import com.mirantis.bigdatacourse.mapreduce.WordCounterJob;
 import com.mirantis.bigdatacourse.mapreduce.WordCounterJob.Map;
 import com.mirantis.bigdatacourse.mapreduce.WordCounterJob.Reduce;
+import org.apache.hadoop.fs.Path;
+import org.junit.Assert;
+import org.junit.Test;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MapRedObjInniter {
 
@@ -23,7 +21,7 @@ public class MapRedObjInniter {
 	public void getObjsTest() throws Exception {
 		
 		List<Pair<String,  String>> pairs = new ArrayList<Pair<String,  String>>();
-		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP, "9000", new HdfsIP().HadoopUser, "/bookshelf/books/");
+		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP, "9000", new HdfsIP().HadoopUser, "/bookshelf/books/", 100);
 		newOne.getFS().delete(new Path("/Statistics"), true);
 		WordCounterJob words = new WordCounterJob();
 		
@@ -44,10 +42,9 @@ public class MapRedObjInniter {
 		pool.setQueueCapacity(1);
 		pool.setWaitForTasksToCompleteOnShutdown(true);
 		pool.initialize();
-		
-		
-		TaskExecutor exec = pool;
-		exec.execute(thread);
+
+
+        pool.execute(thread);
 		
 		if(pool.getActiveCount() != 0){
 			
