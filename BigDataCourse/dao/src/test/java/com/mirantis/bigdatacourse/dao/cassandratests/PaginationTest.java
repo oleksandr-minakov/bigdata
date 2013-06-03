@@ -46,10 +46,12 @@ public class PaginationTest {
 			int count = dao.getNumberOfRecordsBy("titles", "CassandraTest");
 			Assert.assertTrue(books.size() == count +1);
 			Assert.assertTrue(model.getBooks().size() == count);
+			
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		} finally {
 			cts.getCurrentClstr().dropKeyspace("KS");
 		}
+		
 	}
 }
