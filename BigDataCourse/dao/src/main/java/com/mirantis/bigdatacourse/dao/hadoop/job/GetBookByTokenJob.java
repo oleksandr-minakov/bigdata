@@ -34,7 +34,8 @@ public class GetBookByTokenJob {
 		}
 		
 		List<FileStatus> statList;
-		List<Book> ret = new ArrayList<>();
+		List<Book> ret = new ArrayList<Book>();
+		
 		try {
 			String stringPath;
 			statList = Arrays.asList(hadoop.getFS().listStatus(new Path(hadoop.workingDirectory)));
