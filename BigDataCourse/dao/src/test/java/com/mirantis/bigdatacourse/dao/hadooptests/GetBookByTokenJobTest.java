@@ -16,14 +16,17 @@ import static org.junit.Assert.assertEquals;
 
 public class GetBookByTokenJobTest {
 
+	@SuppressWarnings("unused")
 	@Test
 	public void test() throws DaoException, IOException {
 		
-		int testCase = 1000;
+		int testCase = 10;
 		int pageSize = 10000;
-		int pageNum = 1;
+		int pageNum = 2;
+		
 		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP, "9000", new HdfsIP().HadoopUser, "/bookshelf/books/");
 		newOne.bookID = 1;
+		
 		AddBookJob add = new AddBookJob(newOne);
 		GetBookByTokenJob get = new GetBookByTokenJob(newOne);
 		GetBookByTitleJob getTitle = new GetBookByTitleJob(newOne);
@@ -38,11 +41,12 @@ public class GetBookByTokenJobTest {
 		List<Book> afterGetAuthor;
 		List<Book> afterGetAuthor1;
 		
-		for(int i = 0; i < testCase; ++i) {
-			Book initial_state = new Book();
-			initial_state.newBook("CassandraTest" + i % 100, "Test", "Tester" + i % 100, new FileInputStream("testbook"));
-			before.add(initial_state);
-			add.addBookJob(initial_state);
+		for(int i = 0; i < 100; ++i) {
+			
+			Book book = new Book();
+			book.newBook("Test", "author", "genre", new FileInputStream("testbook"));
+			add.addBookJob(book);
+			
 		}
 		
         afterGetTitle = get.getBookByToken(pageNum, pageSize, "title","CassandraTest10");
@@ -57,10 +61,6 @@ public class GetBookByTokenJobTest {
 		afterGetGenre1 = getGenre.getBooksBy(pageNum, pageSize, "Tester10");
 		assertEquals( afterGetGenre.get(0).getId(),afterGetGenre1.get(0).getId());
 		
-		System.out.println("GetBookByTokenJobTest " + (afterGetTitle.get(0).getId() + afterGetAuthor.get(0).getId() +  afterGetGenre.get(0).getId()
-				 == afterGetTitle1.get(0).getId() + afterGetAuthor1.get(0).getId() +  afterGetGenre1.get(0).getId()));
-		
-		for(int i = 1; i < testCase + 1; ++i)
-			newOne.getFS().delete(new Path("/bookshelf/books/" + i + "/"), true);
 	}
+	
 }
