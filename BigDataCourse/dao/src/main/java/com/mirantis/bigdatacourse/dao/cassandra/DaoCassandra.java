@@ -162,7 +162,7 @@ public class DaoCassandra implements Dao {
 			} else {
 				neededKeys = keyStorage.subList((pageNum - 1) * pageSize, pageNum * pageSize);
 				for(Book book:getBooks(neededKeys)) {
-					if(!book.equals(null) && book.getId().length() != 0) {
+					if(book != null && book.getId() != null && book.getAuthor() != null && book.getGenre() != null && book.getTitle() != null) {
 						ret.add(book);
 					}
 				}

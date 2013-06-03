@@ -5,6 +5,7 @@ import com.mirantis.bigdatacourse.dao.DaoException;
 import com.mirantis.bigdatacourse.dao.hadoop.configuration.HadoopConnector;
 import com.mirantis.bigdatacourse.dao.hadoop.job.*;
 import org.apache.hadoop.fs.Path;
+import org.apache.log4j.BasicConfigurator;
 import org.junit.Test;
 
 import java.io.FileInputStream;
@@ -16,11 +17,12 @@ import static org.junit.Assert.assertEquals;
 
 public class GetBookByTokenJobTest {
 
-	@SuppressWarnings("unused")
 	@Test
 	public void test() throws DaoException, IOException {
 		
-		int testCase = 10;
+		
+		BasicConfigurator.configure();
+		int testCase = 100;
 		int pageSize = 10000;
 		int pageNum = 1;
 		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP, "9000", new HdfsIP().HadoopUser, "/bookshelf/books_dev/", 1);
@@ -39,9 +41,10 @@ public class GetBookByTokenJobTest {
 		List<Book> afterGetAuthor;
 		List<Book> afterGetAuthor1;
         try {
+        	
             for(int i = 0; i < testCase; ++i) {
                 Book book = new Book();
-                book.newBook("HadoopTest" + i % 100, "Test", "Tester" + i % 100, new FileInputStream("testbook"));
+                book.newBook("HadoopTest" + i % 11, "Test", "Tester" + i % 100, new FileInputStream("testbook"));
                 before.add(book);
                 add.addBookJob(book);
                 books.add(book);
@@ -59,9 +62,6 @@ public class GetBookByTokenJobTest {
             afterGetGenre1 = getGenre.getBooksBy(pageNum, pageSize, "Tester10");
             assertEquals( afterGetGenre.get(0).getId(),afterGetGenre1.get(0).getId());
 
-            System.out.println("GetBookByTokenJobTest " +
-                    ((afterGetTitle.get(0).getId() + afterGetAuthor.get(0).getId() + afterGetGenre.get(0).getId()).
-                            equals(afterGetTitle1.get(0).getId() + afterGetAuthor1.get(0).getId() + afterGetGenre1.get(0).getId())));
         } finally {
             for(Book bookForDelete: books)
                 newOne.getFS().delete(new Path("/bookshelf/books_dev/" + bookForDelete.getId() + "/"), true);
