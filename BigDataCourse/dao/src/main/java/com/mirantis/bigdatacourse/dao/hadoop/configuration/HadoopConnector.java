@@ -41,6 +41,7 @@ public class HadoopConnector {
 	}
 
     public HadoopConnector() {
+    	
     }
 
     private void  setConfiguration() throws DaoException {

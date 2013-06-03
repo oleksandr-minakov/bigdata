@@ -16,10 +16,11 @@ import static org.junit.Assert.assertEquals;
 
 public class GetBookByTokenJobTest {
 
+	@SuppressWarnings("unused")
 	@Test
 	public void test() throws DaoException, IOException {
 		
-		int testCase = 1000;
+		int testCase = 10;
 		int pageSize = 10000;
 		int pageNum = 1;
 		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP, "9000", new HdfsIP().HadoopUser, "/bookshelf/books_dev/", 1);
@@ -37,7 +38,6 @@ public class GetBookByTokenJobTest {
 		List<Book> afterGetGenre1;
 		List<Book> afterGetAuthor;
 		List<Book> afterGetAuthor1;
-
         try {
             for(int i = 0; i < testCase; ++i) {
                 Book book = new Book();
@@ -67,4 +67,5 @@ public class GetBookByTokenJobTest {
                 newOne.getFS().delete(new Path("/bookshelf/books_dev/" + bookForDelete.getId() + "/"), true);
         }
 	}
+	
 }
