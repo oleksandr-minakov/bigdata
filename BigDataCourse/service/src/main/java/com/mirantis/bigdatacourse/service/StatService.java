@@ -99,9 +99,9 @@ public class StatService {
 		exec = pool;
 	}
 	@SuppressWarnings("rawtypes")
-	public List<Pair<String, Double>> viewStatistics() throws IOException, DaoException {
+	public List<Pair<String, String>> viewStatistics() throws IOException, DaoException {
 		
-		List<Pair<String, Double>> pairs = new ArrayList<Pair<String, Double>>();
+		List<Pair<String, String>> pairs = new ArrayList<Pair<String, String>>();
 		if(this.configuration.getFS().exists(new Path("/Statistics")) && this.configuration.getFS().listStatus(new Path("/Statistics")).length > 1) {
 			
 			GetParsedStatistics  parser = new GetParsedStatistics(this.configuration);
@@ -116,9 +116,9 @@ public class StatService {
 		
 	}
 	
-	public List<Pair<String, Double>> recalculateStatistics() throws IOException, DaoException {
+	public List<Pair<String, String>> recalculateStatistics() throws IOException, DaoException {
 		
-		List<Pair<String, Double>> pairs = new ArrayList<Pair<String, Double>>();
+		List<Pair<String, String>> pairs = new ArrayList<Pair<String, String>>();
 		
 		if(this.configuration.getFS().exists(new Path("/Statistics")))
 			this.configuration.getFS().delete(new Path("/Statistics"), true);

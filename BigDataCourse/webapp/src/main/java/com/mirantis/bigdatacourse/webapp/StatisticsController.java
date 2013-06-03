@@ -41,7 +41,7 @@ public class StatisticsController {
 	public String getStatView(Model model) throws IOException, DaoException {
 		
 		if(!(this.statService == null)) {
-			List<Pair<String, Double>> pairs = new ArrayList<Pair<String, Double>>();
+			List<Pair<String, String>> pairs = new ArrayList<Pair<String, String>>();
 			pairs = this.statService.viewStatistics();
 			
 			model.addAttribute("pairs", pairs);
@@ -54,7 +54,7 @@ public class StatisticsController {
 	public String recalculate(Model model) throws IOException, DaoException {
 		
 		String msg = new String("MapReduce servise is busy");
-		List<Pair<String, Double>> pairs = new ArrayList<Pair<String, Double>>();
+		List<Pair<String, String>> pairs = new ArrayList<Pair<String, String>>();
 		
 		pairs = this.statService.recalculateStatistics();
 		
