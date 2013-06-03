@@ -24,7 +24,7 @@ public class MapReduceThread implements Runnable {
 	private Object reducer;
 	private HadoopConnector configuration;
 	private Path path;
-	private List<Pair<String, Double>> pairs = new ArrayList<Pair<String, Double>>();
+	private List<Pair<String, String>> pairs = new ArrayList<Pair<String, String>>();
 	
 	public void setJobClass(Object job){
 		
@@ -46,7 +46,7 @@ public class MapReduceThread implements Runnable {
 		this.configuration = configuration;
 	}
 	
-	public List<Pair<String, Double>> getPairs(){
+	public List<Pair<String, String>> getPairs(){
 		
 		return this.pairs;
 	}

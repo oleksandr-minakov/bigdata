@@ -25,9 +25,13 @@ public class GetParsedStatistics {
 			this.hadoop = hadoop;
 	}
 	
-	public List<Pair<String, Double>> getParsedStatistics(Path statPath) throws IOException, DaoException{
+	public List<Pair<String, String>> getParsedStatistics(Path statPath) throws IOException, DaoException{
 		
-		List<Pair<String, Double>> retFrequency = new ArrayList<Pair<String, Double>>();
+		List<Pair<String, String>> retFrequency = new ArrayList<Pair<String, String>>();
+		
+		Pair<String, String> nullOne = new Pair<String, String>();
+			nullOne.setWord(" ");
+			nullOne.setCount(String.valueOf(0));
 		
 		if(statPath.equals(new Path("/")))
 			return retFrequency;
@@ -44,22 +48,29 @@ public class GetParsedStatistics {
 			LOG.debug("Getting statistics file");
 			byte[] toWrite = new byte[in.available()];
 			in.read(toWrite);
-			StringTokenizer tokens = new StringTokenizer(new String(toWrite), "'\n'");
+			StringTokenizer tokens = new StringTokenizer(new String(toWrite), "''*+-/|�{}'\n';:#$%&()"+ '"');
 			LOG.debug("Parsing file ...");
 			while(tokens.hasMoreElements()){
 				
 				StringTokenizer innerTokens = new StringTokenizer(new String(tokens.nextToken()), "' \t'");
 				while(innerTokens.hasMoreElements()){
 					
-					Pair<String, Double> pair = new Pair<String, Double>();
-					pair.setWord(innerTokens.nextToken());
-					if(!innerTokens.hasMoreElements()){
-						
-						pair.setCount(Double.valueOf(Long.valueOf(pair.getWord())/count));
-						pair.setWord(" ");
-					}
+					Pair<String, String> pair = new Pair<String, String>();
 					
-					retFrequency.add(pair);
+					pair.setWord(innerTokens.nextToken());
+					
+					if(innerTokens.hasMoreElements() == false){
+						
+							if(retFrequency.indexOf(nullOne) != -1) {
+							pair.setCount(String.valueOf(0));
+							pair.setWord(" ");
+							retFrequency.add(pair);
+						}
+					}
+					else {
+						pair.setCount(innerTokens.nextToken() + "/" + String.valueOf(count));
+						retFrequency.add(pair);
+					}
 				}
 			}
 			LOG.debug("Parsing of statistics file was finished");
