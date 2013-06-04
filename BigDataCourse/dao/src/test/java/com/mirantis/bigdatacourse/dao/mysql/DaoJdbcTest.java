@@ -26,7 +26,7 @@ public class DaoJdbcTest {
 	@BeforeClass
 	public static void testSetup() throws DaoException {
         ManagementTables mt;
-        dataSource = new DriverManagerDataSource("com.mysql.jdbc.Driver", "jdbc:mysql://localhost:3306/bigdata_dev", "aminakov", "bigdata");
+        dataSource = new DriverManagerDataSource("com.mysql.jdbc.Driver", "jdbc:mysql://0.0.0.0:3306/bigdata_dev", "aminakov", "bigdata");
 		dao = new DaoJdbc();
         dao.setDataSource(dataSource);
 		mt = new ManagementTables(dataSource);
