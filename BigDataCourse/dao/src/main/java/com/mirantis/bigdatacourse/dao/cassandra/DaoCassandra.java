@@ -235,10 +235,17 @@ public class DaoCassandra implements Dao {
     //FIX
 	@Override
 	public PaginationModel getBookByTitle(int pageNum, int pageSize, String title) throws DaoException {
-		List<Book> booksBy= new ArrayList<Book>();
-        PaginationModel model = new PaginationModel();
-        model.setBooks(booksBy);
-		return model;
+		
+        try {
+    		List<Book> booksBy= new ArrayList<Book>();
+            PaginationModel model = new PaginationModel();
+			booksBy = getBooksByToken(pageNum, pageSize, "titles", title);
+	        model.setBooks(booksBy);
+			return model;
+		} catch (IOException e) {
+			throw new DaoException(e);
+		}
+
 	}
 
 	@Override
