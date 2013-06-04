@@ -20,4 +20,9 @@ public class Pair<K, V> {
 	public void setCount(V count) {
 		 this.count = count;
 	}
+	
+	public String toString(){
+		
+		return "["+word+":"+count+"]";
+	}
 }

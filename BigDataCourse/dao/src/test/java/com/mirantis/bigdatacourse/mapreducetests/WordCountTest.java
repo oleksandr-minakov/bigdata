@@ -20,20 +20,20 @@ import java.util.List;
 
 public class WordCountTest {
 	
-	@SuppressWarnings("unused")
+	@SuppressWarnings({ "unused", "rawtypes" })
 	@Test
 	public void testCase() throws DaoException, IOException {
 		
 		int testCase = 10;
-		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP, "9000", new HdfsIP().HadoopUser, "/bookshelf/books_dev/", 1);
-		
+		HadoopConnector newOne = new HadoopConnector(new HdfsIP().HadoopIP,"9000", new HdfsIP().HadoopUser, "/bookshelf/books/", 100);
 		AddBookJob job = new AddBookJob(newOne);
 		List<Path> pathList = new ArrayList<Path>();
 		JobRunner jobba = new JobRunner(newOne, WordCounterJob.class , Map.class, Reduce.class);
 		GetParsedStatistics  getP = new GetParsedStatistics(newOne);
 		Path path = jobba.getPathToEvaluatedStatistics();
-		List<Pair<String, Double>> pairs = getP.getParsedStatistics(path);
-		
+		List<Pair<String, String>> pairs = getP.getParsedStatistics(path);
+		for(Pair pair: pairs)
+			System.out.println(pair);
 		if(pairs.size() == 0 )
 			Assert.assertEquals(pairs.size(), 0);
 		if(pairs.size() != 0)
