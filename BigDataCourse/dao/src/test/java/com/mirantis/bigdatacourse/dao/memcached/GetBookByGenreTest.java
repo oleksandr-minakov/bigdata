@@ -23,7 +23,7 @@ public class GetBookByGenreTest {
         DaoMemcached daoMemcached = new DaoMemcached();
         daoMemcached.setMemClient(new MemClient(new InetSocketAddress("localhost" , 11211)));
         DaoJdbc dao = new DaoJdbc();
-        DataSource dataSource = new DriverManagerDataSource("com.mysql.jdbc.Driver", "jdbc:mysql://0.0.0.0:3306/bigdata", "aminakov", "bigdata");
+        DataSource dataSource = new DriverManagerDataSource("com.mysql.jdbc.Driver", "jdbc:mysql://0.0.0.0:3306/bigdata_dev", "aminakov", "bigdata");
         dao.setDataSource(dataSource);
         daoMemcached.setDaoJdbc(dao);
         MemcachedClient client = new MemcachedClient(new InetSocketAddress("localhost", 11211));
