@@ -21,9 +21,9 @@ public class GetNumberOfRecordsTest {
     @Test
     public void getNumberOfRecordsTest() throws DaoException, IOException, SolrServerException {
         List<Book> books = new ArrayList<>();
-        String url = "http://0.0.0.0:8080/solr-web";
+        String url = "http://0.0.0.0:8081/solr-web";
         DaoSolr daoSolr = new DaoSolr(url);
-        daoSolr.setNASMapping(new NASMapping("/tmp/solr_nas/", 3));
+        daoSolr.setNASMapping(new NASMapping("/tmp/solr_nas_dev/", 3));
         daoSolr.getServer().deleteByQuery("*:*");
         Book book = new Book();
         for (int i = 1; i < 55; i++) {

@@ -19,10 +19,10 @@ public class GetBookByAuthorTest {
     public void getBookByAuthorTest() throws IOException, DaoException, SolrServerException {
         List<Book> books;
         PaginationModel model;
-        String url = "http://0.0.0.0:8080/solr-web";
+        String url = "http://0.0.0.0:8081/solr-web";
         DaoSolr daoSolr = new DaoSolr(url);
         daoSolr.getServer().deleteByQuery("*:*");
-        daoSolr.setNASMapping(new NASMapping("/tmp/solr_nas/", 3));
+        daoSolr.setNASMapping(new NASMapping("/tmp/solr_nas_dev/", 3));
         Book book = new Book();
         book.newBook("title", "author", "genre", new FileInputStream("testbook"));
         daoSolr.addBook(book);
