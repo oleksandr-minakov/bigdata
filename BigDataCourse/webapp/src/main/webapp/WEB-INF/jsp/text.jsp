@@ -8,6 +8,9 @@
 <body>
 	<jsp:include page="menu.jsp"/>
 <br>
-    ${text}
+    <pre>
+        ${text}
+    </pre>
+
 </body>
 </html>

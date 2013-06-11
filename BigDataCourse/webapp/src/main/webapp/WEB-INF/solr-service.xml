@@ -4,35 +4,26 @@
 		xsi:schemaLocation="http://www.springframework.org/schema/context 
 							http://www.springframework.org/schema/context/spring-context-3.0.xsd
 							http://www.springframework.org/schema/beans
-							http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+							http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+							http://www.springframework.org/schema/util
+							http://www.springframework.org/schema/util/spring-util-3.1.xsd"
+        xmlns:util="http://www.springframework.org/schema/util">
 	
 	<context:annotation-config/>
 
     <context:component-scan
-            base-package="com.mirantis.aminakov.bigdatacourse.dao.solr" />
+        base-package="com.mirantis.bigdatacourse.dao" />
     
     <context:component-scan
-    	base-package="com.mirantis.aminakov.bigdatacourse.service"/>
+        base-package="com.mirantis.bigdatacourse.service"/>
 
-	<bean id="service"
-		class="com.mirantis.aminakov.bigdatacourse.service.ServiceToDao" />
-	
-    <bean id="dao" class="com.mirantis.aminakov.bigdatacourse.dao.solr.DaoSolr">
-        <constructor-arg ref="parameters"/>
-    </bean>
-	
-    <bean id="daoSolr" class="com.mirantis.aminakov.bigdatacourse.dao.solr.DaoSolr">
-        <constructor-arg ref="parameters"/>
-    </bean>
+    <util:properties
+        id = "properties" location="file:/etc/bigdata/bigdata.properties"/>
 
-    <bean id="parameters" class="com.mirantis.aminakov.bigdatacourse.dao.solr.Parameters">
-        <constructor-arg type="java.lang.String" value="http://localhost:8080/solr-web"/>
-        <constructor-arg type="com.mirantis.aminakov.bigdatacourse.dao.NAS.NASMapping" ref="nas"/>
-    </bean>
+    <bean id="service"
+        class="com.mirantis.bigdatacourse.service.ServiceToDao" />
 
-    <bean id="nas" class="com.mirantis.aminakov.bigdatacourse.dao.NAS.NASMapping">
-        <constructor-arg type="java.lang.String" value="/tmp/solr_nas/"/>
-        <constructor-arg type="int" value="3" />
+    <bean id="dao" class="com.mirantis.bigdatacourse.dao.solr.DaoSolr">
     </bean>
 
 </beans>

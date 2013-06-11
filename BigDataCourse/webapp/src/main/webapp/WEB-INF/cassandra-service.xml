@@ -4,35 +4,33 @@
 		xsi:schemaLocation="http://www.springframework.org/schema/context 
 							http://www.springframework.org/schema/context/spring-context-3.0.xsd
 							http://www.springframework.org/schema/beans
-							http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+							http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+							http://www.springframework.org/schema/util
+							http://www.springframework.org/schema/util/spring-util-3.1.xsd"
+        xmlns:util="http://www.springframework.org/schema/util">
 	
 	<context:annotation-config/>
 	
     <context:component-scan
-    	base-package="com.mirantis.aminakov.bigdatacourse.dao.cassandra"/>
+    	base-package="com.mirantis.bigdatacourse.dao.cassandra"/>
    	
 	<context:component-scan
-    	base-package="com.mirantis.aminakov.bigdatacourse.service"/>
+    	base-package="com.mirantis.bigdatacourse.service"/>
 
-	<bean id="service" class="com.mirantis.aminakov.bigdatacourse.service.ServiceToDao" />
-	
-    <bean id="dao" class="com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra">
+    <util:properties
+            id = "properties" location="file:/etc/bigdata/bigdata.properties"/>
+
+	<bean id="service" class="com.mirantis.bigdatacourse.service.ServiceToDao" />
+
+    <bean id="dao" class="com.mirantis.bigdatacourse.dao.cassandra.DaoCassandra">
         <constructor-arg ref = "constants"/>
     </bean>
 	
-    <bean id ="cassandra" class="com.mirantis.aminakov.bigdatacourse.dao.cassandra.DaoCassandra">
+    <bean id ="cassandra" class="com.mirantis.bigdatacourse.dao.cassandra.DaoCassandra">
         <constructor-arg ref = "constants"/>
     </bean>
 
-    <bean id="constants" class="com.mirantis.aminakov.bigdatacourse.dao.cassandra.Constants" >
-        <constructor-arg type = "java.lang.String" value="Cassandra Cluster"/>
-        <constructor-arg type = "java.lang.String" value="Bookshelf"/>
-        <constructor-arg type = "java.lang.String" value="Books"/>
-	    <constructor-arg>
-	            <list>
-	                <value>0.0.0.0</value>
-	            </list>
-	    </constructor-arg>
+    <bean id="constants" class="com.mirantis.bigdatacourse.dao.cassandra.Constants" >
 	</bean>
-	
+
 </beans>
