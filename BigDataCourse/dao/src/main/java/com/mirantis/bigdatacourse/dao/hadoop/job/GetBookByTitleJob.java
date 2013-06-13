@@ -19,8 +19,8 @@ public class GetBookByTitleJob {
         List<Book> ret;
 		try {
 			GetBookByTokenJob getBooksByToken = new GetBookByTokenJob(this.hadoop);
-			querySize = getBooksByToken.querySize;
 			ret = getBooksByToken.getBookByToken(pageNum, pageSize, "title", title);
+			querySize = getBooksByToken.querySize;
 			return ret;
 		} catch(Exception e) {
 			throw new DaoException(e);
