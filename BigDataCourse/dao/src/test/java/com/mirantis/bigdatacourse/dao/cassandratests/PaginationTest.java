@@ -19,7 +19,6 @@ public class PaginationTest {
 	public void paginateIt() throws DaoException, IOException{
 		
 		List<String> hosts = new ArrayList<>();
-		List<Book> books;
 		List<Book> books1 = new ArrayList<Book>();
 		hosts.add(CassandraIP.IP1);
 		hosts.add(CassandraIP.IP2);
@@ -37,19 +36,19 @@ public class PaginationTest {
 				dao.addBook(book);
 			}
 			
-			books = dao.getBooksByToken(1, 100, "titles", "CassandraTest");
-	        PaginationModel model;
+			PaginationModel model = dao.getBooksByToken(1, 100, "titles", "CassandraTest");
 	        
 	        dao.delBook(books1.get(0).getId());
 	        
-			model = dao.getAllBooks(1, 100);
+//			model = dao.getAllBooks(1, 100);
 			int count = dao.getNumberOfRecordsBy("titles", "CassandraTest");
-			Assert.assertTrue(books.size() == count +1);
-			Assert.assertTrue(model.getBooks().size() == count);
+//			Assert.assertTrue(books.size() == count +1);
+			Assert.assertTrue(model.getNumberOfRecords() == count + 1);
 			
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		} finally {
+			
 			cts.getCurrentClstr().dropKeyspace("KS");
 		}
 		

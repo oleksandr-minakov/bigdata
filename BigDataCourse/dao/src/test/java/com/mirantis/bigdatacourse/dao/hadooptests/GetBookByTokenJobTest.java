@@ -44,7 +44,7 @@ public class GetBookByTokenJobTest {
         	
             for(int i = 0; i < testCase; ++i) {
                 Book book = new Book();
-                book.newBook("HadoopTest" + i % 11, "Test", "Tester" + i % 100, new FileInputStream("testbook"));
+                book.newBook("HadoopTest10", "Test", "Tester10", new FileInputStream("testbook"));
                 before.add(book);
                 add.addBookJob(book);
                 books.add(book);
