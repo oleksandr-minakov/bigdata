@@ -71,7 +71,7 @@
         <version>1.1</version>
         <configuration>
           <server>tomcat7</server>
-          <url>http://0.0.0.0:8080/manager/text</url>
+          <url>http://0.0.0.0:8081/manager/text</url>
           <path>/bigdata_mysql</path>
         </configuration>
       </plugin>

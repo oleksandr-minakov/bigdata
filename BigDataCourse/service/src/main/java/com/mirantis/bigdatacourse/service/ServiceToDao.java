@@ -25,6 +25,7 @@ public class ServiceToDao implements com.mirantis.bigdatacourse.service.Service 
 		int ret = -1;
 		try {
 			ret = dao.addBook(book);
+            LOG.debug("Add book:" + ret);
 		} catch (DaoException e) {
 			LOG.debug("Add error:" + e.getMessage());
 		}

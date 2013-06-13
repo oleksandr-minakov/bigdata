@@ -17,8 +17,8 @@ public class MemClient {
     public static final Logger LOG = Logger.getLogger(MemClient.class);
 
     @Autowired
-    public MemClient(@Value("#{properties.memcached_address}") String address, @Value("#{properties.memcached_port}") int port) throws DaoException {
-        InetSocketAddress memcachedAddress = new InetSocketAddress(address, port);
+    public MemClient(@Value("#{properties.memcached_address}") String address, @Value("#{properties.memcached_port}") String port) throws DaoException {
+        InetSocketAddress memcachedAddress = new InetSocketAddress(address, Integer.parseInt(port));
         try {
             client = new MemcachedClient(memcachedAddress);
         } catch (IOException e) {

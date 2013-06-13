@@ -20,6 +20,9 @@
     <util:properties
             id = "properties" location="file:/etc/bigdata/bigdata.properties"/>
 
+    <bean id="service"
+          class="com.mirantis.bigdatacourse.service.ServiceToDao" />
+
 	<bean id="dao" class="com.mirantis.bigdatacourse.dao.mysql.DaoJdbc">
     </bean>
 
