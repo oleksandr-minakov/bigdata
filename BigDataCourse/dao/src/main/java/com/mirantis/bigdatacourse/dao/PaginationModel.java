@@ -5,7 +5,11 @@ import java.util.List;
 
 public class PaginationModel implements Serializable {
 
-    private List<Book> books;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private List<Book> books;
     private int firstBook;
     private int lastBook;
     private int numberOfRecords;
@@ -39,6 +43,6 @@ public class PaginationModel implements Serializable {
     }
 
     public int getNumberOfRecords() {
-        return numberOfRecords;
+       	return numberOfRecords;
     }
 }

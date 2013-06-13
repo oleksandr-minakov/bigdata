@@ -101,7 +101,6 @@ public class DaoCassandra implements Dao {
 	public int delBook(String id) throws DaoException {
 		
 		Mutator<String> mutator = HFactory.createMutator(constants.getKeyspace(), StringSerializer.get());
-//		String newID = getHash(id);
 		LOG.debug("Creating new mutator");
 		
 		try {
@@ -151,13 +150,14 @@ public class DaoCassandra implements Dao {
 		} else {
 			if(pageNum * pageSize > keyStorage.size()) {
 				for(Book book:getBooks(keyStorage)) {
-					if(!book.equals(null) && book.getId().length() != 0) {          //FIX WTF?
+					if(book != null && book.getId() != null && book.getAuthor() != null && book.getGenre() != null && book.getTitle() != null) { 
 						ret.add(book);
 					}
 				}
 				LOG.info("Getting all books with pagination");
 				LOG.debug("Getting all books with pagination");
                 model.setBooks(ret);
+                model.setNumberOfRecords(ret.size());
 				return model;
 			} else {
 				neededKeys = keyStorage.subList((pageNum - 1) * pageSize, pageNum * pageSize);
@@ -169,6 +169,7 @@ public class DaoCassandra implements Dao {
 				LOG.info("Getting all books with pagination");
 				LOG.debug("Getting all books with pagination");
                 model.setBooks(ret);
+                model.setNumberOfRecords(ret.size());
 				return model;
 			}
 		}
@@ -224,6 +225,10 @@ public class DaoCassandra implements Dao {
 	}
 	
 	public int getPageCount(int amountOfRecords, int pageSize){
+		
+		if(pageSize == 0)
+			return 0;
+		
 		int pages = amountOfRecords / pageSize;
 		if(amountOfRecords % pageSize != 0)
 			return pages + 1;
@@ -232,15 +237,15 @@ public class DaoCassandra implements Dao {
 	}
 
 
-    //FIX
 	@Override
 	public PaginationModel getBookByTitle(int pageNum, int pageSize, String title) throws DaoException {
 		
         try {
-    		List<Book> booksBy= new ArrayList<Book>();
+//    		List<Book> booksBy= new ArrayList<Book>();
             PaginationModel model = new PaginationModel();
-			booksBy = getBooksByToken(pageNum, pageSize, "titles", title);
-	        model.setBooks(booksBy);
+            model = getBooksByToken(pageNum, pageSize, "titles", title);
+//	        model.setBooks(booksBy);
+//	        model.setNumberOfRecords(booksBy.size());
 			return model;
 		} catch (IOException e) {
 			throw new DaoException(e);
@@ -251,10 +256,11 @@ public class DaoCassandra implements Dao {
 	@Override
 	public PaginationModel getBookByText(int pageNum, int pageSize, String text) throws DaoException {
 		try {
-			List<Book> booksBy= new ArrayList<Book>();
+//			List<Book> booksBy= new ArrayList<Book>();
             PaginationModel model = new PaginationModel();
-			booksBy = getBooksByToken(pageNum, pageSize, "texts", text);
-			model.setBooks(booksBy);
+            model = getBooksByToken(pageNum, pageSize, "texts", text);
+//			model.setBooks(booksBy);
+//			model.setNumberOfRecords(booksBy.size());
             return model;
 		} catch (IOException e) {
 			throw new DaoException(e);
@@ -264,10 +270,11 @@ public class DaoCassandra implements Dao {
 	@Override
 	public PaginationModel getBookByAuthor(int pageNum, int pageSize, String author) throws DaoException {
 		try {
-			List<Book> booksBy= new ArrayList<Book>();
+//			List<Book> booksBy= new ArrayList<Book>();
             PaginationModel model = new PaginationModel();
-			booksBy = getBooksByToken(pageNum, pageSize, "authors", author);
-            model.setBooks(booksBy);
+            model = getBooksByToken(pageNum, pageSize, "authors", author);
+//          model.setBooks(booksBy);
+//          model.setNumberOfRecords(booksBy.size());
 			return model;
 		} catch (IOException e) {
 			throw new DaoException(e);
@@ -277,10 +284,11 @@ public class DaoCassandra implements Dao {
 	@Override
 	public PaginationModel getBookByGenre(int pageNum, int pageSize, String genre) throws DaoException {
 		try {
-			List<Book> booksBy= new ArrayList<Book>();
+//			List<Book> booksBy= new ArrayList<Book>();
             PaginationModel model = new PaginationModel();
-			booksBy = getBooksByToken(pageNum, pageSize, "genres", genre);
-            model.setBooks(booksBy);
+            model = getBooksByToken(pageNum, pageSize, "genres", genre);
+//          model.setBooks(booksBy);
+//          model.setNumberOfRecords(booksBy.size());
 			return model;
 		} catch (IOException e) {
 			throw new DaoException(e);
@@ -341,11 +349,12 @@ public class DaoCassandra implements Dao {
 		return hash;
 	}
 
-	public List<Book> getBooksByToken(int pageNum, int pageSize, String cfToSearch, String tokenKey) throws DaoException, IOException {
+	public PaginationModel getBooksByToken(int pageNum, int pageSize, String cfToSearch, String tokenKey) throws DaoException, IOException {
 		
 		List<Book> booksBy= new ArrayList<Book>();
 		List<String> keysForSlice= new ArrayList<String>();
 		List<String> keysForSliceCut= new ArrayList<String>();
+		PaginationModel model = new PaginationModel();
 		
 		MultigetSliceQuery<String, String, String> book =
 				HFactory.createMultigetSliceQuery(constants.getKeyspace(), StringSerializer.get(), StringSerializer.get(), StringSerializer.get());
@@ -363,6 +372,8 @@ public class DaoCassandra implements Dao {
 		Rows<String, String, String> orderedRows = result.get();
 		for(HColumn<String, String> col:orderedRows.getByKey(tokenKey).getColumnSlice().getColumns()) 
 			keysForSlice.add(col.getValue());
+		
+		model.setNumberOfRecords(keysForSlice.size());
 		
 		if(keysForSlice.size() > pageSize*pageNum)
             keysForSliceCut =  keysForSlice.subList((pageNum-1)*pageSize, pageNum*pageSize);
@@ -387,6 +398,8 @@ public class DaoCassandra implements Dao {
 		for(String bookKey: keysForSliceCut)
 			booksBy.add(BookConverter.getInstance().row2book(orderedRows.getByKey(bookKey).getColumnSlice().getColumns()));
 		
-		return booksBy;
+		model.setBooks(booksBy);
+		
+		return model;
 	}
 }
