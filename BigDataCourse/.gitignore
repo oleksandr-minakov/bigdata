@@ -15,3 +15,5 @@ webapp/.project
 dao/*.txt
 .idea
 *.iml
+atlassian-ide-plugin.xml
+**/.directory
